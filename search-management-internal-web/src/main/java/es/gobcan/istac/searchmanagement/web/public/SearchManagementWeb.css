@@ -1,0 +1,10 @@
+/** Add css rules here for your application. */
+/*
+ * Sections
+ */
+
+.sectionTitleLeftMargin {
+	font-size: 20px;
+	color: #008BD0; /* Blue */
+    padding-left: 10px;
+}
