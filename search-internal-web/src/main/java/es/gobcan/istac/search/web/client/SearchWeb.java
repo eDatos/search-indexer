@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client;
+package es.gobcan.istac.search.web.client;
 
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.web.common.client.MetamacSecurityEntryPoint;
@@ -6,22 +6,22 @@ import org.siemac.metamac.web.common.client.gin.MetamacWebGinjector;
 
 import com.google.gwt.core.client.GWT;
 
-import es.gobcan.istac.searchmanagement.core.constants.SearchManagementConstants;
-import es.gobcan.istac.searchmanagement.web.client.gin.SearchManagementWebGinjector;
+import es.gobcan.istac.search.core.constants.SearchConstants;
+import es.gobcan.istac.search.web.client.gin.SearchWebGinjector;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class SearchManagementWeb extends MetamacSecurityEntryPoint {
+public class SearchWeb extends MetamacSecurityEntryPoint {
 
-    private static final boolean                   SECURITY_ENABLED = true;
+    private static final boolean                   SECURITY_ENABLED = false;
 
     private static MetamacPrincipal                principal;
-    private static SearchManagementWebMessages     messages;
-    private static SearchManagementWebCoreMessages coreMessages;
-    private static SearchManagementWebConstants    constants;
+    private static SearchWebMessages     messages;
+    private static SearchWebCoreMessages coreMessages;
+    private static SearchWebConstants    constants;
 
-    private final SearchManagementWebGinjector     ginjector        = GWT.create(SearchManagementWebGinjector.class);
+    private final SearchWebGinjector     ginjector        = GWT.create(SearchWebGinjector.class);
 
     @Override
     public void onModuleLoad() {
@@ -32,16 +32,16 @@ public class SearchManagementWeb extends MetamacSecurityEntryPoint {
 
     @Override
     protected void setPrincipal(MetamacPrincipal principal) {
-        SearchManagementWeb.principal = principal;
+        SearchWeb.principal = principal;
     }
 
     public static MetamacPrincipal getCurrentUser() {
-        return SearchManagementWeb.principal;
+        return SearchWeb.principal;
     }
 
     @Override
     protected MetamacPrincipal getPrincipal() {
-        return SearchManagementWeb.principal;
+        return SearchWeb.principal;
     }
 
     @Override
@@ -51,26 +51,26 @@ public class SearchManagementWeb extends MetamacSecurityEntryPoint {
 
     @Override
     protected String getBundleName() {
-        return "messages-search_management-web";
+        return "messages-search-web";
     }
 
-    public static SearchManagementWebCoreMessages getCoreMessages() {
+    public static SearchWebCoreMessages getCoreMessages() {
         if (coreMessages == null) {
-            coreMessages = GWT.create(SearchManagementWebCoreMessages.class);
+            coreMessages = GWT.create(SearchWebCoreMessages.class);
         }
         return coreMessages;
     }
 
-    public static SearchManagementWebMessages getMessages() {
+    public static SearchWebMessages getMessages() {
         if (messages == null) {
-            messages = GWT.create(SearchManagementWebMessages.class);
+            messages = GWT.create(SearchWebMessages.class);
         }
         return messages;
     }
 
-    public static SearchManagementWebConstants getConstants() {
+    public static SearchWebConstants getConstants() {
         if (constants == null) {
-            constants = GWT.create(SearchManagementWebConstants.class);
+            constants = GWT.create(SearchWebConstants.class);
         }
         return constants;
     }
@@ -82,6 +82,6 @@ public class SearchManagementWeb extends MetamacSecurityEntryPoint {
 
     @Override
     protected String getSecurityApplicationId() {
-        return SearchManagementConstants.SECURITY_APPLICATION_ID;
+        return SearchConstants.SECURITY_APPLICATION_ID;
     }
 }

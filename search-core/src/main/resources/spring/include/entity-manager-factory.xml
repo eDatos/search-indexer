@@ -11,7 +11,7 @@
 
     <!-- Creates a EntityManagerFactory for use with a JPA provider -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="SearchManagementEntityManagerFactory" />
+        <property name="persistenceUnitName" value="SearchEntityManagerFactory" />
         <property name="jpaProperties">
             <props>
                 <!-- These properties override persistence.xml -->

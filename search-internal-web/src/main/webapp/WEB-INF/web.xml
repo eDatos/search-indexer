@@ -27,7 +27,7 @@
 
 	<!-- Application startup listener to validate the configuration properties -->
 	<listener>
-		<listener-class>es.gobcan.istac.searchmanagement.web.server.listener.SearchManagementApplicationStartupListener</listener-class>
+		<listener-class>es.gobcan.istac.search.web.server.listener.SearchApplicationStartupListener</listener-class>
 	</listener>
 
 	<!-- Enable Spring Request Context Holder -->
@@ -58,12 +58,12 @@
 	<!-- Remote logging -->
 	<servlet-mapping>
 		<servlet-name>remoteLogging</servlet-name>
-		<url-pattern>/SearchManagementWeb/remote_logging</url-pattern>
+		<url-pattern>/SearchWeb/remote_logging</url-pattern>
 	</servlet-mapping>
 
 	<!-- ******************* Default page to serve ******************** -->
 	<welcome-file-list>
-		<welcome-file>SearchManagementWeb.jsp</welcome-file>
+		<welcome-file>SearchWeb.jsp</welcome-file>
 	</welcome-file-list>
 
 </web-app>

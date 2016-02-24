@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client;
+package es.gobcan.istac.search.web.client;
 
 public class NameTokens {
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<comment>Search management environment definition</comment>
+	<comment>Search environment definition</comment>
 
 	<!-- Configuration properties in files -->
-	<entry key="environment.search_management.data">/data/istac/searchmanagement</entry>
+	<entry key="environment.search.data">/data/istac/search</entry>
 
 	<!-- Configuration properties in database (ORACLE) -->
 	<entry key="environment.metamac.configuration.db.username">FILL_ME_WITH_DB_USER</entry>

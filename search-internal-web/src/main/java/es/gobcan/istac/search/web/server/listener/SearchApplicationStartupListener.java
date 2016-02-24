@@ -1,22 +1,22 @@
-package es.gobcan.istac.searchmanagement.web.server.listener;
+package es.gobcan.istac.search.web.server.listener;
 
 import org.siemac.metamac.web.common.server.listener.InternalApplicationStartupListener;
 
-import es.gobcan.istac.searchmanagement.core.constants.SearchManagementConfigurationConstants;
+import es.gobcan.istac.search.core.constants.SearchConfigurationConstants;
 
-public class SearchManagementApplicationStartupListener extends InternalApplicationStartupListener {
+public class SearchApplicationStartupListener extends InternalApplicationStartupListener {
 
     @Override
     public void checkDatasourceProperties() {
-        checkRequiredProperty(SearchManagementConfigurationConstants.DB_SEARCH_MANAGEMENT_URL);
-        checkRequiredProperty(SearchManagementConfigurationConstants.DB_SEARCH_MANAGEMENT_DRIVER_NAME);
-        checkRequiredProperty(SearchManagementConfigurationConstants.DB_SEARCH_MANAGEMENT_USERNAME);
-        checkRequiredProperty(SearchManagementConfigurationConstants.DB_SEARCH_MANAGEMENT_PASSWORD);
+        checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_URL);
+        checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_DRIVER_NAME);
+        checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_USERNAME);
+        checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_PASSWORD);
     }
 
     @Override
     public String projectName() {
-        return "search-management-internal";
+        return "search-internal";
     }
 
     @Override

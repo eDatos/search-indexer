@@ -13,15 +13,15 @@
 	<context:annotation-config />
 
 	<!-- scans for @Components, @Repositories, @Services, ... -->
-	<context:component-scan base-package="es.gobcan.istac.searchmanagement.core, org.siemac.metamac.core.common*">
+	<context:component-scan base-package="es.gobcan.istac.search.core, org.siemac.metamac.core.common*">
 		<context:exclude-filter type="regex" expression=".*web.*" />
 		<!-- <context:exclude-filter type="assignable" expression="org.siemac.metamac.core.common.exception.utils.TranslateExceptions" /> -->
 	</context:component-scan>
 
 	<!-- Metamac environment configuration -->
-	<bean id="configurationService" class="es.gobcan.istac.searchmanagement.core.conf.SearchManagementConfigurationServiceImpl">
+	<bean id="configurationService" class="es.gobcan.istac.search.core.conf.SearchConfigurationServiceImpl">
 		<property name="systemConfigurationFile">
-			<value>classpath:searchmanagement/environment.xml</value>
+			<value>classpath:search/environment.xml</value>
 		</property>
 	</bean>
 
@@ -35,7 +35,7 @@
 	<import resource="classpath:/spring/error-beans-advice.xml" />
 	<import resource="classpath:/spring/general-beans-advice.xml" />
 
-	<!-- search-management-core -->
+	<!-- search-core -->
 	<import resource="classpath:/spring/include/datasource.xml" />
 	<import resource="classpath:/spring/include/entity-manager-factory.xml" />
 	<import resource="classpath:/spring/include/interceptor.xml" />

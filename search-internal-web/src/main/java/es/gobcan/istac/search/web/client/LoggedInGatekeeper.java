@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client;
+package es.gobcan.istac.search.web.client;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,8 +12,8 @@ import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.proxy.Gatekeeper;
 
-import es.gobcan.istac.searchmanagement.core.constants.SearchManagementConstants;
-import es.gobcan.istac.searchmanagement.core.enume.domain.RoleEnum;
+import es.gobcan.istac.search.core.constants.SearchConstants;
+import es.gobcan.istac.search.core.enume.domain.RoleEnum;
 
 public class LoggedInGatekeeper implements Gatekeeper {
 
@@ -32,12 +32,12 @@ public class LoggedInGatekeeper implements Gatekeeper {
 
     @Override
     public boolean canReveal() {
-        return hasAnyAllowedRole(SearchManagementWeb.getCurrentUser());
+        return hasAnyAllowedRole(SearchWeb.getCurrentUser());
     }
 
     private boolean hasAnyAllowedRole(MetamacPrincipal metamacPrincipal) {
         for (MetamacPrincipalAccess access : metamacPrincipal.getAccesses()) {
-            if (SearchManagementConstants.SECURITY_APPLICATION_ID.equals(access.getApplication()) && isRoleAllowed(access.getRole())) {
+            if (SearchConstants.SECURITY_APPLICATION_ID.equals(access.getApplication()) && isRoleAllowed(access.getRole())) {
                 return true;
             }
         }

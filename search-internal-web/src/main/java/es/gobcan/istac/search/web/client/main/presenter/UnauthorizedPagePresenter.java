@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client.main.presenter;
+package es.gobcan.istac.search.web.client.main.presenter;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
@@ -13,8 +13,8 @@ import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 
-import es.gobcan.istac.searchmanagement.web.client.NameTokens;
-import es.gobcan.istac.searchmanagement.web.client.main.handlers.UnauthorizedPageUiHandlers;
+import es.gobcan.istac.search.web.client.NameTokens;
+import es.gobcan.istac.search.web.client.main.handlers.UnauthorizedPageUiHandlers;
 
 public class UnauthorizedPagePresenter extends Presenter<UnauthorizedPagePresenter.UnauthorizedPageView, UnauthorizedPagePresenter.UnauthorizedPageProxy> implements UnauthorizedPageUiHandlers {
 

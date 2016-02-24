@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client.main.view;
+package es.gobcan.istac.search.web.client.main.view;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -8,7 +8,7 @@ import com.smartgwt.client.widgets.toolbar.ToolStrip;
 import com.smartgwt.client.widgets.toolbar.ToolStripButton;
 import com.smartgwt.client.widgets.toolbar.ToolStripSeparator;
 
-import es.gobcan.istac.searchmanagement.web.client.main.presenter.ToolStripPresenterWidget;
+import es.gobcan.istac.search.web.client.main.presenter.ToolStripPresenterWidget;
 
 public class ToolStripViewImpl implements ToolStripPresenterWidget.ToolStripView {
 

@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.server;
+package es.gobcan.istac.search.web.server;
 
 import org.siemac.metamac.web.common.server.handlers.CloseSessionActionHandler;
 import org.siemac.metamac.web.common.server.handlers.GetLoginPageUrlActionHandler;
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 
 import com.gwtplatform.dispatch.server.spring.HandlerModule;
 
-import es.gobcan.istac.searchmanagement.web.server.handlers.GetHelpUrlActionHandler;
-import es.gobcan.istac.searchmanagement.web.server.handlers.ValidateTicketActionHandler;
-import es.gobcan.istac.searchmanagement.web.shared.GetHelpUrlAction;
+import es.gobcan.istac.search.web.server.handlers.GetHelpUrlActionHandler;
+import es.gobcan.istac.search.web.server.handlers.ValidateTicketActionHandler;
+import es.gobcan.istac.search.web.shared.GetHelpUrlAction;
 
 @Component
 public class ServerModule extends HandlerModule {

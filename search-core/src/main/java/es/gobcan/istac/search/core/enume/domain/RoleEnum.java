@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.core.enume.domain;
+package es.gobcan.istac.search.core.enume.domain;
 
 import java.io.Serializable;
 

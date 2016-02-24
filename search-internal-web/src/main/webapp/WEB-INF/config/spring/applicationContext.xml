@@ -15,7 +15,7 @@
 
 
     <!-- SpringBeanProvider GWTP -->
-    <context:component-scan base-package="com.gwtplatform.dispatch.server.spring,es.gobcan.istac.searchmanagement.web.server,org.siemac.metamac.web.common.server.handlers" />
+    <context:component-scan base-package="com.gwtplatform.dispatch.server.spring,es.gobcan.istac.search.web.server,org.siemac.metamac.web.common.server.handlers" />
 
     <!-- Activates annotation-based bean configuration -->
     <context:annotation-config />
@@ -52,11 +52,11 @@
 
     <!-- Configure externalized logging configuration file -->
     <bean id="loggingSetup" class="org.siemac.metamac.core.common.logging.LoggingSetup">
-        <property name="logConfigurationFile" value="${environment.search_management.data}/conf/logback-search-management-internal-web.xml" />
+        <property name="logConfigurationFile" value="${environment.search.data}/conf/logback-search-internal-web.xml" />
     </bean>
 
     <!-- Core -->
-    <import resource="classpath:/spring/search-management-applicationContext-internal.xml" />
+    <import resource="classpath:/spring/search-applicationContext-internal.xml" />
     
 </beans>
 

@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client.main.presenter;
+package es.gobcan.istac.search.web.client.main.presenter;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,8 +32,8 @@ import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 
-import es.gobcan.istac.searchmanagement.web.client.NameTokens;
-import es.gobcan.istac.searchmanagement.web.client.main.handlers.MainPageUiHandlers;
+import es.gobcan.istac.search.web.client.NameTokens;
+import es.gobcan.istac.search.web.client.main.handlers.MainPageUiHandlers;
 
 public class MainPagePresenter extends Presenter<MainPagePresenter.MainView, MainPagePresenter.MainProxy> implements ShowMessageHandler, HideMessageHandler, MainPageUiHandlers, SetTitleHandler {
 

@@ -3,26 +3,26 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>es.gobcan.istac.searchmanagement</groupId>
-		<artifactId>search-management-parent</artifactId>
+		<groupId>es.gobcan.istac.search</groupId>
+		<artifactId>search-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>search-management-parent/pom.xml</relativePath>
+		<relativePath>search-parent/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>search-management</artifactId>
+	<artifactId>search</artifactId>
 	<packaging>pom</packaging>
-	<name>SEARCH :: MANAGEMENT</name>
+	<name>SEARCH</name>
 
 	<scm>
-		<connection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search-management/trunk/</connection>
-		<developerConnection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search-management/trunk/</developerConnection>
-		<url>http://svn.arte-consultores.com/viewvc/arte/istac/search-management/trunk/</url>
+		<connection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/trunk/</connection>
+		<developerConnection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/trunk/</developerConnection>
+		<url>http://svn.arte-consultores.com/viewvc/arte/istac/search/trunk/</url>
 	</scm>
 
 	<modules>
-		<module>search-management-parent</module>
-		<module>search-management-core</module>
-		<module>search-management-internal-web</module>
+		<module>search-parent</module>
+		<module>search-core</module>
+		<module>search-internal-web</module>
 	</modules>
 
 	<build>

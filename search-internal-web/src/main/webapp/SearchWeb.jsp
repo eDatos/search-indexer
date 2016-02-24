@@ -12,7 +12,7 @@
     <!--                                                               -->
     <!-- Consider inlining CSS to reduce the number of requested files -->
     <!--                                                               -->
-    <link type="text/css" rel="stylesheet" href="SearchManagementWeb.css">
+    <link type="text/css" rel="stylesheet" href="SearchWeb.css">
 
 	<meta name="gwt:property" content="locale=<%=request.getLocale()%>">
 
@@ -21,7 +21,7 @@
     <!-- If you add any GWT meta tags, they must   -->
     <!-- be added before this line.                -->
     <!--                                           -->
-    <script type="text/javascript" language="javascript" src="SearchManagementWeb/SearchManagementWeb.nocache.js"></script>
+    <script type="text/javascript" language="javascript" src="SearchWeb/SearchWeb.nocache.js"></script>
   </head>
 
   <!--                                           -->

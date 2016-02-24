@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client.main.presenter;
+package es.gobcan.istac.search.web.client.main.presenter;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;

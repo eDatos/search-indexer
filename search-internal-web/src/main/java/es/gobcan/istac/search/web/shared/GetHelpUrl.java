@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.shared;
+package es.gobcan.istac.search.web.shared;
 
 import com.gwtplatform.dispatch.annotation.GenDispatch;
 import com.gwtplatform.dispatch.annotation.Out;

@@ -1,12 +1,12 @@
-package es.gobcan.istac.searchmanagement.web.client.widgets;
+package es.gobcan.istac.search.web.client.widgets;
 
-import static es.gobcan.istac.searchmanagement.web.client.SearchManagementWeb.getConstants;
+import static es.gobcan.istac.search.web.client.SearchWeb.getConstants;
 
 import org.siemac.metamac.web.common.client.widgets.MasterHead;
 
-public class SearchManagementMasterHead extends MasterHead {
+public class SearchMasterHead extends MasterHead {
 
-    public SearchManagementMasterHead() {
+    public SearchMasterHead() {
         super();
         setTitleLabel(getConstants().appTitle());
     }

@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client.main.view;
+package es.gobcan.istac.search.web.client.main.view;
 
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.web.common.client.enums.MessageTypeEnum;
@@ -16,10 +16,10 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-import es.gobcan.istac.searchmanagement.web.client.SearchManagementWeb;
-import es.gobcan.istac.searchmanagement.web.client.main.handlers.MainPageUiHandlers;
-import es.gobcan.istac.searchmanagement.web.client.main.presenter.MainPagePresenter;
-import es.gobcan.istac.searchmanagement.web.client.widgets.SearchManagementMasterHead;
+import es.gobcan.istac.search.web.client.SearchWeb;
+import es.gobcan.istac.search.web.client.main.handlers.MainPageUiHandlers;
+import es.gobcan.istac.search.web.client.main.presenter.MainPagePresenter;
+import es.gobcan.istac.search.web.client.widgets.SearchMasterHead;
 
 public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> implements MainPagePresenter.MainView {
 
@@ -33,11 +33,11 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
     private HLayout                          southLayout;
     private VLayout                          footerLayout;
 
-    private final SearchManagementMasterHead masterHead;
+    private final SearchMasterHead masterHead;
     private final MessagePanel               messagePanel;
 
     @Inject
-    public MainPageViewImpl(SearchManagementMasterHead masterHead, MessagePanel messagePanel) {
+    public MainPageViewImpl(SearchMasterHead masterHead, MessagePanel messagePanel) {
         this.masterHead = masterHead;
         this.messagePanel = messagePanel;
 
@@ -64,7 +64,7 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
         // Footer
         footerLayout = new VLayout();
         footerLayout.addMember(messagePanel);
-        footerLayout.addMember(new VersionFooter(SearchManagementWeb.getProjectVersion()));
+        footerLayout.addMember(new VersionFooter(SearchWeb.getProjectVersion()));
 
         // Set user name
         masterHead.getUserNameLabel().setContents(getUserName());
@@ -155,7 +155,7 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
     }
 
     private String getUserName() {
-        MetamacPrincipal metamacPrincipal = SearchManagementWeb.getCurrentUser();
+        MetamacPrincipal metamacPrincipal = SearchWeb.getCurrentUser();
         if (metamacPrincipal != null) {
             return metamacPrincipal.getUserId();
         }

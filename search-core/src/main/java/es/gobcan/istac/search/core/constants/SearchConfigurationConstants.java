@@ -1,12 +1,12 @@
-package es.gobcan.istac.searchmanagement.core.constants;
+package es.gobcan.istac.search.core.constants;
 
 import org.siemac.metamac.core.common.constants.shared.ConfigurationConstants;
 
-public class SearchManagementConfigurationConstants extends ConfigurationConstants {
+public class SearchConfigurationConstants extends ConfigurationConstants {
 
-    public static final String DB_SEARCH_MANAGEMENT_URL         = "search_management.db.url";
-    public static final String DB_SEARCH_MANAGEMENT_USERNAME    = "search_management.db.username";
-    public static final String DB_SEARCH_MANAGEMENT_PASSWORD    = "search_management.db.password";
-    public static final String DB_SEARCH_MANAGEMENT_DRIVER_NAME = "search_management.db.driver_name";
+    public static final String DB_SEARCH_URL         = "search.db.url";
+    public static final String DB_SEARCH_USERNAME    = "search.db.username";
+    public static final String DB_SEARCH_PASSWORD    = "search.db.password";
+    public static final String DB_SEARCH_DRIVER_NAME = "search.db.driver_name";
 
 }

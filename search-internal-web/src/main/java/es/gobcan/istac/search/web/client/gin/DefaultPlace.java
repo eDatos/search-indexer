@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client.gin;
+package es.gobcan.istac.search.web.client.gin;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;

@@ -1,8 +1,8 @@
-package es.gobcan.istac.searchmanagement.core.constants;
+package es.gobcan.istac.search.core.constants;
 
-public final class SearchManagementConstants {
+public final class SearchConstants {
 
-    private SearchManagementConstants() {
+    private SearchConstants() {
     }
 
     public static final String SECURITY_APPLICATION_ID = "GESTOR_BUSCADOR";

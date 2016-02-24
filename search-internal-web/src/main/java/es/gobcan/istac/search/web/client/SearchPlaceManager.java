@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client;
+package es.gobcan.istac.search.web.client;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
@@ -6,14 +6,14 @@ import com.gwtplatform.mvp.client.proxy.PlaceManagerImpl;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.TokenFormatter;
 
-import es.gobcan.istac.searchmanagement.web.client.gin.DefaultPlace;
+import es.gobcan.istac.search.web.client.gin.DefaultPlace;
 
-public class SearchManagementPlaceManager extends PlaceManagerImpl {
+public class SearchPlaceManager extends PlaceManagerImpl {
 
     private final PlaceRequest defaultPlaceRequest;
 
     @Inject
-    public SearchManagementPlaceManager(EventBus eventBus, TokenFormatter tokenFormatter, @DefaultPlace String defaultNameToken) {
+    public SearchPlaceManager(EventBus eventBus, TokenFormatter tokenFormatter, @DefaultPlace String defaultNameToken) {
         super(eventBus, tokenFormatter);
         this.defaultPlaceRequest = new PlaceRequest(defaultNameToken);
     }

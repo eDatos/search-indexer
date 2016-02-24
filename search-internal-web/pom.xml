@@ -4,15 +4,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>es.gobcan.istac.searchmanagement</groupId>
-		<artifactId>search-management-parent</artifactId>
+		<groupId>es.gobcan.istac.search</groupId>
+		<artifactId>search-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../search-management-parent/pom.xml</relativePath>
+		<relativePath>../search-parent/pom.xml</relativePath>
 	</parent>
 
-	<artifactId>search-management-internal-web</artifactId>
+	<artifactId>search-internal-web</artifactId>
 	<packaging>war</packaging>
-	<name>SEARCH :: MANAGEMENT :: INTERNAL :: WEB</name>
+	<name>SEARCH :: INTERNAL :: WEB</name>
 
 	<properties>
 		<!-- Convenience property to set the GWT version -->
@@ -130,10 +130,10 @@
 			<artifactId>metamac-web-common</artifactId>
 		</dependency>
 
-		<!-- SEARCH MANAGEMENT CORE -->
+		<!-- SEARCH CORE -->
 		<dependency>
-			<groupId>es.gobcan.istac.searchmanagement</groupId>
-			<artifactId>search-management-core</artifactId>
+			<groupId>es.gobcan.istac.search</groupId>
+			<artifactId>search-core</artifactId>
 			<classifier>client</classifier>
 		</dependency>
 
@@ -174,7 +174,7 @@
 	<build>
 		<!-- Generate compiled stuff in the folder used for developing mode -->
 		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
-		<finalName>search-management-internal-${project.version}</finalName>
+		<finalName>search-internal-${project.version}</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -230,9 +230,9 @@
 					<execution>
 						<configuration>
 							<servicePattern>**/client/service/**/*Service.java</servicePattern>
-							<i18nConstantsBundle>es.gobcan.istac.searchmanagement.web.client.SearchManagementWebConstants</i18nConstantsBundle>
-							<i18nMessagesBundle>es.gobcan.istac.searchmanagement.web.client.SearchManagementWebMessages</i18nMessagesBundle>
-							<i18nConstantsWithLookupBundle>es.gobcan.istac.searchmanagement.web.client.SearchManagementWebCoreMessages</i18nConstantsWithLookupBundle>
+							<i18nConstantsBundle>es.gobcan.istac.search.web.client.SearchWebConstants</i18nConstantsBundle>
+							<i18nMessagesBundle>es.gobcan.istac.search.web.client.SearchWebMessages</i18nMessagesBundle>
+							<i18nConstantsWithLookupBundle>es.gobcan.istac.search.web.client.SearchWebCoreMessages</i18nConstantsWithLookupBundle>
 						</configuration>
 						<goals>
 							<goal>resources</goal>
@@ -247,10 +247,10 @@
 				<configuration>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<noServer>true</noServer>
-					<runTarget>http://localhost:8080/search-management-internal-web/SearchManagementWeb.jsp</runTarget>
+					<runTarget>http://localhost:8080/search-internal-web/SearchWeb.jsp</runTarget>
 					<debugPort>9997</debugPort>
 					<compileSourcesArtifacts>
-						<artifact>es.gobcan.istac.searchmanagement:search-management-core:jar:client</artifact>
+						<artifact>es.gobcan.istac.search:search-core:jar:client</artifact>
 						<artifact>org.siemac.metamac:metamac-core-common:jar:client</artifact>
 						<artifact>org.siemac.metamac.metamac-sso:metamac-sso-client:jar</artifact>
 						<artifact>org.siemac.metamac:metamac-web-common:jar</artifact>

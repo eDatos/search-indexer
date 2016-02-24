@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.server.handlers;
+package es.gobcan.istac.search.web.server.handlers;
 
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.web.common.server.handlers.SecurityActionHandler;
@@ -8,15 +8,15 @@ import org.springframework.stereotype.Component;
 
 import com.gwtplatform.dispatch.shared.ActionException;
 
-import es.gobcan.istac.searchmanagement.core.conf.SearchManagementConfigurationService;
-import es.gobcan.istac.searchmanagement.web.shared.GetHelpUrlAction;
-import es.gobcan.istac.searchmanagement.web.shared.GetHelpUrlResult;
+import es.gobcan.istac.search.core.conf.SearchConfigurationService;
+import es.gobcan.istac.search.web.shared.GetHelpUrlAction;
+import es.gobcan.istac.search.web.shared.GetHelpUrlResult;
 
 @Component
 public class GetHelpUrlActionHandler extends SecurityActionHandler<GetHelpUrlAction, GetHelpUrlResult> {
 
     @Autowired
-    private SearchManagementConfigurationService configurationService = null;
+    private SearchConfigurationService configurationService = null;
 
     public GetHelpUrlActionHandler() {
         super(GetHelpUrlAction.class);

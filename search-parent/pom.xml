@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>es.gobcan.istac.searchmanagement</groupId>
-	<artifactId>search-management-parent</artifactId>
+	<groupId>es.gobcan.istac.search</groupId>
+	<artifactId>search-parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>SEARCH :: MANAGEMENT :: PARENT</name>
+	<name>SEARCH :: PARENT</name>
 
 	<repositories>
 		<repository>
@@ -620,10 +620,10 @@
 				<version>${spring.version}</version>
 			</dependency>
 
-			<!-- SEARCH MANAGEMENT -->
+			<!-- SEARCH -->
 			<dependency>
-				<groupId>es.gobcan.istac.searchmanagement</groupId>
-				<artifactId>search-management-core</artifactId>
+				<groupId>es.gobcan.istac.search</groupId>
+				<artifactId>search-core</artifactId>
 				<version>${project.version}</version>
 				<classifier>client</classifier>
 			</dependency>
@@ -786,7 +786,7 @@
 						<tagNameFormat>${maven.build.timestamp}-v@{project.version}</tagNameFormat>
 						<autoVersionSubmodules>true</autoVersionSubmodules>
 						<useReleaseProfile>false</useReleaseProfile>
-						<releaseProfiles>search-management-perform-release</releaseProfiles>
+						<releaseProfiles>search-perform-release</releaseProfiles>
 						<providerImplementations>
 							<svn>javasvn</svn>
 						</providerImplementations>
@@ -948,7 +948,7 @@
 
 	<profiles>
 		<profile>
-			<id>search-management-perform-release</id>
+			<id>search-perform-release</id>
 			<build>
 				<plugins>
 					<plugin>

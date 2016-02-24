@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.server.handlers;
+package es.gobcan.istac.search.web.server.handlers;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -21,8 +21,8 @@ import com.gwtplatform.dispatch.server.ExecutionContext;
 import com.gwtplatform.dispatch.server.actionhandler.AbstractActionHandler;
 import com.gwtplatform.dispatch.shared.ActionException;
 
-import es.gobcan.istac.searchmanagement.core.conf.SearchManagementConfigurationService;
-import es.gobcan.istac.searchmanagement.core.constants.SearchManagementConstants;
+import es.gobcan.istac.search.core.conf.SearchConfigurationService;
+import es.gobcan.istac.search.core.constants.SearchConstants;
 
 @Component
 public class ValidateTicketActionHandler extends AbstractActionHandler<ValidateTicketAction, ValidateTicketResult> {
@@ -33,7 +33,7 @@ public class ValidateTicketActionHandler extends AbstractActionHandler<ValidateT
     protected static final String                TICKET_QUERY_STRING  = "&ticket=";
 
     @Autowired
-    private SearchManagementConfigurationService configurationService = null;
+    private SearchConfigurationService configurationService = null;
 
     protected ValidateTicket                     validateTicket       = null;
 
@@ -60,7 +60,7 @@ public class ValidateTicketActionHandler extends AbstractActionHandler<ValidateT
 
         try {
             MetamacPrincipal metamacPrincipal = validateTicket.validateTicket(ticket, service);
-            ServiceContext serviceContext = new ServiceContext(metamacPrincipal.getUserId(), ticket, SearchManagementConstants.SECURITY_APPLICATION_ID);
+            ServiceContext serviceContext = new ServiceContext(metamacPrincipal.getUserId(), ticket, SearchConstants.SECURITY_APPLICATION_ID);
             serviceContext.setProperty(SsoClientConstants.PRINCIPAL_ATTRIBUTE, metamacPrincipal);
             ServiceContextHolder.putCurrentServiceContext(serviceContext);
 

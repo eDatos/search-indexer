@@ -2,11 +2,11 @@
 import "classpath:/btdesign/export/metamac-core-common-entity.btdesign"
 import "classpath:/btdesign/metamac-core-common-dtos.btdesign"
 
-Application SearchManagement {
-    basePackage=es.gobcan.istac.searchmanagement
+Application Search {
+    basePackage=es.gobcan.istac.search
 
     Module core {
-		basePackage=es.gobcan.istac.searchmanagement.core
+		basePackage=es.gobcan.istac.search.core
 	}
 	
 }

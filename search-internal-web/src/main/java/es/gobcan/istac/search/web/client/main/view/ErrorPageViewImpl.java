@@ -1,6 +1,6 @@
-package es.gobcan.istac.searchmanagement.web.client.main.view;
+package es.gobcan.istac.search.web.client.main.view;
 
-import static es.gobcan.istac.searchmanagement.web.client.SearchManagementWeb.getMessages;
+import static es.gobcan.istac.search.web.client.SearchWeb.getMessages;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
@@ -9,8 +9,8 @@ import com.smartgwt.client.widgets.HTMLFlow;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-import es.gobcan.istac.searchmanagement.web.client.main.handlers.ErrorPageUiHandlers;
-import es.gobcan.istac.searchmanagement.web.client.main.presenter.ErrorPagePresenter;
+import es.gobcan.istac.search.web.client.main.handlers.ErrorPageUiHandlers;
+import es.gobcan.istac.search.web.client.main.presenter.ErrorPagePresenter;
 
 public class ErrorPageViewImpl extends ViewWithUiHandlers<ErrorPageUiHandlers> implements ErrorPagePresenter.ErrorPageView {
 

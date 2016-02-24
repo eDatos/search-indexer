@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client.utils;
+package es.gobcan.istac.search.web.client.utils;
 
 import java.util.ArrayList;
 import java.util.List;

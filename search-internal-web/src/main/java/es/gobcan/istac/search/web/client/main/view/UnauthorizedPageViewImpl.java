@@ -1,4 +1,4 @@
-package es.gobcan.istac.searchmanagement.web.client.main.view;
+package es.gobcan.istac.search.web.client.main.view;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
@@ -7,9 +7,9 @@ import com.smartgwt.client.widgets.HTMLFlow;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-import es.gobcan.istac.searchmanagement.web.client.SearchManagementWeb;
-import es.gobcan.istac.searchmanagement.web.client.main.handlers.UnauthorizedPageUiHandlers;
-import es.gobcan.istac.searchmanagement.web.client.main.presenter.UnauthorizedPagePresenter;
+import es.gobcan.istac.search.web.client.SearchWeb;
+import es.gobcan.istac.search.web.client.main.handlers.UnauthorizedPageUiHandlers;
+import es.gobcan.istac.search.web.client.main.presenter.UnauthorizedPagePresenter;
 
 public class UnauthorizedPageViewImpl extends ViewWithUiHandlers<UnauthorizedPageUiHandlers> implements UnauthorizedPagePresenter.UnauthorizedPageView {
 
@@ -28,7 +28,7 @@ public class UnauthorizedPageViewImpl extends ViewWithUiHandlers<UnauthorizedPag
         htmlFlow.setMargin(40);
         htmlFlow.setStyleName("exampleTextBlock");
         StringBuffer contents = new StringBuffer();
-        contents.append("<hr>").append(SearchManagementWeb.getMessages().applicationAccessDenied(SearchManagementWeb.getCurrentUser().getUserId())).append("<hr>");
+        contents.append("<hr>").append(SearchWeb.getMessages().applicationAccessDenied(SearchWeb.getCurrentUser().getUserId())).append("<hr>");
         htmlFlow.setContents(contents.toString());
         htmlFlow.draw();
 
