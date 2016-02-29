@@ -6,5 +6,6 @@ public interface ReindexUiHandlers extends UiHandlers {
 
     void reindexGpe();
     void reindexWeb();
+    void reindexRecommendedLinks();
 
 }

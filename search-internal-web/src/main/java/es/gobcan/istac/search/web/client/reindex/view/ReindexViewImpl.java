@@ -21,6 +21,14 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
         panel = new VLayout();
         panel.addMember(reindexLayout);
 
+        reindexLayout.getReindexWebStartButton().addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                getUiHandlers().reindexWeb();
+            }
+        });
+
         reindexLayout.getReindexGpeStartButton().addClickHandler(new ClickHandler() {
 
             @Override
@@ -29,11 +37,11 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
             }
         });
 
-        reindexLayout.getReindexWebStartButton().addClickHandler(new ClickHandler() {
+        reindexLayout.getReindexRecommendedLinksStartButton().addClickHandler(new ClickHandler() {
 
             @Override
             public void onClick(ClickEvent event) {
-                getUiHandlers().reindexWeb();
+                getUiHandlers().reindexRecommendedLinks();
             }
         });
     }
@@ -51,6 +59,11 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
     @Override
     public void setCronWebExpression(String cronWebExpression) {
         reindexLayout.setCronWebExpression(cronWebExpression);
+    }
+
+    @Override
+    public void setCronRecommendedLinksExpression(String cronRecommendedLinksExpression) {
+        reindexLayout.setCronRecommendedLinksExpression(cronRecommendedLinksExpression);
     }
 
 }

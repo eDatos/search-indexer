@@ -26,6 +26,8 @@ import es.gobcan.istac.search.web.client.navigation.NameTokens;
 import es.gobcan.istac.search.web.client.reindex.view.handlers.ReindexUiHandlers;
 import es.gobcan.istac.search.web.shared.GetCronGpeExpressionAction;
 import es.gobcan.istac.search.web.shared.GetCronGpeExpressionResult;
+import es.gobcan.istac.search.web.shared.GetCronRecommendedLinksExpressionAction;
+import es.gobcan.istac.search.web.shared.GetCronRecommendedLinksExpressionResult;
 import es.gobcan.istac.search.web.shared.GetCronWebExpressionAction;
 import es.gobcan.istac.search.web.shared.GetCronWebExpressionResult;
 
@@ -50,6 +52,7 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
 
         void setCronGpeExpression(String cronGpeExpression);
         void setCronWebExpression(String cronWebExpression);
+        void setCronRecommendedLinksExpression(String cronRecommendedLinksExpression);
 
     }
 
@@ -77,6 +80,14 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
     public void prepareFromRequest(PlaceRequest request) {
         super.prepareFromRequest(request);
 
+        dispatcher.execute(new GetCronWebExpressionAction(), new WaitingAsyncCallbackHandlingError<GetCronWebExpressionResult>(this) {
+
+            @Override
+            public void onWaitSuccess(GetCronWebExpressionResult result) {
+                getView().setCronWebExpression(result.getCronWebExpression());
+            }
+        });
+
         dispatcher.execute(new GetCronGpeExpressionAction(), new WaitingAsyncCallbackHandlingError<GetCronGpeExpressionResult>(this) {
 
             @Override
@@ -85,13 +96,19 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
             }
         });
 
-        dispatcher.execute(new GetCronWebExpressionAction(), new WaitingAsyncCallbackHandlingError<GetCronWebExpressionResult>(this) {
+        dispatcher.execute(new GetCronRecommendedLinksExpressionAction(), new WaitingAsyncCallbackHandlingError<GetCronRecommendedLinksExpressionResult>(this) {
 
             @Override
-            public void onWaitSuccess(GetCronWebExpressionResult result) {
-                getView().setCronWebExpression(result.getCronWebExpression());
+            public void onWaitSuccess(GetCronRecommendedLinksExpressionResult result) {
+                getView().setCronRecommendedLinksExpression(result.getCronRecommendedLinksExpression());
             }
         });
+    }
+
+    @Override
+    public void reindexWeb() {
+        // TODO
+        Window.alert("reindexWeb not implemented");
     }
 
     @Override
@@ -101,9 +118,9 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
     }
 
     @Override
-    public void reindexWeb() {
+    public void reindexRecommendedLinks() {
         // TODO
-        Window.alert("reindexWeb not implemented");
+        Window.alert("reindexRecommendedLinks not implemented");
     }
 
 }
