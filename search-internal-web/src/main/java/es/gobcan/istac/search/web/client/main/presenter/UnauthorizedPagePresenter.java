@@ -13,13 +13,13 @@ import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 
-import es.gobcan.istac.search.web.client.NameTokens;
 import es.gobcan.istac.search.web.client.main.handlers.UnauthorizedPageUiHandlers;
+import es.gobcan.istac.search.web.client.navigation.NameTokens;
 
 public class UnauthorizedPagePresenter extends Presenter<UnauthorizedPagePresenter.UnauthorizedPageView, UnauthorizedPagePresenter.UnauthorizedPageProxy> implements UnauthorizedPageUiHandlers {
 
     @ProxyCodeSplit
-    @NameToken(NameTokens.unauthorizedAccessPage)
+    @NameToken(NameTokens.UNAUTHORIZED_ACCESS_PAGE)
     @NoGatekeeper
     public interface UnauthorizedPageProxy extends Proxy<UnauthorizedPagePresenter>, Place {
 

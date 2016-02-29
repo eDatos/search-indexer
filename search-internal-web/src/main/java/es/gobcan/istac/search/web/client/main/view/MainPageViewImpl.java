@@ -2,6 +2,7 @@ package es.gobcan.istac.search.web.client.main.view;
 
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.web.common.client.enums.MessageTypeEnum;
+import org.siemac.metamac.web.common.client.widgets.MasterHead;
 import org.siemac.metamac.web.common.client.widgets.MessagePanel;
 import org.siemac.metamac.web.common.client.widgets.MetamacNavBar;
 import org.siemac.metamac.web.common.client.widgets.VersionFooter;
@@ -23,18 +24,18 @@ import es.gobcan.istac.search.web.client.widgets.SearchMasterHead;
 
 public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> implements MainPagePresenter.MainView {
 
-    private static final int                 NORTH_HEIGHT   = 85;
-    private static final String              DEFAULT_MARGIN = "0px";
+    private static final int       NORTH_HEIGHT   = 85;
+    private static final String    DEFAULT_MARGIN = "0px";
 
-    private MainPageUiHandlers               uiHandlers;
+    private MainPageUiHandlers     uiHandlers;
 
-    private VLayout                          panel;
-    private VLayout                          northLayout;
-    private HLayout                          southLayout;
-    private VLayout                          footerLayout;
+    private VLayout                panel;
+    private VLayout                northLayout;
+    private HLayout                southLayout;
+    private VLayout                footerLayout;
 
     private final SearchMasterHead masterHead;
-    private final MessagePanel               messagePanel;
+    private final MessagePanel     messagePanel;
 
     @Inject
     public MainPageViewImpl(SearchMasterHead masterHead, MessagePanel messagePanel) {
@@ -160,5 +161,10 @@ public class MainPageViewImpl extends ViewWithUiHandlers<MainPageUiHandlers> imp
             return metamacPrincipal.getUserId();
         }
         return new String();
+    }
+
+    @Override
+    public MasterHead getMasterHead() {
+        return masterHead;
     }
 }

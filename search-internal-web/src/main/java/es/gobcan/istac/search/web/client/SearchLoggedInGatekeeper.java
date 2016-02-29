@@ -15,12 +15,12 @@ import com.gwtplatform.mvp.client.proxy.Gatekeeper;
 import es.gobcan.istac.search.core.constants.SearchConstants;
 import es.gobcan.istac.search.core.enume.domain.RoleEnum;
 
-public class LoggedInGatekeeper implements Gatekeeper {
+public class SearchLoggedInGatekeeper implements Gatekeeper {
 
-    private static Logger logger = Logger.getLogger(LoggedInGatekeeper.class.getName());
+    private static Logger logger = Logger.getLogger(SearchLoggedInGatekeeper.class.getName());
 
     @Inject
-    public LoggedInGatekeeper(EventBus eventBus) {
+    public SearchLoggedInGatekeeper(EventBus eventBus) {
         eventBus.addHandler(LoginAuthenticatedEvent.getType(), new LoginAuthenticatedEventHandler() {
 
             @Override

@@ -10,6 +10,7 @@ import org.siemac.metamac.web.common.client.events.SetTitleEvent;
 import org.siemac.metamac.web.common.client.events.SetTitleEvent.SetTitleHandler;
 import org.siemac.metamac.web.common.client.events.ShowMessageEvent;
 import org.siemac.metamac.web.common.client.events.ShowMessageEvent.ShowMessageHandler;
+import org.siemac.metamac.web.common.client.widgets.MasterHead;
 import org.siemac.metamac.web.common.shared.CloseSessionAction;
 import org.siemac.metamac.web.common.shared.CloseSessionResult;
 
@@ -32,12 +33,14 @@ import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 
-import es.gobcan.istac.search.web.client.NameTokens;
 import es.gobcan.istac.search.web.client.main.handlers.MainPageUiHandlers;
+import es.gobcan.istac.search.web.client.navigation.NameTokens;
 
 public class MainPagePresenter extends Presenter<MainPagePresenter.MainView, MainPagePresenter.MainProxy> implements ShowMessageHandler, HideMessageHandler, MainPageUiHandlers, SetTitleHandler {
 
     private static Logger                             logger       = Logger.getLogger(MainPagePresenter.class.getName());
+
+    private static MasterHead                         masterHead;
 
     private final DispatchAsync                       dispatcher;
 
@@ -51,10 +54,12 @@ public class MainPagePresenter extends Presenter<MainPagePresenter.MainView, Mai
         void hideMessages();
 
         void setTitle(String title);
+
+        MasterHead getMasterHead();
     }
 
     @ProxyStandard
-    @NameToken(NameTokens.mainPage)
+    @NameToken(NameTokens.MAIN_PAGE)
     @NoGatekeeper
     public interface MainProxy extends Proxy<MainPagePresenter>, Place {
     }
@@ -64,6 +69,7 @@ public class MainPagePresenter extends Presenter<MainPagePresenter.MainView, Mai
         super(eventBus, view, proxy);
         getView().setUiHandlers(this);
         this.dispatcher = dispatcher;
+        MainPagePresenter.masterHead = getView().getMasterHead();
     }
 
     @Override
@@ -119,5 +125,9 @@ public class MainPagePresenter extends Presenter<MainPagePresenter.MainView, Mai
     @Override
     public void openHelpUrl() {
         // TODO
+    }
+
+    public static MasterHead getMasterHead() {
+        return masterHead;
     }
 }

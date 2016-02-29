@@ -15,8 +15,12 @@ import org.springframework.stereotype.Component;
 
 import com.gwtplatform.dispatch.server.spring.HandlerModule;
 
+import es.gobcan.istac.search.web.server.handlers.GetCronGpeExpressionActionHandler;
+import es.gobcan.istac.search.web.server.handlers.GetCronWebExpressionActionHandler;
 import es.gobcan.istac.search.web.server.handlers.GetHelpUrlActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ValidateTicketActionHandler;
+import es.gobcan.istac.search.web.shared.GetCronGpeExpressionAction;
+import es.gobcan.istac.search.web.shared.GetCronWebExpressionAction;
 import es.gobcan.istac.search.web.shared.GetHelpUrlAction;
 
 @Component
@@ -35,6 +39,8 @@ public class ServerModule extends HandlerModule {
         bindHandler(GetNavigationBarUrlAction.class, GetNavigationBarUrlActionHandler.class);
         bindHandler(LoadConfigurationPropertiesAction.class, LoadConfigurationPropertiesActionHandler.class);
         bindHandler(GetHelpUrlAction.class, GetHelpUrlActionHandler.class);
+        bindHandler(GetCronGpeExpressionAction.class, GetCronGpeExpressionActionHandler.class);
+        bindHandler(GetCronWebExpressionAction.class, GetCronWebExpressionActionHandler.class);
 
         // This action should be removed to use CAS authentication
         bindHandler(MockCASUserAction.class, MockCASUserActionHandler.class);

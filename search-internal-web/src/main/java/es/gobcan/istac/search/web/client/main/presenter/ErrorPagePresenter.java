@@ -13,13 +13,13 @@ import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 
-import es.gobcan.istac.search.web.client.NameTokens;
 import es.gobcan.istac.search.web.client.main.handlers.ErrorPageUiHandlers;
+import es.gobcan.istac.search.web.client.navigation.NameTokens;
 
 public class ErrorPagePresenter extends Presenter<ErrorPagePresenter.ErrorPageView, ErrorPagePresenter.ErrorPageProxy> implements ErrorPageUiHandlers {
 
     @ProxyCodeSplit
-    @NameToken(NameTokens.errorPage)
+    @NameToken(NameTokens.ERROR_PAGE)
     @NoGatekeeper
     public interface ErrorPageProxy extends Proxy<ErrorPagePresenter>, Place {
 

@@ -7,17 +7,19 @@ import com.google.gwt.inject.client.GinModules;
 import com.google.inject.Provider;
 import com.gwtplatform.dispatch.client.gin.DispatchAsyncModule;
 
-import es.gobcan.istac.search.web.client.LoggedInGatekeeper;
+import es.gobcan.istac.search.web.client.SearchLoggedInGatekeeper;
 import es.gobcan.istac.search.web.client.main.presenter.ErrorPagePresenter;
 import es.gobcan.istac.search.web.client.main.presenter.MainPagePresenter;
 import es.gobcan.istac.search.web.client.main.presenter.UnauthorizedPagePresenter;
+import es.gobcan.istac.search.web.client.reindex.presenter.ReindexPresenter;
 
 @GinModules({DispatchAsyncModule.class, ClientModule.class})
 public interface SearchWebGinjector extends MetamacWebGinjector {
 
-    LoggedInGatekeeper getLoggedInGatekeeper();
+    SearchLoggedInGatekeeper getLoggedInGatekeeper();
 
     Provider<MainPagePresenter> getMainPagePresenter();
+    AsyncProvider<ReindexPresenter> getReindexPresenter();
 
     AsyncProvider<ErrorPagePresenter> getErrorPagePresenter();
     AsyncProvider<UnauthorizedPagePresenter> getUnauthorizedPagePresenter();
