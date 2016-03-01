@@ -1,0 +1,17 @@
+<assembly>
+  <id>solr_core</id>
+  <formats>
+    <format>tar.gz</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>etc/solr/istac</directory>
+      <outputDirectory>istac</outputDirectory>
+      <excludes>
+        <exclude>.svn/**</exclude>
+        <exclude>data/**</exclude>
+      </excludes>
+    </fileSet>
+  </fileSets>
+</assembly>

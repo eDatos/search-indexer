@@ -1,39 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>es.gobcan.istac.search</groupId>
-		<artifactId>search-parent</artifactId>
-		<version>3.0.1-SNAPSHOT</version>
-		<relativePath>search-parent/pom.xml</relativePath>
-	</parent>
+    <parent>
+        <groupId>es.gobcan.istac.search</groupId>
+        <artifactId>search-parent</artifactId>
+        <version>3.0.1-SNAPSHOT</version>
+        <relativePath>search-parent/pom.xml</relativePath>
+    </parent>
 
-	<artifactId>search</artifactId>
-	<packaging>pom</packaging>
-	<name>SEARCH</name>
+    <artifactId>search</artifactId>
+    <packaging>pom</packaging>
+    <name>SEARCH</name>
 
-	<scm>
-		<connection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/trunk/</connection>
-		<developerConnection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/trunk/</developerConnection>
-		<url>http://svn.arte-consultores.com/viewvc/arte/istac/search/trunk/</url>
-	</scm>
+    <scm>
+        <connection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/trunk/</connection>
+        <developerConnection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/trunk/</developerConnection>
+        <url>http://svn.arte-consultores.com/viewvc/arte/istac/search/trunk/</url>
+    </scm>
 
-	<modules>
-		<module>search-parent</module>
-		<module>search-core</module>
-		<module>search-internal-web</module>
-        <module>idxmanager-dao</module>
+    <modules>
+        <module>search-parent</module>
         <module>idxmanager-domain</module>
-	</modules>
+        <module>idxmanager-dao</module>
+        <module>search-core</module>
+        <module>search-internal-web</module>
+    </modules>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptor>src/assembly/bin.xml</descriptor>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
