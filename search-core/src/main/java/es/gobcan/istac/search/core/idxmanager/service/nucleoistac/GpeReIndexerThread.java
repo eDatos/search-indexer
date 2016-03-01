@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.nucleoistac;
+package es.gobcan.istac.search.core.idxmanager.service.nucleoistac;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import es.gobcan.istac.idxmanager.domain.alfresco.NucleoMetadatosPublicado;
 import es.gobcan.istac.idxmanager.domain.dom.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
-import es.gobcan.istac.idxmanager.service.alfresco.ConexionAlfrescoService;
-import es.gobcan.istac.idxmanager.service.solr.SolrService;
-import es.gobcan.istac.idxmanager.service.util.ApplicationContextProvider;
+import es.gobcan.istac.search.core.idxmanager.service.alfresco.ConexionAlfrescoService;
+import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
+import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
 
 public class GpeReIndexerThread implements Runnable {
 
-    protected static Log log = LogFactory.getLog(GpeReIndexerThread.class);
+    protected static Log            log = LogFactory.getLog(GpeReIndexerThread.class);
 
     private ConexionAlfrescoService conexionAlfrescoService;
 

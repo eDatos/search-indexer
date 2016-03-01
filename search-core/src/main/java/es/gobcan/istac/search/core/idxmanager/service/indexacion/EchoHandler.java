@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package es.gobcan.istac.idxmanager.service.indexacion;
+package es.gobcan.istac.search.core.idxmanager.service.indexacion;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
@@ -27,13 +27,13 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class EchoHandler extends DefaultHandler {
 
-    protected String encoding = null;
+    protected String             encoding    = null;
 
-    private StringBuffer xmlBuffer = null;
+    private StringBuffer         xmlBuffer   = null;
 
     private ByteArrayInputStream inputStream = null;
 
-    private byte[] bytes;
+    private byte[]               bytes;
 
     /**
      * Set the encoding for the XML output.
@@ -54,8 +54,8 @@ public class EchoHandler extends DefaultHandler {
      */
     @Override
     public void startDocument() throws SAXException {
-        this.xmlBuffer = new StringBuffer();
-        this.xmlBuffer.append("<?xml version=\"1.0\" encoding=\"" + this.encoding + "\"?>\r\n");
+        xmlBuffer = new StringBuffer();
+        xmlBuffer.append("<?xml version=\"1.0\" encoding=\"" + encoding + "\"?>\r\n");
     }
 
     /*
@@ -65,7 +65,7 @@ public class EchoHandler extends DefaultHandler {
     @Override
     public void endDocument() throws SAXException {
         try {
-            this.setResult();
+            setResult();
         } catch (UnsupportedEncodingException e) {
             throw new SAXException(e);
         }
@@ -85,17 +85,17 @@ public class EchoHandler extends DefaultHandler {
      */
     @Override
     public void startElement(String uri, String loc, String raw, Attributes atts) throws SAXException {
-        this.xmlBuffer.append("\r\n<" + raw);
+        xmlBuffer.append("\r\n<" + raw);
         for (int i = 0; i < atts.getLength(); i++) {
-            this.xmlBuffer.append(" ");
-            this.xmlBuffer.append(atts.getQName(i));
-            this.xmlBuffer.append("=\"");
+            xmlBuffer.append(" ");
+            xmlBuffer.append(atts.getQName(i));
+            xmlBuffer.append("=\"");
             String value = atts.getValue(i);
 
-            this.xmlBuffer.append(value);
-            this.xmlBuffer.append("\"");
+            xmlBuffer.append(value);
+            xmlBuffer.append("\"");
         }
-        this.xmlBuffer.append(">\r\n");
+        xmlBuffer.append(">\r\n");
     }
 
     /*
@@ -110,7 +110,7 @@ public class EchoHandler extends DefaultHandler {
      */
     @Override
     public void endElement(String uri, String loc, String raw) throws SAXException {
-        this.xmlBuffer.append("\r\n</" + raw + ">\r\n");
+        xmlBuffer.append("\r\n</" + raw + ">\r\n");
     }
 
     /*
@@ -125,13 +125,13 @@ public class EchoHandler extends DefaultHandler {
         for (int i = 0; i < length; i++) {
             char c = ch[start + i];
             if (c == '&') {
-                this.xmlBuffer.append("&amp;");
+                xmlBuffer.append("&amp;");
             } else if (c == '<') {
-                this.xmlBuffer.append("&lt;");
+                xmlBuffer.append("&lt;");
             } else if (c == '>') {
-                this.xmlBuffer.append("&gt;");
+                xmlBuffer.append("&gt;");
             } else {
-                this.xmlBuffer.append(c);
+                xmlBuffer.append(c);
             }
         }
     }
@@ -146,7 +146,7 @@ public class EchoHandler extends DefaultHandler {
      */
     @Override
     public void ignorableWhitespace(char ch[], int start, int length) throws SAXException {
-        this.characters(ch, start, length);
+        characters(ch, start, length);
     }
 
     /*
@@ -158,7 +158,7 @@ public class EchoHandler extends DefaultHandler {
      */
     @Override
     public void processingInstruction(String target, String data) throws SAXException {
-        this.xmlBuffer.append("<?" + target + " " + data + "?>");
+        xmlBuffer.append("<?" + target + " " + data + "?>");
     }
 
     /*
@@ -169,13 +169,13 @@ public class EchoHandler extends DefaultHandler {
      */
     @Override
     public void skippedEntity(String name) throws SAXException {
-        this.xmlBuffer.append("&" + name + ";");
+        xmlBuffer.append("&" + name + ";");
     }
 
     private void setResult() throws UnsupportedEncodingException {
         try {
-            this.bytes = this.xmlBuffer.toString().getBytes(this.encoding);
-            this.inputStream = new ByteArrayInputStream(this.bytes);
+            bytes = xmlBuffer.toString().getBytes(encoding);
+            inputStream = new ByteArrayInputStream(bytes);
         } catch (UnsupportedEncodingException e) {
             throw new UnsupportedEncodingException();
         }
@@ -187,7 +187,7 @@ public class EchoHandler extends DefaultHandler {
      * @return the input stream
      */
     public ByteArrayInputStream getInputStream() {
-        return this.inputStream;
+        return inputStream;
     }
 
     /**
@@ -196,7 +196,7 @@ public class EchoHandler extends DefaultHandler {
      * @return the input stream
      */
     public byte[] getBytes() {
-        return this.bytes;
+        return bytes;
     }
 
     /**
@@ -204,6 +204,6 @@ public class EchoHandler extends DefaultHandler {
      */
     @Override
     public String toString() {
-        return this.xmlBuffer.toString();
+        return xmlBuffer.toString();
     }
 }

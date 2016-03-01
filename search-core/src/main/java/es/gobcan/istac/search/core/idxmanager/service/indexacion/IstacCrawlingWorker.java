@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.indexacion;
+package es.gobcan.istac.search.core.idxmanager.service.indexacion;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,8 +17,8 @@ import org.apache.http.client.utils.URIBuilder;
 
 public class IstacCrawlingWorker extends CrawlingWorker {
 
-    private static final Pattern URL_PATTERN = Pattern.compile("^(?:https?:\\/\\/)?((?:[\\da-z\\.-]+)\\.(?:[a-z\\.]{2,6}))/istac/.*$");
-    private static final String GOBCAN_URL_HOST = "www.gobiernodecanarias.org";
+    private static final Pattern URL_PATTERN     = Pattern.compile("^(?:https?:\\/\\/)?((?:[\\da-z\\.-]+)\\.(?:[a-z\\.]{2,6}))/istac/.*$");
+    private static final String  GOBCAN_URL_HOST = "www.gobiernodecanarias.org";
 
     public IstacCrawlingWorker(CrawlingDroid droid) {
         super(droid);

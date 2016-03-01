@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>es.gobcan.istac.search</groupId>
 		<artifactId>search-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>3.0.1-SNAPSHOT</version>
 		<relativePath>../search-parent/pom.xml</relativePath>
 	</parent>
 

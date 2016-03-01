@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.solr;
+package es.gobcan.istac.search.core.idxmanager.service.solr;
 
 import java.io.IOException;
 
@@ -18,22 +18,22 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.util.NamedList;
 import org.springframework.beans.factory.InitializingBean;
 
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcion;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcionTipo;
-import es.gobcan.istac.idxmanager.service.util.ServiceUtils;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
+import es.gobcan.istac.search.core.idxmanager.service.util.ServiceUtils;
 
 public class SolrServiceImpl implements InitializingBean, SolrService {
 
-    protected static Log log = LogFactory.getLog(SolrService.class);
+    protected static Log       log                        = LogFactory.getLog(SolrService.class);
 
-    public static final int DEFAULT_CONNECTION_TIMEOUT = 60000; // default socket connection timeout in ms
-    public static final String DEFAULT_ALL_QUERY = "*:*";
+    public static final int    DEFAULT_CONNECTION_TIMEOUT = 60000;                               // default socket connection timeout in ms
+    public static final String DEFAULT_ALL_QUERY          = "*:*";
 
-    private SolrClient solrClient = null;
+    private SolrClient         solrClient                 = null;
 
-    private String solrUrl;
-    private String coreOrCollection;
-    private boolean cloudServer = false;
+    private String             solrUrl;
+    private String             coreOrCollection;
+    private boolean            cloudServer                = false;
 
     public void setSolrUrl(String solrUrl) {
         this.solrUrl = solrUrl;

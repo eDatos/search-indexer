@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.recomendados;
+package es.gobcan.istac.search.core.idxmanager.service.recomendados;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 import es.gobcan.istac.idxmanager.domain.dom.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcion;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcionTipo;
-import es.gobcan.istac.idxmanager.service.solr.SolrService;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
+import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
 
 @Service
 public class RecomendadosIndexerServiceImpl implements RecomendadosIndexerService {
 
-    protected static Log log = LogFactory.getLog(RecomendadosIndexerService.class);
+    protected static Log              log                       = LogFactory.getLog(RecomendadosIndexerService.class);
 
     @Autowired
-    private SolrService solr = null;
+    private SolrService               solr                      = null;
 
     @Autowired
     private IndexationSuggestedStatus indexationSponsoredStatus = null;

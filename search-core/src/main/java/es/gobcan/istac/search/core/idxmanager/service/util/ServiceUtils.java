@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.util;
+package es.gobcan.istac.search.core.idxmanager.service.util;
 
 import org.apache.commons.lang.StringUtils;
 

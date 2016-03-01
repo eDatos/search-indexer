@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.indexacion;
+package es.gobcan.istac.search.core.idxmanager.service.indexacion;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
-import es.gobcan.istac.idxmanager.service.util.ServiceUtils;
+import es.gobcan.istac.search.core.idxmanager.service.util.ServiceUtils;
 
 public class TikaDocumentParser extends Loggable implements Parser, InitializingBean {
 

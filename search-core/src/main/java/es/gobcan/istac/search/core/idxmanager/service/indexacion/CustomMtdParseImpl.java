@@ -3,7 +3,7 @@
  * Esta extension permite almacenar los metadatos que ha extraido TIKA.
  */
 
-package es.gobcan.istac.idxmanager.service.indexacion;
+package es.gobcan.istac.search.core.idxmanager.service.indexacion;
 
 import java.util.Collection;
 

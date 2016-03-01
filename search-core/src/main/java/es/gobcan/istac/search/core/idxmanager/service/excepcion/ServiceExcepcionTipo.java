@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.excepcion;
+package es.gobcan.istac.search.core.idxmanager.service.excepcion;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -22,6 +22,7 @@ public enum ServiceExcepcionTipo {
     SERVICE_CRAWLER;
 
     private static final Map<ServiceExcepcionTipo, String> MENSAJE_MAP = new HashMap<ServiceExcepcionTipo, String>();
+
     static {
         MENSAJE_MAP.put(ServiceExcepcionTipo.SERVICE_GENERAL, "excepcion.service.general");
         MENSAJE_MAP.put(ServiceExcepcionTipo.SERVICE_ABRIR_SESION, "excepcion.service.abrir_sesion");
@@ -63,6 +64,6 @@ public enum ServiceExcepcionTipo {
      * @return a lower case string of this enum
      */
     public String lowerCaseString() {
-        return this.toString().toLowerCase();
+        return toString().toLowerCase();
     }
 }

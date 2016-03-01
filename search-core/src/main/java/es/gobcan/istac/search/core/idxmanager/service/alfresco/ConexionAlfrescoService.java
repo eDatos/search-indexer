@@ -1,10 +1,10 @@
-package es.gobcan.istac.idxmanager.service.alfresco;
+package es.gobcan.istac.search.core.idxmanager.service.alfresco;
 
 import java.util.List;
 
 import es.gobcan.istac.idxmanager.domain.alfresco.ContenidoOperacion;
 import es.gobcan.istac.idxmanager.domain.alfresco.NucleoMetadatosPublicado;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcion;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 
 public interface ConexionAlfrescoService {
 

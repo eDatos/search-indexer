@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.indexacion;
+package es.gobcan.istac.search.core.idxmanager.service.indexacion;
 
 import java.io.IOException;
 import java.net.URI;
@@ -23,17 +23,17 @@ import es.gobcan.istac.idxmanager.domain.dom.ContentTypeEnumDomain;
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.dom.TypeNMDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcion;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 
 public class SolrHandler extends WriterHandler implements Handler {
 
-    protected static Log log = LogFactory.getLog(SolrHandler.class);
+    protected static Log           log                    = LogFactory.getLog(SolrHandler.class);
 
     @Autowired
     private ResourceIndexerService resourceIndexerService = null;
 
-    private static final String PATTERNDATE1 = "E MMM dd HH:mm:ss zzz yyyy";
-    private static final String PATTERNDATE2 = "yyyy-MM-dd HH:mm:ss";
+    private static final String    PATTERNDATE1           = "E MMM dd HH:mm:ss zzz yyyy";
+    private static final String    PATTERNDATE2           = "yyyy-MM-dd HH:mm:ss";
 
     @Override
     public void handle(URI uri, ContentEntity entity) throws IOException, DroidsException {

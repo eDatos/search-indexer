@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.recomendados;
+package es.gobcan.istac.search.core.idxmanager.service.recomendados;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;

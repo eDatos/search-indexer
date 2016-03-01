@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.busqueda;
+package es.gobcan.istac.search.core.idxmanager.service.busqueda;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,24 +18,24 @@ import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
 import es.gobcan.istac.idxmanager.domain.mvc.Busqueda;
 import es.gobcan.istac.idxmanager.domain.mvc.enumerated.FiltroSeccionEnum;
 import es.gobcan.istac.idxmanager.domain.mvc.enumerated.FiltroTextoEnum;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcion;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcionTipo;
-import es.gobcan.istac.idxmanager.service.solr.SolrService;
-import es.gobcan.istac.idxmanager.service.util.ServiceUtils;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
+import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
+import es.gobcan.istac.search.core.idxmanager.service.util.ServiceUtils;
 
 @Service
 public class BusquedaServiceImpl implements BusquedaService {
 
-    protected Log log = LogFactory.getLog(BusquedaService.class);
+    protected Log               log                   = LogFactory.getLog(BusquedaService.class);
 
-    private static final String SELECT_QT = "/select";
-    private static final String BROWSE_QT = "/browse";
-    private static final String SPONSORED_QT = "/sponsored";
+    private static final String SELECT_QT             = "/select";
+    private static final String BROWSE_QT             = "/browse";
+    private static final String SPONSORED_QT          = "/sponsored";
 
-    private static final int MAX_SUGGESTED_RESULTS = 4;
+    private static final int    MAX_SUGGESTED_RESULTS = 4;
 
     @Autowired
-    private SolrService solr = null;
+    private SolrService         solr                  = null;
 
     @Override
     public QueryResponse ejecutarQuery(Busqueda busqueda, int resultByPage) throws ServiceExcepcion {

@@ -1,20 +1,20 @@
-package es.gobcan.istac.idxmanager.service.excepcion;
+package es.gobcan.istac.search.core.idxmanager.service.excepcion;
 
 /**
  * Excepcion para ser usada por los metodos de la librer�a de Servicio Cada excepci�n tiene un tipo <code>ExcepcionTipo</code> y un mensaje.
- * 
+ *
  * @author arte
  */
 
 public class ServiceExcepcion extends Exception {
 
     /**
-	 * 
-	 */
-    private static final long serialVersionUID = -2548661408533934349L;
+     * 
+     */
+    private static final long    serialVersionUID = -2548661408533934349L;
 
     private ServiceExcepcionTipo reasonType;
-    private String messageToUser = null;
+    private String               messageToUser    = null;
 
     /**
      * Constructor privado para prevenir construir excepciones sin mensajes.
@@ -30,12 +30,12 @@ public class ServiceExcepcion extends Exception {
 
     /**
      * El mensaje por defecto es el definido en el tipo de la excepci�n.
-     * 
+     *
      * @param reasonType
      */
     public ServiceExcepcion(ServiceExcepcionTipo reasonType) {
         super(reasonType.getMessageForReasonType());
-        this.messageToUser = reasonType.getMessageForReasonType();
+        messageToUser = reasonType.getMessageForReasonType();
         this.reasonType = reasonType;
     }
 

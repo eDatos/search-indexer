@@ -1,6 +1,6 @@
-package es.gobcan.istac.idxmanager.service.recomendados;
+package es.gobcan.istac.search.core.idxmanager.service.recomendados;
 
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcion;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 
 public interface RecomendadosIndexerService {
 

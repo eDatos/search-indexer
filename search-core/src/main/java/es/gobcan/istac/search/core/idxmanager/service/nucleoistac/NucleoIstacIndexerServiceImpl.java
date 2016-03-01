@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.nucleoistac;
+package es.gobcan.istac.search.core.idxmanager.service.nucleoistac;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -15,22 +15,22 @@ import es.gobcan.istac.idxmanager.domain.dom.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
 import es.gobcan.istac.idxmanager.domain.util.Constants;
-import es.gobcan.istac.idxmanager.service.alfresco.ConexionAlfrescoService;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcion;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcionTipo;
-import es.gobcan.istac.idxmanager.service.solr.SolrService;
 import es.gobcan.istac.jaxi.pxservice.api.dominio.NucleoMetadatos;
+import es.gobcan.istac.search.core.idxmanager.service.alfresco.ConexionAlfrescoService;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
+import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
 
 @Service
 public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService {
 
-    protected static Log log = LogFactory.getLog(NucleoIstacIndexerService.class);
+    protected static Log            log              = LogFactory.getLog(NucleoIstacIndexerService.class);
 
     @Autowired
-    private SolrService solr = null;
+    private SolrService             solr             = null;
 
     @Autowired
-    private IndexationStatus indexationStatus = null;
+    private IndexationStatus        indexationStatus = null;
 
     @Autowired
     private ConexionAlfrescoService conexionAlfrescoService;

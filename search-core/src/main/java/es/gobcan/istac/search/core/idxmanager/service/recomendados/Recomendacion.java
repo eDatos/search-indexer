@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.recomendados;
+package es.gobcan.istac.search.core.idxmanager.service.recomendados;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,11 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 public class Recomendacion {
 
     @XStreamOmitField
-    private String id;
+    private String       id;
 
     @XStreamAlias("palabras")
     @XStreamAsAttribute
-    private String palabras;
+    private String       palabras;
 
     @XStreamImplicit(itemFieldName = "enlace")
     private List<Enlace> enlaces;

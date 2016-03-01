@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>es.gobcan.istac.idxmanager</groupId>
-		<artifactId>idxmanager-parent</artifactId>
-		<version>3.0.1-SNAPSHOT</version>
-		<relativePath>../idxmanager-parent/pom.xml</relativePath>
-	</parent>
+    <parent>
+        <groupId>es.gobcan.istac.search</groupId>
+        <artifactId>search-parent</artifactId>
+        <version>3.0.1-SNAPSHOT</version>
+        <relativePath>../search-parent/pom.xml</relativePath>
+    </parent>
 
 	<artifactId>idxmanager-domain</artifactId>
 	<name>INDEXATION MANAGER :: DOMAIN</name>

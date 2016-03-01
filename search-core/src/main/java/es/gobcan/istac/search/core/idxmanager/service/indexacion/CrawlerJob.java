@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.indexacion;
+package es.gobcan.istac.search.core.idxmanager.service.indexacion;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,10 +28,10 @@ import com.arte.acom.configuration.ConfigurationServiceImpl;
 
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
-import es.gobcan.istac.idxmanager.service.recomendados.RecomendadosIndexerService;
-import es.gobcan.istac.idxmanager.service.recomendados.RecomendadosIndexerServiceImpl;
-import es.gobcan.istac.idxmanager.service.solr.SolrService;
-import es.gobcan.istac.idxmanager.service.util.ApplicationContextProvider;
+import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
+import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerServiceImpl;
+import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
+import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
 
 public class CrawlerJob implements Job {
 

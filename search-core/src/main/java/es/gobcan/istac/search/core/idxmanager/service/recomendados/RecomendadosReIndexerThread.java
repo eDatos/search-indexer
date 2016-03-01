@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.recomendados;
+package es.gobcan.istac.search.core.idxmanager.service.recomendados;
 
 import java.util.Properties;
 
@@ -13,10 +13,10 @@ import com.thoughtworks.xstream.XStream;
 import es.gobcan.istac.idxmanager.domain.dom.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcion;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcionTipo;
-import es.gobcan.istac.idxmanager.service.solr.SolrService;
-import es.gobcan.istac.idxmanager.service.util.ApplicationContextProvider;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
+import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
+import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
 
 public class RecomendadosReIndexerThread implements Runnable {
 

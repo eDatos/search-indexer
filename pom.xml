@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>es.gobcan.istac.search</groupId>
 		<artifactId>search-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>3.0.1-SNAPSHOT</version>
 		<relativePath>search-parent/pom.xml</relativePath>
 	</parent>
 
@@ -23,6 +23,8 @@
 		<module>search-parent</module>
 		<module>search-core</module>
 		<module>search-internal-web</module>
+        <module>idxmanager-dao</module>
+        <module>idxmanager-domain</module>
 	</modules>
 
 	<build>

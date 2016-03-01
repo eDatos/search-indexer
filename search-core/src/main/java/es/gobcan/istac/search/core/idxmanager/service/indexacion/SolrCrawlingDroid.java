@@ -2,7 +2,7 @@
  * ROBOT DE INDEXACION EN SOLR
  */
 
-package es.gobcan.istac.idxmanager.service.indexacion;
+package es.gobcan.istac.search.core.idxmanager.service.indexacion;
 
 import org.apache.droids.api.Link;
 import org.apache.droids.api.TaskMaster;

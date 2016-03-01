@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.nucleoistac;
+package es.gobcan.istac.search.core.idxmanager.service.nucleoistac;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,14 +14,14 @@ import es.gobcan.istac.idxmanager.domain.util.ISO8601DateFormat;
 public class IndexationStatus implements Serializable {
 
     /**
-	 *
-	 */
-    private static final long serialVersionUID = -2486128655153455672L;
+     *
+     */
+    private static final long      serialVersionUID = -2486128655153455672L;
 
     // Reindexacion GPE
-    private IndexacionStatusDomain idxGPEStatus = IndexacionStatusDomain.PARADO;
-    private Date idxGPELastDate = null;
-    private static final String NINGUNA = "NINGUNA";
+    private IndexacionStatusDomain idxGPEStatus     = IndexacionStatusDomain.PARADO;
+    private Date                   idxGPELastDate   = null;
+    private static final String    NINGUNA          = "NINGUNA";
 
     /**************************************************************************
      * GETTER/SETTER

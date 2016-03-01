@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.recomendados;
+package es.gobcan.istac.search.core.idxmanager.service.recomendados;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,14 +14,14 @@ import es.gobcan.istac.idxmanager.domain.util.ISO8601DateFormat;
 public class IndexationSuggestedStatus implements Serializable {
 
     /**
-	 * 
-	 */
-    private static final long serialVersionUID = -2486128655153455672L;
+     * 
+     */
+    private static final long      serialVersionUID     = -2486128655153455672L;
 
     // Reindexacion GPE
-    private IndexacionStatusDomain idxSuggestedStatus = IndexacionStatusDomain.PARADO;
-    private Date idxSuggestedLastDate = null;
-    private static final String NINGUNA = "NINGUNA";
+    private IndexacionStatusDomain idxSuggestedStatus   = IndexacionStatusDomain.PARADO;
+    private Date                   idxSuggestedLastDate = null;
+    private static final String    NINGUNA              = "NINGUNA";
 
     /**************************************************************************
      * GETTER/SETTER
@@ -30,8 +30,8 @@ public class IndexationSuggestedStatus implements Serializable {
         return idxSuggestedStatus.getSiglas();
     }
     public void setIdxSuggestedStatus(IndexacionStatusDomain idxStatus) {
-        this.idxSuggestedStatus = idxStatus;
-        this.idxSuggestedLastDate = new Date();
+        idxSuggestedStatus = idxStatus;
+        idxSuggestedLastDate = new Date();
     }
     public String getIdxSuggestedLastDate() {
         if (idxSuggestedLastDate == null) {

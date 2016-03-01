@@ -1,7 +1,7 @@
-package es.gobcan.istac.idxmanager.service.nucleoistac;
+package es.gobcan.istac.search.core.idxmanager.service.nucleoistac;
 
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.jaxi.pxservice.api.dominio.NucleoMetadatos;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 
 public interface NucleoIstacIndexerService {
 

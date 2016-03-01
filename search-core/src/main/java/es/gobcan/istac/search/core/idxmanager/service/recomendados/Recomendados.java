@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.recomendados;
+package es.gobcan.istac.search.core.idxmanager.service.recomendados;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class Recomendados {
 				</enlaces>
   			</recomendacion>
 	     </recomendados>
-		
+
      */
     // @formatter:on
 
@@ -42,9 +42,10 @@ public class Recomendados {
     }
 
     public void setRecomendaciones(List<Recomendacion> enlacesSet) {
-        this.recomendaciones = enlacesSet;
+        recomendaciones = enlacesSet;
     }
 
+    @Override
     public String toString() {
         return recomendaciones != null ? recomendaciones.toString() : "null";
     }

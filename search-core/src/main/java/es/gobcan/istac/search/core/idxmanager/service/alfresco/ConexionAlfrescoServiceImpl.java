@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.alfresco;
+package es.gobcan.istac.search.core.idxmanager.service.alfresco;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,22 +45,22 @@ import com.arte.acom.configuration.ConfigurationServiceImpl;
 import es.gobcan.istac.idxmanager.domain.alfresco.ContenidoOperacion;
 import es.gobcan.istac.idxmanager.domain.alfresco.NucleoMetadatosPublicado;
 import es.gobcan.istac.idxmanager.domain.util.ISO8601DateFormat;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcion;
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcionTipo;
-import es.gobcan.istac.idxmanager.service.util.ApplicationContextProvider;
-import es.gobcan.istac.idxmanager.service.util.ServiceUtils;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
+import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
+import es.gobcan.istac.search.core.idxmanager.service.util.ServiceUtils;
 
 @Service
 public class ConexionAlfrescoServiceImpl implements ConexionAlfrescoService {
 
-    protected Log log = LogFactory.getLog(ConexionAlfrescoServiceImpl.class);
+    protected Log      log    = LogFactory.getLog(ConexionAlfrescoServiceImpl.class);
 
-    private String ticket = null;
+    private String     ticket = null;
 
     @Autowired
     private HttpParams httpParams;
 
-    private String obtenerTicket() throws ServiceExcepcion {
+    private String obtenerTicket() throws es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion {
         if (!isValidTicket()) {
             // Hay que pedir nuevo ticket
             ticket = obtenerNuevoTicket();

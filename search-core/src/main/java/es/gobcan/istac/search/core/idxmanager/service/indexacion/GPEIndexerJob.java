@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.service.indexacion;
+package es.gobcan.istac.search.core.idxmanager.service.indexacion;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -6,11 +6,11 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import es.gobcan.istac.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
-import es.gobcan.istac.idxmanager.service.nucleoistac.NucleoIstacIndexerServiceImpl;
-import es.gobcan.istac.idxmanager.service.recomendados.RecomendadosIndexerService;
-import es.gobcan.istac.idxmanager.service.recomendados.RecomendadosIndexerServiceImpl;
-import es.gobcan.istac.idxmanager.service.util.ApplicationContextProvider;
+import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
+import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerServiceImpl;
+import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
+import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerServiceImpl;
+import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
 
 public class GPEIndexerJob implements Job {
 
