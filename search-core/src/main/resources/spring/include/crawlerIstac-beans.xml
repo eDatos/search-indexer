@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <context:annotation-config/>
+    
+	<!--  HTML PARSER  -->
+	<bean id="htmlParser" class="es.gobcan.istac.idxmanager.service.indexacion.TikaHtmlParser">
+<!--	<bean id="htmlParser" class="org.apache.droids.parse.html.HtmlParser">-->
+		<property name="elements">
+			<util:map>
+				<entry key="a" value="href"/>
+				<entry key="link" value="href"/>
+				<entry key="img" value="src"/>
+				<entry key="script" value="src"/>
+			</util:map>
+		</property>
+	</bean>
+	
+	<!--  DOCUMENT PARSER  -->
+	<bean id="documentParser" class="es.gobcan.istac.idxmanager.service.indexacion.TikaDocumentParser"/>
+	
+	<!-- PARSER FACTORY: Solo ponemos uno, el PARSER HTML -->
+	<bean id="parserFactory" class="org.apache.droids.helper.factories.ParserFactory">
+		<property name="map">
+			<util:map>
+				<!--  HTML PARSER  -->
+				<entry key="text/html" value-ref="htmlParser"></entry>
+				<!--  DOCUMENT PARSER  -->
+				<entry key="text/plain" value-ref="documentParser"></entry>
+							
+				<entry key="application/pdf" value-ref="documentParser"></entry>
+				
+				<entry key="application/msword" value-ref="documentParser"></entry>
+				<entry key="application/vnd.ms-excel" value-ref="documentParser"></entry>
+				<entry key="application/vnd.ms-powerpoint" value-ref="documentParser"></entry>
+				<entry key="application/vnd.openxmlformats-officedocument.wordprocessingml.document" value-ref="documentParser"></entry>
+				<entry key="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" value-ref="documentParser"></entry>
+				<entry key="application/vnd.oasis.opendocument.text" value-ref="documentParser"></entry>
+				<entry key="application/vnd.oasis.opendocument.spreadsheet" value-ref="documentParser"></entry>
+				<entry key="application/rtf" value-ref="documentParser"></entry>
+								
+				<entry key="application/xml" value-ref="documentParser"></entry>
+				<entry key="application/rss+xml" value-ref="documentParser"></entry>
+				
+			</util:map>
+		</property>
+	</bean>
+    
+	<!-- CLIENTE HTTP -->
+	<import resource="classpath:spring/httpClient-beans.xml"/>
+	
+	<!-- PROTOCOL FACTORY: Ponemos 2, HTTP y HTTPS -->
+	<!-- NOTA: La factoria de protocolos la creamos directamente en JAVA (Crawler.job) al crear el DROID, no lo ponemos como bean de spring
+	           para poder hacer un shutdown del httpClient (usado en httpProtocol) y así liberar recursos cuando no se esté ejecutando el DROID
+	-->
+<!--	<bean id="protocolFactory" class="org.apache.droids.helper.factories.ProtocolFactory">-->
+<!--		<property name="map">-->
+<!--			<util:map>-->
+<!--				<entry key="http" value-ref="httpProtocol"/>-->
+<!--				<entry key="https" value-ref="httpProtocol"/>-->
+<!--			</util:map>-->
+<!--		</property>-->
+<!--	</bean>-->
+	
+	<!--  REGEX URL FILTER  -->
+	<bean id="regexURLFilter" class="org.apache.droids.net.RegexURLFilter">
+		<property name="file" value="classpath:/regex-urlfilter-istac.txt" />
+	</bean>
+	
+	<!-- URL_FILTERS FACTORY: Solo una, la que especificamos en un fichero  -->
+	<bean id="uRLFiltersFactory" class="org.apache.droids.helper.factories.URLFiltersFactory">
+		<property name="map">
+			<util:map>
+				<entry key="default" value-ref="regexURLFilter"/>
+			</util:map>
+		</property>
+	</bean>
+
+	<!--  MANEJADOR  -->
+	<bean id="solrHandler" class="es.gobcan.istac.idxmanager.service.indexacion.SolrHandler">
+	</bean>
+
+   	<!-- HANDLE FACTORY: Sera el envio a SOLR para indexacion  -->
+	<bean id="handlerFactory" class="org.apache.droids.helper.factories.HandlerFactory">
+		<property name="map">
+			<util:map>
+				<entry key="default" value-ref="solrHandler"/>
+			</util:map>
+		</property>
+	</bean>
+	
+	<!-- DROID FACTORY  -->
+	<bean id="droidFactory" class="org.apache.droids.helper.factories.DroidFactory">
+	</bean>
+
+</beans>
