@@ -30,6 +30,10 @@ import es.gobcan.istac.search.web.shared.GetCronRecommendedLinksExpressionAction
 import es.gobcan.istac.search.web.shared.GetCronRecommendedLinksExpressionResult;
 import es.gobcan.istac.search.web.shared.GetCronWebExpressionAction;
 import es.gobcan.istac.search.web.shared.GetCronWebExpressionResult;
+import es.gobcan.istac.search.web.shared.ReindexGpeAction;
+import es.gobcan.istac.search.web.shared.ReindexGpeResult;
+import es.gobcan.istac.search.web.shared.ReindexRecommendedLinksAction;
+import es.gobcan.istac.search.web.shared.ReindexRecommendedLinksResult;
 
 public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, ReindexPresenter.ReindexProxy> implements ReindexUiHandlers {
 
@@ -113,14 +117,27 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
 
     @Override
     public void reindexGpe() {
-        // TODO
-        Window.alert("reindexGpe not implemented");
+        dispatcher.execute(new ReindexGpeAction(), new WaitingAsyncCallbackHandlingError<ReindexGpeResult>(this) {
+
+            @Override
+            public void onWaitSuccess(ReindexGpeResult result) {
+                // TODO Auto-generated method stub
+                Window.alert("Reindex Gpe Ok");
+            }
+        });
     }
 
     @Override
     public void reindexRecommendedLinks() {
-        // TODO
-        Window.alert("reindexRecommendedLinks not implemented");
+        dispatcher.execute(new ReindexRecommendedLinksAction(), new WaitingAsyncCallbackHandlingError<ReindexRecommendedLinksResult>(this) {
+
+            @Override
+            public void onWaitSuccess(ReindexRecommendedLinksResult result) {
+                // TODO Auto-generated method stub
+                Window.alert("Reindex Recommended Links Ok");
+            }
+
+        });
     }
 
 }

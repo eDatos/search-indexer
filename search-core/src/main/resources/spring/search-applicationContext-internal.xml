@@ -13,7 +13,7 @@
 	<context:annotation-config />
 
 	<!-- scans for @Components, @Repositories, @Services, ... -->
-	<context:component-scan base-package="es.gobcan.istac.search.core, org.siemac.metamac.core.common*">
+	<context:component-scan base-package="es.gobcan.istac.search.core, org.siemac.metamac.core.common*, es.gobcan.istac.idxmanager.domain*">
 		<context:exclude-filter type="regex" expression=".*web.*" />
 		<!-- <context:exclude-filter type="assignable" expression="org.siemac.metamac.core.common.exception.utils.TranslateExceptions" /> -->
 	</context:component-scan>
@@ -39,5 +39,8 @@
 	<import resource="classpath:/spring/include/datasource.xml" />
 	<import resource="classpath:/spring/include/entity-manager-factory.xml" />
 	<import resource="classpath:/spring/include/interceptor.xml" />
+    
+    <!-- idxmanager -->
+    <import resource="classpath:/spring/include/idxmanager-services-beans.xml" />
 
 </beans>

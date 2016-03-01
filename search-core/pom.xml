@@ -220,12 +220,10 @@
         <dependency>
             <groupId>com.arte.acom.acom-configuration</groupId>
             <artifactId>acom-configuration</artifactId>
-            <version>${acom-configuration-version}</version>
         </dependency>
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>${xstream-version}</version>
         </dependency>
 
         <!-- SEARCH -->

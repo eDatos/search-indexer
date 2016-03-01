@@ -15,7 +15,7 @@
     <context:annotation-config/>
     
 	<!--  HTML PARSER  -->
-	<bean id="htmlParser" class="es.gobcan.istac.idxmanager.service.indexacion.TikaHtmlParser">
+	<bean id="htmlParser" class="es.gobcan.istac.search.core.idxmanager.service.indexacion.TikaHtmlParser">
 <!--	<bean id="htmlParser" class="org.apache.droids.parse.html.HtmlParser">-->
 		<property name="elements">
 			<util:map>
@@ -28,7 +28,7 @@
 	</bean>
 	
 	<!--  DOCUMENT PARSER  -->
-	<bean id="documentParser" class="es.gobcan.istac.idxmanager.service.indexacion.TikaDocumentParser"/>
+	<bean id="documentParser" class="es.gobcan.istac.search.core.idxmanager.service.indexacion.TikaDocumentParser"/>
 	
 	<!-- PARSER FACTORY: Solo ponemos uno, el PARSER HTML -->
 	<bean id="parserFactory" class="org.apache.droids.helper.factories.ParserFactory">
@@ -58,7 +58,7 @@
 	</bean>
     
 	<!-- CLIENTE HTTP -->
-	<import resource="classpath:spring/httpClient-beans.xml"/>
+	<import resource="classpath:spring/include/httpClient-beans.xml"/>
 	
 	<!-- PROTOCOL FACTORY: Ponemos 2, HTTP y HTTPS -->
 	<!-- NOTA: La factoria de protocolos la creamos directamente en JAVA (Crawler.job) al crear el DROID, no lo ponemos como bean de spring
@@ -88,7 +88,7 @@
 	</bean>
 
 	<!--  MANEJADOR  -->
-	<bean id="solrHandler" class="es.gobcan.istac.idxmanager.service.indexacion.SolrHandler">
+	<bean id="solrHandler" class="es.gobcan.istac.search.core.idxmanager.service.indexacion.SolrHandler">
 	</bean>
 
    	<!-- HANDLE FACTORY: Sera el envio a SOLR para indexacion  -->
