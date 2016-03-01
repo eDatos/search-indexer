@@ -420,6 +420,7 @@
                                 <include>**/*.class</include>
                                 <include>**/i18n/*.properties</include>
                                 <include>**/*.xml</include>
+                                <include>**/regex-urlfilter-istac.txt</include>
                             </includes>
                             <excludes>
                                 <exclude>generator/*.*</exclude>
