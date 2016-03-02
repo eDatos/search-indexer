@@ -33,7 +33,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <descriptor>src/assembly/bin.xml</descriptor>
+                    <descriptor>src/assembly/solr-core.xml</descriptor>
                 </configuration>
                 <executions>
                     <execution>
@@ -46,30 +46,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <descriptors>
-                                        <descriptor>src/main/assembly.xml</descriptor>
-                                    </descriptors>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+   
 </project>
