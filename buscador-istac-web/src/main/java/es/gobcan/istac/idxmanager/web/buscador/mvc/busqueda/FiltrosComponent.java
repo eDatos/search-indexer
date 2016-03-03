@@ -20,23 +20,23 @@ import com.ibm.icu.text.Collator;
 import com.ibm.icu.util.ULocale;
 
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
-import es.gobcan.istac.idxmanager.service.busqueda.BusquedaService;
+import es.gobcan.istac.search.core.idxmanager.service.busqueda.BusquedaService;
 
 @Component
 public class FiltrosComponent {
 
-    protected Log log = LogFactory.getLog(FiltrosComponent.class);
+    protected Log               log                       = LogFactory.getLog(FiltrosComponent.class);
 
     @Autowired
-    private BusquedaService busquedaService;
+    private BusquedaService     busquedaService;
 
-    private Map<String, String> filtroSeccionAreaMap = null;
+    private Map<String, String> filtroSeccionAreaMap      = null;
     private Map<String, String> filtroSeccionOperacionMap = null;
     private Map<String, String> filtroCoverageTemporalMap = null;
-    private Map<String, String> filtroCoverageSpatialMap = null;
+    private Map<String, String> filtroCoverageSpatialMap  = null;
 
     // TODO Poner este componenete como un servicio y controlar la cache cuando se indexan cosas en solr?¿
-    private DateTime lastRefresh = null;
+    private DateTime            lastRefresh               = null;
 
     public Map<String, String> getFiltroSeccionAreaMap() {
         if (filtroSeccionAreaMap == null || reload()) {

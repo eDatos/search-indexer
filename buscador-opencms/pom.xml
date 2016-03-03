@@ -2,10 +2,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>es.gobcan.istac.idxmanager</groupId>
-        <artifactId>idxmanager-parent</artifactId>
+        <groupId>es.gobcan.istac.search</groupId>
+        <artifactId>search-parent</artifactId>
         <version>3.0.1-SNAPSHOT</version>
-        <relativePath>../idxmanager-parent/pom.xml</relativePath>
+        <relativePath>../search-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>buscador-opencms</artifactId>

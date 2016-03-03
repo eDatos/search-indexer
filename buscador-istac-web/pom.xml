@@ -3,12 +3,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-	<parent>
-		<groupId>es.gobcan.istac.idxmanager</groupId>
-		<artifactId>idxmanager-parent</artifactId>
-		<version>3.0.1-SNAPSHOT</version>
-		<relativePath>../idxmanager-parent/pom.xml</relativePath>
-	</parent>
+    <parent>
+        <groupId>es.gobcan.istac.search</groupId>
+        <artifactId>search-parent</artifactId>
+        <version>3.0.1-SNAPSHOT</version>
+        <relativePath>../search-parent/pom.xml</relativePath>
+    </parent>
 
 	<artifactId>buscador-istac-web</artifactId>
 	<name>BUSCADOR ISTAC :: WEB</name>
@@ -22,17 +22,17 @@
         <!-- IDXMANAGER	-->
  		<dependency>
 	     <groupId>${project.groupId}</groupId>
-	     <artifactId>idxmanager-domain</artifactId>
+	     <artifactId>search-domain</artifactId>
 	     <version>${project.version}</version>
 	   </dependency>
 	   <dependency>
 	     <groupId>${project.groupId}</groupId>
-	     <artifactId>idxmanager-dao</artifactId>
+	     <artifactId>search-dao</artifactId>
 	     <version>${project.version}</version>
 	   </dependency>
 	   <dependency>
 	     <groupId>${project.groupId}</groupId>
-	     <artifactId>idxmanager-service</artifactId>
+	     <artifactId>search-core</artifactId>
 	     <version>${project.version}</version>
 	   </dependency>
 		<!--  Spring -->
@@ -179,10 +179,6 @@
 		<dependency>
 			<groupId>com.arte.acom.acom-logging</groupId>
 			<artifactId>acom-logging</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.arte.acom.acom-configuration</groupId>
-			<artifactId>acom-configuration</artifactId>
 		</dependency>
 		
         <dependency>

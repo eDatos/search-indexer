@@ -21,10 +21,12 @@
 
     <modules>
         <module>search-parent</module>
-        <module>idxmanager-domain</module>
-        <module>idxmanager-dao</module>
+        <module>search-domain</module>
+        <module>search-dao</module>
         <module>search-core</module>
         <module>search-internal-web</module>
+        <module>buscador-istac-web</module>
+        <module>buscador-opencms</module>
     </modules>
 
     <build>

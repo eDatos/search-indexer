@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
+import org.siemac.metamac.core.common.exception.MetamacException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,26 +25,26 @@ import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
 import es.gobcan.istac.idxmanager.domain.mvc.Busqueda;
 import es.gobcan.istac.idxmanager.domain.mvc.enumerated.FiltroSeccionEnum;
 import es.gobcan.istac.idxmanager.domain.mvc.enumerated.FiltroTextoEnum;
-import es.gobcan.istac.idxmanager.service.busqueda.BusquedaService;
 import es.gobcan.istac.idxmanager.web.buscador.mvc.domain.FacetFieldWeb;
 import es.gobcan.istac.idxmanager.web.buscador.mvc.domain.FacetValueWeb;
 import es.gobcan.istac.idxmanager.web.buscador.util.PaginacionUtils;
 import es.gobcan.istac.idxmanager.web.buscador.util.WebUtils;
 import es.gobcan.istac.idxmanager.web.buscador.validation.BusquedaValidator;
+import es.gobcan.istac.search.core.idxmanager.service.busqueda.BusquedaService;
 
 @Controller
 public class BusquedaController {
 
-    protected Log log = LogFactory.getLog(BusquedaController.class);
+    protected Log            log                                  = LogFactory.getLog(BusquedaController.class);
 
-    private static final int RESULTS_BY_PAGE = 10;
+    private static final int RESULTS_BY_PAGE                      = 10;
     private static final int NUMER_OF_VISIBLE_PAGES_IN_PAGINATION = 5;
 
     @Autowired
-    private WebUtils webUtils;
+    private WebUtils         webUtils;
 
     @Autowired
-    private BusquedaService busquedaService;
+    private BusquedaService  busquedaService;
 
     @Autowired
     private FiltrosComponent filtrosComponent;
@@ -98,9 +99,10 @@ public class BusquedaController {
      * @param result
      * @param model
      * @return
+     * @throws MetamacException
      */
     @RequestMapping(value = {"/busca", "/busca/**"}, method = RequestMethod.GET)
-    public String read(@Valid Busqueda busqueda, BindingResult result, Model model) {
+    public String read(@Valid Busqueda busqueda, BindingResult result, Model model) throws MetamacException {
         BusquedaValidator.validate(busqueda, result);
 
         // Si errores al validar el formulario
@@ -141,7 +143,8 @@ public class BusquedaController {
         return "busqueda/lista";
     }
 
-    private void processBindingModel(SolrDocumentList solrDocumentList, SolrDocumentList solrSuggestedDocumentList, QueryResponse queryResponse, Model model, Busqueda busqueda) {
+    private void processBindingModel(SolrDocumentList solrDocumentList, SolrDocumentList solrSuggestedDocumentList, QueryResponse queryResponse, Model model, Busqueda busqueda)
+            throws MetamacException {
         // Datos
         model.addAttribute("documentList", solrDocumentList);
         model.addAttribute("suggestedDocumentList", solrSuggestedDocumentList);

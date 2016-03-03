@@ -6,31 +6,31 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.utils.URIBuilder;
+import org.siemac.metamac.core.common.exception.MetamacException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.arte.acom.configuration.ConfigurationService;
-
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
 import es.gobcan.istac.idxmanager.web.buscador.mvc.domain.BusquedaWrapper;
+import es.gobcan.istac.search.core.conf.SearchConfigurationService;
 
 @Component
 @Scope(value = "singleton")
 public class WebUtils {
 
-    protected static Log log = LogFactory.getLog(WebUtils.class);
+    protected static Log               log                = LogFactory.getLog(WebUtils.class);
 
     @Autowired
-    private ConfigurationService configurationService;
+    private SearchConfigurationService configurationService;
 
-    private String urlPublicacionJaxi = null;
-    private String urlPxJaxi = null;
-    private String urlPxJaxiDescarga = null;
+    private String                     urlPublicacionJaxi = null;
+    private String                     urlPxJaxi          = null;
+    private String                     urlPxJaxiDescarga  = null;
 
-    public String getUrlPublicacionJaxi() {
+    public String getUrlPublicacionJaxi() throws MetamacException {
         if (StringUtils.isEmpty(urlPublicacionJaxi)) {
-            StringBuilder buff = new StringBuilder(configurationService.getProperties().getProperty("istac.idxmanager.solr.urljaxi"));
+            StringBuilder buff = new StringBuilder(configurationService.retrieveSolrJaxiUrl());
             if (buff.charAt(buff.length() - 1) != '/') {
                 buff.append("/");
             }
@@ -40,9 +40,9 @@ public class WebUtils {
         return urlPublicacionJaxi;
     }
 
-    public String getUrlPxJaxi() {
+    public String getUrlPxJaxi() throws MetamacException {
         if (StringUtils.isEmpty(urlPxJaxi)) {
-            StringBuilder buff = new StringBuilder(configurationService.getProperties().getProperty("istac.idxmanager.solr.urljaxi"));
+            StringBuilder buff = new StringBuilder(configurationService.retrieveSolrJaxiUrl());
             if (buff.charAt(buff.length() - 1) != '/') {
                 buff.append("/");
             }
