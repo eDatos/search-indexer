@@ -30,6 +30,7 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
 
         // Create
         // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
