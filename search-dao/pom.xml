@@ -9,14 +9,14 @@
         <relativePath>../search-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>idxmanager-dao</artifactId>
-    <name>INDEXATION MANAGER :: DAO</name>
+    <artifactId>search-dao</artifactId>
+    <name>SEARCH :: DAO</name>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>idxmanager-domain</artifactId>
+            <artifactId>search-domain</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>

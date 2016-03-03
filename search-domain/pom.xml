@@ -9,8 +9,8 @@
         <relativePath>../search-parent/pom.xml</relativePath>
     </parent>
 
-	<artifactId>idxmanager-domain</artifactId>
-	<name>INDEXATION MANAGER :: DOMAIN</name>
+	<artifactId>search-domain</artifactId>
+	<name>SEARCH :: DOMAIN</name>
 	<packaging>jar</packaging>
 
 	<dependencies>

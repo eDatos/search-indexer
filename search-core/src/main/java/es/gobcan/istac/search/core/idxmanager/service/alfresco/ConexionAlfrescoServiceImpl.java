@@ -35,6 +35,7 @@ import org.apache.tika.parser.Parser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
+import org.siemac.metamac.core.common.exception.MetamacException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.ContentHandler;
@@ -45,6 +46,7 @@ import com.arte.acom.configuration.ConfigurationServiceImpl;
 import es.gobcan.istac.idxmanager.domain.alfresco.ContenidoOperacion;
 import es.gobcan.istac.idxmanager.domain.alfresco.NucleoMetadatosPublicado;
 import es.gobcan.istac.idxmanager.domain.util.ISO8601DateFormat;
+import es.gobcan.istac.search.core.conf.SearchConfigurationService;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
 import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
@@ -73,9 +75,8 @@ public class ConexionAlfrescoServiceImpl implements ConexionAlfrescoService {
             if (ticket == null) {
                 return false;
             }
-            Properties properties = ((ConfigurationServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("configurationService")).getProperties();
 
-            StringBuilder urlAlfresco = new StringBuilder((String) properties.get("istac.idxmanager.alfresco.url"));
+            StringBuilder urlAlfresco = new StringBuilder(getConfigurationService().retrieveAlfrescoUrl());
             if (urlAlfresco.charAt(urlAlfresco.length() - 1) != '/') {
                 urlAlfresco.append("/");
             }
@@ -101,15 +102,14 @@ public class ConexionAlfrescoServiceImpl implements ConexionAlfrescoService {
     private synchronized String obtenerNuevoTicket() throws ServiceExcepcion {
         // Ticket Alfresco
         try {
-            Properties properties = ((ConfigurationServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("configurationService")).getProperties();
 
-            StringBuilder urlTicketSB = new StringBuilder((String) properties.get("istac.idxmanager.alfresco.url"));
+            StringBuilder urlTicketSB = new StringBuilder(getConfigurationService().retrieveAlfrescoUrl());
             if (urlTicketSB.charAt(urlTicketSB.length() - 1) != '/') {
                 urlTicketSB.append("/");
             }
             urlTicketSB.append("service/api/login?");
-            urlTicketSB.append("u=").append((String) properties.get("istac.idxmanager.alfresco.user"));
-            urlTicketSB.append("&pw=").append((String) properties.get("istac.idxmanager.alfresco.pass"));
+            urlTicketSB.append("u=").append(getConfigurationService().retrieveAlfrescoUsername());
+            urlTicketSB.append("&pw=").append(getConfigurationService().retrieveAlfrescoPassword());
 
             // URL urlTicket = new URL(urlTicketSB.toString());
             // BufferedReader in = new BufferedReader(new InputStreamReader(urlTicket.openStream(), "UTF-8"));
@@ -155,10 +155,8 @@ public class ConexionAlfrescoServiceImpl implements ConexionAlfrescoService {
     /*
      * Le añade como prefio a la url la url de alfresco y le añade un ticket valido
      */
-    private String buildStringURL(String uri) throws MalformedURLException, ServiceExcepcion {
-        Properties properties = ((ConfigurationServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("configurationService")).getProperties();
-
-        StringBuilder urlAlfresco = new StringBuilder((String) properties.get("istac.idxmanager.alfresco.url"));
+    private String buildStringURL(String uri) throws MalformedURLException, ServiceExcepcion, MetamacException {
+        StringBuilder urlAlfresco = new StringBuilder(getConfigurationService().retrieveAlfrescoUrl());
         if (urlAlfresco.charAt(urlAlfresco.length() - 1) != '/') {
             urlAlfresco.append("/");
         }
@@ -167,15 +165,19 @@ public class ConexionAlfrescoServiceImpl implements ConexionAlfrescoService {
         return urlAlfresco + uri + (uri.lastIndexOf('?') == -1 ? ("?alf_ticket=" + ticket) : ("&alf_ticket=" + ticket));
     }
 
+    private SearchConfigurationService getConfigurationService() {
+        return (SearchConfigurationService) ApplicationContextProvider.getApplicationContext().getBean("configurationService");
+    }
+
     @Override
     public String obtenerContenidoNodo(String identifierUniv) throws ServiceExcepcion {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            Properties properties = ((ConfigurationServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("configurationService")).getProperties();
+            Properties properties = ((ConfigurationServiceImpl) getConfigurationService()).getProperties();
 
             // Url dle servicio que devuelve un nodeId a partir del universal identifier del istac y Le ponemos los parametros
             StringBuilder urlNodeIdServiceSB = new StringBuilder("service/istac/nodeUuid_fromUrn");
-            urlNodeIdServiceSB.append("?path=").append(((String) properties.get("istac.idxmanager.alfresco.pathRaiz")));
+            urlNodeIdServiceSB.append("?path=").append(getConfigurationService().retrieveAlfrescoPath());
             urlNodeIdServiceSB.append("&urn_uuid=").append(identifierUniv);
 
             String urlNodeIdServiceStr = buildStringURL(urlNodeIdServiceSB.toString());
@@ -287,9 +289,8 @@ public class ConexionAlfrescoServiceImpl implements ConexionAlfrescoService {
     public List<ContenidoOperacion> obtenerRecursosPublicados() throws ServiceExcepcion {
         try {
             ObjectMapper objMapper = new ObjectMapper();
-            Properties properties = ((ConfigurationServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("configurationService")).getProperties();
             StringBuilder urlRecursosPublicadosSB = new StringBuilder("service/istac/publicaciones_istac/");
-            urlRecursosPublicadosSB.append(((String) properties.get("istac.idxmanager.alfresco.pathRaiz")).replaceAll("cm:", ""));
+            urlRecursosPublicadosSB.append(getConfigurationService().retrieveAlfrescoPath().replaceAll("cm:", ""));
 
             String urlRecursosPublicados = buildStringURL(urlRecursosPublicadosSB.toString());
             log.info("Uri recursos publicados:: " + urlRecursosPublicados);

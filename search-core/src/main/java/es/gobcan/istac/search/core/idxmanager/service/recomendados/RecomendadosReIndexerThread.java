@@ -1,18 +1,16 @@
 package es.gobcan.istac.search.core.idxmanager.service.recomendados;
 
-import java.util.Properties;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 
-import com.arte.acom.configuration.ConfigurationServiceImpl;
 import com.thoughtworks.xstream.XStream;
 
 import es.gobcan.istac.idxmanager.domain.dom.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
+import es.gobcan.istac.search.core.conf.SearchConfigurationService;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
 import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
@@ -32,13 +30,11 @@ public class RecomendadosReIndexerThread implements Runnable {
         try {
             _getIndexacionStatus().setIdxSuggestedStatus(IndexacionStatusDomain.INDEXANDO);
 
-            Properties properties = ((ConfigurationServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("configurationService")).getProperties();
-
             // 0. Se eliminan todos los recursos GPE publicados
             _getRecomendadosIndexerService().borrar(IndexacionEnumDomain.ORIGENRECURSO.getCampo() + ":" + OrigenRecursoDomain.RECURSO_PATROCINADO.getSiglas());
 
             // 1. Obtener el fichero xml con patrocinados
-            String recomendadosFile = properties.getProperty("istac.idxmanager.indexacion.recomendados");
+            String recomendadosFile = getConfigurationService().retrieveIndexationRecommendedLinks();
 
             // 2. Parsear el xml
             Recomendados recomendados = new Recomendados();
@@ -64,6 +60,10 @@ public class RecomendadosReIndexerThread implements Runnable {
             log.error("Error: PatrocinadosIndexerServiceImpl:reindexarElementosPatrocinados " + e);
             new ServiceExcepcion(ServiceExcepcionTipo.SERVICE_REINDEXACION_RECOMENDADOS);
         }
+    }
+
+    private SearchConfigurationService getConfigurationService() {
+        return (SearchConfigurationService) ApplicationContextProvider.getApplicationContext().getBean("configurationService");
     }
 
     /**************************************************************************

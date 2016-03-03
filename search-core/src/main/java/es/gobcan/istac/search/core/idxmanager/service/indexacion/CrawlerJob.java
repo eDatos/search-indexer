@@ -3,7 +3,6 @@ package es.gobcan.istac.search.core.idxmanager.service.indexacion;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
@@ -24,10 +23,9 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import com.arte.acom.configuration.ConfigurationServiceImpl;
-
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
+import es.gobcan.istac.search.core.conf.SearchConfigurationService;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerServiceImpl;
 import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
@@ -79,10 +77,8 @@ public class CrawlerJob implements Job {
             solrCrawler.setProtocolFactory(protocolFactory);
             solrCrawler.setHandlerFactory(handlerFactory);
 
-            Properties properties = ((ConfigurationServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("configurationService")).getProperties();
-
             Collection<String> initialLocations = new ArrayList<String>();
-            initialLocations.add((String) properties.get("istac.idxmanager.indexacion.web.url"));
+            initialLocations.add(getConfigurationService().retrieveIndexationWebUrl());
             solrCrawler.setInitialLocations(initialLocations);
 
             // Borramos del indice, lo elementos WEB
@@ -112,5 +108,9 @@ public class CrawlerJob implements Job {
             throw new JobExecutionException(e);
         }
 
+    }
+
+    private SearchConfigurationService getConfigurationService() {
+        return (SearchConfigurationService) ApplicationContextProvider.getApplicationContext().getBean("configurationService");
     }
 }
