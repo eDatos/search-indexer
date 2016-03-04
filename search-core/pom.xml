@@ -218,10 +218,6 @@
             <artifactId>jackson-mapper-asl</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.arte.acom.acom-configuration</groupId>
-            <artifactId>acom-configuration</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
         </dependency>
@@ -229,12 +225,11 @@
         <!-- SEARCH -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>idxmanager-domain</artifactId>
-            <version>${project.version}</version>
+            <artifactId>search-domain</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>idxmanager-dao</artifactId>
+            <artifactId>search-dao</artifactId>
             <version>${project.version}</version>
         </dependency>
 

@@ -110,9 +110,8 @@
         <tika-version>1.8</tika-version>
         <droids-version>0.1-incubating-rev-1038800</droids-version>
         <jackson-version>1.6.1</jackson-version>
-        <acom-configuration-version>1.0.1</acom-configuration-version>
         <xstream-version>1.3.1</xstream-version>
-        
+
         <!-- BUSCADOR-ISTAC-WEB -->
         <acom-logging-version>1.0.1</acom-logging-version>
 
@@ -469,11 +468,6 @@
                 <version>${jackson-version}</version>
             </dependency>
             <dependency>
-                <groupId>com.arte.acom.acom-configuration</groupId>
-                <artifactId>acom-configuration</artifactId>
-                <version>${acom-configuration-version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>${xstream-version}</version>
@@ -691,6 +685,11 @@
             </dependency>
 
             <!-- SEARCH -->
+            <dependency>
+                <groupId>es.gobcan.istac.search</groupId>
+                <artifactId>search-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>es.gobcan.istac.search</groupId>
                 <artifactId>search-core</artifactId>
