@@ -41,8 +41,6 @@ import org.springframework.stereotype.Service;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
-import com.arte.acom.configuration.ConfigurationServiceImpl;
-
 import es.gobcan.istac.idxmanager.domain.alfresco.ContenidoOperacion;
 import es.gobcan.istac.idxmanager.domain.alfresco.NucleoMetadatosPublicado;
 import es.gobcan.istac.idxmanager.domain.util.ISO8601DateFormat;
@@ -173,7 +171,6 @@ public class ConexionAlfrescoServiceImpl implements ConexionAlfrescoService {
     public String obtenerContenidoNodo(String identifierUniv) throws ServiceExcepcion {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            Properties properties = ((ConfigurationServiceImpl) getConfigurationService()).getProperties();
 
             // Url dle servicio que devuelve un nodeId a partir del universal identifier del istac y Le ponemos los parametros
             StringBuilder urlNodeIdServiceSB = new StringBuilder("service/istac/nodeUuid_fromUrn");
