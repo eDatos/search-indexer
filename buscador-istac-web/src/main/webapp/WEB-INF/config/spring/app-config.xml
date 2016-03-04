@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<!-- Scans the classpath of this application for @Components to deploy as beans -->
-	<context:component-scan base-package="es.gobcan.istac.idxmanager.web.buscador" />
+	<context:component-scan base-package="es.gobcan.istac.idxmanager.web.buscador, es.gobcan.istac.search.core.idxmanager.service" />
 
 	<bean id="configurationService" class="com.arte.acom.configuration.ConfigurationServiceImpl">
 		<property name="systemConfigurationFile"><value>classpath:buscador/environment.xml</value></property>
@@ -36,6 +36,6 @@
 	<import resource="mvc-config.xml" />
 	
 	<!-- Configures Services Layer -->
-	<import resource="classpath:spring/idxmanager-services-beans.xml" />
+	<import resource="classpath:spring/include/idxmanager-services-beans.xml" />
 
 </beans>

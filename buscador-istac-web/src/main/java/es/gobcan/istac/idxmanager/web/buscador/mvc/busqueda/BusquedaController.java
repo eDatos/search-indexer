@@ -12,7 +12,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.solr.client.solrj.response.FacetField;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
-import org.siemac.metamac.core.common.exception.MetamacException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -99,10 +98,9 @@ public class BusquedaController {
      * @param result
      * @param model
      * @return
-     * @throws MetamacException
      */
     @RequestMapping(value = {"/busca", "/busca/**"}, method = RequestMethod.GET)
-    public String read(@Valid Busqueda busqueda, BindingResult result, Model model) throws MetamacException {
+    public String read(@Valid Busqueda busqueda, BindingResult result, Model model) {
         BusquedaValidator.validate(busqueda, result);
 
         // Si errores al validar el formulario
@@ -143,8 +141,7 @@ public class BusquedaController {
         return "busqueda/lista";
     }
 
-    private void processBindingModel(SolrDocumentList solrDocumentList, SolrDocumentList solrSuggestedDocumentList, QueryResponse queryResponse, Model model, Busqueda busqueda)
-            throws MetamacException {
+    private void processBindingModel(SolrDocumentList solrDocumentList, SolrDocumentList solrSuggestedDocumentList, QueryResponse queryResponse, Model model, Busqueda busqueda) {
         // Datos
         model.addAttribute("documentList", solrDocumentList);
         model.addAttribute("suggestedDocumentList", solrSuggestedDocumentList);
