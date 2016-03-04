@@ -1,6 +1,8 @@
 package es.gobcan.istac.search.web.server.handlers;
 
+import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.web.common.server.handlers.SecurityActionHandler;
+import org.siemac.metamac.web.common.server.utils.WebExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,7 @@ import es.gobcan.istac.search.web.shared.GetCronWebExpressionResult;
 public class GetCronWebExpressionActionHandler extends SecurityActionHandler<GetCronWebExpressionAction, GetCronWebExpressionResult> {
 
     @Autowired
-    private SearchConfigurationService configurationService = null;
+    private SearchConfigurationService configurationService;
 
     public GetCronWebExpressionActionHandler() {
         super(GetCronWebExpressionAction.class);
@@ -22,11 +24,11 @@ public class GetCronWebExpressionActionHandler extends SecurityActionHandler<Get
 
     @Override
     public GetCronWebExpressionResult executeSecurityAction(GetCronWebExpressionAction action) throws ActionException {
-        // try {
-        // FIXME - BUSCAISTAC-33, pending configurationService.retrieveCronWebExpression
-        return new GetCronWebExpressionResult("not implemented cron web expression");
-        // } catch (MetamacException e) {
-        // throw WebExceptionUtils.createMetamacWebException(e);
-        // }
+        try {
+            return new GetCronWebExpressionResult(configurationService.retrieveIndexationWebCron());
+        } catch (MetamacException e) {
+            throw WebExceptionUtils.createMetamacWebException(e);
+        }
     }
+
 }

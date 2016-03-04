@@ -7,6 +7,7 @@ import org.siemac.metamac.web.common.client.widgets.form.fields.ViewTextItem;
 
 import com.smartgwt.client.widgets.toolbar.ToolStripButton;
 
+import es.gobcan.istac.search.core.dto.IndexationStatusDto;
 import es.gobcan.istac.search.web.client.SearchWeb;
 import es.gobcan.istac.search.web.client.model.ds.ReindexDS;
 
@@ -14,8 +15,8 @@ public class ReindexFormLayout extends ViewMainFormLayout {
 
     ToolStripButton      reindexStartButton;
     private ViewTextItem cronExpression;
-    private ViewTextItem status;
-    private ViewTextItem lastExecutionSinceReboot;
+    private ViewTextItem statusKey;
+    private ViewTextItem lastExecutionDateSinceReboot;
 
     ReindexFormLayout() {
         super();
@@ -37,9 +38,9 @@ public class ReindexFormLayout extends ViewMainFormLayout {
         subpanel.setColWidths("30%", "*");
 
         cronExpression = new ViewTextItem(ReindexDS.CRON_EXPRESSION, SearchWeb.getConstants().cronExpression());
-        status = new ViewTextItem(ReindexDS.STATUS, SearchWeb.getConstants().status());
-        lastExecutionSinceReboot = new ViewTextItem(ReindexDS.LAST_EXECUTION_SINCE_REBOOT, SearchWeb.getConstants().lastExecutionSinceServerReboot());
-        subpanel.addFields(cronExpression, status, lastExecutionSinceReboot);
+        statusKey = new ViewTextItem(ReindexDS.STATUS, SearchWeb.getConstants().status());
+        lastExecutionDateSinceReboot = new ViewTextItem(ReindexDS.LAST_EXECUTION_SINCE_REBOOT, SearchWeb.getConstants().lastExecutionSinceServerReboot());
+        subpanel.addFields(cronExpression, statusKey, lastExecutionDateSinceReboot);
 
         addViewCanvas(subpanel);
     }
@@ -52,12 +53,21 @@ public class ReindexFormLayout extends ViewMainFormLayout {
         this.cronExpression.setValue(cronExpression);
     }
 
-    public void setStatus(String status) {
-        this.status.setValue(status);
+    public void setStatusKey(String status) {
+        statusKey.setValue(status);
+    }
+
+    public String getStatus() {
+        return (String) statusKey.getValue();
     }
 
     public void setLastExecutionSinceReboot(String lastExecutionSinceReboot) {
-        this.lastExecutionSinceReboot.setValue(lastExecutionSinceReboot);
+        lastExecutionDateSinceReboot.setValue(lastExecutionSinceReboot);
+    }
+
+    public void setIndexationStatus(IndexationStatusDto indexationStatus) {
+        setStatusKey(indexationStatus.getStatusKey());
+        setLastExecutionSinceReboot(indexationStatus.getLastExecutionDate());
     }
 
 }

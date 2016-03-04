@@ -1,6 +1,8 @@
 package es.gobcan.istac.search.web.server.handlers;
 
+import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.web.common.server.handlers.SecurityActionHandler;
+import org.siemac.metamac.web.common.server.utils.WebExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,7 @@ import es.gobcan.istac.search.web.shared.GetCronRecommendedLinksExpressionResult
 public class GetCronRecommendedLinksExpressionActionHandler extends SecurityActionHandler<GetCronRecommendedLinksExpressionAction, GetCronRecommendedLinksExpressionResult> {
 
     @Autowired
-    private SearchConfigurationService configurationService = null;
+    private SearchConfigurationService configurationService;
 
     public GetCronRecommendedLinksExpressionActionHandler() {
         super(GetCronRecommendedLinksExpressionAction.class);
@@ -22,11 +24,11 @@ public class GetCronRecommendedLinksExpressionActionHandler extends SecurityActi
 
     @Override
     public GetCronRecommendedLinksExpressionResult executeSecurityAction(GetCronRecommendedLinksExpressionAction action) throws ActionException {
-        // try {
-        // FIXME - BUSCAISTAC-33, pending configurationService.retrieveCronWebExpression
-        return new GetCronRecommendedLinksExpressionResult("not implemented cron recommended links expression");
-        // } catch (MetamacException e) {
-        // throw WebExceptionUtils.createMetamacWebException(e);
-        // }
+        try {
+            // Ahora mismo, se realiza a la vez que la web (CrawlerJob:105)
+            return new GetCronRecommendedLinksExpressionResult(configurationService.retrieveIndexationWebCron());
+        } catch (MetamacException e) {
+            throw WebExceptionUtils.createMetamacWebException(e);
+        }
     }
 }
