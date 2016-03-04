@@ -6,8 +6,8 @@ import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.gobcan.istac.idxmanager.domain.dom.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
+import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;

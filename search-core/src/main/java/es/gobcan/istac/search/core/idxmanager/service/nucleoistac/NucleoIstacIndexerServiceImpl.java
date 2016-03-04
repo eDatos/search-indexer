@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.gobcan.istac.idxmanager.domain.dom.FormatoRecursoIstaceDomain;
-import es.gobcan.istac.idxmanager.domain.dom.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
+import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
 import es.gobcan.istac.idxmanager.domain.util.Constants;
 import es.gobcan.istac.jaxi.pxservice.api.dominio.NucleoMetadatos;

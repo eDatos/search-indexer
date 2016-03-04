@@ -7,8 +7,8 @@ import org.springframework.core.io.Resource;
 
 import com.thoughtworks.xstream.XStream;
 
-import es.gobcan.istac.idxmanager.domain.dom.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
+import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
 import es.gobcan.istac.search.core.conf.SearchConfigurationService;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;

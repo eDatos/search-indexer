@@ -2,6 +2,8 @@ package es.gobcan.istac.search.core.dto;
 
 import java.io.Serializable;
 
+import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
+
 public class IndexationStatusDto implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
@@ -31,7 +33,15 @@ public class IndexationStatusDto implements Serializable, Cloneable {
     }
 
     public void setLastExecutionDate(String lastDate) {
-        this.lastExecutionDate = lastDate;
+        lastExecutionDate = lastDate;
+    }
+
+    public boolean isIndexing() {
+        return IndexacionStatusDomain.INDEXANDO.getSiglas().equals(statusKey);
+    }
+
+    public boolean isStopped() {
+        return IndexacionStatusDomain.PARADO.getSiglas().equals(statusKey);
     }
 
 }

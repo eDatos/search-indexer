@@ -6,7 +6,7 @@ import java.util.Date;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import es.gobcan.istac.idxmanager.domain.dom.IndexacionStatusDomain;
+import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.util.ISO8601DateFormat;
 
 @Component
