@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<recomendados>
+	<recomendacion palabras="documentos" >
+		<enlace url="http://localhost:9080/istac/complementaria/comp1_nogpe.pdf" titulo="Complementaria viticola web">
+			<descripcion>Descripcion del pdf ... </descripcion>
+		</enlace>
+		<enlace url="http://localhost:9080/jaxi-web/descarga.do?uripx=urn:uuid:1478a039-c137-4739-a23f-91bf6a185bcb" titulo="Metodología Operación EPA sin descrip">
+			<descripcion>Documento que describe la metodología de la operación</descripcion>
+		</enlace>
+		
+	</recomendacion>
+	<recomendacion palabras="paro" >
+		<enlace url="http://localhost:9080/jaxi-web/descarga.do?uripx=urn:uuid:1478a039-c137-4739-a23f-91bf6a185bcb" titulo="Metodología Operación EPA">
+			<descripcion>Documento que describe la metodología de la operación</descripcion>
+		</enlace>
+		<enlace url="http://localhost:9090/istac/doc.doc" titulo="Aplicacion Reg Vitícola">
+			<descripcion>Documento con detalles de la aplicación de registro vitícola</descripcion>
+		</enlace>
+	</recomendacion>
+	<recomendacion palabras="istac" >
+		<enlace url="http://localhost:9090/istac/doc.doc" titulo="Aplicacion Reg Vitícola">
+			<descripcion>Documento con detalles de la aplicación de registro vitícola</descripcion>
+		</enlace>
+		<enlace url="http://localhost:9090/istac/ppt.ppt" titulo="Result PPT">
+			<descripcion>Transparencias del curso</descripcion>
+		</enlace>
+	</recomendacion>
+	<recomendacion palabras="canario" >
+		<enlace url="http://localhost:9090/istac/doc.doc" titulo="Aplicacion Reg Vitícola">
+			<descripcion>Documento con detalles de la aplicación de registro vitícola</descripcion>
+		</enlace>
+		<enlace url="http://localhost:9090/istac/pps.pps" titulo="Powerpoint PPS">
+			<descripcion>Desc Power point</descripcion>
+		</enlace>
+		<enlace url="http://localhost:9090/istac/xml.xml" titulo="Datos de canarias">
+			<descripcion>Datos en xml del censo</descripcion>
+		</enlace>
+		
+		<enlace url="http://localhost:9090/istac/ipc_2010_08_b2006.pdf" titulo="IPC Canarias 2010">
+			<descripcion>Datos del IPC Canarias 2010</descripcion>
+		</enlace>
+	</recomendacion>
+</recomendados>
