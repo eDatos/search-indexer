@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <comment>Definición del entorno</comment>
+  <entry key="istac.idxmanager.data.url">../data</entry>
+</properties>

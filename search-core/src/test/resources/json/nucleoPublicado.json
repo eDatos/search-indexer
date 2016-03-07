@@ -1,0 +1,87 @@
+{
+	"identifierUniversal": "urn:uuid:b10e3a26-d12b-41d6-9b22-7d8dce96abe2",
+	"tipoRecurso": "ARCHIVO_PX",
+	"type": [
+				"DSC"
+				
+	    ],
+	"title": "Turistas jugadores de golf seg\u00fan pa\u00edses de residencia por islas de juego y per\u00edodos.",
+	"subtitle": [
+	    ],
+	"titleAlternative": [
+	    ],
+	 "surveyCode": "C00027A",   
+	 "surveyTitle": "Encuesta sobre satisfacci\u00f3n y gasto de los usuarios de campos de golf",   
+	 "surveyAlternative": "",   
+	 "subjectAreas": [
+				"Sector servicios > Hosteler\u00eda y turismo > Demanda tur\u00edstica: Turistas y pasajeros"
+				
+	    ],
+	  "subjectCodes": [
+				"08021"
+				
+	    ],
+	  "description": [
+	    ],
+	  "abstract": [
+	    ],
+	   "keywords": [
+				"Pa\u00edses de residencia"
+				,
+				"TOTAL"
+				,
+				"Espa\u00f1a (excepto Canarias)"
+				,
+				"Alemania"
+				,
+				"Reino Unido"
+				,
+				"Pa\u00edses N\u00f3rdicos"
+				,
+				"Otros pa\u00edses"
+				,
+				"###"
+				,
+				"Islas de juego"
+				,
+				"CANARIAS"
+				,
+				"Lanzarote - Fuerteventura"
+				,
+				"Gran Canaria"
+				,
+				"Tenerife - La Gomera"
+				,
+				"###"
+				
+	    ],
+	   "coverageSpatial": [
+	    ],
+	    "coverageSpatialCodes": [
+	    ],
+	    "coverageTemporal": [
+					"2008 Primer trimestre"
+					,
+					"2008 Segundo trimestre"
+					,
+					"2008 Tercer trimestre"
+					,
+					"2008 Cuarto trimestre"
+					,
+					"2009 Primer trimestre"
+					
+	    ],
+	    "coverageTemporalCodes": [
+					"2008Q1"	
+					,
+					"2008Q2"	
+					,
+					"2008Q3"	
+					,
+					"2008Q4"	
+					,
+					"2009Q1"	
+					
+	    ],
+	    "lastUpdate": "2009-06-25T10:00:00.000+0000"
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Configuraciones para SOLR</comment>
+	<!-- SOLR -->
+  	<entry key="istac.idxmanager.solr.endpoint">http://localhost:8983/solr</entry>
+    
+    <!-- En caso de usar un servidor Solr instalado en modo "cloud", en esta propiedad se debe especificar el nombre de la coleccion -->
+    <!-- En caso de usar un servidor Solr NO instalado en modo "cloud", en esta propiedad se debe especificar el nombre del core de indexacion -->
+    <entry key="istac.idxmanager.solr.core_or_collection">istac</entry>
+    <!-- "true" en caso de usar un servidor Solr instalado en modo "cloud", "false" en otro caso -->
+    <entry key="istac.idxmanager.solr.cloud_server_enabled">false</entry>
+
+
+	<!-- ALFRESCO CIBERCENTRO GPE -->
+ 	<entry key="istac.idxmanager.alfresco.url">http://localhost:8080/alfresco</entry>
+	<entry key="istac.idxmanager.alfresco.user">istac_gpe</entry>
+	<entry key="istac.idxmanager.alfresco.pass">istac_gpe93</entry>
+	<entry key="istac.idxmanager.alfresco.pathRaiz">cm:Aplicaciones/cm:Istac</entry>
+	
+	
+	<!-- INDEXACION: Por defecto todos los sabados a las 3:00 AM	-->
+	<entry key="istac.idxmanager.indexacion.web.cron">0 0 3 ? * 7</entry>
+	<!--entry key="istac.idxmanager.indexacion.web.cron">0 * * ? * *</entry-->
+	<!-- NOTA: La direccion web a idnexar debe comenzar con http://	-->
+<!--	<entry key="istac.idxmanager.indexacion.web.url">http://localhost/crawler/</entry>-->
+	<entry key="istac.idxmanager.indexacion.web.url">http://www.gobiernodecanarias.org/istac/</entry>
+</properties>
