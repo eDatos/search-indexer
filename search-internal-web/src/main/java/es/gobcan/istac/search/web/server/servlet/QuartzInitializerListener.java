@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.web.servlet;
+package es.gobcan.istac.search.web.server.servlet;
 
 import java.util.Date;
 import java.util.Properties;
@@ -9,17 +9,21 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
+import org.quartz.Job;
+import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
+import org.siemac.metamac.core.common.exception.MetamacException;
+import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 
-import com.arte.acom.configuration.ConfigurationService;
-import com.arte.acom.configuration.ConfigurationServiceImpl;
-
-import es.gobcan.istac.idxmanager.service.indexacion.CrawlerJob;
-import es.gobcan.istac.idxmanager.service.indexacion.GPEIndexerJob;
-import es.gobcan.istac.idxmanager.service.util.ApplicationContextProvider;
+import es.gobcan.istac.search.core.conf.SearchConfigurationService;
+import es.gobcan.istac.search.core.idxmanager.service.indexacion.CrawlerJob;
+import es.gobcan.istac.search.core.idxmanager.service.indexacion.GPEIndexerJob;
 
 /**
  * <p>
@@ -41,14 +45,13 @@ import es.gobcan.istac.idxmanager.service.util.ApplicationContextProvider;
  *         &lt;param-name&gt;quartz-start-scheduler-on-load&lt;/param-name&gt;
  *         &lt;param-value&gt;true&lt;/param-value&gt;
  *     &lt;/context-param&gt;
- *     
+ *
  *     &lt;listener&gt;
  *         &lt;listener-class&gt;
  *             es.gobcan.istac.gpe.web.servlet.QuartzInitializerListener
  *         &lt;/listener-class&gt;
  *     &lt;/listener&gt;
  * </pre>
- *
  * </p>
  * <p>
  * The init parameter 'quartz-config-name' can be used to specify the name. If you leave out this parameter, the default ("quartz") will be used.
@@ -63,9 +66,9 @@ import es.gobcan.istac.idxmanager.service.util.ApplicationContextProvider;
  * </p>
  * A StdSchedulerFactory instance is stored into the ServletContext. You can gain access
  * to the factory from a ServletContext instance like this: <br>
- * 
+ *
  * <pre>
- * 
+ *
  * StdSchedulerFactory factory = (StdSchedulerFactory) ctx.getAttribute(QuartzInitializerListener.QUARTZ_FACTORY_KEY);
  * </pre>
  * <p>
@@ -83,15 +86,17 @@ import es.gobcan.istac.idxmanager.service.util.ApplicationContextProvider;
  */
 public class QuartzInitializerListener implements ServletContextListener {
 
-    protected static Log LOG = LogFactory.getLog(QuartzInitializerListener.class);
+    private static final String        GROUP_IDX_JOBS             = "groupIdx";
 
-    public static final String QUARTZ_FACTORY_KEY = "org.quartz.impl.StdSchedulerFactory.KEY";
+    protected static Log               LOG                        = LogFactory.getLog(QuartzInitializerListener.class);
 
-    private boolean performShutdown = true;
+    public static final String         QUARTZ_FACTORY_KEY         = "org.quartz.impl.StdSchedulerFactory.KEY";
 
-    private Scheduler scheduler = null;
+    private boolean                    performShutdown            = true;
 
-    private ConfigurationService configurationService;
+    private Scheduler                  scheduler                  = null;
+
+    private SearchConfigurationService searchConfigurationService = null;
 
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -99,6 +104,7 @@ public class QuartzInitializerListener implements ServletContextListener {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
+    @Override
     public void contextInitialized(ServletContextEvent sce) {
 
         System.out.println("Quartz Initializer Servlet loaded, initializing Scheduler...");
@@ -112,8 +118,7 @@ public class QuartzInitializerListener implements ServletContextListener {
             // }
             String shutdownPref = servletContext.getInitParameter("quartz-shutdown-on-unload");
 
-            configurationService = (ConfigurationService) ApplicationContextProvider.getApplicationContext().getBean("configurationService");
-            Properties quartzProperties = configurationService.getProperties();
+            Properties quartzProperties = getSearchConfigurationService().getProperties();
 
             if (shutdownPref != null) {
                 performShutdown = Boolean.valueOf(shutdownPref).booleanValue();
@@ -178,6 +183,7 @@ public class QuartzInitializerListener implements ServletContextListener {
         }
     }
 
+    @Override
     public void contextDestroyed(ServletContextEvent sce) {
 
         if (!performShutdown) {
@@ -198,22 +204,37 @@ public class QuartzInitializerListener implements ServletContextListener {
     }
 
     private void crearJobsCron() throws Exception {
+
         // INDEXACION WEB JOB
-        JobDetail job = new JobDetail("crawlerJOB", "groupIdx", CrawlerJob.class);
+        crearJobCron(CrawlerJob.class, "crawlerJOB", "triggerCrawler", getSearchConfigurationService().retrieveIndexationWebCron());
 
-        Properties properties = ((ConfigurationServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("configurationService")).getProperties();
-        CronTrigger trigger = new CronTrigger("triggerCrawler", "groupIdx", "crawlerJOB", "groupIdx", (String) properties.get("istac.idxmanager.indexacion.web.cron"));
-        scheduler.addJob(job, true);
-        Date ft = scheduler.scheduleJob(trigger);
-        LOG.info(job.getFullName() + " ha sido planificado para ejecutase en fecha: " + ft + " y repetirse de acuerdo a la " + " expresion cron: " + trigger.getCronExpression());
+        // INDEXACION GPE JOB
+        crearJobCron(GPEIndexerJob.class, "gpeIndexerJob", "triggerGPEIndexer", getSearchConfigurationService().retrieveIndexationGpeCron());
+    }
 
-        job = new JobDetail("gpeIndexerJOB", "groupIdx", GPEIndexerJob.class);
-        trigger = new CronTrigger("triggerGPEIndexer", "groupIdx", "gpeIndexerJOB", "groupIdx", (String) properties.get("istac.idxmanager.indexacion.gpe.cron"));
-        scheduler.addJob(job, true);
+    private void crearJobCron(Class<? extends Job> jobClass, String jobName, String triggerName, String cronExpression) throws MetamacException, SchedulerException {
+        //@formatter:off
+        JobDetail job = JobBuilder
+                .newJob(jobClass)
+                .withIdentity(jobName, GROUP_IDX_JOBS)
+                .build();
 
-        ft = scheduler.scheduleJob(trigger);
-        LOG.info(job.getFullName() + " ha sido planificado para ejecutase en fecha: " + ft + " y repetirse de acuerdo a la " + " expresion cron: " + trigger.getCronExpression());
+        CronTrigger trigger = TriggerBuilder
+                .newTrigger()
+                .withIdentity(triggerName, GROUP_IDX_JOBS)
+                .withSchedule(CronScheduleBuilder.cronSchedule(cronExpression))
+                .build();
+        //@formatter:on
 
+        Date ft = scheduler.scheduleJob(job, trigger);
+        LOG.info(job.getKey() + " ha sido planificado para ejecutase en fecha: " + ft + " y repetirse de acuerdo a la expresion cron: " + trigger.getCronExpression());
+    }
+
+    private SearchConfigurationService getSearchConfigurationService() {
+        if (searchConfigurationService == null) {
+            searchConfigurationService = (SearchConfigurationService) ApplicationContextProvider.getApplicationContext().getBean("configurationService");
+        }
+        return searchConfigurationService;
     }
 
 }

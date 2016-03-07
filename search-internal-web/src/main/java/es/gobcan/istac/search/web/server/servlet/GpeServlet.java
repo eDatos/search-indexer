@@ -1,4 +1,4 @@
-package es.gobcan.istac.idxmanager.web.servlet;
+package es.gobcan.istac.search.web.server.servlet;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,31 +10,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.thoughtworks.xstream.XStream;
 
-import es.gobcan.istac.idxmanager.service.excepcion.ServiceExcepcion;
-import es.gobcan.istac.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
-import es.gobcan.istac.idxmanager.service.util.ApplicationContextProvider;
 import es.gobcan.istac.jaxi.pxservice.api.dominio.NucleoMetadatos;
-
+import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
+import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
+import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
 
 /**
  * Clase que recibe un HttpPost con una serializacion del bean del nucleo de metadatos del istac.
- * 
- * @author arte
  *
+ * @author arte
  */
 public class GpeServlet extends HttpServlet {
-    
+
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         boolean hayError = false;
-        
+
         /*
          * Deserializacion del objeto enviado
          */
@@ -43,8 +40,7 @@ public class GpeServlet extends HttpServlet {
             XStream xstream = new XStream();
             ObjectInputStream in = xstream.createObjectInputStream(req.getInputStream());
             NucleoMetadatos nucleoMetadatos = null;
-            
-            
+
             try {
                 nucleoMetadatos = (NucleoMetadatos) in.readObject();
             } catch (ClassNotFoundException e) {
@@ -54,10 +50,10 @@ public class GpeServlet extends HttpServlet {
             /*
              * Indexacion del objeto enviado
              */
-            
+
             if (!hayError) {
                 NucleoIstacIndexerService nucleoIstacIndexerService = (NucleoIstacIndexerService) ApplicationContextProvider.getApplicationContext().getBean("nucleoIstacIndexerServiceImpl");
-                
+
                 try {
                     nucleoIstacIndexerService.indexarElementoGPE(nucleoMetadatos, req.getHeader("formatoRecurso"));
                     nucleoIstacIndexerService.commitANDoptimize();
@@ -68,20 +64,19 @@ public class GpeServlet extends HttpServlet {
         } else if (direccion.equals("salida")) {
             ObjectInputStream in = new ObjectInputStream(req.getInputStream());
             String id = null;
-            
+
             try {
                 id = (String) in.readObject();
             } catch (ClassNotFoundException e) {
                 hayError = true;
             }
-            
+
             /*
              * DesIndexacion del objeto enviado
              */
-            
-            
+
             NucleoIstacIndexerService nucleoIstacIndexerService = (NucleoIstacIndexerService) ApplicationContextProvider.getApplicationContext().getBean("nucleoIstacIndexerServiceImpl");
-            
+
             try {
                 nucleoIstacIndexerService.eliminarElemento(id);
                 nucleoIstacIndexerService.commitANDoptimize();
@@ -90,19 +85,16 @@ public class GpeServlet extends HttpServlet {
             }
         }
 
-        
         /*
          * Respuesta satisfactoria/insatisfactoria
          */
 
         resp.setContentType("text/html");
         if (!hayError) {
-            resp.setStatus(resp.SC_ACCEPTED);
+            resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
-        else {
-            resp.setStatus(resp.SC_INTERNAL_SERVER_ERROR);
-        }
-        
 
     }
 }

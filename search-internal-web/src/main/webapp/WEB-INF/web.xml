@@ -35,6 +35,10 @@
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 
+    <listener>
+        <listener-class>es.gobcan.istac.search.web.server.servlet.QuartzInitializerListener</listener-class>
+    </listener>
+    
 	<!-- SSO -->
 	<listener>
 		<listener-class>org.siemac.metamac.web.common.server.session.SingleSignOutHttpSessionListener</listener-class>
@@ -49,7 +53,13 @@
 		<servlet-name>remoteLogging</servlet-name>
 		<servlet-class>com.google.gwt.logging.server.RemoteLoggingServiceImpl</servlet-class>
 	</servlet>
-
+    
+    <!-- GPE Servlet -->
+    <servlet>
+        <servlet-name>Gpe Servlet</servlet-name>
+        <servlet-class>es.gobcan.istac.idxmanager.web.servlet.GpeServlet</servlet-class>
+    </servlet>
+        
 	<servlet-mapping>
 		<servlet-name>dispatch</servlet-name>
 		<url-pattern>/dispatch/*</url-pattern>
@@ -60,6 +70,12 @@
 		<servlet-name>remoteLogging</servlet-name>
 		<url-pattern>/SearchWeb/remote_logging</url-pattern>
 	</servlet-mapping>
+    
+    <!-- GPE Servlet -->
+    <servlet-mapping>
+        <servlet-name>Gpe Servlet</servlet-name>
+        <url-pattern>*.idx</url-pattern>
+    </servlet-mapping>
 
 	<!-- ******************* Default page to serve ******************** -->
 	<welcome-file-list>
