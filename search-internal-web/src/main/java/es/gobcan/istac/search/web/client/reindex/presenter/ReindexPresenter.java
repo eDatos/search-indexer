@@ -235,7 +235,7 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
     @Override
     public void showMessageIfStatusChangedToFinished(IndexationStatusDto indexationStatus, String oldStatus, String message) {
         if (indexationStatus != null && indexationStatus.isStopped()) {
-            if (!IndexacionStatusDomain.PARADO.getSiglas().equals(oldStatus)) {
+            if (oldStatus != null && !IndexacionStatusDomain.PARADO.getSiglas().equals(oldStatus)) {
                 ShowMessageEvent.fireSuccessMessage(ReindexPresenter.this, message);
             }
         }
