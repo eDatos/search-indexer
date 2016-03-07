@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>publicaciones_istac</shortname>
+  <description>Devuelve el listado de publicaciones y pxs del istac</description>
+  <url>/istac/publicaciones_istac/{path}</url>
+  <format default="json"/>
+  <transaction>required</transaction>
+  <authentication>guest</authentication>
+</webscript>

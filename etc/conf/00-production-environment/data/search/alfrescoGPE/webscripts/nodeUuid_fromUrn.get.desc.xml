@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>nodeUuid_fromUrn</shortname>
+  <description>Devuelve el NodeUuid a partir del universoal identifier del nucleo de metadatos</description>
+  <url>/istac/nodeUuid_fromUrn?path={path}&amp;urn_uuid={urn_uuid}</url>
+  <format default="json"/>
+  <transaction>required</transaction>
+  <authentication>guest</authentication>
+</webscript>

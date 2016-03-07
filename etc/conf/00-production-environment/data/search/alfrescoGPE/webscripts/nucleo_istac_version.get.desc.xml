@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>nucleo_istac</shortname>
+  <description>Devuelve un nucleo de metadatos del istac en una cierta version</description>
+  <url>/istac/nucleo_istac_version/{nodeId}/{version}</url>
+  <format default="json"/>
+  <transaction>required</transaction>
+  <authentication>guest</authentication>
+</webscript>
