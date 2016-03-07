@@ -3,9 +3,6 @@
 <properties>
     <comment>Search environment definition</comment>
 
-    <!-- Configuration properties in files -->
-    <entry key="environment.search.data">/data/istac/search</entry>
-
     <!-- Configuration properties in database (ORACLE) -->
     <entry key="environment.metamac.configuration.db.username">FILL_ME_WITH_DB_USER</entry>
     <entry key="environment.metamac.configuration.db.password">FILL_ME_WITH_DB_PASSWORD</entry>
