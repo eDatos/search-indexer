@@ -8,7 +8,10 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	
 	<!-- Aspectos -->
-	<aop:aspectj-autoproxy />	
+	<aop:aspectj-autoproxy />
+    
+    <!-- Scans for application @Component, @Service, @Controller, etc. -->
+    <context:component-scan base-package="es.gobcan.istac.search.core.idxmanager.service" />	
 
 	<bean name="solr" class="es.gobcan.istac.search.core.idxmanager.service.solr.SolrServiceImpl">
 		<property name="solrUrl" value="${istac.idxmanager.solr.endpoint}" />
