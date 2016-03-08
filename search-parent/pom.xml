@@ -842,7 +842,7 @@
                         <forkMode>once</forkMode>
                         <argLine>-Dfile.encoding=UTF-8 -Xms32m -Xmx1024m</argLine>
                         <classpathDependencyExcludes>
-                            <classpathDependencyExclude>p2.osgi.bundle:com.google.collect</classpathDependencyExclude>
+                            <classpathDependencyExclude>p2.osgi.bundle:com.google.collect</classpathDependencyExclude> 
                         </classpathDependencyExcludes>
                     </configuration>
                 </plugin>
