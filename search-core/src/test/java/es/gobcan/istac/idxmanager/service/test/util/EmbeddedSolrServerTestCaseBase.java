@@ -13,20 +13,19 @@ import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.core.CoreContainer;
 import org.junit.After;
 import org.junit.Before;
+import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.gobcan.istac.idxmanager.service.util.ApplicationContextProvider;
-
 public abstract class EmbeddedSolrServerTestCaseBase {
 
-    protected static Logger log = LoggerFactory.getLogger(EmbeddedSolrServerTestCaseBase.class);
+    protected static Logger     log       = LoggerFactory.getLogger(EmbeddedSolrServerTestCaseBase.class);
 
-    protected static File SOLR_HOME = null;
-    private static final String SOLR_XML = "solr.xml";
+    protected static File       SOLR_HOME = null;
+    private static final String SOLR_XML  = "solr.xml";
 
-    protected CoreContainer cores = null;
-    protected Path tempPath;
+    protected CoreContainer     cores     = null;
+    protected Path              tempPath;
 
     @Before
     public void setUp() throws Exception {

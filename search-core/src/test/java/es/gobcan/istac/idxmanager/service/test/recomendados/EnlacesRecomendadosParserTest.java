@@ -11,9 +11,9 @@ import org.junit.Test;
 
 import com.thoughtworks.xstream.XStream;
 
-import es.gobcan.istac.idxmanager.service.recomendados.Enlace;
-import es.gobcan.istac.idxmanager.service.recomendados.Recomendacion;
-import es.gobcan.istac.idxmanager.service.recomendados.Recomendados;
+import es.gobcan.istac.search.core.idxmanager.service.recomendados.Enlace;
+import es.gobcan.istac.search.core.idxmanager.service.recomendados.Recomendacion;
+import es.gobcan.istac.search.core.idxmanager.service.recomendados.Recomendados;
 
 public class EnlacesRecomendadosParserTest {
 
@@ -58,7 +58,7 @@ public class EnlacesRecomendadosParserTest {
 
     @Test
     public void readEncoding() throws UnsupportedEncodingException, FileNotFoundException {
-        String recomendadosFile = "../idxmanager-parent/etc/buscador/idxmanager/conf/estatica/recomendados.xml";
+        String recomendadosFile = "../etc/conf/00-production-environment/data/search/recomendados.xml";
         XStream xstream = new XStream();
         xstream.processAnnotations(Recomendados.class);
         Recomendados recomendados = new Recomendados();

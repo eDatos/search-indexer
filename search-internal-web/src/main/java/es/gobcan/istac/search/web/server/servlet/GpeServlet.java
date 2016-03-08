@@ -8,12 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.siemac.metamac.core.common.util.ApplicationContextProvider;
+
 import com.thoughtworks.xstream.XStream;
 
 import es.gobcan.istac.jaxi.pxservice.api.dominio.NucleoMetadatos;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
-import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
 
 /**
  * Clase que recibe un HttpPost con una serializacion del bean del nucleo de metadatos del istac.

@@ -441,6 +441,17 @@
             <!-- IDXMANAGER -->
             <dependency>
                 <groupId>org.apache.solr</groupId>
+                <artifactId>solr-core</artifactId>
+                <version>${solar-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.solr</groupId>
+                <artifactId>solr-test-framework</artifactId>
+                <version>${solar-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.solr</groupId>
                 <artifactId>solr-solrj</artifactId>
                 <version>${solar-version}</version>
             </dependency>

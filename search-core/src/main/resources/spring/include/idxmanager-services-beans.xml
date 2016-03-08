@@ -20,7 +20,7 @@
 	</bean>
 
     <!-- Acceso al contexto de Spring desde cualquier sitio -->
-    <bean id="contextApplicationContextProvider" class="es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider"></bean>  
+    <bean id="contextApplicationContextProvider" class="org.siemac.metamac.core.common.util.ApplicationContextProvider"></bean>  
     
 	<import resource="classpath:spring/include/crawlerIstac-beans.xml"/>	
 </beans>

@@ -12,7 +12,7 @@ import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
-import es.gobcan.istac.idxmanager.service.indexacion.CustomMtdParseImpl;
+import es.gobcan.istac.search.core.idxmanager.service.indexacion.CustomMtdParseImpl;
 
 public class TestTikaExtract {
 

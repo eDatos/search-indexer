@@ -22,6 +22,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
@@ -29,7 +30,6 @@ import es.gobcan.istac.search.core.conf.SearchConfigurationService;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerServiceImpl;
 import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
-import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
 
 public class CrawlerJob implements Job {
 

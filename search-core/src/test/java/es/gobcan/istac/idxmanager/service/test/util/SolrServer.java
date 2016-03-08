@@ -4,7 +4,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import es.gobcan.istac.idxmanager.service.solr.SolrService;
+import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
 
 public class SolrServer extends EmbeddedSolrServerTestCaseBase implements InitializingBean, DisposableBean {
 

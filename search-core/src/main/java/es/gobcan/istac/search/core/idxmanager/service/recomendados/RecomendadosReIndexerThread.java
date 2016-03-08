@@ -2,6 +2,7 @@ package es.gobcan.istac.search.core.idxmanager.service.recomendados;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 
@@ -14,7 +15,6 @@ import es.gobcan.istac.search.core.conf.SearchConfigurationService;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
 import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
-import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
 
 public class RecomendadosReIndexerThread implements Runnable {
 

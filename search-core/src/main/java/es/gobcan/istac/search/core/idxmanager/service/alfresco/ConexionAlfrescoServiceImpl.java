@@ -13,7 +13,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +35,7 @@ import org.apache.tika.sax.BodyContentHandler;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.siemac.metamac.core.common.exception.MetamacException;
+import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xml.sax.ContentHandler;
@@ -47,7 +47,6 @@ import es.gobcan.istac.idxmanager.domain.util.ISO8601DateFormat;
 import es.gobcan.istac.search.core.conf.SearchConfigurationService;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
-import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
 import es.gobcan.istac.search.core.idxmanager.service.util.ServiceUtils;
 
 @Service

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.springframework.context.ApplicationContext;
 
 import es.gobcan.istac.idxmanager.domain.alfresco.ContenidoOperacion;
@@ -14,7 +15,6 @@ import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
 import es.gobcan.istac.search.core.idxmanager.service.alfresco.ConexionAlfrescoService;
 import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
-import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
 
 public class GpeReIndexerThread implements Runnable {
 

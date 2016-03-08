@@ -18,25 +18,25 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import es.gobcan.istac.idxmanager.service.indexacion.SolrCrawlingDroid;
 import es.gobcan.istac.idxmanager.service.test.util.WithoutSolrTestBase;
+import es.gobcan.istac.search.core.idxmanager.service.indexacion.SolrCrawlingDroid;
 
 public class DroidTest extends WithoutSolrTestBase {
 
     @Autowired
-    private URLFiltersFactory filtersFactory = null;
+    private URLFiltersFactory filtersFactory  = null;
 
     @Autowired
-    private ParserFactory parserFactory = null;
+    private ParserFactory     parserFactory   = null;
 
     @Autowired
-    private ProtocolFactory protocolFactory = null;
+    private ProtocolFactory   protocolFactory = null;
 
     @Autowired
-    private DroidsHttpClient httpclient = null;
+    private DroidsHttpClient  httpclient      = null;
 
     @Autowired
-    private HandlerFactory handlerFactory = null;
+    private HandlerFactory    handlerFactory  = null;
 
     @Test
     @Ignore

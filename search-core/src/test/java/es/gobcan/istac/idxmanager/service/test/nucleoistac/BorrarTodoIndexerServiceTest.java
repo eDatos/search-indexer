@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
-import es.gobcan.istac.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
 import es.gobcan.istac.idxmanager.service.test.util.TestBase;
+import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
 
 public class BorrarTodoIndexerServiceTest extends TestBase {
 

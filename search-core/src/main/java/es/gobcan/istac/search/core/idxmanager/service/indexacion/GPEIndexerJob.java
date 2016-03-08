@@ -5,12 +5,12 @@ import org.apache.commons.logging.LogFactory;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 
 import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
 import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerServiceImpl;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerServiceImpl;
-import es.gobcan.istac.search.core.idxmanager.service.util.ApplicationContextProvider;
 
 public class GPEIndexerJob implements Job {
 

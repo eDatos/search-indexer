@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import es.gobcan.istac.idxmanager.domain.dom.FormatoRecursoIstaceDomain;
 import es.gobcan.istac.idxmanager.domain.dom.TypeNMDomain;
-import es.gobcan.istac.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
 import es.gobcan.istac.idxmanager.service.test.util.TestBase;
 import es.gobcan.istac.jaxi.pxservice.api.dominio.NucleoMetadatos;
+import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
 
 public class NucleoIstacIndexerServiceTest extends TestBase {
 
@@ -62,10 +62,9 @@ public class NucleoIstacIndexerServiceTest extends TestBase {
                 nucleoIstacDomain.setCoverageTemporalCodes(Arrays.asList("d30", "m12"));
             }
 
-            nucleoIstacDomain
-                    .setDescription(Arrays
-                            .asList("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.",
-                                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim."));
+            nucleoIstacDomain.setDescription(Arrays.asList(
+                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.",
+                    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim."));
             nucleoIstacDomain.setAbstract(Arrays.asList("Esto es un texto abstracto de complemento"));
             nucleoIstacDomain.setKeywords(Arrays.asList("tenerife", "gran canaria", "la gomera", "el hierro", "la palma", "fuerteventura", "lanzarote"));
 
