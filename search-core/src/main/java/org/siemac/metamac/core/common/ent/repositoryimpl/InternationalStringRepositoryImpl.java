@@ -1,8 +1,8 @@
 package org.siemac.metamac.core.common.ent.repositoryimpl;
 
-import java.util.Collection;
-
 import org.springframework.stereotype.Repository;
+
+import java.util.Collection;
 
 /**
  * Repository implementation for InternationalString

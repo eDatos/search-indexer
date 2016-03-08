@@ -441,11 +441,6 @@
             <!-- IDXMANAGER -->
             <dependency>
                 <groupId>org.apache.solr</groupId>
-                <artifactId>solr-core</artifactId>
-                <version>${solar-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.solr</groupId>
                 <artifactId>solr-test-framework</artifactId>
                 <version>${solar-version}</version>
                 <scope>test</scope>
@@ -846,6 +841,9 @@
                         <outputEncoding>UTF-8</outputEncoding>
                         <forkMode>once</forkMode>
                         <argLine>-Dfile.encoding=UTF-8 -Xms32m -Xmx1024m</argLine>
+                        <classpathDependencyExcludes>
+                            <classpathDependencyExclude>p2.osgi.bundle:com.google.collect</classpathDependencyExclude>
+                        </classpathDependencyExcludes>
                     </configuration>
                 </plugin>
 
