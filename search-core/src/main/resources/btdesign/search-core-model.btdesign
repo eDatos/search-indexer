@@ -1,5 +1,5 @@
 
-import "classpath:/btdesign/export/metamac-core-common-entity.btdesign"
+/* import "classpath:/btdesign/export/metamac-core-common-entity.btdesign" */
 import "classpath:/btdesign/metamac-core-common-dtos.btdesign"
 
 Application Search {

@@ -36,8 +36,8 @@
 	<import resource="classpath:/spring/general-beans-advice.xml" />
 
 	<!-- search-core -->
-	<import resource="classpath:/spring/include/datasource.xml" />
-	<import resource="classpath:/spring/include/entity-manager-factory.xml" />
+<!-- 	<import resource="classpath:/spring/include/datasource.xml" /> -->
+<!-- 	<import resource="classpath:/spring/include/entity-manager-factory.xml" /> -->
 	<import resource="classpath:/spring/include/interceptor.xml" />
     
     <!-- idxmanager -->

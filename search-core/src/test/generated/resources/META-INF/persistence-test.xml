@@ -5,9 +5,6 @@
     <description>JPA configuration for Search</description>  
     <provider>org.hibernate.ejb.HibernatePersistence</provider>  
     <!-- annotated classes -->  
-    <class>org.siemac.metamac.core.common.ent.domain.ExternalItem</class>  
-    <class>org.siemac.metamac.core.common.ent.domain.InternationalString</class>  
-    <class>org.siemac.metamac.core.common.ent.domain.LocalisedString</class>  
     <!-- propeties  -->  
     <properties> 
       <property name="hibernate.dialect" value="org.fornax.cartridges.sculptor.framework.persistence.CustomHSQLDialect"/>  
