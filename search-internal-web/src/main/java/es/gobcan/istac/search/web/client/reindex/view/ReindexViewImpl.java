@@ -106,7 +106,7 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
     @Override
     public void updateReindexWebButtonStartDisability(IndexationStatusDto indexationStatus) {
         if (indexationStatus == null || !indexationStatus.isIndexing()) {
-            reindexLayout.getReindexGpeStartButton().enable();
+            reindexLayout.getReindexWebStartButton().enable();
         }
     }
 

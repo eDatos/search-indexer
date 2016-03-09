@@ -19,7 +19,7 @@ public class GetIndexationStatusWebActionHandler extends SecurityActionHandler<G
     @Override
     public GetIndexationStatusWebResult executeSecurityAction(GetIndexationStatusWebAction action) throws ActionException {
         // IndexationStatusDto indexationStatus = new IndexationStatusDto(indexationStatusRecommendedLinks.getIdxSuggestedStatusSiglas(), indexationStatusRecommendedLinks.getIdxSuggestedLastDate());
-        IndexationStatusDto indexationStatus = new IndexationStatusDto("not implemented", "not implemented");
+        IndexationStatusDto indexationStatus = new IndexationStatusDto(null, "not implemented");
         return new GetIndexationStatusWebResult(indexationStatus);
     }
 }

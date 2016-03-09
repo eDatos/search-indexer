@@ -78,15 +78,15 @@ public class ReindexLayout extends VLayout {
     }
 
     public String getIndexationWebStatus() {
-        return reindexWeb.getStatus();
+        return reindexWeb.getStatusKey();
     }
 
     public String getIndexationGpeStatus() {
-        return reindexGpe.getStatus();
+        return reindexGpe.getStatusKey();
     }
 
     public String getIndexationRecommendedLinksStatus() {
-        return reindexRecommendedLinks.getStatus();
+        return reindexRecommendedLinks.getStatusKey();
     }
 
 }

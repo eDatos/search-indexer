@@ -7,6 +7,7 @@ import com.gwtplatform.mvp.client.gin.DefaultModule;
 import es.gobcan.istac.search.web.client.SearchLoggedInGatekeeper;
 import es.gobcan.istac.search.web.client.SearchPlaceManager;
 import es.gobcan.istac.search.web.client.SearchWebConstants;
+import es.gobcan.istac.search.web.client.SearchWebCoreMessages;
 import es.gobcan.istac.search.web.client.SearchWebMessages;
 import es.gobcan.istac.search.web.client.main.presenter.ErrorPagePresenter;
 import es.gobcan.istac.search.web.client.main.presenter.MainPagePresenter;
@@ -45,6 +46,7 @@ public class ClientModule extends AbstractPresenterModule {
 
         // Interfaces
         bind(SearchWebConstants.class).in(Singleton.class);
+        bind(SearchWebCoreMessages.class).in(Singleton.class);
         bind(SearchWebMessages.class).in(Singleton.class);
     }
 }
