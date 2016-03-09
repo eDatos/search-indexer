@@ -18,6 +18,7 @@ public enum ServiceExcepcionTipo {
     SERVICE_REINDEXACION,
     SERVICE_REINDEXACION_INPROGRESS,
     SERVICE_REINDEXACION_RECOMENDADOS,
+    SERVICE_REINDEXACION_WEB,
     SERVICE_SEARCH_QUERY_PARSER,
     SERVICE_CRAWLER;
 
@@ -35,6 +36,7 @@ public enum ServiceExcepcionTipo {
         MENSAJE_MAP.put(ServiceExcepcionTipo.SERVICE_REINDEXACION, "excepcion.service.reindexacion");
         MENSAJE_MAP.put(ServiceExcepcionTipo.SERVICE_REINDEXACION_INPROGRESS, "excepcion.service.reindexacion.inprogress");
         MENSAJE_MAP.put(ServiceExcepcionTipo.SERVICE_REINDEXACION_RECOMENDADOS, "excepcion.service.reindexacion.recomendados");
+        MENSAJE_MAP.put(ServiceExcepcionTipo.SERVICE_REINDEXACION_WEB, "excepcion.service.reindexacion.web");
         MENSAJE_MAP.put(ServiceExcepcionTipo.SERVICE_SEARCH_QUERY_PARSER, "excepcion.service.busqueda.parser");
         MENSAJE_MAP.put(ServiceExcepcionTipo.SERVICE_CRAWLER, "excepcion.service.indexacion.crawler");
     }

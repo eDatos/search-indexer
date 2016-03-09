@@ -29,6 +29,7 @@ public class RecomendadosReIndexerThread implements Runnable {
 
         try {
             _getIndexacionStatus().setIdxSuggestedStatus(IndexacionStatusDomain.INDEXANDO);
+            log.info("Reindexación Recomendados iniciada...");
 
             // 0. Se eliminan todos los recursos GPE publicados
             _getRecomendadosIndexerService().borrar(IndexacionEnumDomain.ORIGENRECURSO.getCampo() + ":" + OrigenRecursoDomain.RECURSO_PATROCINADO.getSiglas());

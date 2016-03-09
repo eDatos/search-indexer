@@ -31,6 +31,7 @@ public class GpeReIndexerThread implements Runnable {
 
         try {
             _getIndexacionStatus().setIdxGPEStatus(IndexacionStatusDomain.INDEXANDO);
+            log.info("Reindexación GPE iniciada...");
 
             // 0. Se eliminan todos los recursos GPE publicados
             _getNucleoIstacIndexerService().borrar(IndexacionEnumDomain.ORIGENRECURSO.getCampo() + ":" + OrigenRecursoDomain.RECURSO_GPE.getSiglas());

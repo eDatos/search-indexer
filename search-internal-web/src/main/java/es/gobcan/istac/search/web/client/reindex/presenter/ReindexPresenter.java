@@ -44,6 +44,8 @@ import es.gobcan.istac.search.web.shared.ReindexGpeAction;
 import es.gobcan.istac.search.web.shared.ReindexGpeResult;
 import es.gobcan.istac.search.web.shared.ReindexRecommendedLinksAction;
 import es.gobcan.istac.search.web.shared.ReindexRecommendedLinksResult;
+import es.gobcan.istac.search.web.shared.ReindexWebAction;
+import es.gobcan.istac.search.web.shared.ReindexWebResult;
 
 public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, ReindexPresenter.ReindexProxy> implements ReindexUiHandlers {
 
@@ -201,8 +203,15 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
 
     @Override
     public void reindexWeb() {
-        // TODO
-        ShowMessageEvent.fireErrorMessage(ReindexPresenter.this, new UnsupportedOperationException("Not implemented yet"));
+        getView().disableReindexWebStartButton();
+
+        dispatcher.execute(new ReindexWebAction(), new WaitingAsyncCallbackHandlingError<ReindexWebResult>(this) {
+
+            @Override
+            public void onWaitSuccess(ReindexWebResult result) {
+                updateIndexationWebStatus();
+            }
+        });
     }
 
     @Override

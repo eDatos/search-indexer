@@ -6,7 +6,7 @@ import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion
 
 public interface SearchServiceFacade {
 
-    public void reindexWeb(ServiceContext ctx);
+    public void reindexWeb(ServiceContext ctx) throws ServiceExcepcion;
     public void reindexGpe(ServiceContext ctx) throws ServiceExcepcion;
     public void reindexRecommendedLinks(ServiceContext ctx) throws ServiceExcepcion;
 }

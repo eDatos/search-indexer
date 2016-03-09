@@ -8,6 +8,7 @@ import es.gobcan.istac.search.core.facade.serviceapi.SearchServiceFacade;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
+import es.gobcan.istac.search.core.idxmanager.service.web.WebIndexerService;
 
 // Similar in behaviour to IdxServiceAP
 @Service("searchServiceFacade")
@@ -19,18 +20,20 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
     @Autowired
     private NucleoIstacIndexerService  nucleoIstacIndexerService;
 
+    @Autowired
+    private WebIndexerService          webIndexerService;
+
     public SearchServiceFacadeImpl() {
     }
 
     @Override
-    public void reindexWeb(ServiceContext ctx) {
+    public void reindexWeb(ServiceContext ctx) throws ServiceExcepcion {
 
         // Security
         // SearchSecurityUtils.canReindexWeb(ctx);
 
         // Create
-        // TODO
-        throw new UnsupportedOperationException();
+        webIndexerService.reindexWeb();
     }
 
     @Override

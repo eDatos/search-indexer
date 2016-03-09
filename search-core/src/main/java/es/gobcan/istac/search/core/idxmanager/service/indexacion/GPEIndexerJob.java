@@ -27,14 +27,14 @@ public class GPEIndexerJob implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         try {
             // Reindexación GPE
-            LOG.info("Comenzando reindexación del GPE...");
+            LOG.info("Comenzando JOB reindexación del GPE...");
             NucleoIstacIndexerService nucleoIstacIndexerService = (NucleoIstacIndexerServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("nucleoIstacIndexerServiceImpl");
 
             // Al finalizar realiza un COMMIT y OPTIMIZE
             nucleoIstacIndexerService.reindexarGPEelementos();
 
             // Reindexación Recomendados
-            LOG.info("Reindexación GPE finalizada. Comenzando reindexación de los enlaces recomendados ...");
+            LOG.info("JOB reindexación GPE finalizada. Comenzando reindexación de los enlaces recomendados ...");
             RecomendadosIndexerService recomendadosIndexerService = (RecomendadosIndexerServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("recomendadosIndexerServiceImpl");
 
             // Al finalizar realiza un COMMIT y OPTIMIZE

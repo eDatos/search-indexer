@@ -107,6 +107,8 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
     public void updateReindexWebButtonStartDisability(IndexationStatusDto indexationStatus) {
         if (indexationStatus == null || !indexationStatus.isIndexing()) {
             reindexLayout.getReindexWebStartButton().enable();
+        } else {
+            disableReindexWebStartButton();
         }
     }
 
@@ -114,6 +116,8 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
     public void updateReindexGpeButtonStartDisability(IndexationStatusDto indexationStatus) {
         if (indexationStatus == null || !indexationStatus.isIndexing()) {
             reindexLayout.getReindexGpeStartButton().enable();
+        } else {
+            disableReindexGpeStartButton();
         }
     }
 
@@ -121,6 +125,8 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
     public void updateReindexRecommendedLinksButtonStartDisability(IndexationStatusDto indexationStatus) {
         if (indexationStatus == null || !indexationStatus.isIndexing()) {
             reindexLayout.getReindexRecommendedLinksStartButton().enable();
+        } else {
+            disableReindexRecommendedLinksStartButton();
         }
     }
 
