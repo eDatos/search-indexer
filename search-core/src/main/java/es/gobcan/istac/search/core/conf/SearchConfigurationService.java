@@ -10,7 +10,7 @@ public interface SearchConfigurationService extends ConfigurationService {
     String retrieveSolrJaxiUrl() throws MetamacException;
     String retrieveSolrEndpoint() throws MetamacException;
     String retrieveSolrCoreOrCollection() throws MetamacException;
-    String retrieveSolrCloudServerEnabled() throws MetamacException;
+    boolean retrieveSolrCloudServerEnabled() throws MetamacException;
 
     String retrieveAlfrescoUrl() throws MetamacException;
     String retrieveAlfrescoUsername() throws MetamacException;

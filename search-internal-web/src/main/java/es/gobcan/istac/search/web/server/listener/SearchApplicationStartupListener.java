@@ -8,10 +8,10 @@ public class SearchApplicationStartupListener extends InternalApplicationStartup
 
     @Override
     public void checkDatasourceProperties() {
-        checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_URL);
-        checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_DRIVER_NAME);
-        checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_USERNAME);
-        checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_PASSWORD);
+        // checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_URL);
+        // checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_DRIVER_NAME);
+        // checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_USERNAME);
+        // checkRequiredProperty(SearchConfigurationConstants.DB_SEARCH_PASSWORD);
 
         checkRequiredPropertiesSolr();
         checkRequiredPropertiesAlfresco();

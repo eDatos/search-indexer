@@ -52,7 +52,7 @@
 
     <!-- Configure externalized logging configuration file -->
     <bean id="loggingSetup" class="org.siemac.metamac.core.common.logging.LoggingSetup">
-        <property name="logConfigurationFile" value="${environment.search.data}/conf/logback-search-internal-web.xml" />
+        <property name="logConfigurationFile" value="${environment.metamac.data}/search/conf/logback-search-internal-web.xml" />
     </bean>
 
     <!-- Core -->

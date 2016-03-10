@@ -20,7 +20,7 @@
     <bean id="springPropertyConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:/data/conf/estatica/idxmanager-TEST.xml</value>
+                <value>classpath:/data/search/conf/estatica/idxmanager-TEST.xml</value>
             </list>
         </property>
     </bean>

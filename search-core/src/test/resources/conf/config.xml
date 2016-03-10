@@ -6,7 +6,7 @@
   <override>
 	<system />
 
-	<properties config-name="solr-static-conf" fileName="${istac.idxmanager.data.url}/conf/estatica/idxmanager-TEST.xml" />
+	<properties config-name="solr-static-conf" fileName="${environment.metamac.data}/search/conf/estatica/idxmanager-TEST.xml" />
 	
 	<!-- 
 	<properties config-name="...-dynamic-conf" fileName="${ .data.url}/conf/dinamica/.....xml">

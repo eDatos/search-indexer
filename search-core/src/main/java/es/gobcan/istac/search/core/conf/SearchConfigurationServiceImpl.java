@@ -9,8 +9,7 @@ public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl imp
 
     @Override
     public String retrieveHelpUrl() throws MetamacException {
-        // TODO Auto-generated method stub
-        return null;
+        return retrieveProperty(SearchConfigurationConstants.SEARCH_HELP_URL);
     }
 
     @Override
@@ -29,8 +28,8 @@ public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl imp
     }
 
     @Override
-    public String retrieveSolrCloudServerEnabled() throws MetamacException {
-        return retrieveProperty(SearchConfigurationConstants.SEARCH_SOLR_CLOUD_SERVER_ENABLED);
+    public boolean retrieveSolrCloudServerEnabled() throws MetamacException {
+        return retrievePropertyBoolean(SearchConfigurationConstants.SEARCH_SOLR_CLOUD_SERVER_ENABLED);
     }
 
     @Override

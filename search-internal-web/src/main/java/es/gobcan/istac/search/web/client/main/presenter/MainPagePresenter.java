@@ -10,6 +10,7 @@ import org.siemac.metamac.web.common.client.events.SetTitleEvent;
 import org.siemac.metamac.web.common.client.events.SetTitleEvent.SetTitleHandler;
 import org.siemac.metamac.web.common.client.events.ShowMessageEvent;
 import org.siemac.metamac.web.common.client.events.ShowMessageEvent.ShowMessageHandler;
+import org.siemac.metamac.web.common.client.utils.WaitingAsyncCallbackHandlingError;
 import org.siemac.metamac.web.common.client.widgets.MasterHead;
 import org.siemac.metamac.web.common.shared.CloseSessionAction;
 import org.siemac.metamac.web.common.shared.CloseSessionResult;
@@ -35,6 +36,8 @@ import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 
 import es.gobcan.istac.search.web.client.main.handlers.MainPageUiHandlers;
 import es.gobcan.istac.search.web.client.navigation.NameTokens;
+import es.gobcan.istac.search.web.shared.GetHelpUrlAction;
+import es.gobcan.istac.search.web.shared.GetHelpUrlResult;
 
 public class MainPagePresenter extends Presenter<MainPagePresenter.MainView, MainPagePresenter.MainProxy> implements ShowMessageHandler, HideMessageHandler, MainPageUiHandlers, SetTitleHandler {
 
@@ -124,7 +127,13 @@ public class MainPagePresenter extends Presenter<MainPagePresenter.MainView, Mai
 
     @Override
     public void openHelpUrl() {
-        // TODO
+        dispatcher.execute(new GetHelpUrlAction(), new WaitingAsyncCallbackHandlingError<GetHelpUrlResult>(this) {
+
+            @Override
+            public void onWaitSuccess(GetHelpUrlResult result) {
+                Window.open(result.getHelpUrl(), "_blank", "");
+            }
+        });
     }
 
     public static MasterHead getMasterHead() {

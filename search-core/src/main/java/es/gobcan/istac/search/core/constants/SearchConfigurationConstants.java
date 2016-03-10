@@ -4,6 +4,8 @@ import org.siemac.metamac.core.common.constants.shared.ConfigurationConstants;
 
 public class SearchConfigurationConstants extends ConfigurationConstants {
 
+    public static final String SEARCH_HELP_URL                     = "search.help.url";
+
     public static final String DB_SEARCH_URL                       = "search.db.url";
     public static final String DB_SEARCH_USERNAME                  = "search.db.username";
     public static final String DB_SEARCH_PASSWORD                  = "search.db.password";
