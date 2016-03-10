@@ -34,12 +34,7 @@ public class GPEIndexerJob implements Job {
             nucleoIstacIndexerService.reindexarGPEelementos();
 
             // Reindexación Recomendados
-            LOG.info("JOB reindexación GPE finalizada. Comenzando reindexación de los enlaces recomendados ...");
-            RecomendadosIndexerService recomendadosIndexerService = (RecomendadosIndexerServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("recomendadosIndexerServiceImpl");
-
-            // Al finalizar realiza un COMMIT y OPTIMIZE
-            recomendadosIndexerService.reindexarElementosRecomendados();
-
+            LOG.info("JOB reindexación GPE finalizada.");            
         } catch (Exception e) {
             LOG.error("GPEIndexerJob::execute: ", e);
             throw new JobExecutionException(e);

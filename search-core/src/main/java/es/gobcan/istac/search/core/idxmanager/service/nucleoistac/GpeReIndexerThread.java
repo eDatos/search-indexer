@@ -14,6 +14,7 @@ import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
 import es.gobcan.istac.search.core.idxmanager.service.alfresco.ConexionAlfrescoService;
+import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerServiceImpl;
 import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
 
 public class GpeReIndexerThread implements Runnable {
@@ -56,6 +57,9 @@ public class GpeReIndexerThread implements Runnable {
 
             _getIndexacionStatus().setIdxGPEStatus(IndexacionStatusDomain.PARADO);
             log.info("Reindexación GPE finalizada.");
+
+            // Al finalizar realiza un COMMIT y OPTIMIZE
+            getRecomendadosIndexerService().reindexarElementosRecomendados();
         } catch (Exception e) {
             _getIndexacionStatus().setIdxGPEStatus(IndexacionStatusDomain.FALLO);
             log.error("Error: NucleoIstacIndexerServiceImpl:reindexarGPEelementos " + e);
@@ -78,6 +82,10 @@ public class GpeReIndexerThread implements Runnable {
     private IndexationStatus _getIndexacionStatus() {
         ApplicationContext ctx = ApplicationContextProvider.getApplicationContext();
         return (IndexationStatus) ctx.getBean("indexationStatus");
+    }
+
+    private RecomendadosIndexerServiceImpl getRecomendadosIndexerService() {
+        return (RecomendadosIndexerServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("recomendadosIndexerServiceImpl");
     }
 
 }

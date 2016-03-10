@@ -26,14 +26,13 @@ public class CrawlerJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         try {
+            LOG.info("Comenzando JOB reindexación de la WEB...");
+            
+            // Al finalizar realiza un COMMIT y OPTIMIZE
             getWebIndexerService().reindexWeb();
 
             // Reindexación Recomendados
-            LOG.info("Reindexación WEB finalizada. Comenzando reindexación de los enlaces recomendados ...");
-            RecomendadosIndexerService recomendadosIndexerService = (RecomendadosIndexerServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("recomendadosIndexerServiceImpl");
-
-            // Al finalizar realiza un COMMIT y OPTIMIZE
-            recomendadosIndexerService.reindexarElementosRecomendados();
+            LOG.info("JOB Reindexación WEB finalizada");
         } catch (Exception e) {
             LOG.error("CrawlerJob::execute: ", e);
             throw new JobExecutionException(e);

@@ -7,6 +7,7 @@ import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
+import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerServiceImpl;
 
 public class WebIndexerThread implements Runnable {
 
@@ -27,6 +28,9 @@ public class WebIndexerThread implements Runnable {
 
             getIndexationStatus().setIndexationWebStatus(IndexacionStatusDomain.PARADO);
             log.info("Reindexación Web finalizada.");
+
+            // Al finalizar realiza un COMMIT y OPTIMIZE
+            getRecomendadosIndexerService().reindexarElementosRecomendados();
         } catch (Exception e) {
             getIndexationStatus().setIndexationWebStatus(IndexacionStatusDomain.FALLO);
 
@@ -41,6 +45,10 @@ public class WebIndexerThread implements Runnable {
 
     private IndexationWebStatus getIndexationStatus() {
         return (IndexationWebStatus) ApplicationContextProvider.getApplicationContext().getBean(IndexationWebStatus.BEAN_NAME);
+    }
+
+    private RecomendadosIndexerServiceImpl getRecomendadosIndexerService() {
+        return (RecomendadosIndexerServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("recomendadosIndexerServiceImpl");
     }
 
 }
