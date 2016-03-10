@@ -16,12 +16,11 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.SolrPingResponse;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.util.NamedList;
-import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.springframework.beans.factory.InitializingBean;
 
-import es.gobcan.istac.search.core.conf.SearchConfigurationService;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
+import es.gobcan.istac.search.core.idxmanager.service.util.ServiceUtils;
 
 public class SolrServiceImpl implements InitializingBean, SolrService {
 
@@ -31,6 +30,22 @@ public class SolrServiceImpl implements InitializingBean, SolrService {
     public static final String DEFAULT_ALL_QUERY          = "*:*";
 
     private SolrClient         solrClient                 = null;
+
+    private String             solrUrl;
+    private String             coreOrCollection;
+    private boolean            cloudServer                = false;
+
+    public void setSolrUrl(String solrUrl) {
+        this.solrUrl = solrUrl;
+    }
+
+    public void setCoreOrCollection(String coreOrCollection) {
+        this.coreOrCollection = coreOrCollection;
+    }
+
+    public void setCloudServer(boolean cloudServer) {
+        this.cloudServer = cloudServer;
+    }
 
     @Override
     public void setSolrClient(SolrClient solrClient) {
@@ -42,15 +57,19 @@ public class SolrServiceImpl implements InitializingBean, SolrService {
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        if (getSearchConfigurationService().retrieveSolrCloudServerEnabled()) {
+
+        log.info("Comprobacion de propiedades tras la construccion del bean de SolR");
+
+        ServiceUtils.checkRequired("solrUrl", solrUrl);
+
+        log.info("   - solrUrl = " + solrUrl);
+        log.info("Terminada la comprobacion de propiedades del bean de SolR");
+
+        if (cloudServer) {
             solrClient = createCloudSolrClient();
         } else {
             solrClient = createHttpSolrClient();
         }
-    }
-
-    private SearchConfigurationService getSearchConfigurationService() {
-        return (SearchConfigurationService) ApplicationContextProvider.getApplicationContext().getBean("configurationService");
     }
 
     private boolean checkSolrIsAlive() {
@@ -76,7 +95,7 @@ public class SolrServiceImpl implements InitializingBean, SolrService {
     public SolrClient createHttpSolrClient() {
         try {
             // setup the server...
-            HttpSolrClient client = new HttpSolrClient(getSearchConfigurationService().retrieveSolrEndpoint() + "/" + getSearchConfigurationService().retrieveSolrCoreOrCollection());
+            HttpSolrClient client = new HttpSolrClient(solrUrl + "/" + coreOrCollection);
             client.setConnectionTimeout(DEFAULT_CONNECTION_TIMEOUT);
             client.setDefaultMaxConnectionsPerHost(100);
             client.setMaxTotalConnections(100);
@@ -94,8 +113,8 @@ public class SolrServiceImpl implements InitializingBean, SolrService {
     }
 
     public SolrClient createCloudSolrClient() {
-        try (CloudSolrClient client = new CloudSolrClient(getSearchConfigurationService().retrieveSolrEndpoint())) {
-            client.setDefaultCollection(getSearchConfigurationService().retrieveSolrCoreOrCollection());
+        try (CloudSolrClient client = new CloudSolrClient(solrUrl)) {
+            client.setDefaultCollection(coreOrCollection);
             client.setZkClientTimeout(DEFAULT_CONNECTION_TIMEOUT);
 
             // explicitly uses the binary codec for communication.
