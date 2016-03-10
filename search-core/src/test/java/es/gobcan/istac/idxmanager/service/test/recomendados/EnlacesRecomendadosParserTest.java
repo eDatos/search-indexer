@@ -58,7 +58,7 @@ public class EnlacesRecomendadosParserTest {
 
     @Test
     public void readEncoding() throws UnsupportedEncodingException, FileNotFoundException {
-        String recomendadosFile = "../etc/conf/00-production-environment/data/search/recomendados.xml";
+        String recomendadosFile = "../search-core/src/main/resources/search/recomendados.xml";
         XStream xstream = new XStream();
         xstream.processAnnotations(Recomendados.class);
         Recomendados recomendados = new Recomendados();
