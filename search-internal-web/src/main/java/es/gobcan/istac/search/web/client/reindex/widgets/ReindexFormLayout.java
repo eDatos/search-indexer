@@ -58,6 +58,10 @@ public class ReindexFormLayout extends ViewMainFormLayout {
         this.cronExpression.setValue(cronExpression);
     }
 
+    public void hideCronExpression() {
+        cronExpression.setVisible(false);
+    }
+
     public void setStatus(String statusKey) {
         this.statusKey.setValue(statusKey);
         if (statusKey != null) {

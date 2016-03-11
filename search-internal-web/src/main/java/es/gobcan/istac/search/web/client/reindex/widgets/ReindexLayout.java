@@ -39,6 +39,7 @@ public class ReindexLayout extends VLayout {
         String title = SearchWeb.getConstants().reindexRecommendedLinks();
         String description = SearchWeb.getConstants().reindexRecommendedLinksDescription();
         reindexRecommendedLinks = new ReindexFormLayout(title, description);
+        reindexRecommendedLinks.hideCronExpression();
     }
 
     public void setCronWebExpression(String cronWebExpression) {
