@@ -57,7 +57,7 @@
     <!-- GPE Servlet -->
     <servlet>
         <servlet-name>Gpe Servlet</servlet-name>
-        <servlet-class>es.gobcan.istac.idxmanager.web.servlet.GpeServlet</servlet-class>
+        <servlet-class>es.gobcan.istac.search.web.server.servlet.GpeServlet</servlet-class>
     </servlet>
         
 	<servlet-mapping>
