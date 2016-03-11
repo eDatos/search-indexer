@@ -19,8 +19,7 @@ public class SearchConfigurationConstants extends ConfigurationConstants {
 
     public static final String SEARCH_ALFRESCO_URL                 = "istac.idxmanager.alfresco.url";
     public static final String SEARCH_ALFRESCO_USERNAME            = "istac.idxmanager.alfresco.user";
-    // TODO - Password en texto plano
-    public static final String SEARCH_ALFRESCO_PASSWORD            = "istac.idxmanager.alfresco.pass";
+    public static final String SEARCH_ALFRESCO_PASSWORD            = "istac.idxmanager.alfresco.password";
     public static final String SEARCH_ALFRESCO_PATH                = "istac.idxmanager.alfresco.pathRaiz";
 
     public static final String SEARCH_INDEXATION_WEB_CRON          = "istac.idxmanager.indexacion.web.cron";

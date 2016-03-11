@@ -15,7 +15,8 @@
 	<!-- ALFRESCO CIBERCENTRO GPE -->
  	<entry key="istac.idxmanager.alfresco.url">http://localhost:8080/alfresco</entry>
 	<entry key="istac.idxmanager.alfresco.user">istac_gpe</entry>
-	<entry key="istac.idxmanager.alfresco.pass">istac_gpe93</entry>
+<!-- 	<entry key="istac.idxmanager.alfresco.pass">istac_gpe93</entry> -->
+    <entry key="istac.idxmanager.alfresco.password">V2ssrKSMocm1uzZXMYfbb/v14SOPVQgC</entry>    
 	<entry key="istac.idxmanager.alfresco.pathRaiz">cm:Aplicaciones/cm:Istac</entry>
 	
 	
