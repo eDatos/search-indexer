@@ -14,7 +14,7 @@
 	<!-- Logout filter -->
 	<filter>
 		<filter-name>logoutFilter</filter-name>
-		<filter-class>org.siemac.metamac.web.common.server.session.SingleSignOutFilter</filter-class>
+		<filter-class>es.gobcan.istac.search.web.server.servlet.SearchSingleSignOutFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>logoutFilter</filter-name>

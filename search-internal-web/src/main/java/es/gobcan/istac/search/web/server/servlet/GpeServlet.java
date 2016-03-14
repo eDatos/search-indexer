@@ -8,9 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.XStreamException;
 
 import es.gobcan.istac.jaxi.pxservice.api.dominio.NucleoMetadatos;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
@@ -22,6 +25,8 @@ import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacInd
  * @author arte
  */
 public class GpeServlet extends HttpServlet {
+
+    protected static Log LOG = LogFactory.getLog(GpeServlet.class);
 
     /**
      *
@@ -39,13 +44,13 @@ public class GpeServlet extends HttpServlet {
         String direccion = req.getHeader("direccion");
         if (direccion.equals("entrada")) {
             XStream xstream = new XStream();
-            ObjectInputStream in = xstream.createObjectInputStream(req.getInputStream());
             NucleoMetadatos nucleoMetadatos = null;
 
             try {
-                nucleoMetadatos = (NucleoMetadatos) in.readObject();
-            } catch (ClassNotFoundException e) {
+                nucleoMetadatos = (NucleoMetadatos) xstream.fromXML(req.getInputStream());
+            } catch (XStreamException e) {
                 hayError = true;
+                LOG.error("Fallo en la deserialización de la indexación ", e);
             }
 
             /*
@@ -60,16 +65,17 @@ public class GpeServlet extends HttpServlet {
                     nucleoIstacIndexerService.commitANDoptimize();
                 } catch (ServiceExcepcion e) {
                     hayError = true;
+                    LOG.error("Fallo en indexación ", e);
                 }
             }
         } else if (direccion.equals("salida")) {
             ObjectInputStream in = new ObjectInputStream(req.getInputStream());
             String id = null;
-
             try {
                 id = (String) in.readObject();
             } catch (ClassNotFoundException e) {
                 hayError = true;
+                LOG.error("Fallo en la extracción del documento a desindexar ", e);
             }
 
             /*
@@ -77,12 +83,12 @@ public class GpeServlet extends HttpServlet {
              */
 
             NucleoIstacIndexerService nucleoIstacIndexerService = (NucleoIstacIndexerService) ApplicationContextProvider.getApplicationContext().getBean("nucleoIstacIndexerServiceImpl");
-
             try {
                 nucleoIstacIndexerService.eliminarElemento(id);
                 nucleoIstacIndexerService.commitANDoptimize();
             } catch (ServiceExcepcion e) {
                 hayError = true;
+                LOG.error("Fallo en el borrado de documento indexado ", e);
             }
         }
 
