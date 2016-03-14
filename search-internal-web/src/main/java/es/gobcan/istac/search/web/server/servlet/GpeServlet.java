@@ -13,7 +13,6 @@ import org.apache.commons.logging.LogFactory;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.XStreamException;
 
 import es.gobcan.istac.jaxi.pxservice.api.dominio.NucleoMetadatos;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
@@ -44,11 +43,12 @@ public class GpeServlet extends HttpServlet {
         String direccion = req.getHeader("direccion");
         if (direccion.equals("entrada")) {
             XStream xstream = new XStream();
+            ObjectInputStream in = xstream.createObjectInputStream(req.getInputStream());
             NucleoMetadatos nucleoMetadatos = null;
 
             try {
-                nucleoMetadatos = (NucleoMetadatos) xstream.fromXML(req.getInputStream());
-            } catch (XStreamException e) {
+                nucleoMetadatos = (NucleoMetadatos) in.readObject();
+            } catch (ClassNotFoundException e) {
                 hayError = true;
                 LOG.error("Fallo en la deserialización de la indexación ", e);
             }
