@@ -24,13 +24,13 @@ import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
 @Service
 public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService {
 
-    protected static Log            log              = LogFactory.getLog(NucleoIstacIndexerService.class);
+    protected static Log log = LogFactory.getLog(NucleoIstacIndexerService.class);
 
     @Autowired
-    private SolrService             solr             = null;
+    private SolrService solr = null;
 
     @Autowired
-    private IndexationStatus        indexationStatus = null;
+    private IndexationStatus indexationStatus = null;
 
     @Autowired
     private ConexionAlfrescoService conexionAlfrescoService;
@@ -52,9 +52,6 @@ public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService 
 
             // Facet Compuesto: Coverage Temporal
             indexarCoverageTemporalFacet(nucleoIstacDomain, solrInputDocument);
-
-            // Facet Compuesto: Coverage Spatial
-            indexarCoverageSpatialFacet(nucleoIstacDomain, solrInputDocument);
         }
 
         // Campos el indice auxiliares
@@ -93,19 +90,6 @@ public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService 
             }
         }
         solrInputDocument.addField(IndexacionEnumDomain.FACET_COVERAGE_TEMPORAL_KEYVALUE_FF.getCampo(), coverageKeyValues);
-    }
-
-    private void indexarCoverageSpatialFacet(NucleoMetadatos nucleoIstacDomain, SolrInputDocument solrInputDocument) {
-        List<String> coverageKeyValues = new LinkedList<String>();
-        List<String> coverageSpatialList = nucleoIstacDomain.getCoverageSpatial();
-        Iterator<String> coverageCodesIterator = nucleoIstacDomain.getCoverageSpatialCodes().iterator();
-        for (String value : coverageSpatialList) {
-            if (coverageCodesIterator.hasNext()) {
-                String key = coverageCodesIterator.next();
-                coverageKeyValues.add(key + Constants.KEY_VALUE_SEPARATOR + value);
-            }
-        }
-        solrInputDocument.addField(IndexacionEnumDomain.FACET_COVERAGE_SPATIAL_KEYVALUE_FF.getCampo(), coverageKeyValues);
     }
 
     @Override

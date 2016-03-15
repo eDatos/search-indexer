@@ -26,16 +26,16 @@ import es.gobcan.istac.search.core.idxmanager.service.util.ServiceUtils;
 @Service
 public class BusquedaServiceImpl implements BusquedaService {
 
-    protected Log               log                   = LogFactory.getLog(BusquedaService.class);
+    protected Log log = LogFactory.getLog(BusquedaService.class);
 
-    private static final String SELECT_QT             = "/select";
-    private static final String BROWSE_QT             = "/browse";
-    private static final String SPONSORED_QT          = "/sponsored";
+    private static final String SELECT_QT = "/select";
+    private static final String BROWSE_QT = "/browse";
+    private static final String SPONSORED_QT = "/sponsored";
 
-    private static final int    MAX_SUGGESTED_RESULTS = 4;
+    private static final int MAX_SUGGESTED_RESULTS = 4;
 
     @Autowired
-    private SolrService         solr                  = null;
+    private SolrService solr = null;
 
     @Override
     public QueryResponse ejecutarQuery(Busqueda busqueda, int resultByPage) throws ServiceExcepcion {
@@ -86,7 +86,7 @@ public class BusquedaServiceImpl implements BusquedaService {
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_SUBJECT_KEYVALUE_FF.getCampo());
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_SURVEY_KEYVALUE_FF.getCampo());
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_TEMPORAL_KEYVALUE_FF.getCampo());
-            solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_SPATIAL_KEYVALUE_FF.getCampo());
+            // solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_SPATIAL_KEYVALUE_FF.getCampo());
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_FORMATO_FF.getCampo());
         }
     }
@@ -239,7 +239,7 @@ public class BusquedaServiceImpl implements BusquedaService {
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_SUBJECT_KEYVALUE_FF.getCampo());
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_SURVEY_KEYVALUE_FF.getCampo());
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_TEMPORAL_KEYVALUE_FF.getCampo());
-            solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_SPATIAL_KEYVALUE_FF.getCampo());
+            // solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_SPATIAL_KEYVALUE_FF.getCampo());
             solrQuery.setFacetLimit(-1); // Todos los facet, por defecto está limitado a 100
 
             solrQuery.setQuery("*:*");
