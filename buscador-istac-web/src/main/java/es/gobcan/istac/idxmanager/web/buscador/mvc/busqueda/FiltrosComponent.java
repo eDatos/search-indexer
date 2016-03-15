@@ -25,18 +25,17 @@ import es.gobcan.istac.search.core.idxmanager.service.busqueda.BusquedaService;
 @Component
 public class FiltrosComponent {
 
-    protected Log               log                       = LogFactory.getLog(FiltrosComponent.class);
+    protected Log log = LogFactory.getLog(FiltrosComponent.class);
 
     @Autowired
-    private BusquedaService     busquedaService;
+    private BusquedaService busquedaService;
 
-    private Map<String, String> filtroSeccionAreaMap      = null;
+    private Map<String, String> filtroSeccionAreaMap = null;
     private Map<String, String> filtroSeccionOperacionMap = null;
     private Map<String, String> filtroCoverageTemporalMap = null;
-    private Map<String, String> filtroCoverageSpatialMap  = null;
 
-    // TODO Poner este componenete como un servicio y controlar la cache cuando se indexan cosas en solr?¿
-    private DateTime            lastRefresh               = null;
+    // TODO Mejora: Poner este componente como un servicio y controlar la cache cuando se indexan cosas en solr en vez de cada cierto intervalo.
+    private DateTime lastRefresh = null;
 
     public Map<String, String> getFiltroSeccionAreaMap() {
         if (filtroSeccionAreaMap == null || reload()) {
@@ -59,13 +58,6 @@ public class FiltrosComponent {
         return filtroCoverageTemporalMap;
     }
 
-    public Map<String, String> getFiltroCoverageSpatialMap() {
-        if (filtroCoverageSpatialMap == null || reload()) {
-            facetInicialesHandler();
-        }
-        return filtroCoverageSpatialMap;
-    }
-
     /**
      * Si entre la última petición y la actual han transcurrido más de 5 minutos se recarga el bean de filtros
      *
@@ -85,7 +77,6 @@ public class FiltrosComponent {
                 filtroSeccionAreaMap = createFiltroSeccionMap(queryResponse.getFacetField(IndexacionEnumDomain.FACET_SUBJECT_KEYVALUE_FF.getCampo()));
                 filtroSeccionOperacionMap = createFiltroSeccionMap(queryResponse.getFacetField(IndexacionEnumDomain.FACET_SURVEY_KEYVALUE_FF.getCampo()));
                 filtroCoverageTemporalMap = createFiltroSeccionMap(queryResponse.getFacetField(IndexacionEnumDomain.FACET_COVERAGE_TEMPORAL_KEYVALUE_FF.getCampo()));
-                filtroCoverageSpatialMap = createFiltroSeccionMap(queryResponse.getFacetField(IndexacionEnumDomain.FACET_COVERAGE_SPATIAL_KEYVALUE_FF.getCampo()));
             }
         } catch (Exception e) {
             log.warn("Error Obteniendo Facets Iniciales: ", e);
