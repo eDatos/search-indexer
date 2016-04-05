@@ -1,0 +1,28 @@
+/* They generated with the wrong imports. They were generated and moved outside generated folder */
+import "classpath:/btdesign/metamac-core-common-dtos.btdesign"
+
+Application SearchDto {
+    basePackage=es.gobcan.istac.search.core
+
+    Module common_dtos {
+    	basePackage=es.gobcan.istac.search.core.dto
+    	       	
+       	"Dto for RecommendedLink"
+       	DataTransferObject RecommendedLinkDto extends @AuditableDto  {      		
+            String url required;
+            String title required;
+            String description nullable;
+            - @RecommendedKeywordDto recommendedKeyword required;
+    
+       		Long optimisticLockingVersion;
+       	}
+       	
+        "Dto for RecommendedKeyword"
+        DataTransferObject RecommendedKeywordDto extends @AuditableDto  {             
+            String keyword required;
+    
+            Long optimisticLockingVersion;
+        }
+       	
+    }
+}

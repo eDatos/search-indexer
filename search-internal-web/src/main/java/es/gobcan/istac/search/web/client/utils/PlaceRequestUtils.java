@@ -3,33 +3,33 @@ package es.gobcan.istac.search.web.client.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.siemac.metamac.web.common.client.utils.CommonPlaceRequestUtils;
+
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
-public class PlaceRequestUtils {
+import es.gobcan.istac.search.web.client.PlaceRequestParams;
+import es.gobcan.istac.search.web.client.navigation.NameTokens;
 
-    public static boolean isNameTokenInPlaceHierarchy(PlaceManager placeManager, String nameToken) {
-        for (PlaceRequest placeReq : placeManager.getCurrentPlaceHierarchy()) {
-            if (nameToken.equals(placeReq.getNameToken())) {
-                return true;
-            }
-        }
-        return false;
+public class PlaceRequestUtils extends CommonPlaceRequestUtils {
+
+    public static List<PlaceRequest> buildAbsoluteReindexPlaceRequest() {
+        return buildAbsolutePlaceRequest(NameTokens.REINDEX_PAGE);
     }
 
-    public static List<PlaceRequest> getHierarchyUntilNameToken(PlaceManager placeManager, String nameToken) {
-        List<PlaceRequest> filteredHierarchy = new ArrayList<PlaceRequest>();
-        List<PlaceRequest> hierarchy = placeManager.getCurrentPlaceHierarchy();
-        boolean found = false;
-        for (int i = 0; i < hierarchy.size() && !found; i++) {
-            PlaceRequest placeReq = hierarchy.get(i);
-            if (placeReq.matchesNameToken(nameToken)) {
-                found = true;
-            }
-            filteredHierarchy.add(placeReq);
-        }
+    public static List<PlaceRequest> buildAbsoluteRecommendedLinkListPlaceRequest() {
+        return buildAbsolutePlaceRequest(NameTokens.RECOMMENDED_LINK_LIST_PAGE);
+    }
 
-        return filteredHierarchy;
+    private static List<PlaceRequest> buildAbsolutePlaceRequest(String page) {
+        List<PlaceRequest> placeRequests = new ArrayList<PlaceRequest>();
+        PlaceRequest configurationsPlace = new PlaceRequest(page);
+        placeRequests.add(configurationsPlace);
+        return placeRequests;
+    }
+
+    public static String getRecommendedLinkParamFromUrl(PlaceManager placeManager) {
+        return getParamFromUrl(placeManager, NameTokens.RECOMMENDED_LINK_PAGE, PlaceRequestParams.RECOMMENDED_LINK_PARAM_ID);
     }
 
 }

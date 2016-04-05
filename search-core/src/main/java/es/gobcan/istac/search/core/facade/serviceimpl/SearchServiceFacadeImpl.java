@@ -35,7 +35,7 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         SearchSecurityUtils.canReindexWeb(ctx);
 
         // Create
-        webIndexerService.reindexWeb();
+        webIndexerService.reindexWeb(ctx);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         SearchSecurityUtils.canReindexGpe(ctx);
 
         // Create
-        nucleoIstacIndexerService.reindexarGPEelementos();
+        nucleoIstacIndexerService.reindexarGPEelementos(ctx);
     }
 
     @Override
@@ -54,6 +54,6 @@ public class SearchServiceFacadeImpl implements SearchServiceFacade {
         SearchSecurityUtils.canReindexRecommendedLinks(ctx);
 
         // Create
-        recomendadosIndexerService.reindexarElementosRecomendados();
+        recomendadosIndexerService.reindexRecommendedKeywords(ctx);
     }
 }

@@ -2,6 +2,7 @@ package es.gobcan.istac.search.core.idxmanager.service.indexacion;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -9,8 +10,6 @@ import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 
 import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
 import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerServiceImpl;
-import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
-import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerServiceImpl;
 
 public class GPEIndexerJob implements Job {
 
@@ -31,10 +30,11 @@ public class GPEIndexerJob implements Job {
             NucleoIstacIndexerService nucleoIstacIndexerService = (NucleoIstacIndexerServiceImpl) ApplicationContextProvider.getApplicationContext().getBean("nucleoIstacIndexerServiceImpl");
 
             // Al finalizar realiza un COMMIT y OPTIMIZE
-            nucleoIstacIndexerService.reindexarGPEelementos();
+            ServiceContext ctx = new ServiceContext("GPEIndexerJob", context.getFireInstanceId(), "search-core");
+            nucleoIstacIndexerService.reindexarGPEelementos(ctx);
 
             // Reindexación Recomendados
-            LOG.info("JOB reindexación GPE finalizada.");            
+            LOG.info("JOB reindexación GPE finalizada.");
         } catch (Exception e) {
             LOG.error("GPEIndexerJob::execute: ", e);
             throw new JobExecutionException(e);

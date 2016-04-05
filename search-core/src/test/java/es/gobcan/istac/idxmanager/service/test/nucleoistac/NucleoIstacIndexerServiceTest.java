@@ -84,7 +84,7 @@ public class NucleoIstacIndexerServiceTest extends TestBase {
     @Test
     @Ignore
     public void testReindexarFromGPE() throws Exception {
-        nucleoIstacIndexerService.reindexarGPEelementos();
+        nucleoIstacIndexerService.reindexarGPEelementos(mockServiceContextWithoutPrincipal());
     }
 
 }

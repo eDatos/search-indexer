@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.springframework.context.ApplicationContext;
 
@@ -23,8 +24,11 @@ public class GpeReIndexerThread implements Runnable {
 
     private ConexionAlfrescoService conexionAlfrescoService;
 
-    public GpeReIndexerThread(ConexionAlfrescoService conexion) {
+    private ServiceContext          ctx;
+
+    public GpeReIndexerThread(ConexionAlfrescoService conexion, ServiceContext ctx) {
         conexionAlfrescoService = conexion;
+        this.ctx = ctx;
     }
 
     @Override
@@ -59,7 +63,7 @@ public class GpeReIndexerThread implements Runnable {
             log.info("Reindexación GPE finalizada.");
 
             // Al finalizar realiza un COMMIT y OPTIMIZE
-            getRecomendadosIndexerService().reindexarElementosRecomendados();
+            getRecomendadosIndexerService().reindexRecommendedKeywords(ctx);
         } catch (Exception e) {
             _getIndexacionStatus().setIdxGPEStatus(IndexacionStatusDomain.FALLO);
             log.error("Error: NucleoIstacIndexerServiceImpl:reindexarGPEelementos " + e);

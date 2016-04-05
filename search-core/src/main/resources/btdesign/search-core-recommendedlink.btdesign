@@ -1,0 +1,103 @@
+
+/* import "classpath:/btdesign/export/metamac-core-common-entity.btdesign" */
+/*import "classpath:/btdesign/metamac-core-common-dtos.btdesign"*/
+
+Application RecommendedLink {
+    basePackage=unused
+
+    Module core {
+		basePackage=es.gobcan.istac.search.core
+	}
+	
+	Module domain_recommended_link {
+	   basePackage=es.gobcan.istac.search.core.recommendedlink
+	    	    
+	    // ----------------------------------------------------------------
+        //                          SERVICES
+        // ----------------------------------------------------------------
+	   
+        Service RecommendedLinksService {
+            > @RecommendedLinkRepository
+            
+            @RecommendedLink findRecommendedLinkById(Long id) throws MetamacException;
+            @RecommendedLink createRecommendedLink(@RecommendedLink recommendedLink) throws MetamacException;
+            @RecommendedLink updateRecommendedLink(@RecommendedLink recommendedLink) throws MetamacException;
+            deleteRecommendedLink(Long id) throws MetamacException;
+            List<@RecommendedLink> findAllRecommendedLinks throws MetamacException;
+            PagedResult<@RecommendedLink> findRecommendedLinksByCondition(List<ConditionalCriteria> condition, PagingParameter pagingParameter) throws MetamacException;
+            String exportRecommendedLinks() throws MetamacException;            
+        }  
+	   
+	   Entity RecommendedLink {
+            databaseTable="TB_RECOMMENDED_LINKS"
+            hint="idSequence=RECOMMENDED_LINKS"
+            
+            "Added explicitly to avoid that Sculptor generate UUID"
+            Long id key;
+            
+            "Url of the recommended link"
+            String url not nullable;
+            
+            "Title of the recommended link"
+            String title not nullable;
+            
+            "Description of the recommended link"
+            String description nullable;                
+    
+            "Associated keyword"
+            - @RecommendedKeyword recommendedKeyword cascade="none" not nullable;
+        
+            "Last update to optimistic locking"
+            DateTimeTZ updateDate nullable;
+                       
+            Repository RecommendedLinkRepository {
+                save;
+                delete;
+                findAll;
+                findById;
+                findByCondition;
+                findByCondition(PagingParameter pagingParameter);
+                findByQuery(String query, Map<String, Object> parameters, int maxResult);
+            }
+        }
+        
+        Service RecommendedKeywordsService {
+            > @RecommendedKeywordRepository
+            
+            @RecommendedKeyword findRecommendedKeywordById(Long id) throws MetamacException;
+            @RecommendedKeyword createRecommendedKeyword(@RecommendedKeyword recommendedKeyword) throws MetamacException;
+            @RecommendedKeyword updateRecommendedKeyword(@RecommendedKeyword recommendedKeyword) throws MetamacException;
+            deleteRecommendedKeyword(Long id) throws MetamacException;
+            List<@RecommendedKeyword> findAllRecommendedKeywords throws MetamacException;
+            PagedResult<@RecommendedKeyword> findRecommendedKeywordsByCondition(List<ConditionalCriteria> condition, PagingParameter pagingParameter) throws MetamacException;                          
+        }  
+        
+        Entity RecommendedKeyword {
+            databaseTable="TB_RECOMMENDED_KEYWORDS"
+            hint="idSequence=RECOMMENDED_KEYWORDS"
+            
+            "Added explicitly to avoid that Sculptor generate UUID"
+            Long id key;
+        
+            "Keyword"
+            String keyword not nullable;
+            
+            "Last update to optimistic locking"
+            DateTimeTZ updateDate nullable;
+            
+            "Asociated recommended links"
+            - Bag<@RecommendedLink> recommendedLinks cascade="all-delete-orphan" fetch="lazy" inverse <-> recommendedKeyword;
+            
+            Repository RecommendedKeywordRepository {
+                save;
+                delete;
+                findAll;
+                findById;
+                findByCondition;
+                findByCondition(PagingParameter pagingParameter);
+                findByQuery(String query, Map<String, Object> parameters, int maxResult);
+            }
+        }
+	}
+	
+}

@@ -103,11 +103,11 @@
             <artifactId>fornax-cartridges-sculptor-generator</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.fornax.cartridges</groupId>-->
-        <!--<artifactId>fornax-cartridges-sculptor-framework</artifactId>-->
-        <!--<classifier>without-ejb</classifier>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.fornax.cartridges</groupId>
+            <artifactId>fornax-cartridges-sculptor-framework</artifactId>
+            <classifier>without-ejb</classifier>
+        </dependency>
         
         <!-- COMMONS -->
         <dependency>
@@ -188,10 +188,10 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
-        <!-- <dependency> -->
-        <!-- <groupId>org.fornax.cartridges</groupId> -->
-        <!-- <artifactId>fornax-cartridges-sculptor-framework-test</artifactId> -->
-        <!-- </dependency> -->
+        <dependency>
+            <groupId>org.fornax.cartridges</groupId>
+            <artifactId>fornax-cartridges-sculptor-framework-test</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>

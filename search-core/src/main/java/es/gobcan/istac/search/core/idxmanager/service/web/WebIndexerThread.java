@@ -2,6 +2,7 @@ package es.gobcan.istac.search.core.idxmanager.service.web;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 
 import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
@@ -11,10 +12,11 @@ import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosI
 
 public class WebIndexerThread implements Runnable {
 
-    protected static Log log = LogFactory.getLog(WebIndexerThread.class);
+    protected static Log   log = LogFactory.getLog(WebIndexerThread.class);
+    private ServiceContext ctx;
 
-    public WebIndexerThread() {
-
+    public WebIndexerThread(ServiceContext ctx) {
+        this.ctx = ctx;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class WebIndexerThread implements Runnable {
             log.info("Reindexación Web finalizada.");
 
             // Al finalizar realiza un COMMIT y OPTIMIZE
-            getRecomendadosIndexerService().reindexarElementosRecomendados();
+            getRecomendadosIndexerService().reindexRecommendedKeywords(ctx);
         } catch (Exception e) {
             getIndexationStatus().setIndexationWebStatus(IndexacionStatusDomain.FALLO);
 

@@ -20,6 +20,7 @@ import org.apache.droids.impl.SimpleTaskQueueWithHistory;
 import org.apache.droids.protocol.http.DroidsHttpClient;
 import org.apache.droids.protocol.http.HttpProtocol;
 import org.apache.http.params.BasicHttpParams;
+import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +45,10 @@ public class WebIndexerServiceImpl implements WebIndexerService {
     private IndexationWebStatus indexationWebStatus = null;
 
     @Override
-    public void reindexWeb() throws ServiceExcepcion {
+    public void reindexWeb(ServiceContext ctx) throws ServiceExcepcion {
         try {
             if (!indexationWebStatus.getIndexationWebStatus().equals(IndexacionStatusDomain.INDEXANDO)) {
-                WebIndexerThread webIndexerThread = new WebIndexerThread();
+                WebIndexerThread webIndexerThread = new WebIndexerThread(ctx);
                 new Thread(webIndexerThread).start();
             } else {
                 throw new ServiceExcepcion(ServiceExcepcionTipo.SERVICE_REINDEXACION_INPROGRESS);

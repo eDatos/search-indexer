@@ -1,12 +1,10 @@
-
-/* import "classpath:/btdesign/export/metamac-core-common-entity.btdesign" */
-import "classpath:/btdesign/metamac-core-common-dtos.btdesign"
+import "classpath:/btdesign/search-core-recommendedlink.btdesign"
+/*import "classpath:/btdesign/metamac-notices-core-notices.btdesign"
+import "classpath:/btdesign/metamac-notices-core-common.btdesign"*/
+import "classpath:/btdesign/search-core-dtos.btdesign"
+import "classpath:/btdesign/search-core-facade.btdesign"
 
 Application Search {
-    basePackage=es.gobcan.istac.search
+    basePackage=es.gobcan.istac.search.core
 
-    Module core {
-		basePackage=es.gobcan.istac.search.core
-	}
-	
 }

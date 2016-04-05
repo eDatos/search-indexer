@@ -14,14 +14,14 @@ import es.gobcan.istac.search.web.client.gin.SearchWebGinjector;
  */
 public class SearchWeb extends MetamacSecurityEntryPoint {
 
-    private static final boolean         SECURITY_ENABLED = true;
+    private static final boolean            SECURITY_ENABLED = true;
 
-    private static MetamacPrincipal      principal;
-    private static SearchWebMessages     messages;
-    private static SearchWebCoreMessages coreMessages;
-    private static SearchWebConstants    constants;
+    private static MetamacPrincipal         principal;
+    private static SearchWebMessages        messages;
+    private static SearchWebCoreMessages    coreMessages;
+    private static SearchWebConstants       constants;
 
-    private final SearchWebGinjector     ginjector        = GWT.create(SearchWebGinjector.class);
+    private final static SearchWebGinjector ginjector        = GWT.create(SearchWebGinjector.class);
 
     @Override
     public void onModuleLoad() {
@@ -83,5 +83,9 @@ public class SearchWeb extends MetamacSecurityEntryPoint {
     @Override
     protected String getSecurityApplicationId() {
         return SearchConstants.SECURITY_APPLICATION_ID;
+    }
+
+    public static void showErrorPage() {
+        ginjector.getPlaceManager().revealErrorPlace(null);
     }
 }

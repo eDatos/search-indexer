@@ -26,6 +26,13 @@ import es.gobcan.istac.search.web.server.handlers.ReindexGpeActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ReindexRecommendedLinksActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ReindexWebActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ValidateTicketActionHandler;
+import es.gobcan.istac.search.web.server.handlers.recommendedlink.DeleteRecommendedKeywordListActionHandler;
+import es.gobcan.istac.search.web.server.handlers.recommendedlink.DeleteRecommendedLinkListActionHandler;
+import es.gobcan.istac.search.web.server.handlers.recommendedlink.ExportRecommendedLinksActionHandler;
+import es.gobcan.istac.search.web.server.handlers.recommendedlink.GetRecommendedKeywordListActionHandler;
+import es.gobcan.istac.search.web.server.handlers.recommendedlink.GetRecommendedLinkListActionHandler;
+import es.gobcan.istac.search.web.server.handlers.recommendedlink.SaveRecommendedKeywordActionHandler;
+import es.gobcan.istac.search.web.server.handlers.recommendedlink.SaveRecommendedLinkActionHandler;
 import es.gobcan.istac.search.web.shared.GetCronGpeExpressionAction;
 import es.gobcan.istac.search.web.shared.GetCronRecommendedLinksExpressionAction;
 import es.gobcan.istac.search.web.shared.GetCronWebExpressionAction;
@@ -36,6 +43,13 @@ import es.gobcan.istac.search.web.shared.GetIndexationStatusWebAction;
 import es.gobcan.istac.search.web.shared.ReindexGpeAction;
 import es.gobcan.istac.search.web.shared.ReindexRecommendedLinksAction;
 import es.gobcan.istac.search.web.shared.ReindexWebAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedKeywordListAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkListAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordListAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedLinkListAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedKeywordAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedLinkAction;
 
 @Component
 public class ServerModule extends HandlerModule {
@@ -65,6 +79,14 @@ public class ServerModule extends HandlerModule {
         bindHandler(GetIndexationStatusWebAction.class, GetIndexationStatusWebActionHandler.class);
         bindHandler(GetIndexationStatusGpeAction.class, GetIndexationStatusGpeActionHandler.class);
         bindHandler(GetIndexationStatusRecommendedLinksAction.class, GetIndexationStatusRecommendedLinksActionHandler.class);
+
+        bindHandler(SaveRecommendedKeywordAction.class, SaveRecommendedKeywordActionHandler.class);
+        bindHandler(DeleteRecommendedKeywordListAction.class, DeleteRecommendedKeywordListActionHandler.class);
+        bindHandler(SaveRecommendedLinkAction.class, SaveRecommendedLinkActionHandler.class);
+        bindHandler(DeleteRecommendedLinkListAction.class, DeleteRecommendedLinkListActionHandler.class);
+        bindHandler(ExportRecommendedLinksAction.class, ExportRecommendedLinksActionHandler.class);
+        bindHandler(GetRecommendedKeywordListAction.class, GetRecommendedKeywordListActionHandler.class);
+        bindHandler(GetRecommendedLinkListAction.class, GetRecommendedLinkListActionHandler.class);
 
         // This action should be removed to use CAS authentication
         bindHandler(MockCASUserAction.class, MockCASUserActionHandler.class);

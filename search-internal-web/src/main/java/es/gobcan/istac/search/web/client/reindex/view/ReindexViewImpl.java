@@ -1,6 +1,7 @@
 package es.gobcan.istac.search.web.client.reindex.view;
 
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
@@ -16,6 +17,7 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
     private VLayout       panel;
     private ReindexLayout reindexLayout;
 
+    @Inject
     public ReindexViewImpl() {
         reindexLayout = new ReindexLayout();
 

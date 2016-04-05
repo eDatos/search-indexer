@@ -3,15 +3,19 @@ package es.gobcan.istac.search.core.idxmanager.service.recomendados;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.solr.common.SolrInputDocument;
+import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
+import org.siemac.metamac.core.common.exception.MetamacException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
+import es.gobcan.istac.search.core.exception.ServiceExceptionType;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
-import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
 import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
+import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedKeyword;
+import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedLink;
 
 @Service
 public class RecomendadosIndexerServiceImpl implements RecomendadosIndexerService {
@@ -25,45 +29,43 @@ public class RecomendadosIndexerServiceImpl implements RecomendadosIndexerServic
     private IndexationSuggestedStatus indexationSponsoredStatus = null;
 
     @Override
-    public void indexarElementoRecomendado(Recomendacion recomendacion) throws ServiceExcepcion {
+    public void indexRecommendedKeyword(RecommendedKeyword recommendedKeyword) throws MetamacException {
 
         // Campos el indice
         SolrInputDocument solrInputDocument = new SolrInputDocument();
-        solrInputDocument.addField(IndexacionEnumDomain.ID.getCampo(), recomendacion.getId());
-        String[] suggestedWords = new String[recomendacion.getListaPalabras().size()];
-        int index = 0;
-        for (String entry : recomendacion.getListaPalabras()) {
-            suggestedWords[index++] = entry;
-        }
-
-        solrInputDocument.addField(IndexacionEnumDomain.SPONSORED.getCampo(), suggestedWords);
+        solrInputDocument.addField(IndexacionEnumDomain.ID.getCampo(), recommendedKeyword.getId());
+        solrInputDocument.addField(IndexacionEnumDomain.SPONSORED.getCampo(), recommendedKeyword.getKeyword());
         solrInputDocument.addField(IndexacionEnumDomain.ORIGENRECURSO.getCampo(), OrigenRecursoDomain.RECURSO_PATROCINADO.getSiglas());
 
         // Seteamos los campos dinamicos
-        index = 0;
-        for (Enlace enlace : recomendacion.getEnlaces()) {
-            solrInputDocument.addField(IndexacionEnumDomain.CUS_TITLE_PREFIX.getCampo() + index + "_s", enlace.getTitulo());
-            solrInputDocument.addField(IndexacionEnumDomain.CUS_DESC_PREFIX.getCampo() + index + "_s", enlace.getDescripcion());
+        int index = 0;
+        for (RecommendedLink enlace : recommendedKeyword.getRecommendedLinks()) {
+            solrInputDocument.addField(IndexacionEnumDomain.CUS_TITLE_PREFIX.getCampo() + index + "_s", enlace.getTitle());
+            solrInputDocument.addField(IndexacionEnumDomain.CUS_DESC_PREFIX.getCampo() + index + "_s", enlace.getDescription());
             solrInputDocument.addField(IndexacionEnumDomain.CUS_URL_PREFIX.getCampo() + index + "_s", enlace.getUrl());
             index++;
         }
 
-        solr.insertarDoc(solrInputDocument);
+        try {
+            solr.insertarDoc(solrInputDocument);
+        } catch (ServiceExcepcion e) {
+            throw new MetamacException(ServiceExceptionType.INDEXATION_SOLR_ERROR);
+        }
     }
 
     @Override
-    public void eliminarElemento(String id) throws ServiceExcepcion {
+    public void deleteById(String id) throws ServiceExcepcion {
         solr.eliminarDoc(id);
         solr.commitANDoptimize();
     }
 
     @Override
-    public void borrarTodo() throws ServiceExcepcion {
+    public void deleteAll() throws ServiceExcepcion {
         solr.borrarTodoAndCommit();
     }
 
     @Override
-    public void borrar(String query) throws ServiceExcepcion {
+    public void deleteByQuery(String query) throws ServiceExcepcion {
         solr.borrarWithoutCommit(query);
     }
 
@@ -73,18 +75,18 @@ public class RecomendadosIndexerServiceImpl implements RecomendadosIndexerServic
     }
 
     @Override
-    public void reindexarElementosRecomendados() throws ServiceExcepcion {
+    public void reindexRecommendedKeywords(ServiceContext ctx) throws MetamacException {
 
         try {
             if (!indexationSponsoredStatus.getIdxSuggestedStatus().equals(IndexacionStatusDomain.INDEXANDO)) {
-                RecomendadosReIndexerThread recomendadosReIndexerThread = new RecomendadosReIndexerThread();
+                RecomendadosReIndexerThread recomendadosReIndexerThread = new RecomendadosReIndexerThread(ctx);
                 new Thread(recomendadosReIndexerThread).start();
             } else {
-                new ServiceExcepcion(ServiceExcepcionTipo.SERVICE_REINDEXACION_INPROGRESS);
+                throw new MetamacException(ServiceExceptionType.INDEXATION_INPROGRESS);
             }
         } catch (Exception e) {
             log.error("Error: RecomendadosIndexerService:reindexarElementosRecomendados" + e.getMessage());
-            new ServiceExcepcion(ServiceExcepcionTipo.SERVICE_REINDEXACION_RECOMENDADOS);
+            throw new MetamacException(ServiceExceptionType.INDEXATION_RECOMMENDED_KEYWORDS);
         }
 
     }
@@ -100,4 +102,5 @@ public class RecomendadosIndexerServiceImpl implements RecomendadosIndexerServic
     public SolrService getSolr() {
         return solr;
     }
+
 }

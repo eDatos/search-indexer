@@ -5,11 +5,12 @@ import static es.gobcan.istac.search.core.enume.domain.RoleEnum.ANY_ROLE_ALLOWED
 
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.sso.client.MetamacPrincipalAccess;
+import org.siemac.metamac.sso.utils.SecurityUtils;
 
 import es.gobcan.istac.search.core.constants.SearchConstants;
 import es.gobcan.istac.search.core.enume.domain.RoleEnum;
 
-public class SharedSecurityUtils {
+public class SharedSecurityUtils extends SecurityUtils {
 
     /**
      * Checks if logged user has one of the allowed roles
@@ -17,7 +18,7 @@ public class SharedSecurityUtils {
      * @param roles
      * @return
      */
-    protected static boolean isSearchRoleAllowed(MetamacPrincipal metamacPrincipal, RoleEnum... roles) {
+    public static boolean isSearchRoleAllowed(MetamacPrincipal metamacPrincipal, RoleEnum... roles) {
         // Administration has total control
         if (SharedSecurityUtils.isAdministrador(metamacPrincipal)) {
             return true;

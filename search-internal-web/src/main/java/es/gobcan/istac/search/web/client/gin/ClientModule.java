@@ -11,15 +11,17 @@ import es.gobcan.istac.search.web.client.SearchWebCoreMessages;
 import es.gobcan.istac.search.web.client.SearchWebMessages;
 import es.gobcan.istac.search.web.client.main.presenter.ErrorPagePresenter;
 import es.gobcan.istac.search.web.client.main.presenter.MainPagePresenter;
-import es.gobcan.istac.search.web.client.main.presenter.ToolStripPresenterWidget;
 import es.gobcan.istac.search.web.client.main.presenter.UnauthorizedPagePresenter;
 import es.gobcan.istac.search.web.client.main.view.ErrorPageViewImpl;
 import es.gobcan.istac.search.web.client.main.view.MainPageViewImpl;
-import es.gobcan.istac.search.web.client.main.view.ToolStripViewImpl;
 import es.gobcan.istac.search.web.client.main.view.UnauthorizedPageViewImpl;
 import es.gobcan.istac.search.web.client.navigation.NameTokens;
+import es.gobcan.istac.search.web.client.recommendedlink.presenter.RecommendedLinkListPresenter;
+import es.gobcan.istac.search.web.client.recommendedlink.view.RecommendedLinkListViewImpl;
 import es.gobcan.istac.search.web.client.reindex.presenter.ReindexPresenter;
 import es.gobcan.istac.search.web.client.reindex.view.ReindexViewImpl;
+import es.gobcan.istac.search.web.client.widgets.SearchToolStripPresenterWidget;
+import es.gobcan.istac.search.web.client.widgets.view.SearchToolStripViewImpl;
 
 public class ClientModule extends AbstractPresenterModule {
 
@@ -33,9 +35,11 @@ public class ClientModule extends AbstractPresenterModule {
         // Main presenters
         bindPresenter(MainPagePresenter.class, MainPagePresenter.MainView.class, MainPageViewImpl.class, MainPagePresenter.MainProxy.class);
         bindPresenter(ReindexPresenter.class, ReindexPresenter.ReindexView.class, ReindexViewImpl.class, ReindexPresenter.ReindexProxy.class);
+        bindPresenter(RecommendedLinkListPresenter.class, RecommendedLinkListPresenter.RecommendedLinkListView.class, RecommendedLinkListViewImpl.class,
+                RecommendedLinkListPresenter.RecommendedLinkListProxy.class);
 
         // PresenterWidgets
-        bindSingletonPresenterWidget(ToolStripPresenterWidget.class, ToolStripPresenterWidget.ToolStripView.class, ToolStripViewImpl.class);
+        bindSingletonPresenterWidget(SearchToolStripPresenterWidget.class, SearchToolStripPresenterWidget.SearchToolStripView.class, SearchToolStripViewImpl.class);
 
         // Gate keeper
         bind(SearchLoggedInGatekeeper.class).in(Singleton.class);

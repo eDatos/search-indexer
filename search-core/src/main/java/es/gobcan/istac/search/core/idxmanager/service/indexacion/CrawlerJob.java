@@ -2,13 +2,12 @@ package es.gobcan.istac.search.core.idxmanager.service.indexacion;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 
-import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
-import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerServiceImpl;
 import es.gobcan.istac.search.core.idxmanager.service.web.WebIndexerService;
 import es.gobcan.istac.search.core.idxmanager.service.web.WebIndexerServiceImpl;
 
@@ -27,9 +26,10 @@ public class CrawlerJob implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         try {
             LOG.info("Comenzando JOB reindexación de la WEB...");
-            
+
             // Al finalizar realiza un COMMIT y OPTIMIZE
-            getWebIndexerService().reindexWeb();
+            ServiceContext ctx = new ServiceContext("crawlerJob", context.getFireInstanceId(), "search-core");
+            getWebIndexerService().reindexWeb(ctx);
 
             // Reindexación Recomendados
             LOG.info("JOB Reindexación WEB finalizada");

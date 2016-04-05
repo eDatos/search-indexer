@@ -1,0 +1,37 @@
+
+/*import "classpath:/btdesign/metamac-core-common-dtos.btdesign"
+import "classpath:/btdesign/metamac-core-common-enum.btdesign"*/
+
+import "classpath:/btdesign/search-core-recommendedlink.btdesign"
+import "classpath:/btdesign/search-core-dtos.btdesign"
+
+Application SearchFacade {
+	basePackage=unused
+
+	Module core_facades {
+		basePackage=es.gobcan.istac.search.core.facade
+
+		Service RecommendedLinksServiceFacade {
+			> @RecommendedLinksService		
+			
+            @RecommendedLinkDto retrieveRecommendedLinkById(Long id) throws MetamacException;
+            @RecommendedLinkDto createRecommendedLink(@RecommendedLinkDto recommendedLinkDto) throws MetamacException;
+            @RecommendedLinkDto updateRecommendedLink(@RecommendedLinkDto recommendedLinkDto) throws MetamacException;
+            deleteRecommendedLink(Long id) throws MetamacException;
+            List<@RecommendedLinkDto> findAllRecommendedLinks throws MetamacException;
+            MetamacCriteriaResult<@RecommendedLinkDto> findRecommendedLinks(MetamacCriteria criteria) throws MetamacException;
+            String exportRecommendedLinks() throws MetamacException;        
+		}
+		
+		Service RecommendedKeywordsServiceFacade {
+            > @RecommendedKeywordsService
+            
+            @RecommendedKeywordDto retrieveRecommendedKeywordById(Long id) throws MetamacException;
+            @RecommendedKeywordDto createRecommendedKeyword(@RecommendedKeywordDto recommendedKeywordDto) throws MetamacException;
+            @RecommendedKeywordDto updateRecommendedKeyword(@RecommendedKeywordDto recommendedKeywordDto) throws MetamacException;
+            deleteRecommendedKeyword(Long id) throws MetamacException;
+            List<@RecommendedKeywordDto> findAllRecommendedKeywords throws MetamacException;
+            MetamacCriteriaResult<@RecommendedKeywordDto> findRecommendedKeywords(MetamacCriteria criteria) throws MetamacException;
+		}
+	}
+}

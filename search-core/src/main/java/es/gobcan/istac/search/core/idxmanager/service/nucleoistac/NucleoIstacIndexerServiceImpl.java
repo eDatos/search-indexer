@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.solr.common.SolrInputDocument;
+import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +25,13 @@ import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
 @Service
 public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService {
 
-    protected static Log log = LogFactory.getLog(NucleoIstacIndexerService.class);
+    protected static Log            log              = LogFactory.getLog(NucleoIstacIndexerService.class);
 
     @Autowired
-    private SolrService solr = null;
+    private SolrService             solr             = null;
 
     @Autowired
-    private IndexationStatus indexationStatus = null;
+    private IndexationStatus        indexationStatus = null;
 
     @Autowired
     private ConexionAlfrescoService conexionAlfrescoService;
@@ -114,11 +115,11 @@ public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService 
     }
 
     @Override
-    public void reindexarGPEelementos() throws ServiceExcepcion {
+    public void reindexarGPEelementos(ServiceContext ctx) throws ServiceExcepcion {
 
         try {
             if (!indexationStatus.getIdxGPEStatus().equals(IndexacionStatusDomain.INDEXANDO)) {
-                GpeReIndexerThread gpeReIndexerThread = new GpeReIndexerThread(conexionAlfrescoService);
+                GpeReIndexerThread gpeReIndexerThread = new GpeReIndexerThread(conexionAlfrescoService, ctx);
                 new Thread(gpeReIndexerThread).start();
             } else {
                 new ServiceExcepcion(ServiceExcepcionTipo.SERVICE_REINDEXACION_INPROGRESS);

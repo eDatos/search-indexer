@@ -1,5 +1,6 @@
 package es.gobcan.istac.idxmanager.service.test.util;
 
+import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -7,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/services-test.xml", "classpath:spring/solr-embedded-server-test.xml"})
+@ContextConfiguration(locations = {"classpath:applicationContext-test.xml", "classpath:spring/solr-embedded-server-test.xml"})
 public abstract class TestBase {
 
     private static boolean inicializado = false;
@@ -26,6 +27,10 @@ public abstract class TestBase {
                 e.printStackTrace();
             }
         }
+    }
+
+    protected ServiceContext mockServiceContextWithoutPrincipal() {
+        return new ServiceContext("junit", "junit", "app");
     }
 
 }

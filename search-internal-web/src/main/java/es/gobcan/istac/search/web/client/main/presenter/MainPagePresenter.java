@@ -34,21 +34,35 @@ import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 
+import es.gobcan.istac.search.web.client.events.SelectMainSectionEvent;
+import es.gobcan.istac.search.web.client.events.SelectMainSectionEvent.SelectMainSectionEventHandler;
 import es.gobcan.istac.search.web.client.main.handlers.MainPageUiHandlers;
 import es.gobcan.istac.search.web.client.navigation.NameTokens;
+import es.gobcan.istac.search.web.client.widgets.SearchToolStripPresenterWidget;
 import es.gobcan.istac.search.web.shared.GetHelpUrlAction;
 import es.gobcan.istac.search.web.shared.GetHelpUrlResult;
 
-public class MainPagePresenter extends Presenter<MainPagePresenter.MainView, MainPagePresenter.MainProxy> implements ShowMessageHandler, HideMessageHandler, MainPageUiHandlers, SetTitleHandler {
+public class MainPagePresenter extends Presenter<MainPagePresenter.MainView, MainPagePresenter.MainProxy>
+        implements
+            ShowMessageHandler,
+            HideMessageHandler,
+            MainPageUiHandlers,
+            SetTitleHandler,
+            SelectMainSectionEventHandler {
 
-    private static Logger                             logger       = Logger.getLogger(MainPagePresenter.class.getName());
+    private static Logger                             logger                 = Logger.getLogger(MainPagePresenter.class.getName());
 
     private static MasterHead                         masterHead;
 
     private final DispatchAsync                       dispatcher;
 
+    private final SearchToolStripPresenterWidget      toolStripPresenterWidget;
+
     @ContentSlot
-    public static final Type<RevealContentHandler<?>> CONTENT_SLOT = new Type<RevealContentHandler<?>>();
+    public static final Type<RevealContentHandler<?>> TYPE_SetNoticesToolBar = new Type<RevealContentHandler<?>>();
+
+    @ContentSlot
+    public static final Type<RevealContentHandler<?>> CONTENT_SLOT           = new Type<RevealContentHandler<?>>();
 
     public interface MainView extends View, HasUiHandlers<MainPageUiHandlers> {
 
@@ -68,8 +82,9 @@ public class MainPagePresenter extends Presenter<MainPagePresenter.MainView, Mai
     }
 
     @Inject
-    public MainPagePresenter(EventBus eventBus, MainView view, MainProxy proxy, DispatchAsync dispatcher) {
+    public MainPagePresenter(EventBus eventBus, MainView view, MainProxy proxy, DispatchAsync dispatcher, SearchToolStripPresenterWidget toolStripPresenterWidget) {
         super(eventBus, view, proxy);
+        this.toolStripPresenterWidget = toolStripPresenterWidget;
         getView().setUiHandlers(this);
         this.dispatcher = dispatcher;
         MainPagePresenter.masterHead = getView().getMasterHead();
@@ -138,5 +153,18 @@ public class MainPagePresenter extends Presenter<MainPagePresenter.MainView, Mai
 
     public static MasterHead getMasterHead() {
         return masterHead;
+    }
+
+    @Override
+    protected void onReveal() {
+        super.onReveal();
+        setInSlot(TYPE_SetNoticesToolBar, toolStripPresenterWidget);
+    }
+
+    @ProxyEvent
+    @Override
+    public void onSelectMainSection(SelectMainSectionEvent event) {
+        toolStripPresenterWidget.deselectButtons();
+        toolStripPresenterWidget.selectButton(event.getButtonId().getValue());
     }
 }
