@@ -32,7 +32,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import es.gobcan.istac.idxmanager.service.test.util.EmbeddedSolrServerTestCaseBase;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:spring/applicationContext-test.xml")
+@ContextConfiguration(locations = "classpath:applicationContext-test.xml")
 public class EmbeddedSolrTest extends EmbeddedSolrServerTestCaseBase {
 
     protected static Logger log = LoggerFactory.getLogger(EmbeddedSolrTest.class);
