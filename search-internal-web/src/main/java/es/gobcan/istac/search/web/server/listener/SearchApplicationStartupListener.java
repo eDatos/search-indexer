@@ -19,7 +19,6 @@ public class SearchApplicationStartupListener extends InternalApplicationStartup
     }
 
     private void checkRequiredPropertiesSolr() {
-        checkRequiredProperty(SearchConfigurationConstants.SEARCH_SOLR_JAXI_URL);
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_SOLR_ENDPOINT);
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_SOLR_CORE_OR_COLLECTION);
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_SOLR_CLOUD_SERVER_ENABLED);

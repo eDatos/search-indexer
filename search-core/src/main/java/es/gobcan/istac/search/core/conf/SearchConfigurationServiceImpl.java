@@ -13,11 +13,6 @@ public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl imp
     }
 
     @Override
-    public String retrieveSolrJaxiUrl() throws MetamacException {
-        return retrieveProperty(SearchConfigurationConstants.SEARCH_SOLR_JAXI_URL);
-    }
-
-    @Override
     public String retrieveSolrEndpoint() throws MetamacException {
         return retrieveProperty(SearchConfigurationConstants.SEARCH_SOLR_ENDPOINT);
     }

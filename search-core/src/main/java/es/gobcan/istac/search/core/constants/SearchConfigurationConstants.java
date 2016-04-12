@@ -11,8 +11,6 @@ public class SearchConfigurationConstants extends ConfigurationConstants {
     public static final String DB_SEARCH_PASSWORD                  = "search.db.password";
     public static final String DB_SEARCH_DRIVER_NAME               = "search.db.driver_name";
 
-    // TODO - property duplicada?
-    public static final String SEARCH_SOLR_JAXI_URL                = "istac.idxmanager.solr.urljaxi";
     public static final String SEARCH_SOLR_ENDPOINT                = "istac.idxmanager.solr.endpoint";
     public static final String SEARCH_SOLR_CORE_OR_COLLECTION      = "istac.idxmanager.solr.core_or_collection";
     public static final String SEARCH_SOLR_CLOUD_SERVER_ENABLED    = "istac.idxmanager.solr.cloud_server_enabled";
