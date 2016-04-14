@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
-import es.gobcan.istac.search.core.idxmanager.service.mapper.Do2DtoMapper;
+import es.gobcan.istac.search.core.mapper.Do2DtoMapper;
 import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedLink;
 
 @Component

@@ -1,5 +1,6 @@
 package es.gobcan.istac.search.core.facade.serviceimpl;
 
+import java.io.File;
 import java.util.List;
 
 import org.fornax.cartridges.sculptor.framework.domain.PagedResult;
@@ -15,9 +16,9 @@ import es.gobcan.istac.search.core.criteria.mapper.MetamacCriteria2SculptorCrite
 import es.gobcan.istac.search.core.criteria.mapper.SculptorCriteria2MetamacCriteriaMapper;
 import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
 import es.gobcan.istac.search.core.enume.domain.RoleEnum;
-import es.gobcan.istac.search.core.idxmanager.service.mapper.Do2DtoMapper;
-import es.gobcan.istac.search.core.idxmanager.service.mapper.Dto2DoMapper;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
+import es.gobcan.istac.search.core.mapper.Do2DtoMapper;
+import es.gobcan.istac.search.core.mapper.Dto2DoMapper;
 import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedLink;
 import es.gobcan.istac.search.security.SearchSecurityUtils;
 

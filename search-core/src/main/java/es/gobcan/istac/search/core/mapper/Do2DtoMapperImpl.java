@@ -1,4 +1,4 @@
-package es.gobcan.istac.search.core.idxmanager.service.mapper;
+package es.gobcan.istac.search.core.mapper;
 
 import java.util.ArrayList;
 import java.util.Date;

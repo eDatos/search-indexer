@@ -1,4 +1,4 @@
-package es.gobcan.istac.search.core.idxmanager.service.mapper;
+package es.gobcan.istac.search.core.mapper;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;

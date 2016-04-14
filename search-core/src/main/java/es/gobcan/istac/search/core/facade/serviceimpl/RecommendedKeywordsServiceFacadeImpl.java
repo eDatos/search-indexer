@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.core.enume.domain.RoleEnum;
-import es.gobcan.istac.search.core.idxmanager.service.mapper.Do2DtoMapper;
-import es.gobcan.istac.search.core.idxmanager.service.mapper.Dto2DoMapper;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
+import es.gobcan.istac.search.core.mapper.Do2DtoMapper;
+import es.gobcan.istac.search.core.mapper.Dto2DoMapper;
 import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedKeyword;
 import es.gobcan.istac.search.security.SearchSecurityUtils;
 
