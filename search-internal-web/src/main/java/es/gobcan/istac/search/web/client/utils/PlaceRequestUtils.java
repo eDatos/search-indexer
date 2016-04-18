@@ -5,10 +5,8 @@ import java.util.List;
 
 import org.siemac.metamac.web.common.client.utils.CommonPlaceRequestUtils;
 
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 
-import es.gobcan.istac.search.web.client.PlaceRequestParams;
 import es.gobcan.istac.search.web.client.navigation.NameTokens;
 
 public class PlaceRequestUtils extends CommonPlaceRequestUtils {
@@ -27,9 +25,4 @@ public class PlaceRequestUtils extends CommonPlaceRequestUtils {
         placeRequests.add(configurationsPlace);
         return placeRequests;
     }
-
-    public static String getRecommendedLinkParamFromUrl(PlaceManager placeManager) {
-        return getParamFromUrl(placeManager, NameTokens.RECOMMENDED_LINK_PAGE, PlaceRequestParams.RECOMMENDED_LINK_PARAM_ID);
-    }
-
 }

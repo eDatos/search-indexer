@@ -1,5 +1,11 @@
 package es.gobcan.istac.search.core.utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.exception.MetamacExceptionItem;
+import org.siemac.metamac.core.common.io.FileUtils;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +33,61 @@ import es.gobcan.istac.search.core.recommendedlink.serviceapi.validators.Recomme
 public class ImportUtils {
 
     private final static Logger logger = LoggerFactory.getLogger(ImportUtils.class);
+
+    public static void parseFile(ServiceContext ctx, File file, List<MetamacExceptionItem> exceptionItems, Map<String, RecommendedKeyword> recommendedKeywordsAlreadyExisting,
+            Map<String, RecommendedKeyword> recommendedKeywordsToPersistByKeyword, List<RecommendedLink> recommendedLinksToPersist) {
+        InputStreamReader inputStreamReader = null;
+        BufferedReader bufferedReader = null;
+
+        try {
+            InputStream stream = new FileInputStream(file);
+            String charset = FileUtils.guessCharset(file);
+            inputStreamReader = new InputStreamReader(stream, charset);
+            bufferedReader = new BufferedReader(inputStreamReader);
+
+            // Header
+            String line = bufferedReader.readLine();
+            RecommendedLinksTsvHeader header = ImportUtils.parseTsvHeaderToImportRecommendedLinks(line, exceptionItems);
+
+            if (CollectionUtils.isEmpty(exceptionItems)) {
+
+                int lineNumber = 2;
+                while ((line = bufferedReader.readLine()) != null) {
+                    if (StringUtils.isBlank(line)) {
+                        continue;
+                    }
+                    String[] columns = StringUtils.splitPreserveAllTokens(line, SearchConstants.TSV_SEPARATOR);
+                    if (columns.length != header.getColumnsSize()) {
+                        exceptionItems.add(new MetamacExceptionItem(ServiceExceptionType.IMPORTATION_TSV_WRONG_NUMBER_ELEMENTS, lineNumber));
+                        continue;
+                    }
+
+                    RecommendedKeyword recommendedKeyword = ImportUtils.tsvLineToRecommendedKeyword(ctx, header, columns, lineNumber, exceptionItems, recommendedKeywordsToPersistByKeyword,
+                            recommendedKeywordsAlreadyExisting);
+                    RecommendedLink recommendedLink = ImportUtils.tsvLineToRecommendedLink(ctx, header, columns, lineNumber, exceptionItems, recommendedKeyword);
+
+                    if (recommendedKeyword != null && recommendedLink != null) {
+                        if (recommendedKeyword.getId() == null && !recommendedKeywordsToPersistByKeyword.containsKey(recommendedKeyword.getKeyword())) {
+                            recommendedKeywordsToPersistByKeyword.put(recommendedKeyword.getKeyword(), recommendedKeyword);
+                        }
+                        recommendedLinksToPersist.add(recommendedLink);
+                    }
+                    lineNumber++;
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error importing tsv file", e);
+            exceptionItems.add(new MetamacExceptionItem(ServiceExceptionType.IMPORTATION_TSV_ERROR_FILE_PARSING, e.getMessage()));
+        } finally {
+            try {
+                inputStreamReader.close();
+                bufferedReader.close();
+            } catch (IOException e) {
+                // do not relaunch error
+                logger.error("Error closing streams", e);
+            }
+        }
+    }
 
     public static RecommendedLinksTsvHeader parseTsvHeaderToImportRecommendedLinks(String line, List<MetamacExceptionItem> exceptions) throws MetamacException {
         RecommendedLinksTsvHeader header = new RecommendedLinksTsvHeader();

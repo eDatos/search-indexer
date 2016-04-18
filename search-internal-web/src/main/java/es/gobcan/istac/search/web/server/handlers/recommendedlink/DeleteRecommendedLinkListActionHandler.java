@@ -1,7 +1,5 @@
 package es.gobcan.istac.search.web.server.handlers.recommendedlink;
 
-import java.util.List;
-
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.web.common.server.ServiceContextHolder;
 import org.siemac.metamac.web.common.server.handlers.SecurityActionHandler;
@@ -27,14 +25,13 @@ public class DeleteRecommendedLinkListActionHandler extends SecurityActionHandle
 
     @Override
     public DeleteRecommendedLinkListResult executeSecurityAction(DeleteRecommendedLinkListAction action) throws ActionException {
-        List<Long> ids = action.getRecommendedLinkIds();
-        for (Long id : ids) {
-            try {
-                recommendedLinksServiceFacade.deleteRecommendedLink(ServiceContextHolder.getCurrentServiceContext(), id);
-            } catch (MetamacException e) {
-                throw WebExceptionUtils.createMetamacWebException(e);
-            }
+
+        try {
+            recommendedLinksServiceFacade.deleteRecommendedLink(ServiceContextHolder.getCurrentServiceContext(), action.getRecommendedLinkIds());
+        } catch (MetamacException e) {
+            throw WebExceptionUtils.createMetamacWebException(e);
         }
+
         return new DeleteRecommendedLinkListResult();
     }
 }

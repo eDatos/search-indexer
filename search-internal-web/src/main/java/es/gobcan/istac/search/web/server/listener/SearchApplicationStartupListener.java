@@ -35,7 +35,6 @@ public class SearchApplicationStartupListener extends InternalApplicationStartup
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_INDEXATION_WEB_CRON);
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_INDEXATION_WEB_URL);
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_INDEXATION_GPE_CRON);
-        checkRequiredProperty(SearchConfigurationConstants.SEARCH_INDEXATION_RECOMMENDED_LINKS);
     }
 
     @Override

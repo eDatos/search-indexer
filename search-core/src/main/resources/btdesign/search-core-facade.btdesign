@@ -18,6 +18,7 @@ Application SearchFacade {
             @RecommendedLinkDto createRecommendedLink(@RecommendedLinkDto recommendedLinkDto) throws MetamacException;
             @RecommendedLinkDto updateRecommendedLink(@RecommendedLinkDto recommendedLinkDto) throws MetamacException;
             deleteRecommendedLink(Long id) throws MetamacException;
+            deleteRecommendedLink(List<Long> ids) throws MetamacException;
             List<@RecommendedLinkDto> findAllRecommendedLinks throws MetamacException;
             MetamacCriteriaResult<@RecommendedLinkDto> findRecommendedLinks(MetamacCriteria criteria) throws MetamacException;
             String exportRecommendedLinks() throws MetamacException;

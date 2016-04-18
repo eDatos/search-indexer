@@ -108,6 +108,17 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     }
 
     @Override
+    public void deleteRecommendedLink(ServiceContext ctx, List<Long> ids) throws MetamacException {
+        // Security
+        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+
+        getRecommendedLinksService().deleteRecommendedLink(ctx, ids);
+
+        // Automatically reindex on deleting a recommended link
+        recomendadosIndexerService.reindexRecommendedKeywords(ctx);
+    }
+
+    @Override
     public List<RecommendedLinkDto> findAllRecommendedLinks(ServiceContext ctx) throws MetamacException {
         // Security
         SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
@@ -155,7 +166,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
         SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
 
         getRecommendedLinksService().importByReplacingRecommendedLinks(ctx, file, fileName);
-        
+
         // Automatically reindex on import
         recomendadosIndexerService.reindexRecommendedKeywords(ctx);
     }
@@ -166,8 +177,9 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
         SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
 
         getRecommendedLinksService().importByAddingRecommendedLinks(ctx, file, fileName);
-        
+
         // Automatically reindex on import
         recomendadosIndexerService.reindexRecommendedKeywords(ctx);
     }
+
 }

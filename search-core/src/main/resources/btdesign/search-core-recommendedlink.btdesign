@@ -23,6 +23,7 @@ Application RecommendedLink {
             @RecommendedLink createRecommendedLink(@RecommendedLink recommendedLink) throws MetamacException;
             @RecommendedLink updateRecommendedLink(@RecommendedLink recommendedLink) throws MetamacException;
             deleteRecommendedLink(Long id) throws MetamacException;
+            deleteRecommendedLink(List<Long> ids) throws MetamacException;
             List<@RecommendedLink> findAllRecommendedLinks throws MetamacException;
             PagedResult<@RecommendedLink> findRecommendedLinksByCondition(List<ConditionalCriteria> condition, PagingParameter pagingParameter) throws MetamacException;
             String exportRecommendedLinks() throws MetamacException;

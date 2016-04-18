@@ -62,8 +62,4 @@ public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl imp
         return retrieveProperty(SearchConfigurationConstants.SEARCH_INDEXATION_GPE_CRON);
     }
 
-    @Override
-    public String retrieveIndexationRecommendedLinks() throws MetamacException {
-        return retrieveProperty(SearchConfigurationConstants.SEARCH_INDEXATION_RECOMMENDED_LINKS);
-    }
 }

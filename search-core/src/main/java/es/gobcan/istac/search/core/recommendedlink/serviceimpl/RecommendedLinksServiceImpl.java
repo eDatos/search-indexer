@@ -1,14 +1,6 @@
 package es.gobcan.istac.search.core.recommendedlink.serviceimpl;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,24 +8,20 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBuilder;
+import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBuilder.ConditionRoot;
 import org.fornax.cartridges.sculptor.framework.domain.PagedResult;
 import org.fornax.cartridges.sculptor.framework.domain.PagingParameter;
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.exception.MetamacExceptionBuilder;
 import org.siemac.metamac.core.common.exception.MetamacExceptionItem;
-import org.siemac.metamac.core.common.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.gobcan.istac.search.core.constants.SearchConstants;
-import es.gobcan.istac.search.core.domain.RecommendedLinksTsvHeader;
 import es.gobcan.istac.search.core.exception.ServiceExceptionType;
 import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedKeyword;
 import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedKeywordRepository;
@@ -82,6 +70,7 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
     public RecommendedLink createRecommendedLink(ServiceContext ctx, RecommendedLink recommendedLink) throws MetamacException {
 
         recommendedLinksServiceInvocationValidator.checkCreateRecommendedLink(ctx, recommendedLink);
+        checkRecommendedLinkUnique(ctx, recommendedLink);
 
         recommendedLink = getRecommendedLinkRepository().save(recommendedLink);
 
@@ -103,6 +92,16 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
         RecommendedLink recommendedLink = findRecommendedLinkById(ctx, id);
 
         getRecommendedLinkRepository().delete(recommendedLink);
+    }
+
+    @Override
+    public void deleteRecommendedLink(ServiceContext ctx, List<Long> ids) throws MetamacException {
+        recommendedLinksServiceInvocationValidator.checkDeleteRecommendedLink(ctx, ids);
+
+        for (Long id : ids) {
+            RecommendedLink recommendedLink = findRecommendedLinkById(ctx, id);
+            getRecommendedLinkRepository().delete(recommendedLink);
+        }
     }
 
     @Override
@@ -131,7 +130,7 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
 
         List<RecommendedLink> recommendedLinks = findAllRecommendedLinks(ctx);
 
-        return exportRecommendedLinks(recommendedLinks);
+        return ExportUtils.exportRecommendedLinks(recommendedLinks);
     }
 
     @Override
@@ -142,33 +141,7 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
 
         List<ConditionalCriteria> condition = ConditionalCriteriaBuilder.criteriaFor(RecommendedLink.class).withProperty(RecommendedLinkProperties.id()).in(ids).build();
         List<RecommendedLink> recommendedLinks = getRecommendedLinkRepository().findByCondition(condition);
-        return exportRecommendedLinks(recommendedLinks);
-    }
-
-    private String exportRecommendedLinks(List<RecommendedLink> recommendedLinks) throws MetamacException {
-        // Export
-        OutputStream outputStream = null;
-        OutputStreamWriter writer = null;
-
-        try {
-            File file = File.createTempFile("recommended-links", SearchConstants.TSV_EXPORTATION_EXTENSION);
-            outputStream = new FileOutputStream(file);
-            writer = new OutputStreamWriter(outputStream, SearchConstants.TSV_EXPORTATION_ENCODING);
-
-            ExportUtils.writeRecommendedLinksHeader(writer);
-
-            for (RecommendedLink recommendedLink : recommendedLinks) {
-                ExportUtils.writeRecommendedLink(writer, recommendedLink);
-            }
-
-            writer.flush();
-            return file.getName();
-        } catch (Exception e) {
-            throw MetamacExceptionBuilder.builder().withExceptionItems(ServiceExceptionType.EXPORTATION_TSV_ERROR).withMessageParameters(e).build();
-        } finally {
-            IOUtils.closeQuietly(outputStream);
-            IOUtils.closeQuietly(writer);
-        }
+        return ExportUtils.exportRecommendedLinks(recommendedLinks);
     }
 
     @Override
@@ -182,7 +155,7 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
 
         Map<String, RecommendedKeyword> recommendedKeywordsAlreadyExisting = new HashMap<String, RecommendedKeyword>();
 
-        parseFile(ctx, file, exceptionItems, recommendedKeywordsAlreadyExisting, recommendedKeywordsToPersistByKeyword, recommendedLinksToPersist);
+        ImportUtils.parseFile(ctx, file, exceptionItems, recommendedKeywordsAlreadyExisting, recommendedKeywordsToPersistByKeyword, recommendedLinksToPersist);
 
         if (!CollectionUtils.isEmpty(exceptionItems)) {
             // rollback and inform about errors
@@ -208,7 +181,7 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
 
         Map<String, RecommendedKeyword> recommendedKeywordsAlreadyExisting = getRecommendedKeywordsAlreadyExisting(ctx);
 
-        parseFile(ctx, file, exceptionItems, recommendedKeywordsAlreadyExisting, recommendedKeywordsToPersistByKeyword, recommendedLinksToPersist);
+        ImportUtils.parseFile(ctx, file, exceptionItems, recommendedKeywordsAlreadyExisting, recommendedKeywordsToPersistByKeyword, recommendedLinksToPersist);
 
         if (!CollectionUtils.isEmpty(exceptionItems)) {
             // rollback and inform about errors
@@ -225,61 +198,6 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
 
     private void deleteAllRecommendedLinks() {
         getRecommendedLinkRepository().deleteAll();
-    }
-
-    private void parseFile(ServiceContext ctx, File file, List<MetamacExceptionItem> exceptionItems, Map<String, RecommendedKeyword> recommendedKeywordsAlreadyExisting,
-            Map<String, RecommendedKeyword> recommendedKeywordsToPersistByKeyword, List<RecommendedLink> recommendedLinksToPersist) {
-        InputStreamReader inputStreamReader = null;
-        BufferedReader bufferedReader = null;
-
-        try {
-            InputStream stream = new FileInputStream(file);
-            String charset = FileUtils.guessCharset(file);
-            inputStreamReader = new InputStreamReader(stream, charset);
-            bufferedReader = new BufferedReader(inputStreamReader);
-
-            // Header
-            String line = bufferedReader.readLine();
-            RecommendedLinksTsvHeader header = ImportUtils.parseTsvHeaderToImportRecommendedLinks(line, exceptionItems);
-
-            if (CollectionUtils.isEmpty(exceptionItems)) {
-
-                int lineNumber = 2;
-                while ((line = bufferedReader.readLine()) != null) {
-                    if (StringUtils.isBlank(line)) {
-                        continue;
-                    }
-                    String[] columns = StringUtils.splitPreserveAllTokens(line, SearchConstants.TSV_SEPARATOR);
-                    if (columns.length != header.getColumnsSize()) {
-                        exceptionItems.add(new MetamacExceptionItem(ServiceExceptionType.IMPORTATION_TSV_WRONG_NUMBER_ELEMENTS, lineNumber));
-                        continue;
-                    }
-
-                    RecommendedKeyword recommendedKeyword = ImportUtils.tsvLineToRecommendedKeyword(ctx, header, columns, lineNumber, exceptionItems, recommendedKeywordsToPersistByKeyword,
-                            recommendedKeywordsAlreadyExisting);
-                    RecommendedLink recommendedLink = ImportUtils.tsvLineToRecommendedLink(ctx, header, columns, lineNumber, exceptionItems, recommendedKeyword);
-
-                    if (recommendedKeyword != null && recommendedLink != null) {
-                        if (recommendedKeyword.getId() == null && !recommendedKeywordsToPersistByKeyword.containsKey(recommendedKeyword.getKeyword())) {
-                            recommendedKeywordsToPersistByKeyword.put(recommendedKeyword.getKeyword(), recommendedKeyword);
-                        }
-                        recommendedLinksToPersist.add(recommendedLink);
-                    }
-                    lineNumber++;
-                }
-            }
-        } catch (Exception e) {
-            logger.error("Error importing tsv file", e);
-            exceptionItems.add(new MetamacExceptionItem(ServiceExceptionType.IMPORTATION_TSV_ERROR_FILE_PARSING, e.getMessage()));
-        } finally {
-            try {
-                inputStreamReader.close();
-                bufferedReader.close();
-            } catch (IOException e) {
-                // do not relaunch error
-                logger.error("Error closing streams", e);
-            }
-        }
     }
 
     private Map<String, RecommendedKeyword> getRecommendedKeywordsAlreadyExisting(ServiceContext ctx) throws MetamacException {
@@ -315,6 +233,22 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
             conditionsEntity.addAll(conditions);
         }
         return conditionsEntity;
+    }
+
+    private void checkRecommendedLinkUnique(ServiceContext ctx, RecommendedLink recommendedLink) throws MetamacException {
+        // Prepare criteria
+        PagingParameter pagingParameter = PagingParameter.pageAccess(1, 1);
+        ConditionRoot<RecommendedLink> conditionRoot = ConditionalCriteriaBuilder.criteriaFor(RecommendedLink.class);
+        conditionRoot.withProperty(RecommendedLinkProperties.recommendedKeyword().keyword()).ignoreCaseEq(recommendedLink.getRecommendedKeyword().getKeyword());
+        conditionRoot.withProperty(RecommendedLinkProperties.url()).ignoreCaseEq(recommendedLink.getUrl());
+        List<ConditionalCriteria> conditions = conditionRoot.distinctRoot().build();
+
+        // Find
+        PagedResult<RecommendedLink> result = getRecommendedLinkRepository().findByCondition(conditions, pagingParameter);
+        if (result.getValues().size() != 0) {
+            throw new MetamacException(ServiceExceptionType.RECOMMENDED_LINK_ALREADY_EXIST_KEYWORD_AND_URL_DUPLICATED, recommendedLink.getRecommendedKeyword().getKeyword(), recommendedLink.getUrl());
+        }
+
     }
 
 }

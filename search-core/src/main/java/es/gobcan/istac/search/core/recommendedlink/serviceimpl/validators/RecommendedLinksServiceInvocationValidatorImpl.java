@@ -28,6 +28,10 @@ public class RecommendedLinksServiceInvocationValidatorImpl {
         // TODO
     }
 
+    public static void checkDeleteRecommendedLink(List<Long> ids, List<MetamacExceptionItem> exceptions) {
+        // TODO
+    }
+
     public static void checkFindAllRecommendedLinks(List<MetamacExceptionItem> exceptions) throws MetamacException {
         // TODO
     }

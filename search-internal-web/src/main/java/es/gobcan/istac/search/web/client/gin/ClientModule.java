@@ -30,7 +30,7 @@ public class ClientModule extends AbstractPresenterModule {
         // Map EventBus, TokenFormatter, RootPresenter, PlaceManager y GoogleAnalytics
         install(new DefaultModule(SearchPlaceManager.class));
 
-        bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.REINDEX_PAGE);
+        bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.RECOMMENDED_LINK_LIST_PAGE);
 
         // Main presenters
         bindPresenter(MainPagePresenter.class, MainPagePresenter.MainView.class, MainPageViewImpl.class, MainPagePresenter.MainProxy.class);
