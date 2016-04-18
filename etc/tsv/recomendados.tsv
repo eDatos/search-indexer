@@ -1,0 +1,11 @@
+keyword	title	url	description
+documentos	Complementaria viticola web	http://localhost:9080/istac/complementaria/comp1_nogpe.pdf	Descripcion del pdf ... 
+documentos	Metodología Operación EPA sin descrip	http://localhost:9080/jaxi-web/descarga.do?uripx=urn:uuid:1478a039-c137-4739-a23f-91bf6a185bcb	Documento que describe la metodología de la operación
+paro	Metodología Operación EPA	http://localhost:9080/jaxi-web/descarga.do?uripx=urn:uuid:1478a039-c137-4739-a23f-91bf6a185bcb	Documento que describe la metodología de la operación
+paro	Aplicacion Reg Vitícola	http://localhost:9090/istac/doc.doc	Documento con detalles de la aplicación de registro vitícola
+istac	Aplicacion Reg Vitícola	http://localhost:9090/istac/doc.doc	Documento con detalles de la aplicación de registro vitícola
+istac	Result PPT	http://localhost:9090/istac/ppt.ppt	Transparencias del curso
+canario	Aplicacion Reg Vitícola	http://localhost:9090/istac/doc.doc	Documento con detalles de la aplicación de registro vitícola
+canario	Powerpoint PPS	http://localhost:9090/istac/pps.pps	Desc Power point
+canario	Datos de canarias	http://localhost:9090/istac/xml.xml	Datos en xml del censo
+canario	IPC Canarias 2010	http://localhost:9090/istac/ipc_2010_08_b2006.pdf	Datos del IPC Canarias 2010

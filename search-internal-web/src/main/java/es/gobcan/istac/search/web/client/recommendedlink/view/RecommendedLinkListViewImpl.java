@@ -115,7 +115,11 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
 
             @Override
             public void onClick(ClickEvent event) {
-                getUiHandlers().exportRecommendedLinks();
+                if (recommendedLinkListGrid.getSelectedRecords() != null) {
+                    getUiHandlers().exportRecommendedLinks(RecordUtils.getRecommendedLinkListIds(recommendedLinkListGrid.getSelectedRecords()));
+                } else {
+                    getUiHandlers().exportRecommendedLinks();
+                }
             }
         });
 

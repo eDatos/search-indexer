@@ -1,5 +1,7 @@
 package es.gobcan.istac.search.web.client.recommendedlink.presenter;
 
+import static es.gobcan.istac.search.web.client.SearchWeb.getMessages;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,6 +40,8 @@ import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedKeywor
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkListResult;
 import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksListAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksListResult;
 import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksResult;
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordListResult;
@@ -133,11 +137,13 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
     @Override
     public void recommendedLinksImportationSucceed(String message) {
         ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, message);
+        retrieveRecommendedLinkList();
     }
 
     @Override
     public void recommendedLinksImportationFailed(String error) {
         ShowMessageEvent.fireErrorMessage(RecommendedLinkListPresenter.this, error);
+        retrieveRecommendedLinkList();
     }
 
     @Override
@@ -146,7 +152,7 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
 
             @Override
             public void onWaitSuccess(SaveRecommendedLinkResult result) {
-                ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, "Enlace recomendado guardado con éxito"); // TODO
+                ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, getMessages().messageCreateRecommendedLinkSuccess());
                 retrieveRecommendedLinkList();
                 retrieveRecommendedKeywordList();
             }
@@ -160,10 +166,15 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
 
             @Override
             public void onWaitSuccess(SaveRecommendedKeywordResult result) {
-                ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, "Palabra clave guardado con éxito"); // TODO
+                ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, getMessages().messageCreateRecommendedKeywordSuccess());
                 retrieveRecommendedKeywordList();
             }
 
+            @Override
+            public void onWaitFailure(Throwable caught) {
+                ShowMessageEvent.fireErrorMessage(RecommendedLinkListPresenter.this, caught);
+                retrieveRecommendedLinkList();
+            }
         });
     }
 
@@ -185,12 +196,35 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
     }
 
     @Override
+    public void exportRecommendedLinks(List<Long> recommendedLinkListIds) {
+        dispatcher.execute(new ExportRecommendedLinksListAction(recommendedLinkListIds), new WaitingAsyncCallbackHandlingError<ExportRecommendedLinksListResult>(this) {
+
+            @Override
+            public void onWaitSuccess(ExportRecommendedLinksListResult result) {
+                CommonUtils.downloadFile(result.getFileName());
+            }
+
+            @Override
+            public void onWaitFailure(Throwable caught) {
+                ShowMessageEvent.fireErrorMessage(RecommendedLinkListPresenter.this, caught);
+            }
+
+        });
+    }
+
+    @Override
     public void deleteRecommendedLinks(List<Long> recommendedLinkListIds) {
         dispatcher.execute(new DeleteRecommendedLinkListAction(recommendedLinkListIds), new WaitingAsyncCallbackHandlingError<DeleteRecommendedLinkListResult>(this) {
 
             @Override
             public void onWaitSuccess(DeleteRecommendedLinkListResult result) {
-                ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, "Borrado con éxito"); // TODO
+                ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, getMessages().messageDeleteRecommendedLinkSuccess());
+                retrieveRecommendedLinkList();
+            }
+
+            @Override
+            public void onWaitFailure(Throwable caught) {
+                ShowMessageEvent.fireErrorMessage(RecommendedLinkListPresenter.this, caught);
                 retrieveRecommendedLinkList();
             }
 
@@ -203,11 +237,15 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
 
             @Override
             public void onWaitSuccess(DeleteRecommendedKeywordListResult result) {
-                ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, "Borrado con éxito"); // TODO
+                ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, getMessages().messageDeleteRecommendedKeywordSuccess());
                 retrieveRecommendedKeywordList();
             }
 
+            @Override
+            public void onWaitFailure(Throwable caught) {
+                ShowMessageEvent.fireErrorMessage(RecommendedLinkListPresenter.this, caught);
+                retrieveRecommendedLinkList();
+            }
         });
     }
-
 }

@@ -1,5 +1,6 @@
 package es.gobcan.istac.search.core.recommendedlink.serviceimpl.validators;
 
+import java.io.File;
 import java.util.List;
 
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
@@ -38,4 +39,17 @@ public class RecommendedLinksServiceInvocationValidatorImpl {
     public static void checkExportRecommendedLinks(List<MetamacExceptionItem> exceptions) {
         // TODO
     }
+
+    public static void checkExportRecommendedLinks(List<Long> ids, List<MetamacExceptionItem> exceptions) {
+        // TODO Auto-generated method stub
+    }
+
+    public static void checkImportByAddingRecommendedLinks(File file, String fileName, List<MetamacExceptionItem> exceptions) {
+        // TODO Auto-generated method stub
+    }
+
+    public static void checkImportByReplacingRecommendedLinks(File file, String fileName, List<MetamacExceptionItem> exceptions) {
+        // TODO Auto-generated method stub
+    }
+
 }

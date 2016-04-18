@@ -89,9 +89,6 @@ public class RecommendedLinkListLayout extends VLayout {
         exportToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionExport(), GlobalResources.RESOURCE.exportResource().getURL());
         importToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionImport(), GlobalResources.RESOURCE.importResource().getURL());
 
-        // TODO
-        importToolStripButton.hide();
-
         recommendedLinkListToolStrip.addButton(newRecommendedKeywordToolStripButton);
         recommendedLinkListToolStrip.addButton(deleteRecommendedKeywordToolStripButton);
         recommendedLinkListToolStrip.addSeparator();

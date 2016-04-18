@@ -29,6 +29,7 @@ import es.gobcan.istac.search.web.server.handlers.ValidateTicketActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.DeleteRecommendedKeywordListActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.DeleteRecommendedLinkListActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.ExportRecommendedLinksActionHandler;
+import es.gobcan.istac.search.web.server.handlers.recommendedlink.ExportRecommendedLinksListActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.GetRecommendedKeywordListActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.GetRecommendedLinkListActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.SaveRecommendedKeywordActionHandler;
@@ -46,6 +47,7 @@ import es.gobcan.istac.search.web.shared.ReindexWebAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedKeywordListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedLinkListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedKeywordAction;
@@ -85,6 +87,7 @@ public class ServerModule extends HandlerModule {
         bindHandler(SaveRecommendedLinkAction.class, SaveRecommendedLinkActionHandler.class);
         bindHandler(DeleteRecommendedLinkListAction.class, DeleteRecommendedLinkListActionHandler.class);
         bindHandler(ExportRecommendedLinksAction.class, ExportRecommendedLinksActionHandler.class);
+        bindHandler(ExportRecommendedLinksListAction.class, ExportRecommendedLinksListActionHandler.class);
         bindHandler(GetRecommendedKeywordListAction.class, GetRecommendedKeywordListActionHandler.class);
         bindHandler(GetRecommendedLinkListAction.class, GetRecommendedLinkListActionHandler.class);
 

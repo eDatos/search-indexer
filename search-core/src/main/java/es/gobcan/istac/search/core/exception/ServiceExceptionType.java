@@ -14,4 +14,12 @@ public class ServiceExceptionType extends CommonServiceExceptionType {
     public static final CommonServiceExceptionType INDEXATION_SOLR_ERROR                                = create("exception.search.indexation.solr.error");
     public static final CommonServiceExceptionType INDEXATION_INPROGRESS                                = create("exception.search.indexation.inprogress");
     public static final CommonServiceExceptionType INDEXATION_RECOMMENDED_KEYWORDS                      = create("exception.search.indexation.recommended_keywords");
+
+    // Importation, org.siemac.metamac.srm.core.common.error.ServiceExceptionType used as guide
+    public static final CommonServiceExceptionType IMPORTATION_TSV_ERROR                                = create("exception.search.importation.tsv.error");
+    public static final CommonServiceExceptionType IMPORTATION_TSV_ERROR_FILE_PARSING                   = create("exception.search.importation.tsv.error.file_parse");
+    public static final CommonServiceExceptionType IMPORTATION_TSV_HEADER_INCORRECT                     = create("exception.search.importation.tsv.error.header.incorrect");
+    public static final CommonServiceExceptionType IMPORTATION_TSV_LINE_INCORRECT                       = create("exception.search.importation.tsv.error.line.incorrect");
+    public static final CommonServiceExceptionType IMPORTATION_TSV_METADATA_REQUIRED                    = create("exception.search.importation.tsv.error.metadata_required");
+    public static final CommonServiceExceptionType IMPORTATION_TSV_WRONG_NUMBER_ELEMENTS                = create("exception.search.importation.tsv.error.wrong_number_elements");
 }

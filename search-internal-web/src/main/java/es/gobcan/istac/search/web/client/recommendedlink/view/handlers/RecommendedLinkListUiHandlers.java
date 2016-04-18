@@ -21,6 +21,7 @@ public interface RecommendedLinkListUiHandlers extends UiHandlers {
     void saveRecommendedKeyword(RecommendedKeywordDto recommendedKeyword);
 
     void exportRecommendedLinks();
+    void exportRecommendedLinks(List<Long> recommendedLinkListIds);
 
     void deleteRecommendedLinks(List<Long> recommendedLinkListIds);
     void deleteRecommendedKeyword(Long recommendedKeywordId);

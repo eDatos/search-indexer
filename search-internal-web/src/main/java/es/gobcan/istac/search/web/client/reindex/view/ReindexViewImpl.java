@@ -1,5 +1,7 @@
 package es.gobcan.istac.search.web.client.reindex.view;
 
+import static es.gobcan.istac.search.web.client.SearchWeb.getMessages;
+
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
@@ -72,21 +74,21 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
     @Override
     public void setIndexationWebStatus(IndexationStatusDto indexationStatus) {
         updateReindexWebButtonStartDisability(indexationStatus);
-        getUiHandlers().showMessageIfStatusChangedToFinished(indexationStatus, reindexLayout.getIndexationWebStatus(), "Indexación web realizada con éxito");
+        getUiHandlers().showMessageIfStatusChangedToFinished(indexationStatus, reindexLayout.getIndexationWebStatus(), getMessages().messageReindexWebSuccess());
         reindexLayout.setIndexationWebStatus(indexationStatus);
     }
 
     @Override
     public void setIndexationGpeStatus(IndexationStatusDto indexationStatus) {
         updateReindexGpeButtonStartDisability(indexationStatus);
-        getUiHandlers().showMessageIfStatusChangedToFinished(indexationStatus, reindexLayout.getIndexationGpeStatus(), "Indexación gpe realizada con éxito");
+        getUiHandlers().showMessageIfStatusChangedToFinished(indexationStatus, reindexLayout.getIndexationGpeStatus(), getMessages().messageReindexGpeSuccess());
         reindexLayout.setIndexationGpeStatus(indexationStatus);
     }
 
     @Override
     public void setIndexationRecommendedLinksStatus(IndexationStatusDto indexationStatus) {
         updateReindexRecommendedLinksButtonStartDisability(indexationStatus);
-        getUiHandlers().showMessageIfStatusChangedToFinished(indexationStatus, reindexLayout.getIndexationRecommendedLinksStatus(), "Indexación links recomendados realizada con éxito");
+        getUiHandlers().showMessageIfStatusChangedToFinished(indexationStatus, reindexLayout.getIndexationRecommendedLinksStatus(), getMessages().messageReindexRecommendedLinksSuccess());
         reindexLayout.setIndexationRecommendedLinksStatus(indexationStatus);
     }
 

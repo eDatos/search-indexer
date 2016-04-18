@@ -5,83 +5,75 @@
 
 <web-app>
 
-	<!-- ********************* SPRING INTEGRATION ******************** -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/config/spring/applicationContext.xml </param-value>
-	</context-param>
+    <!-- ********************* SPRING INTEGRATION ******************** -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/config/spring/applicationContext.xml </param-value>
+    </context-param>
 
-	<!-- Logout filter -->
-	<filter>
-		<filter-name>logoutFilter</filter-name>
-		<filter-class>es.gobcan.istac.search.web.server.servlet.SearchSingleSignOutFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>logoutFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+    <!-- Logout filter -->
+    <filter>
+        <filter-name>logoutFilter</filter-name>
+        <filter-class>es.gobcan.istac.search.web.server.servlet.SearchSingleSignOutFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>logoutFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-	<!-- Application startup listener to validate the configuration properties -->
-	<listener>
-		<listener-class>es.gobcan.istac.search.web.server.listener.SearchApplicationStartupListener</listener-class>
-	</listener>
+    <!-- Application startup listener to validate the configuration properties -->
+    <listener>
+        <listener-class>es.gobcan.istac.search.web.server.listener.SearchApplicationStartupListener</listener-class>
+    </listener>
 
-	<!-- Enable Spring Request Context Holder -->
-	<listener>
-		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
+    <!-- Enable Spring Request Context Holder -->
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
 
     <listener>
         <listener-class>es.gobcan.istac.search.web.server.servlet.QuartzInitializerListener</listener-class>
     </listener>
-    
-	<!-- SSO -->
-	<listener>
-		<listener-class>org.siemac.metamac.web.common.server.session.SingleSignOutHttpSessionListener</listener-class>
-	</listener>
 
-	<servlet>
-		<servlet-name>dispatch</servlet-name>
-		<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-	</servlet>
+    <!-- SSO -->
+    <listener>
+        <listener-class>org.siemac.metamac.web.common.server.session.SingleSignOutHttpSessionListener</listener-class>
+    </listener>
 
-	<servlet>
-		<servlet-name>remoteLogging</servlet-name>
-		<servlet-class>com.google.gwt.logging.server.RemoteLoggingServiceImpl</servlet-class>
-	</servlet>
-    
+    <servlet>
+        <servlet-name>dispatch</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>remoteLogging</servlet-name>
+        <servlet-class>com.google.gwt.logging.server.RemoteLoggingServiceImpl</servlet-class>
+    </servlet>
+
     <!-- GPE Servlet -->
     <servlet>
         <servlet-name>Gpe Servlet</servlet-name>
         <servlet-class>es.gobcan.istac.search.web.server.servlet.GpeServlet</servlet-class>
     </servlet>
-        
-	<servlet-mapping>
-		<servlet-name>dispatch</servlet-name>
-		<url-pattern>/dispatch/*</url-pattern>
-	</servlet-mapping>
-    
-<!--         <servlet> -->
-<!--         <servlet-name>upload</servlet-name> -->
-<!--         <servlet-class>org.siemac.metamac.srm.web.server.servlet.ResourceImportationServlet</servlet-class> -->
-<!--     </servlet> -->
-<!--     <servlet-mapping> -->
-<!--         <servlet-name>upload</servlet-name> -->
-<!--         <url-pattern>/files/upload/*</url-pattern> -->
-<!--     </servlet-mapping> -->
 
-<!--     <servlet> -->
-<!--         <servlet-name>uploadPreview</servlet-name> -->
-<!--         <servlet-class>org.siemac.metamac.srm.web.server.servlet.ResourceImportationPreviewServlet</servlet-class> -->
-<!--     </servlet> -->
-<!--     <servlet-mapping> -->
-<!--         <servlet-name>uploadPreview</servlet-name> -->
-<!--         <url-pattern>/files/upload-preview/*</url-pattern> -->
-<!--     </servlet-mapping> -->
+    <servlet-mapping>
+        <servlet-name>dispatch</servlet-name>
+        <url-pattern>/dispatch/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>upload</servlet-name>
+        <servlet-class>es.gobcan.istac.search.web.server.servlet.ResourceImportationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>upload</servlet-name>
+        <url-pattern>/files/upload/*</url-pattern>
+    </servlet-mapping>
+
 
     <servlet>
         <servlet-name>download</servlet-name>
@@ -92,21 +84,21 @@
         <url-pattern>/files/download/*</url-pattern>
     </servlet-mapping>
 
-	<!-- Remote logging -->
-	<servlet-mapping>
-		<servlet-name>remoteLogging</servlet-name>
-		<url-pattern>/SearchWeb/remote_logging</url-pattern>
-	</servlet-mapping>
-    
+    <!-- Remote logging -->
+    <servlet-mapping>
+        <servlet-name>remoteLogging</servlet-name>
+        <url-pattern>/SearchWeb/remote_logging</url-pattern>
+    </servlet-mapping>
+
     <!-- GPE Servlet -->
     <servlet-mapping>
         <servlet-name>Gpe Servlet</servlet-name>
         <url-pattern>*.idx</url-pattern>
     </servlet-mapping>
 
-	<!-- ******************* Default page to serve ******************** -->
-	<welcome-file-list>
-		<welcome-file>SearchWeb.jsp</welcome-file>
-	</welcome-file-list>
+    <!-- ******************* Default page to serve ******************** -->
+    <welcome-file-list>
+        <welcome-file>SearchWeb.jsp</welcome-file>
+    </welcome-file-list>
 
 </web-app>

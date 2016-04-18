@@ -89,7 +89,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
         // Service call
         recommendedLink = getRecommendedLinksService().updateRecommendedLink(ctx, recommendedLink);
 
-        // Automatically reindex on deleting a recommended link
+        // Automatically reindex on updating a recommended link
         recomendadosIndexerService.reindexRecommendedKeywords(ctx);
 
         return do2DtoMapper.recommendedLinkDoToDto(recommendedLink);
@@ -138,5 +138,36 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
         SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
 
         return getRecommendedLinksService().exportRecommendedLinks(ctx);
+    }
+
+    @Override
+    public String exportRecommendedLinks(ServiceContext ctx, List<Long> ids) throws MetamacException {
+
+        // Security
+        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
+
+        return getRecommendedLinksService().exportRecommendedLinks(ctx, ids);
+    }
+
+    @Override
+    public void importByReplacingRecommendedLinks(ServiceContext ctx, File file, String fileName) throws MetamacException {
+        // SECURITY
+        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+
+        getRecommendedLinksService().importByReplacingRecommendedLinks(ctx, file, fileName);
+        
+        // Automatically reindex on import
+        recomendadosIndexerService.reindexRecommendedKeywords(ctx);
+    }
+
+    @Override
+    public void importByAddingRecommendedLinks(ServiceContext ctx, File file, String fileName) throws MetamacException {
+        // SECURITY
+        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+
+        getRecommendedLinksService().importByAddingRecommendedLinks(ctx, file, fileName);
+        
+        // Automatically reindex on import
+        recomendadosIndexerService.reindexRecommendedKeywords(ctx);
     }
 }

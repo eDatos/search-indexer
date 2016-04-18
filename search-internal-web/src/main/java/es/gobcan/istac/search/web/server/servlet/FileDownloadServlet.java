@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.cxf.common.util.StringUtils;
 import org.opensaml.artifact.InvalidArgumentException;
 import org.siemac.metamac.web.common.server.servlet.FileDownloadServletBase;
-import org.siemac.metamac.web.common.shared.utils.SharedTokens;
+
+import es.gobcan.istac.search.web.shared.utils.SearchSharedTokens;
 
 public class FileDownloadServlet extends FileDownloadServletBase {
 
@@ -15,8 +16,8 @@ public class FileDownloadServlet extends FileDownloadServletBase {
 
     @Override
     protected File getFileToDownload(HttpServletRequest request) throws Exception {
-        if (!StringUtils.isEmpty(request.getParameter(SharedTokens.PARAM_FILE_NAME))) {
-            return getFileFromTempDir(request.getParameter(SharedTokens.PARAM_FILE_NAME));
+        if (!StringUtils.isEmpty(request.getParameter(SearchSharedTokens.PARAM_FILE_NAME))) {
+            return getFileFromTempDir(request.getParameter(SearchSharedTokens.PARAM_FILE_NAME));
         } else {
             throw new InvalidArgumentException("You must specify some action");
         }

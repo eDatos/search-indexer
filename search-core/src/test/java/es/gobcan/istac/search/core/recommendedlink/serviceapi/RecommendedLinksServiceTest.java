@@ -57,4 +57,16 @@ public class RecommendedLinksServiceTest /* extends AbstractDbUnitJpaTests */ im
         // TODO Auto-generated method stub
         // fail("testExportRecommendedLinks not implemented");
     }
+
+    @Override
+    public void testImportByReplacingRecommendedLinks() throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void testImportByAddingRecommendedLinks() throws Exception {
+        // TODO Auto-generated method stub
+
+    }
 }

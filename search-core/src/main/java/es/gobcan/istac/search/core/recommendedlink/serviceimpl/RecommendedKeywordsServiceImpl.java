@@ -62,10 +62,9 @@ public class RecommendedKeywordsServiceImpl extends RecommendedKeywordsServiceIm
 
     @Override
     public RecommendedKeyword updateRecommendedKeyword(ServiceContext ctx, RecommendedKeyword recommendedKeyword) throws MetamacException {
+        recommendedKeywordsServiceInvocationValidator.checkUpdateRecommendedKeyword(ctx, recommendedKeyword);
 
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("updateRecommendedKeyword not implemented");
-
+        return getRecommendedKeywordRepository().save(recommendedKeyword);
     }
 
     @Override
@@ -90,9 +89,20 @@ public class RecommendedKeywordsServiceImpl extends RecommendedKeywordsServiceIm
     @Override
     public PagedResult<RecommendedKeyword> findRecommendedKeywordsByCondition(ServiceContext ctx, List<ConditionalCriteria> condition, PagingParameter pagingParameter) throws MetamacException {
 
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("findRecommendedKeywordsByCondition not implemented");
+        recommendedKeywordsServiceInvocationValidator.checkFindRecommendedKeywordsByCondition(ctx, condition, pagingParameter);
 
+        initCriteriaConditions(condition, RecommendedKeyword.class);
+
+        return getRecommendedKeywordRepository().findByCondition(condition, pagingParameter);
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private List<ConditionalCriteria> initCriteriaConditions(List<ConditionalCriteria> conditions, Class entityClass) {
+        List<ConditionalCriteria> conditionsEntity = ConditionalCriteriaBuilder.criteriaFor(entityClass).build();
+        if (conditions != null) {
+            conditionsEntity.addAll(conditions);
+        }
+        return conditionsEntity;
     }
 
     private void checkRecommendedKeywordKeywordUnique(ServiceContext ctx, RecommendedKeyword recommendedKeyword) throws MetamacException {

@@ -12,9 +12,9 @@ public final class SearchConstants {
     public static final String TSV_SEPARATOR             = "\t";
     public static final String TSV_LINE_SEPARATOR        = "\n";
 
-    public static final Object TSV_HEADER_KEYWORD        = "keyword";
-    public static final Object TSV_HEADER_TITLE          = "title";
-    public static final Object TSV_HEADER_URL            = "url";
-    public static final Object TSV_HEADER_DESCRIPTION    = "description";
+    public static final String TSV_HEADER_KEYWORD        = "keyword";
+    public static final String TSV_HEADER_TITLE          = "title";
+    public static final String TSV_HEADER_URL            = "url";
+    public static final String TSV_HEADER_DESCRIPTION    = "description";
 
 }
