@@ -25,7 +25,10 @@ Application RecommendedLink {
             deleteRecommendedLink(Long id) throws MetamacException;
             List<@RecommendedLink> findAllRecommendedLinks throws MetamacException;
             PagedResult<@RecommendedLink> findRecommendedLinksByCondition(List<ConditionalCriteria> condition, PagingParameter pagingParameter) throws MetamacException;
-            String exportRecommendedLinks() throws MetamacException;            
+            String exportRecommendedLinks() throws MetamacException;
+            String exportRecommendedLinks(List<Long> ids) throws MetamacException;
+            importByReplacingRecommendedLinks(java.io.File file, String fileName) throws MetamacException;
+            importByAddingRecommendedLinks(java.io.File file, String fileName) throws MetamacException;    
         }  
 	   
 	   Entity RecommendedLink {
@@ -53,6 +56,7 @@ Application RecommendedLink {
             Repository RecommendedLinkRepository {
                 save;
                 delete;
+                deleteAll;
                 findAll;
                 findById;
                 findByCondition;
@@ -91,6 +95,7 @@ Application RecommendedLink {
             Repository RecommendedKeywordRepository {
                 save;
                 delete;
+                deleteAll;
                 findAll;
                 findById;
                 findByCondition;

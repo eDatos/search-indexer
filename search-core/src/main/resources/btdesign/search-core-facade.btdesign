@@ -20,7 +20,10 @@ Application SearchFacade {
             deleteRecommendedLink(Long id) throws MetamacException;
             List<@RecommendedLinkDto> findAllRecommendedLinks throws MetamacException;
             MetamacCriteriaResult<@RecommendedLinkDto> findRecommendedLinks(MetamacCriteria criteria) throws MetamacException;
-            String exportRecommendedLinks() throws MetamacException;        
+            String exportRecommendedLinks() throws MetamacException;
+            String exportRecommendedLinks(List<Long> ids) throws MetamacException;
+            importByReplacingRecommendedLinks(java.io.File file, String fileName) throws MetamacException;
+            importByAddingRecommendedLinks(java.io.File file, String fileName) throws MetamacException;        
 		}
 		
 		Service RecommendedKeywordsServiceFacade {
