@@ -5,6 +5,7 @@ import java.util.List;
 import org.siemac.metamac.web.common.client.resources.GlobalResources;
 import org.siemac.metamac.web.common.client.widgets.BaseCustomListGrid;
 import org.siemac.metamac.web.common.client.widgets.DeleteConfirmationWindow;
+import org.siemac.metamac.web.common.client.widgets.actions.PaginatedAction;
 
 import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -14,7 +15,9 @@ import com.smartgwt.client.widgets.toolbar.ToolStripButton;
 import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
 import es.gobcan.istac.search.web.client.SearchWeb;
 import es.gobcan.istac.search.web.client.model.RecommendedLinkRecord;
+import es.gobcan.istac.search.web.client.recommendedlink.view.handlers.RecommendedLinkListUiHandlers;
 import es.gobcan.istac.search.web.client.utils.RecordUtils;
+import es.gobcan.istac.search.web.shared.criteria.RecommendedLinkWebCriteria;
 
 public class RecommendedLinkListLayout extends VLayout {
 
@@ -37,6 +40,8 @@ public class RecommendedLinkListLayout extends VLayout {
     private RecommendedLinkListSearchSectionStack recommendedLinkListSearchSectionStack;
 
     private RecommendedLinkLayout                 recommendedLinkLayout;
+
+    private RecommendedLinkListUiHandlers         uiHandlers;
 
     public RecommendedLinkLayout getRecommendedLinkLayout() {
         return recommendedLinkLayout;
@@ -68,11 +73,19 @@ public class RecommendedLinkListLayout extends VLayout {
 
     private void createRecommendedLinkListSearchSectionStack() {
         recommendedLinkListSearchSectionStack = new RecommendedLinkListSearchSectionStack();
-        // recommendedLinkListSearchSectionStack.getAdvancedSearchForm().hide();
     }
 
     private void createRecommendedLinkListPaginatedListGrid() {
-        recommendedLinkPaginatedListGrid = new RecommendedLinkPaginatedListGrid();
+        recommendedLinkPaginatedListGrid = new RecommendedLinkPaginatedListGrid(new PaginatedAction() {
+
+            @Override
+            public void retrieveResultSet(int firstResult, int maxResults) {
+                RecommendedLinkWebCriteria criteria = recommendedLinkListSearchSectionStack.getRecommendedLinkListWebCriteria();
+                criteria.setFirstResult(firstResult);
+                criteria.setMaxResults(maxResults);
+                getUiHandlers().retrieveRecommendedLinkList(criteria);
+            }
+        });
     }
 
     private void createRecommendedLinkListToolStrip() {
@@ -179,6 +192,15 @@ public class RecommendedLinkListLayout extends VLayout {
 
     public RecommendedLinkListSearchSectionStack getRecommendedLinkListSearchSectionStack() {
         return recommendedLinkListSearchSectionStack;
+    }
+
+    private RecommendedLinkListUiHandlers getUiHandlers() {
+        return uiHandlers;
+    }
+
+    public void setUiHandlers(RecommendedLinkListUiHandlers handlers) {
+        recommendedLinkListSearchSectionStack.setUiHandlers(handlers);
+        uiHandlers = handlers;
     }
 
 }

@@ -42,7 +42,7 @@ public class RecommendedLinkListSearchSectionStack extends SearchSectionStack {
         // getUiHandlers().retrieveCategorySchemes(CategorySchemeListPresenter.SCHEME_LIST_FIRST_RESULT, CategorySchemeListPresenter.SCHEME_LIST_MAX_RESULTS, getCategorySchemeWebCriteria());
     }
 
-    private RecommendedLinkWebCriteria getRecommendedLinkListWebCriteria() {
+    public RecommendedLinkWebCriteria getRecommendedLinkListWebCriteria() {
         RecommendedLinkWebCriteria recommendedLinkWebCriteria = new RecommendedLinkWebCriteria();
         recommendedLinkWebCriteria.setCriteria(getSearchCriteria());
         return recommendedLinkWebCriteria;

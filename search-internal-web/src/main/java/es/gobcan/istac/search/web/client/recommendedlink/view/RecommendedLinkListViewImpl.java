@@ -194,7 +194,7 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
     @Override
     public void setUiHandlers(RecommendedLinkListUiHandlers handlers) {
         super.setUiHandlers(handlers);
-        recommendedLinkListLayout.getRecommendedLinkListSearchSectionStack().setUiHandlers(handlers);
+        recommendedLinkListLayout.setUiHandlers(handlers);
     }
 
     @Override
