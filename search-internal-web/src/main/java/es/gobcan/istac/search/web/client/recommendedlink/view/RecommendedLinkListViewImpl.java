@@ -3,6 +3,7 @@ package es.gobcan.istac.search.web.client.recommendedlink.view;
 import java.util.List;
 
 import org.siemac.metamac.web.common.client.widgets.BaseCustomListGrid;
+import org.siemac.metamac.web.common.shared.domain.ExternalItemsResult;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
@@ -41,7 +42,7 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
 
     private void createNewRecommendedKeywordWindow() {
 
-        NewRecommendedKeywordWindow newRecommendedKeywordWindow = new NewRecommendedKeywordWindow(getUiHandlers());
+        NewRecommendedKeywordWindow newRecommendedKeywordWindow = new NewRecommendedKeywordWindow();
         recommendedLinkListLayout.setNewRecommendedKeywordWindow(newRecommendedKeywordWindow);
         recommendedLinkListLayout.getNewRecommendedKeywordWindow().hide();
         recommendedLinkListLayout.getNewRecommendedKeywordWindow().getSave().addClickHandler(new com.smartgwt.client.widgets.form.fields.events.ClickHandler() {
@@ -115,7 +116,7 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
 
             @Override
             public void onClick(ClickEvent event) {
-                if (recommendedLinkListGrid.getSelectedRecords() != null) {
+                if (recommendedLinkListGrid.getSelectedRecords() != null && recommendedLinkListGrid.getSelectedRecords().length > 0) {
                     getUiHandlers().exportRecommendedLinks(RecordUtils.getRecommendedLinkListIds(recommendedLinkListGrid.getSelectedRecords()));
                 } else {
                     getUiHandlers().exportRecommendedLinks();
@@ -217,4 +218,8 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
         }
     }
 
+    @Override
+    public void setSrmItems(String formItemName, ExternalItemsResult externalItemsResult) {
+        recommendedLinkListLayout.getNewRecommendedKeywordWindow().setSrmItems(formItemName, externalItemsResult);
+    }
 }

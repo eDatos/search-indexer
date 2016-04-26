@@ -3,6 +3,9 @@ package es.gobcan.istac.search.web.client.utils;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.siemac.metamac.core.common.dto.ExternalItemDto;
+import org.siemac.metamac.core.common.util.shared.StringUtils;
+
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window;
 
@@ -12,13 +15,45 @@ import es.gobcan.istac.search.web.shared.utils.SearchSharedTokens;
 
 public class CommonUtils {
 
-    public static LinkedHashMap<String, String> getRecommendedKeywordsHasMap(List<RecommendedKeywordDto> recommendedKeywordList) {
+    public static LinkedHashMap<String, String> getRecommendedKeywordsHashMap(List<RecommendedKeywordDto> recommendedKeywordList) {
         LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
         valueMap.put(new String(), new String());
         for (RecommendedKeywordDto recommendedKeyword : recommendedKeywordList) {
-            valueMap.put(recommendedKeyword.getId().toString(), recommendedKeyword.getKeyword());
+            valueMap.put(recommendedKeyword.getId().toString(), getRecommendedKeywordName(recommendedKeyword));
         }
         return valueMap;
+    }
+
+    private static String getRecommendedKeywordName(RecommendedKeywordDto recommendedKeyword) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(recommendedKeyword.getKeyword());
+        if (recommendedKeyword.getCategory() != null) {
+            stringBuilder.append(" - ").append(ExternalItemUtils.getExternalItemName(recommendedKeyword.getCategory()));
+        }
+        return stringBuilder.toString();
+    }
+
+    public static String getRecommendedKeywordLinkedName(RecommendedKeywordDto recommendedKeyword) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(recommendedKeyword.getKeyword());
+        if (recommendedKeyword.getCategory() != null) {
+            stringBuilder.append(" - ").append(getCategoryNameLinked(recommendedKeyword.getCategory()));
+        }
+        return stringBuilder.toString();
+    }
+
+    public static String getCategoryNameLinked(ExternalItemDto externalItemDto) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (externalItemDto != null) {
+            stringBuilder.append(ExternalItemUtils.getExternalItemName(externalItemDto));
+            if (!externalItemDto.getManagementAppUrl().isEmpty()) {
+                stringBuilder.insert(0, "<a href='" + externalItemDto.getManagementAppUrl() + "'>");
+                stringBuilder.append("</a>");
+            }
+            return stringBuilder.toString();
+        } else {
+            return StringUtils.EMPTY;
+        }
     }
 
     public static void downloadFile(String fileName) {

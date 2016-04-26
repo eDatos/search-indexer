@@ -129,6 +129,11 @@
             <groupId>org.siemac.metamac</groupId>
             <artifactId>metamac-web-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.siemac.metamac.metamac-srm</groupId>
+            <artifactId>metamac-srm-rest-internal-api</artifactId>
+            <version>${metamac-srm-rest-internal-api.version}</version>
+        </dependency>
 
         <!-- SEARCH CORE -->
         <dependency>

@@ -55,7 +55,7 @@ public class DeleteRecommendedKeywordWindow extends ModalWindow {
 
     public void setRecommendedKeywordList(List<RecommendedKeywordDto> recommendedKeywordList) {
         form.getItem(RecommendedKeywordDS.ID).clearValue();
-        form.getItem(RecommendedKeywordDS.ID).setValueMap(CommonUtils.getRecommendedKeywordsHasMap(recommendedKeywordList));
+        form.getItem(RecommendedKeywordDS.ID).setValueMap(CommonUtils.getRecommendedKeywordsHashMap(recommendedKeywordList));
     }
 
     public Long getRecommendedKeywordId() {

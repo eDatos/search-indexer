@@ -69,11 +69,11 @@ public class RecommendedLinkLayout extends VLayout {
 
     private void createViewRecommendedLinkForm() {
         viewRecommendedLinkForm = new GroupDynamicForm(getConstants().recommendedLink());
-        ViewTextItem recommendedKeywordKeyword = new ViewTextItem(RecommendedLinkDS.RECOMMENDED_KEYWORD_KEYWORD, getConstants().recommendedKeywordKeyword());
+        ViewTextItem recommendedKeywordName = new ViewTextItem(RecommendedLinkDS.RECOMMENDED_KEYWORD_NAME, getConstants().recommendedKeywordKeyword());
         ViewTextItem url = new ViewTextItem(RecommendedLinkDS.URL, getConstants().recommendedLinkUrl());
         ViewTextItem title = new ViewTextItem(RecommendedLinkDS.TITLE, getConstants().recommendedLinkTitle());
         ViewTextItem description = new ViewTextItem(RecommendedLinkDS.DESCRIPTION, getConstants().recommendedLinkDescription());
-        viewRecommendedLinkForm.setFields(recommendedKeywordKeyword, url, title, description);
+        viewRecommendedLinkForm.setFields(recommendedKeywordName, url, title, description);
     }
 
     private void createRecommendedLinkToolStrip() {
@@ -105,7 +105,7 @@ public class RecommendedLinkLayout extends VLayout {
 
     public void setRecommendedKeywordList(List<RecommendedKeywordDto> recommendedKeywordList) {
         this.recommendedKeywordList = recommendedKeywordList;
-        editRecommendedLinkForm.getItem(RecommendedLinkDS.RECOMMENDED_KEYWORD_ID).setValueMap(CommonUtils.getRecommendedKeywordsHasMap(recommendedKeywordList));
+        editRecommendedLinkForm.getItem(RecommendedLinkDS.RECOMMENDED_KEYWORD_ID).setValueMap(CommonUtils.getRecommendedKeywordsHashMap(recommendedKeywordList));
     }
 
     public List<RecommendedKeywordDto> getRecommendedKeywordList() {

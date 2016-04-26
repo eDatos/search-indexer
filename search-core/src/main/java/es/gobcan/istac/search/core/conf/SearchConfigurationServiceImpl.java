@@ -61,5 +61,10 @@ public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl imp
     public String retrieveIndexationGpeCron() throws MetamacException {
         return retrieveProperty(SearchConfigurationConstants.SEARCH_INDEXATION_GPE_CRON);
     }
+    
+    @Override
+    public String retrieveDefaultCategorySchemeUrn() throws MetamacException {
+        return retrieveProperty(SearchConfigurationConstants.SEARCH_DEFAULT_CATEGORY_SCHEME_URN);
+    }
 
 }

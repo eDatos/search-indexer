@@ -26,6 +26,7 @@ import es.gobcan.istac.search.web.server.handlers.ReindexGpeActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ReindexRecommendedLinksActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ReindexWebActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ValidateTicketActionHandler;
+import es.gobcan.istac.search.web.server.handlers.external.GetExternalResourcesActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.DeleteRecommendedKeywordListActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.DeleteRecommendedLinkListActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.ExportRecommendedLinksActionHandler;
@@ -44,6 +45,7 @@ import es.gobcan.istac.search.web.shared.GetIndexationStatusWebAction;
 import es.gobcan.istac.search.web.shared.ReindexGpeAction;
 import es.gobcan.istac.search.web.shared.ReindexRecommendedLinksAction;
 import es.gobcan.istac.search.web.shared.ReindexWebAction;
+import es.gobcan.istac.search.web.shared.external.GetExternalResourcesAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedKeywordListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksAction;
@@ -90,6 +92,8 @@ public class ServerModule extends HandlerModule {
         bindHandler(ExportRecommendedLinksListAction.class, ExportRecommendedLinksListActionHandler.class);
         bindHandler(GetRecommendedKeywordListAction.class, GetRecommendedKeywordListActionHandler.class);
         bindHandler(GetRecommendedLinkListAction.class, GetRecommendedLinkListActionHandler.class);
+
+        bindHandler(GetExternalResourcesAction.class, GetExternalResourcesActionHandler.class);
 
         // This action should be removed to use CAS authentication
         bindHandler(MockCASUserAction.class, MockCASUserActionHandler.class);

@@ -2,6 +2,8 @@ package es.gobcan.istac.search.web.client.recommendedlink.view.handlers;
 
 import java.util.List;
 
+import org.siemac.metamac.web.common.shared.criteria.SrmItemRestCriteria;
+
 import com.gwtplatform.mvp.client.UiHandlers;
 
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
@@ -25,5 +27,7 @@ public interface RecommendedLinkListUiHandlers extends UiHandlers {
 
     void deleteRecommendedLinks(List<Long> recommendedLinkListIds);
     void deleteRecommendedKeyword(Long recommendedKeywordId);
+
+    void retrieveSrmItems(String formItemName, SrmItemRestCriteria itemRestCriteria, int firstResult, int maxResults);
 
 }

@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.siemac.metamac.web.common.client.events.ShowMessageEvent;
 import org.siemac.metamac.web.common.client.utils.WaitingAsyncCallbackHandlingError;
+import org.siemac.metamac.web.common.shared.criteria.SrmItemRestCriteria;
+import org.siemac.metamac.web.common.shared.domain.ExternalItemsResult;
 
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
@@ -35,6 +37,8 @@ import es.gobcan.istac.search.web.client.navigation.NameTokens;
 import es.gobcan.istac.search.web.client.recommendedlink.view.handlers.RecommendedLinkListUiHandlers;
 import es.gobcan.istac.search.web.client.utils.CommonUtils;
 import es.gobcan.istac.search.web.shared.criteria.RecommendedLinkWebCriteria;
+import es.gobcan.istac.search.web.shared.external.GetExternalResourcesAction;
+import es.gobcan.istac.search.web.shared.external.GetExternalResourcesResult;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedKeywordListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedKeywordListResult;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkListAction;
@@ -75,6 +79,7 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
 
         void setRecommendedLinkList(List<RecommendedLinkDto> recommendedLinkList, int firstResult, int totalResults);
         void setRecommendedKeywordList(List<RecommendedKeywordDto> recommendedKeywordList);
+        void setSrmItems(String formItemName, ExternalItemsResult externalItemsResult);
 
     }
 
@@ -245,6 +250,17 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
             public void onWaitFailure(Throwable caught) {
                 ShowMessageEvent.fireErrorMessage(RecommendedLinkListPresenter.this, caught);
                 retrieveRecommendedLinkList();
+            }
+        });
+    }
+
+    @Override
+    public void retrieveSrmItems(final String formItemName, SrmItemRestCriteria itemRestCriteria, int firstResult, int maxResults) {
+        dispatcher.execute(new GetExternalResourcesAction(itemRestCriteria, firstResult, maxResults), new WaitingAsyncCallbackHandlingError<GetExternalResourcesResult>(this) {
+
+            @Override
+            public void onWaitSuccess(GetExternalResourcesResult result) {
+                getView().setSrmItems(formItemName, result.getExternalItemsResult());
             }
         });
     }

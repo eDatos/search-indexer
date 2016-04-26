@@ -1,5 +1,8 @@
 package es.gobcan.istac.search.web.client.model;
 
+import org.siemac.metamac.core.common.dto.ExternalItemDto;
+import org.siemac.metamac.web.common.client.utils.CommonWebUtils;
+
 import com.smartgwt.client.data.Record;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
@@ -15,13 +18,19 @@ public class RecommendedKeywordRecord extends ListGridRecord {
     public RecommendedKeywordRecord() {
         super();
     }
-    
+
     public void setKeyword(String value) {
         setAttribute(RecommendedKeywordDS.KEYWORD, value);
     }
 
     public String getKeyword() {
         return getAttributeAsString(RecommendedKeywordDS.KEYWORD);
+    }
+
+    public void setCategory(ExternalItemDto value) {
+        if (value != null) {
+            setAttribute(RecommendedKeywordDS.CATEGORY, CommonWebUtils.getElementName(value.getCode(), value.getTitle()));
+        }
     }
 
     public RecommendedKeywordDto getRecommendedKeywordDto() {

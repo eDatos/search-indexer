@@ -3,12 +3,15 @@ package es.gobcan.istac.search.web.client.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.siemac.metamac.web.common.client.widgets.form.CustomDynamicForm;
+
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
 import es.gobcan.istac.search.web.client.model.RecommendedKeywordRecord;
 import es.gobcan.istac.search.web.client.model.RecommendedLinkRecord;
+import es.gobcan.istac.search.web.client.model.ds.RecommendedKeywordDS;
 
 public class RecordUtils {
 
@@ -28,7 +31,11 @@ public class RecordUtils {
         record.setTitle(recommendedLinkDto.getTitle());
         record.setDescription(recommendedLinkDto.getDescription());
         record.setRecommendedKeywordId(recommendedLinkDto.getRecommendedKeyword().getId());
-        record.setRecommendedKeywordKeyword(recommendedLinkDto.getRecommendedKeyword().getKeyword()); // For visualization
+
+        // For visualization
+        record.setRecommendedKeywordKeyword(recommendedLinkDto.getRecommendedKeyword().getKeyword());
+        record.setRecommendedKeywordCategory(CommonUtils.getCategoryNameLinked(recommendedLinkDto.getRecommendedKeyword().getCategory()));
+        record.setRecommendedKeywordName(recommendedLinkDto.getRecommendedKeyword());
         return record;
     }
 
@@ -59,10 +66,11 @@ public class RecordUtils {
         return ids;
     }
 
-    public static RecommendedKeywordDto getRecommendedKeywordDto(RecommendedKeywordRecord recommendedKeywordRecord) {
+    public static RecommendedKeywordDto getRecommendedKeywordDto(CustomDynamicForm form, RecommendedKeywordRecord recommendedKeywordRecord) {
         RecommendedKeywordDto dto = recommendedKeywordRecord.getRecommendedKeywordDto();
 
         dto.setKeyword(recommendedKeywordRecord.getKeyword());
+        dto.setCategory(form.getValueAsExternalItemDto(RecommendedKeywordDS.CATEGORY));
         return dto;
     }
 
@@ -71,6 +79,7 @@ public class RecordUtils {
         record.setRecommendedKeywordDto(recommendedKeywordDto);
 
         record.setKeyword(recommendedKeywordDto.getKeyword());
+        record.setCategory(recommendedKeywordDto.getCategory());
         return record;
     }
 

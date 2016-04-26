@@ -1,5 +1,4 @@
-
-/* import "classpath:/btdesign/export/metamac-core-common-entity.btdesign" */
+import "classpath:/btdesign/export/metamac-core-common-entity.btdesign"
 /*import "classpath:/btdesign/metamac-core-common-dtos.btdesign"*/
 
 Application RecommendedLink {
@@ -86,6 +85,8 @@ Application RecommendedLink {
         
             "Keyword"
             String keyword not nullable;
+            
+            - @ExternalItem category nullable cascade="all" databaseColumn="CATEGORY_FK";
             
             "Last update to optimistic locking"
             DateTimeTZ updateDate nullable;

@@ -199,6 +199,7 @@ public class RecommendedLinkListLayout extends VLayout {
     }
 
     public void setUiHandlers(RecommendedLinkListUiHandlers handlers) {
+        newRecommendedKeywordWindow.setUiHandlers(handlers);
         recommendedLinkListSearchSectionStack.setUiHandlers(handlers);
         uiHandlers = handlers;
     }

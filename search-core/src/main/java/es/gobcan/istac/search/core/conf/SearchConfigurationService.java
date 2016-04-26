@@ -19,4 +19,6 @@ public interface SearchConfigurationService extends ConfigurationService {
     String retrieveIndexationWebCron() throws MetamacException;
     String retrieveIndexationWebUrl() throws MetamacException;
     String retrieveIndexationGpeCron() throws MetamacException;
+    
+    String retrieveDefaultCategorySchemeUrn() throws MetamacException;
 }

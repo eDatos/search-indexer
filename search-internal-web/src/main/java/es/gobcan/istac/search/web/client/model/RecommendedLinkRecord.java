@@ -5,8 +5,10 @@ import org.siemac.metamac.web.common.client.widgets.form.GroupDynamicForm;
 import com.smartgwt.client.data.Record;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
+import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
 import es.gobcan.istac.search.web.client.model.ds.RecommendedLinkDS;
+import es.gobcan.istac.search.web.client.utils.CommonUtils;
 
 public class RecommendedLinkRecord extends ListGridRecord {
 
@@ -23,7 +25,6 @@ public class RecommendedLinkRecord extends ListGridRecord {
         setTitle(editRecommendedLinkForm.getValueAsString(RecommendedLinkDS.TITLE));
         setDescription(editRecommendedLinkForm.getValueAsString(RecommendedLinkDS.DESCRIPTION));
         setRecommendedKeywordId(editRecommendedLinkForm.getValueAsString(RecommendedLinkDS.RECOMMENDED_KEYWORD_ID));
-        setRecommendedKeywordKeyword(editRecommendedLinkForm.getValueAsString(RecommendedLinkDS.RECOMMENDED_KEYWORD_KEYWORD));
     }
 
     public void setRecommendedLinkDto(RecommendedLinkDto value) {
@@ -44,8 +45,16 @@ public class RecommendedLinkRecord extends ListGridRecord {
     public void setRecommendedKeywordId(Long value) {
         setRecommendedKeywordId(value.toString());
     }
+    public void setRecommendedKeywordName(RecommendedKeywordDto recommendedKeyword) {
+        setAttribute(RecommendedLinkDS.RECOMMENDED_KEYWORD_NAME, CommonUtils.getRecommendedKeywordLinkedName(recommendedKeyword));
+    }
+
     public void setRecommendedKeywordKeyword(String value) {
         setAttribute(RecommendedLinkDS.RECOMMENDED_KEYWORD_KEYWORD, value);
+    }
+
+    public void setRecommendedKeywordCategory(String value) {
+        setAttribute(RecommendedLinkDS.RECOMMENDED_KEYWORD_CATEGORY, value);
     }
 
     public RecommendedLinkDto getRecommendedLinkdDto() {
