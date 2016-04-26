@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import es.gobcan.istac.search.core.exception.ServiceExceptionParameters;
-import es.gobcan.istac.search.web.client.utils.ExternalItemUtils;
 import es.gobcan.istac.search.web.server.rest.utils.RestQueryUtils;
+import es.gobcan.istac.search.web.server.utils.ExternalItemUtils;
 
 @Component
 public class SrmRestInternalFacadeImpl implements SrmRestInternalFacade {

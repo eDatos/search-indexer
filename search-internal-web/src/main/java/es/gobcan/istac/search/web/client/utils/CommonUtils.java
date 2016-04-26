@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.siemac.metamac.core.common.dto.ExternalItemDto;
 import org.siemac.metamac.core.common.util.shared.StringUtils;
+import org.siemac.metamac.web.common.client.utils.ExternalItemUtils;
 
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window;
