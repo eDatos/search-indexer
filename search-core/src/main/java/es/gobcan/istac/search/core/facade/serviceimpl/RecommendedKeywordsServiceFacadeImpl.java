@@ -93,12 +93,40 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
     }
 
     @Override
+    public List<RecommendedKeywordDto> updateRecommendedKeyword(ServiceContext ctx, List<RecommendedKeywordDto> recommendedKeywordDtos) throws MetamacException {
+        // Security
+        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+
+        // Transform to Entity
+        List<RecommendedKeyword> recommendedKeywords = dto2DoMapper.recommendedKeywordListDtoToDo(ctx, recommendedKeywordDtos);
+
+        // Service call
+        recommendedKeywords = getRecommendedKeywordsService().updateRecommendedKeyword(ctx, recommendedKeywords);
+
+        // Automatically reindex on updating a recommended keyword
+        recomendadosIndexerService.reindexRecommendedKeywords(ctx);
+
+        return do2DtoMapper.recommendedKeywordListDoToDto(recommendedKeywords);
+    }
+
+    @Override
     public void deleteRecommendedKeyword(ServiceContext ctx, Long id) throws MetamacException {
 
         // Security
         SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
 
         getRecommendedKeywordsService().deleteRecommendedKeyword(ctx, id);
+
+        // Automatically reindex on deleting a recommended keyword
+        recomendadosIndexerService.reindexRecommendedKeywords(ctx);
+    }
+
+    @Override
+    public void deleteRecommendedKeyword(ServiceContext ctx, List<Long> ids) throws MetamacException {
+        // Security
+        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+
+        getRecommendedKeywordsService().deleteRecommendedKeyword(ctx, ids);
 
         // Automatically reindex on deleting a recommended keyword
         recomendadosIndexerService.reindexRecommendedKeywords(ctx);
@@ -123,7 +151,7 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
         SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
 
         // Transform
-        SculptorCriteria sculptorCriteria = metamacCriteria2SculptorCriteriaMapper.getRecommendedLinkCriteriaMapper().metamacCriteria2SculptorCriteria(criteria);
+        SculptorCriteria sculptorCriteria = metamacCriteria2SculptorCriteriaMapper.getRecommendedKeywordCriteriaMapper().metamacCriteria2SculptorCriteria(criteria);
 
         // Find
         PagedResult<RecommendedKeyword> result = getRecommendedKeywordsService().findRecommendedKeywordsByCondition(ctx, sculptorCriteria.getConditions(), sculptorCriteria.getPagingParameter());
@@ -132,4 +160,5 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
         return sculptorCriteria2MetamacCriteriaMapper.pageResultToMetamacCriteriaResultRecommendedKeywordDto(result, sculptorCriteria.getPageSize());
 
     }
+
 }

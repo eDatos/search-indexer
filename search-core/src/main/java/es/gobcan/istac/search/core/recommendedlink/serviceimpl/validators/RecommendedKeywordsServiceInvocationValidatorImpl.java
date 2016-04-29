@@ -28,8 +28,16 @@ public class RecommendedKeywordsServiceInvocationValidatorImpl {
         // TODO
     }
 
+    public static void checkUpdateRecommendedKeyword(List<RecommendedKeyword> recommendedKeyword, List<MetamacExceptionItem> exceptions) {
+        // Nothing to check
+    }
+
     public static void checkDeleteRecommendedKeyword(Long id, List<MetamacExceptionItem> exceptions) throws MetamacException {
         // TODO
+    }
+
+    public static void checkDeleteRecommendedKeyword(List<Long> ids, List<MetamacExceptionItem> exceptions) {
+        // Nothing to check
     }
 
     public static void checkFindAllRecommendedKeywords(List<MetamacExceptionItem> exceptions) throws MetamacException {
@@ -39,4 +47,5 @@ public class RecommendedKeywordsServiceInvocationValidatorImpl {
     public static void checkFindRecommendedKeywordsByCondition(List<ConditionalCriteria> condition, PagingParameter pagingParameter, List<MetamacExceptionItem> exceptions) throws MetamacException {
         // TODO
     }
+
 }

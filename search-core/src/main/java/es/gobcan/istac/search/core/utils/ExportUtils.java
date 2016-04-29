@@ -8,6 +8,8 @@ import java.io.OutputStreamWriter;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.siemac.metamac.core.common.ent.domain.ExternalItem;
+import org.siemac.metamac.core.common.ent.domain.InternationalString;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.exception.MetamacExceptionBuilder;
 
@@ -17,7 +19,11 @@ import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedLink;
 
 public class ExportUtils {
 
-    public static String exportRecommendedLinks(List<RecommendedLink> recommendedLinks) throws MetamacException {
+    private ExportUtils() {
+
+    }
+
+    public static String exportRecommendedLinks(List<RecommendedLink> recommendedLinks, List<String> languages) throws MetamacException {
         // Export
         OutputStream outputStream = null;
         OutputStreamWriter writer = null;
@@ -27,10 +33,10 @@ public class ExportUtils {
             outputStream = new FileOutputStream(file);
             writer = new OutputStreamWriter(outputStream, SearchConstants.TSV_EXPORTATION_ENCODING);
 
-            writeRecommendedLinksHeader(writer);
+            writeRecommendedLinksHeader(writer, languages);
 
             for (RecommendedLink recommendedLink : recommendedLinks) {
-                writeRecommendedLink(writer, recommendedLink);
+                writeRecommendedLink(writer, recommendedLink, languages);
             }
 
             writer.flush();
@@ -43,22 +49,43 @@ public class ExportUtils {
         }
     }
 
-    public static void writeRecommendedLinksHeader(OutputStreamWriter writer) throws IOException {
+    public static void writeRecommendedLinksHeader(OutputStreamWriter writer, List<String> languages) throws IOException {
         writeCell(writer, SearchConstants.TSV_HEADER_KEYWORD, true);
         writeCell(writer, SearchConstants.TSV_HEADER_TITLE);
         writeCell(writer, SearchConstants.TSV_HEADER_URL);
         writeCell(writer, SearchConstants.TSV_HEADER_DESCRIPTION);
-
+        writeCell(writer, SearchConstants.TSV_HEADER_KEYWORD_CATEGORY_CODE_NESTED);
+        for (String language : languages) {
+            writeCell(writer, SearchConstants.TSV_HEADER_KEYWORD_CATEGORY_TITLE + SearchConstants.TSV_HEADER_INTERNATIONAL_STRING_SEPARATOR + language);
+        }
         writer.write(SearchConstants.TSV_LINE_SEPARATOR);
     }
 
-    public static void writeRecommendedLink(OutputStreamWriter writer, RecommendedLink recommendedLink) throws IOException {
+    public static void writeRecommendedLink(OutputStreamWriter writer, RecommendedLink recommendedLink, List<String> languages) throws IOException {
         writeCell(writer, recommendedLink.getRecommendedKeyword().getKeyword(), true);
         writeCell(writer, recommendedLink.getTitle());
         writeCell(writer, recommendedLink.getUrl());
         writeCell(writer, recommendedLink.getDescription());
+        ExternalItem category = recommendedLink.getRecommendedKeyword().getCategory();
+        if (category != null) {
+            writeCell(writer, recommendedLink.getRecommendedKeyword().getCategory().getCodeNested());
+            writeInternationalString(writer, recommendedLink.getRecommendedKeyword().getCategory().getTitle(), languages);
+        } else {
+            writeCell(writer, null);
+            writeInternationalString(writer, null, languages);
+        }
 
         writer.write(SearchConstants.TSV_LINE_SEPARATOR);
+    }
+
+    private static void writeInternationalString(OutputStreamWriter writer, InternationalString internationalString, List<String> languages) throws IOException {
+        for (String language : languages) {
+            if (internationalString != null) {
+                writeCell(writer, internationalString.getLocalisedLabel(language));
+            } else {
+                writeCell(writer, null);
+            }
+        }
     }
 
     private static void writeCell(OutputStreamWriter writer, Object field) throws IOException {

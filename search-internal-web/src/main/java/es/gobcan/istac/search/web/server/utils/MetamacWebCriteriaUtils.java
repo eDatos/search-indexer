@@ -12,8 +12,10 @@ import org.siemac.metamac.core.common.criteria.shared.MetamacCriteriaOrder;
 import org.siemac.metamac.core.common.criteria.shared.MetamacCriteriaOrder.OrderTypeEnum;
 import org.siemac.metamac.core.common.exception.MetamacException;
 
+import es.gobcan.istac.search.core.criteria.RecommendedKeywordCriteriaPropertyEnum;
 import es.gobcan.istac.search.core.criteria.RecommendedLinkCriteriaOrderEnum;
 import es.gobcan.istac.search.core.criteria.RecommendedLinkCriteriaPropertyEnum;
+import es.gobcan.istac.search.web.shared.criteria.RecommendedKeywordWebCriteria;
 import es.gobcan.istac.search.web.shared.criteria.RecommendedLinkWebCriteria;
 
 public class MetamacWebCriteriaUtils {
@@ -41,9 +43,7 @@ public class MetamacWebCriteriaUtils {
     }
 
     public static MetamacCriteriaRestriction buildRecommendedLinkCriteriaRestriction(RecommendedLinkWebCriteria criteria) throws MetamacException {
-
         MetamacCriteriaConjunctionRestriction conjunctionRestriction = new MetamacCriteriaConjunctionRestriction();
-
         if (criteria != null) {
 
             // General criteria
@@ -51,13 +51,52 @@ public class MetamacWebCriteriaUtils {
             if (StringUtils.isNotBlank(criteria.getCriteria())) {
                 searchCriteriaDisjunction.getRestrictions()
                         .add(new MetamacCriteriaPropertyRestriction(RecommendedLinkCriteriaPropertyEnum.KEYWORD.name(), criteria.getCriteria(), OperationType.ILIKE));
-                // searchCriteriaDisjunction.getRestrictions()
-                // .add(new MetamacCriteriaPropertyRestriction(RecommendedLinkCriteriaPropertyEnum.SUBJECT.name(), criteria.getCriteria(), OperationType.ILIKE));
+                searchCriteriaDisjunction.getRestrictions()
+                        .add(new MetamacCriteriaPropertyRestriction(RecommendedLinkCriteriaPropertyEnum.CATEGORY.name(), criteria.getCriteria(), OperationType.ILIKE));
             }
             conjunctionRestriction.getRestrictions().add(searchCriteriaDisjunction);
 
         }
+        return conjunctionRestriction;
+    }
 
+    public static MetamacCriteria build(RecommendedKeywordWebCriteria recommendedKeywordWebCriteria) throws MetamacException {
+        MetamacCriteria criteria = new MetamacCriteria();
+        // Criteria
+        MetamacCriteriaConjunctionRestriction restriction = new MetamacCriteriaConjunctionRestriction();
+        restriction.getRestrictions().add(buildRecommendedKeywordCriteriaRestriction(recommendedKeywordWebCriteria));
+        criteria.setRestriction(restriction);
+
+        // Order
+        MetamacCriteriaOrder criteriaOrder = new MetamacCriteriaOrder();
+        criteriaOrder.setPropertyName(RecommendedLinkCriteriaOrderEnum.CREATED_DATE.name());
+        criteriaOrder.setType(OrderTypeEnum.DESC);
+        criteria.getOrdersBy().add(criteriaOrder);
+
+        // Pagination
+        criteria.setPaginator(new MetamacCriteriaPaginator());
+        criteria.getPaginator().setFirstResult(recommendedKeywordWebCriteria.getFirstResult());
+        criteria.getPaginator().setMaximumResultSize(recommendedKeywordWebCriteria.getMaxResults());
+        criteria.getPaginator().setCountTotalResults(true);
+
+        return criteria;
+    }
+
+    public static MetamacCriteriaRestriction buildRecommendedKeywordCriteriaRestriction(RecommendedKeywordWebCriteria criteria) throws MetamacException {
+        MetamacCriteriaConjunctionRestriction conjunctionRestriction = new MetamacCriteriaConjunctionRestriction();
+        if (criteria != null) {
+
+            // General criteria
+            MetamacCriteriaDisjunctionRestriction searchCriteriaDisjunction = new MetamacCriteriaDisjunctionRestriction();
+            if (StringUtils.isNotBlank(criteria.getCriteria())) {
+                searchCriteriaDisjunction.getRestrictions()
+                        .add(new MetamacCriteriaPropertyRestriction(RecommendedKeywordCriteriaPropertyEnum.KEYWORD.name(), criteria.getCriteria(), OperationType.ILIKE));
+                searchCriteriaDisjunction.getRestrictions()
+                        .add(new MetamacCriteriaPropertyRestriction(RecommendedKeywordCriteriaPropertyEnum.CATEGORY.name(), criteria.getCriteria(), OperationType.ILIKE));
+            }
+
+            conjunctionRestriction.getRestrictions().add(searchCriteriaDisjunction);
+        }
         return conjunctionRestriction;
     }
 }

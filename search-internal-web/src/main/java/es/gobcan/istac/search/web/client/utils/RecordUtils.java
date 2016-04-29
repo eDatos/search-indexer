@@ -23,6 +23,14 @@ public class RecordUtils {
         return records.toArray(new RecommendedLinkRecord[records.size()]);
     }
 
+    public static RecommendedKeywordRecord[] getRecommendedKeywordListRecords(List<RecommendedKeywordDto> recommendedKeywordList) {
+        List<RecommendedKeywordRecord> records = new ArrayList<RecommendedKeywordRecord>();
+        for (RecommendedKeywordDto dto : recommendedKeywordList) {
+            records.add(getRecommendedKeywordRecord(dto));
+        }
+        return records.toArray(new RecommendedKeywordRecord[records.size()]);
+    }
+
     public static RecommendedLinkRecord getRecommendedLinkRecord(RecommendedLinkDto recommendedLinkDto) {
         RecommendedLinkRecord record = new RecommendedLinkRecord();
         record.setRecommendedLinkDto(recommendedLinkDto);
@@ -64,6 +72,23 @@ public class RecordUtils {
             ids.add(((RecommendedLinkRecord) record).getRecommendedLinkdDto().getId());
         }
         return ids;
+    }
+
+    public static List<Long> getRecommendedKeywordListIds(ListGridRecord[] recommendedKeywordRecordList) {
+        List<Long> ids = new ArrayList<Long>();
+        List<RecommendedKeywordDto> recommendedKeywordListDto = getRecommendedKeywordListDto(recommendedKeywordRecordList);
+        for (RecommendedKeywordDto dto : recommendedKeywordListDto) {
+            ids.add(dto.getId());
+        }
+        return ids;
+    }
+
+    public static List<RecommendedKeywordDto> getRecommendedKeywordListDto(ListGridRecord[] selectedRecords) {
+        List<RecommendedKeywordDto> dtos = new ArrayList<RecommendedKeywordDto>();
+        for (ListGridRecord record : selectedRecords) {
+            dtos.add(((RecommendedKeywordRecord) record).getRecommendedKeywordDto());
+        }
+        return dtos;
     }
 
     public static RecommendedKeywordDto getRecommendedKeywordDto(CustomDynamicForm form, RecommendedKeywordRecord recommendedKeywordRecord) {

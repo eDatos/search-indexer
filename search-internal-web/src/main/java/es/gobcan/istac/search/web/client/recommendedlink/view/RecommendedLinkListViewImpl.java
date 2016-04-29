@@ -3,7 +3,6 @@ package es.gobcan.istac.search.web.client.recommendedlink.view;
 import java.util.List;
 
 import org.siemac.metamac.web.common.client.widgets.BaseCustomListGrid;
-import org.siemac.metamac.web.common.shared.domain.ExternalItemsResult;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
@@ -18,9 +17,7 @@ import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
 import es.gobcan.istac.search.web.client.model.RecommendedLinkRecord;
 import es.gobcan.istac.search.web.client.recommendedlink.presenter.RecommendedLinkListPresenter;
 import es.gobcan.istac.search.web.client.recommendedlink.view.handlers.RecommendedLinkListUiHandlers;
-import es.gobcan.istac.search.web.client.recommendedlink.widgets.DeleteRecommendedKeywordWindow;
 import es.gobcan.istac.search.web.client.recommendedlink.widgets.ImportRecommendedLinksWindow;
-import es.gobcan.istac.search.web.client.recommendedlink.widgets.NewRecommendedKeywordWindow;
 import es.gobcan.istac.search.web.client.recommendedlink.widgets.RecommendedLinkListLayout;
 import es.gobcan.istac.search.web.client.utils.RecordUtils;
 
@@ -32,67 +29,15 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
     public RecommendedLinkListViewImpl() {
         recommendedLinkListLayout = new RecommendedLinkListLayout();
 
-        createNewRecommendedKeywordWindow();
-        createDeleteRecommendedKeywordWindow();
         attachHandlers();
 
         panel = new VLayout();
         panel.addMember(recommendedLinkListLayout);
     }
 
-    private void createNewRecommendedKeywordWindow() {
-
-        NewRecommendedKeywordWindow newRecommendedKeywordWindow = new NewRecommendedKeywordWindow();
-        recommendedLinkListLayout.setNewRecommendedKeywordWindow(newRecommendedKeywordWindow);
-        recommendedLinkListLayout.getNewRecommendedKeywordWindow().hide();
-        recommendedLinkListLayout.getNewRecommendedKeywordWindow().getSave().addClickHandler(new com.smartgwt.client.widgets.form.fields.events.ClickHandler() {
-
-            @Override
-            public void onClick(com.smartgwt.client.widgets.form.fields.events.ClickEvent event) {
-                if (recommendedLinkListLayout.getNewRecommendedKeywordWindow().validateForm()) {
-                    getUiHandlers().saveRecommendedKeyword(recommendedLinkListLayout.getNewRecommendedKeywordWindow().getRecommendedKeyword());
-                    recommendedLinkListLayout.getNewRecommendedKeywordWindow().hide();
-                }
-            }
-        });
-    }
-
-    private void createDeleteRecommendedKeywordWindow() {
-
-        DeleteRecommendedKeywordWindow deleteRecommendedKeywordWindow = new DeleteRecommendedKeywordWindow(getUiHandlers());
-        deleteRecommendedKeywordWindow.hide();
-        recommendedLinkListLayout.setDeleteRecommendedKeywordWindow(deleteRecommendedKeywordWindow);
-        recommendedLinkListLayout.getDeleteRecommendedKeywordWindow().getDelete().addClickHandler(new com.smartgwt.client.widgets.form.fields.events.ClickHandler() {
-
-            @Override
-            public void onClick(com.smartgwt.client.widgets.form.fields.events.ClickEvent event) {
-                recommendedLinkListLayout.getDeleteRecommendedKeywordWindow().hide();
-                getUiHandlers().deleteRecommendedKeyword(recommendedLinkListLayout.getDeleteRecommendedKeywordWindow().getRecommendedKeywordId());
-                getUiHandlers().retrieveRecommendedLinkList();
-            }
-        });
-    }
-
     private void attachHandlers() {
 
         final BaseCustomListGrid recommendedLinkListGrid = recommendedLinkListLayout.getRecommendedLinkListGrid();
-
-        recommendedLinkListLayout.getNewKeywordToolStripButton().addClickHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent event) {
-                recommendedLinkListLayout.getNewRecommendedKeywordWindow().show();
-            }
-        });
-
-        recommendedLinkListLayout.getDeleteRecommendedKeywordToolStripButton().addClickHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent event) {
-                getUiHandlers().retrieveRecommendedKeywordList();
-                recommendedLinkListLayout.getDeleteRecommendedKeywordWindow().show();
-            }
-        });
 
         recommendedLinkListLayout.getNewRecommendedLinkToolStripButton().addClickHandler(new ClickHandler() {
 
@@ -119,7 +64,7 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
                 if (recommendedLinkListGrid.getSelectedRecords() != null && recommendedLinkListGrid.getSelectedRecords().length > 0) {
                     getUiHandlers().exportRecommendedLinks(RecordUtils.getRecommendedLinkListIds(recommendedLinkListGrid.getSelectedRecords()));
                 } else {
-                    getUiHandlers().exportRecommendedLinks();
+                    getUiHandlers().exportRecommendedLinks(null);
                 }
             }
         });
@@ -206,20 +151,12 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
     @Override
     public void setRecommendedLinkList(List<RecommendedLinkDto> recommendedLinkList, int firstResult, int totalResults) {
         recommendedLinkListLayout.setRecommendedLinkList(recommendedLinkList, firstResult, totalResults);
-
         recommendedLinkListLayout.deselectRecommendedLink();
     }
 
     @Override
     public void setRecommendedKeywordList(List<RecommendedKeywordDto> recommendedKeywordList) {
         recommendedLinkListLayout.getRecommendedLinkLayout().setRecommendedKeywordList(recommendedKeywordList);
-        if (recommendedLinkListLayout.getDeleteRecommendedKeywordWindow() != null) {
-            recommendedLinkListLayout.getDeleteRecommendedKeywordWindow().setRecommendedKeywordList(recommendedKeywordList);
-        }
     }
 
-    @Override
-    public void setSrmItems(String formItemName, ExternalItemsResult externalItemsResult) {
-        recommendedLinkListLayout.getNewRecommendedKeywordWindow().setSrmItems(formItemName, externalItemsResult);
-    }
 }

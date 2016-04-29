@@ -11,6 +11,6 @@ import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedLink;
 
 public interface SculptorCriteria2MetamacCriteriaMapper {
 
-    public MetamacCriteriaResult<RecommendedLinkDto> pageResultToMetamacCriteriaResultRecommendedLinkDto(PagedResult<RecommendedLink> source, Integer pageSize) throws MetamacException;
-    public MetamacCriteriaResult<RecommendedKeywordDto> pageResultToMetamacCriteriaResultRecommendedKeywordDto(PagedResult<RecommendedKeyword> source, Integer pageSize) throws MetamacException;
+    MetamacCriteriaResult<RecommendedLinkDto> pageResultToMetamacCriteriaResultRecommendedLinkDto(PagedResult<RecommendedLink> source, Integer pageSize) throws MetamacException;
+    MetamacCriteriaResult<RecommendedKeywordDto> pageResultToMetamacCriteriaResultRecommendedKeywordDto(PagedResult<RecommendedKeyword> source, Integer pageSize) throws MetamacException;
 }

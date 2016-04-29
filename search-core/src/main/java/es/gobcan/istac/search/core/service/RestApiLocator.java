@@ -1,4 +1,4 @@
-package es.gobcan.istac.search.web.server.rest;
+package es.gobcan.istac.search.core.service;
 
 import javax.annotation.PostConstruct;
 

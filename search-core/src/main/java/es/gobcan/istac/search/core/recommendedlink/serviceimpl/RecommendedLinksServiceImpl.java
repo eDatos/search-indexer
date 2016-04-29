@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBuilder;
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteriaBuilder.ConditionRoot;
@@ -17,12 +18,15 @@ import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.exception.MetamacExceptionBuilder;
 import org.siemac.metamac.core.common.exception.MetamacExceptionItem;
+import org.siemac.metamac.rest.structural_resources_internal.v1_0.domain.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.gobcan.istac.search.core.conf.SearchConfigurationService;
 import es.gobcan.istac.search.core.exception.ServiceExceptionType;
+import es.gobcan.istac.search.core.mapper.CategoriesRest2DoMapperImpl;
 import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedKeyword;
 import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedKeywordRepository;
 import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedLink;
@@ -30,6 +34,7 @@ import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedLinkPropert
 import es.gobcan.istac.search.core.recommendedlink.exception.RecommendedLinkNotFoundException;
 import es.gobcan.istac.search.core.recommendedlink.serviceapi.RecommendedKeywordsService;
 import es.gobcan.istac.search.core.recommendedlink.serviceapi.validators.RecommendedLinksServiceInvocationValidator;
+import es.gobcan.istac.search.core.service.SrmRestInternalFacade;
 import es.gobcan.istac.search.core.utils.ExportUtils;
 import es.gobcan.istac.search.core.utils.ImportUtils;
 
@@ -39,7 +44,7 @@ import es.gobcan.istac.search.core.utils.ImportUtils;
 @Service("recommendedLinksService")
 public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase {
 
-    private final static Logger                        logger = LoggerFactory.getLogger(RecommendedLinksServiceImpl.class);
+    private static final Logger                        logger = LoggerFactory.getLogger(RecommendedLinksServiceImpl.class);
 
     @Autowired
     private RecommendedLinksServiceInvocationValidator recommendedLinksServiceInvocationValidator;
@@ -49,6 +54,15 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
 
     @Autowired
     private RecommendedKeywordRepository               recommendedKeywordRepository;
+
+    @Autowired
+    private SearchConfigurationService                 searchConfigurationService;
+
+    @Autowired
+    private SrmRestInternalFacade                      srmRestInternalFacade;
+
+    @Autowired
+    private CategoriesRest2DoMapperImpl                categoriesRest2DoMapperImpl;
 
     public RecommendedLinksServiceImpl() {
     }
@@ -130,7 +144,7 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
 
         List<RecommendedLink> recommendedLinks = findAllRecommendedLinks(ctx);
 
-        return ExportUtils.exportRecommendedLinks(recommendedLinks);
+        return ExportUtils.exportRecommendedLinks(recommendedLinks, getLanguages());
     }
 
     @Override
@@ -141,7 +155,11 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
 
         List<ConditionalCriteria> condition = ConditionalCriteriaBuilder.criteriaFor(RecommendedLink.class).withProperty(RecommendedLinkProperties.id()).in(ids).build();
         List<RecommendedLink> recommendedLinks = getRecommendedLinkRepository().findByCondition(condition);
-        return ExportUtils.exportRecommendedLinks(recommendedLinks);
+        return ExportUtils.exportRecommendedLinks(recommendedLinks, getLanguages());
+    }
+
+    private List<String> getLanguages() throws MetamacException {
+        return searchConfigurationService.retrieveLanguages();
     }
 
     @Override
@@ -151,11 +169,12 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
         // Execute importation now
         List<MetamacExceptionItem> exceptionItems = new ArrayList<MetamacExceptionItem>();
         Map<String, RecommendedKeyword> recommendedKeywordsToPersistByKeyword = new HashMap<String, RecommendedKeyword>();
+        Map<String, String> categoryCodesToPersistByKeyword = new HashMap<String, String>();
         List<RecommendedLink> recommendedLinksToPersist = new ArrayList<RecommendedLink>();
 
         Map<String, RecommendedKeyword> recommendedKeywordsAlreadyExisting = new HashMap<String, RecommendedKeyword>();
 
-        ImportUtils.parseFile(ctx, file, exceptionItems, recommendedKeywordsAlreadyExisting, recommendedKeywordsToPersistByKeyword, recommendedLinksToPersist);
+        ImportUtils.parseFile(ctx, file, exceptionItems, recommendedKeywordsAlreadyExisting, recommendedKeywordsToPersistByKeyword, categoryCodesToPersistByKeyword, recommendedLinksToPersist);
 
         if (!CollectionUtils.isEmpty(exceptionItems)) {
             // rollback and inform about errors
@@ -165,7 +184,7 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
         deleteAllRecommendedLinks();
         deleteAllRecommendedKeywords();
 
-        saveRecommendedKeywordsEfficiently(ctx, recommendedKeywordsToPersistByKeyword);
+        saveRecommendedKeywordsEfficiently(ctx, recommendedKeywordsToPersistByKeyword, categoryCodesToPersistByKeyword);
         saveRecommendedLinksEfficiently(ctx, recommendedLinksToPersist, recommendedKeywordsToPersistByKeyword);
     }
 
@@ -177,18 +196,19 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
         // Execute importation now
         List<MetamacExceptionItem> exceptionItems = new ArrayList<MetamacExceptionItem>();
         Map<String, RecommendedKeyword> recommendedKeywordsToPersistByKeyword = new HashMap<String, RecommendedKeyword>();
+        Map<String, String> categoryCodesToPersistByKeyword = new HashMap<String, String>();
         List<RecommendedLink> recommendedLinksToPersist = new ArrayList<RecommendedLink>();
 
         Map<String, RecommendedKeyword> recommendedKeywordsAlreadyExisting = getRecommendedKeywordsAlreadyExisting(ctx);
 
-        ImportUtils.parseFile(ctx, file, exceptionItems, recommendedKeywordsAlreadyExisting, recommendedKeywordsToPersistByKeyword, recommendedLinksToPersist);
+        ImportUtils.parseFile(ctx, file, exceptionItems, recommendedKeywordsAlreadyExisting, recommendedKeywordsToPersistByKeyword, categoryCodesToPersistByKeyword, recommendedLinksToPersist);
 
         if (!CollectionUtils.isEmpty(exceptionItems)) {
             // rollback and inform about errors
             throw MetamacExceptionBuilder.builder().withPrincipalException(new MetamacExceptionItem(ServiceExceptionType.IMPORTATION_TSV_ERROR, fileName)).withExceptionItems(exceptionItems).build();
         }
 
-        saveRecommendedKeywordsEfficiently(ctx, recommendedKeywordsToPersistByKeyword);
+        saveRecommendedKeywordsEfficiently(ctx, recommendedKeywordsToPersistByKeyword, categoryCodesToPersistByKeyword);
         saveRecommendedLinksEfficiently(ctx, recommendedLinksToPersist, recommendedKeywordsToPersistByKeyword);
     }
 
@@ -209,9 +229,15 @@ public class RecommendedLinksServiceImpl extends RecommendedLinksServiceImplBase
         return recommendedKeywordsAlreadyExisting;
     }
 
-    private void saveRecommendedKeywordsEfficiently(ServiceContext ctx, Map<String, RecommendedKeyword> recommendedKeywordsToPersistByKeyword) throws MetamacException {
+    private void saveRecommendedKeywordsEfficiently(ServiceContext ctx, Map<String, RecommendedKeyword> recommendedKeywordsToPersistByKeyword, Map<String, String> categoryCodesToPersistByKeyword)
+            throws MetamacException {
         Collection<RecommendedKeyword> recommendedKeywords = recommendedKeywordsToPersistByKeyword.values();
         for (RecommendedKeyword recommendedKeyword : recommendedKeywords) {
+            String code = categoryCodesToPersistByKeyword.get(recommendedKeyword.getKeyword());
+            if (!StringUtils.isEmpty(code)) {
+                Category category = srmRestInternalFacade.retrieveCategoryByCode(code);
+                recommendedKeyword.setCategory(categoriesRest2DoMapperImpl.toExternalItem(category));
+            }
             recommendedKeyword = recommendedKeywordsService.createRecommendedKeyword(ctx, recommendedKeyword);
             recommendedKeywordsToPersistByKeyword.put(recommendedKeyword.getKeyword(), recommendedKeyword);
         }

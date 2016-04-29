@@ -6,7 +6,8 @@ public enum SearchToolStripButtonEnum implements ValueEnum {
 
     //@formatter:off
     REINDEX("reindex_button"),
-    RECOMMENDED_LINKS("recommended_links_button");
+    RECOMMENDED_LINKS("recommended_links_button"),
+    RECOMMENDED_KEYWORDS("recommended_keywords");
     //@formatter:on
 
     private String value;

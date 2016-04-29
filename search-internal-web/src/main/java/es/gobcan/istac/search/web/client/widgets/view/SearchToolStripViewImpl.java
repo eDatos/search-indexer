@@ -15,6 +15,7 @@ public class SearchToolStripViewImpl extends MetamacToolStripViewImpl implements
 
     private CustomToolStripButton reindexButton;
     private CustomToolStripButton recommendedLinkListButton;
+    private CustomToolStripButton recommendedKeywordListButton;
 
     @Inject
     public SearchToolStripViewImpl() {
@@ -26,8 +27,12 @@ public class SearchToolStripViewImpl extends MetamacToolStripViewImpl implements
         recommendedLinkListButton = new CustomToolStripButton(getConstants().recommendedLinks());
         recommendedLinkListButton.setID(SearchToolStripButtonEnum.RECOMMENDED_LINKS.getValue());
 
+        recommendedKeywordListButton = new CustomToolStripButton(getConstants().recommendedKeywords());
+        recommendedKeywordListButton.setID(SearchToolStripButtonEnum.RECOMMENDED_KEYWORDS.getValue());
+
         toolStrip.addButton(reindexButton);
         toolStrip.addButton(recommendedLinkListButton);
+        toolStrip.addButton(recommendedKeywordListButton);
     }
 
     @Override
@@ -38,5 +43,10 @@ public class SearchToolStripViewImpl extends MetamacToolStripViewImpl implements
     @Override
     public HasClickHandlers getGoRecommendedLinkList() {
         return recommendedLinkListButton;
+    }
+
+    @Override
+    public HasClickHandlers getGoRecommendedKeywordList() {
+        return recommendedKeywordListButton;
     }
 }

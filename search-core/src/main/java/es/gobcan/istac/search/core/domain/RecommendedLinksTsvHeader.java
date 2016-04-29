@@ -7,6 +7,7 @@ public class RecommendedLinksTsvHeader {
     private int titlePosition;
     private int urlPosition;
     private int descriptionPosition;
+    private int keywordCategoryCodePosition;
 
     public int getColumnsSize() {
         return columnsSize;
@@ -46,6 +47,14 @@ public class RecommendedLinksTsvHeader {
 
     public void setDescriptionPosition(int descriptionPosition) {
         this.descriptionPosition = descriptionPosition;
+    }
+
+    public int getKeywordCategoryCodePosition() {
+        return keywordCategoryCodePosition;
+    }
+
+    public void setKeywordCategoryCodePosition(int keywordCategoryCodePosition) {
+        this.keywordCategoryCodePosition = keywordCategoryCodePosition;
     }
 
 }

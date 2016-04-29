@@ -71,7 +71,9 @@ Application RecommendedLink {
             @RecommendedKeyword findRecommendedKeywordById(Long id) throws MetamacException;
             @RecommendedKeyword createRecommendedKeyword(@RecommendedKeyword recommendedKeyword) throws MetamacException;
             @RecommendedKeyword updateRecommendedKeyword(@RecommendedKeyword recommendedKeyword) throws MetamacException;
+            List<@RecommendedKeyword> updateRecommendedKeyword(List<@RecommendedKeyword> recommendedKeywords) throws MetamacException;
             deleteRecommendedKeyword(Long id) throws MetamacException;
+            deleteRecommendedKeyword(List<Long> ids) throws MetamacException;
             List<@RecommendedKeyword> findAllRecommendedKeywords throws MetamacException;
             PagedResult<@RecommendedKeyword> findRecommendedKeywordsByCondition(List<ConditionalCriteria> condition, PagingParameter pagingParameter) throws MetamacException;                          
         }  

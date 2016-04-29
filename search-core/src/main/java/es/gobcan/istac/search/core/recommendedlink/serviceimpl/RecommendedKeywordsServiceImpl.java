@@ -1,5 +1,6 @@
 package es.gobcan.istac.search.core.recommendedlink.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fornax.cartridges.sculptor.framework.accessapi.ConditionalCriteria;
@@ -68,6 +69,17 @@ public class RecommendedKeywordsServiceImpl extends RecommendedKeywordsServiceIm
     }
 
     @Override
+    public List<RecommendedKeyword> updateRecommendedKeyword(ServiceContext ctx, List<RecommendedKeyword> recommendedKeywords) throws MetamacException {
+        recommendedKeywordsServiceInvocationValidator.checkUpdateRecommendedKeyword(ctx, recommendedKeywords);
+
+        List<RecommendedKeyword> recommendedKeywordsResult = new ArrayList<RecommendedKeyword>();
+        for (RecommendedKeyword recommendedKeyword : recommendedKeywords) {
+            recommendedKeywordsResult.add(updateRecommendedKeyword(ctx, recommendedKeyword));
+        }
+        return recommendedKeywordsResult;
+    }
+
+    @Override
     public void deleteRecommendedKeyword(ServiceContext ctx, Long id) throws MetamacException {
 
         recommendedKeywordsServiceInvocationValidator.checkDeleteRecommendedKeyword(ctx, id);
@@ -76,6 +88,15 @@ public class RecommendedKeywordsServiceImpl extends RecommendedKeywordsServiceIm
 
         getRecommendedKeywordRepository().delete(recommendedKeyword);
 
+    }
+
+    @Override
+    public void deleteRecommendedKeyword(ServiceContext ctx, List<Long> ids) throws MetamacException {
+        recommendedKeywordsServiceInvocationValidator.checkDeleteRecommendedKeyword(ctx, ids);
+
+        for (Long id : ids) {
+            deleteRecommendedKeyword(ctx, id);
+        }
     }
 
     @Override

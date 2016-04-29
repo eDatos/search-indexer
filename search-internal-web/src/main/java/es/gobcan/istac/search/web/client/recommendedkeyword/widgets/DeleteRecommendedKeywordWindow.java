@@ -1,4 +1,4 @@
-package es.gobcan.istac.search.web.client.recommendedlink.widgets;
+package es.gobcan.istac.search.web.client.recommendedkeyword.widgets;
 
 import static es.gobcan.istac.search.web.client.SearchWeb.getConstants;
 
@@ -17,6 +17,7 @@ import es.gobcan.istac.search.web.client.recommendedlink.view.handlers.Recommend
 import es.gobcan.istac.search.web.client.utils.CommonUtils;
 import es.gobcan.istac.search.web.client.widgets.ModalWindow;
 
+@Deprecated
 public class DeleteRecommendedKeywordWindow extends ModalWindow {
 
     private static final int    FORM_ITEM_CUSTOM_WIDTH = 350;

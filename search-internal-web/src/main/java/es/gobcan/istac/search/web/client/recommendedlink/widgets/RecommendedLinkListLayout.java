@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.siemac.metamac.web.common.client.resources.GlobalResources;
 import org.siemac.metamac.web.common.client.widgets.BaseCustomListGrid;
-import org.siemac.metamac.web.common.client.widgets.DeleteConfirmationWindow;
 import org.siemac.metamac.web.common.client.widgets.actions.PaginatedAction;
 
 import com.smartgwt.client.types.Overflow;
@@ -28,14 +27,8 @@ public class RecommendedLinkListLayout extends VLayout {
     private ToolStrip                             recommendedLinkListToolStrip;
     private ToolStripButton                       newRecommendedLinkToolStripButton;
     private ToolStripButton                       deleteRecommendedLinkToolStripButton;
-    private ToolStripButton                       newRecommendedKeywordToolStripButton;
-    private ToolStripButton                       deleteRecommendedKeywordToolStripButton;
     private ToolStripButton                       exportToolStripButton;
     private ToolStripButton                       importToolStripButton;
-
-    private NewRecommendedKeywordWindow           newRecommendedKeywordWindow;
-    private DeleteRecommendedKeywordWindow        deleteRecommendedKeywordWindow;
-    private DeleteConfirmationWindow              deleteConfirmationWindow;
 
     private RecommendedLinkListSearchSectionStack recommendedLinkListSearchSectionStack;
 
@@ -92,9 +85,6 @@ public class RecommendedLinkListLayout extends VLayout {
         recommendedLinkListToolStrip = new ToolStrip();
         recommendedLinkListToolStrip.setWidth100();
 
-        newRecommendedKeywordToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionNewKeyword(), GlobalResources.RESOURCE.newListGrid().getURL());
-        deleteRecommendedKeywordToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionDeleteKeyword(), GlobalResources.RESOURCE.deleteListGrid().getURL());
-
         newRecommendedLinkToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionNewRecommendedLink(), GlobalResources.RESOURCE.newListGrid().getURL());
         deleteRecommendedLinkToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionDeleteRecommendedLink(), GlobalResources.RESOURCE.deleteListGrid().getURL());
         deleteRecommendedLinkToolStripButton.hide();
@@ -102,9 +92,6 @@ public class RecommendedLinkListLayout extends VLayout {
         exportToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionExport(), GlobalResources.RESOURCE.exportResource().getURL());
         importToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionImport(), GlobalResources.RESOURCE.importResource().getURL());
 
-        recommendedLinkListToolStrip.addButton(newRecommendedKeywordToolStripButton);
-        recommendedLinkListToolStrip.addButton(deleteRecommendedKeywordToolStripButton);
-        recommendedLinkListToolStrip.addSeparator();
         recommendedLinkListToolStrip.addButton(newRecommendedLinkToolStripButton);
         recommendedLinkListToolStrip.addButton(deleteRecommendedLinkToolStripButton);
         recommendedLinkListToolStrip.addSeparator();
@@ -124,14 +111,6 @@ public class RecommendedLinkListLayout extends VLayout {
         return recommendedLinkListToolStrip;
     }
 
-    public ToolStripButton getNewKeywordToolStripButton() {
-        return newRecommendedKeywordToolStripButton;
-    }
-
-    public ToolStripButton getDeleteRecommendedKeywordToolStripButton() {
-        return deleteRecommendedKeywordToolStripButton;
-    }
-
     public ToolStripButton getNewRecommendedLinkToolStripButton() {
         return newRecommendedLinkToolStripButton;
     }
@@ -146,22 +125,6 @@ public class RecommendedLinkListLayout extends VLayout {
 
     public ToolStripButton getImportToolStripButton() {
         return importToolStripButton;
-    }
-
-    public NewRecommendedKeywordWindow getNewRecommendedKeywordWindow() {
-        return newRecommendedKeywordWindow;
-    }
-
-    public void setNewRecommendedKeywordWindow(NewRecommendedKeywordWindow newRecommendedKeywordWindow) {
-        this.newRecommendedKeywordWindow = newRecommendedKeywordWindow;
-    }
-
-    public DeleteRecommendedKeywordWindow getDeleteRecommendedKeywordWindow() {
-        return deleteRecommendedKeywordWindow;
-    }
-
-    public void setDeleteRecommendedKeywordWindow(DeleteRecommendedKeywordWindow deleteRecommendedKeywordWindow) {
-        this.deleteRecommendedKeywordWindow = deleteRecommendedKeywordWindow;
     }
 
     public BaseCustomListGrid getRecommendedLinkListGrid() {
@@ -199,7 +162,6 @@ public class RecommendedLinkListLayout extends VLayout {
     }
 
     public void setUiHandlers(RecommendedLinkListUiHandlers handlers) {
-        newRecommendedKeywordWindow.setUiHandlers(handlers);
         recommendedLinkListSearchSectionStack.setUiHandlers(handlers);
         uiHandlers = handlers;
     }

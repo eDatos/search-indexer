@@ -174,7 +174,11 @@
             <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.jodatime</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        </dependency>
+        
         <!-- TEST -->
         <dependency>
             <groupId>junit</groupId>
@@ -260,6 +264,10 @@
         <dependency>
             <groupId>org.siemac.metamac.metamac-sso</groupId>
             <artifactId>metamac-sso-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.siemac.metamac.metamac-srm</groupId>
+            <artifactId>metamac-srm-rest-internal-api</artifactId>
         </dependency>
     </dependencies>
 

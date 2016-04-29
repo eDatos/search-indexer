@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ImportUtils {
     private final static Logger logger = LoggerFactory.getLogger(ImportUtils.class);
 
     public static void parseFile(ServiceContext ctx, File file, List<MetamacExceptionItem> exceptionItems, Map<String, RecommendedKeyword> recommendedKeywordsAlreadyExisting,
-            Map<String, RecommendedKeyword> recommendedKeywordsToPersistByKeyword, List<RecommendedLink> recommendedLinksToPersist) {
+            Map<String, RecommendedKeyword> recommendedKeywordsToPersistByKeyword, Map<String, String> categoryCodesToPersistByKeyword, List<RecommendedLink> recommendedLinksToPersist) {
         InputStreamReader inputStreamReader = null;
         BufferedReader bufferedReader = null;
 
@@ -63,7 +64,7 @@ public class ImportUtils {
                     }
 
                     RecommendedKeyword recommendedKeyword = ImportUtils.tsvLineToRecommendedKeyword(ctx, header, columns, lineNumber, exceptionItems, recommendedKeywordsToPersistByKeyword,
-                            recommendedKeywordsAlreadyExisting);
+                            categoryCodesToPersistByKeyword, recommendedKeywordsAlreadyExisting);
                     RecommendedLink recommendedLink = ImportUtils.tsvLineToRecommendedLink(ctx, header, columns, lineNumber, exceptionItems, recommendedKeyword);
 
                     if (recommendedKeyword != null && recommendedLink != null) {
@@ -79,12 +80,17 @@ public class ImportUtils {
             logger.error("Error importing tsv file", e);
             exceptionItems.add(new MetamacExceptionItem(ServiceExceptionType.IMPORTATION_TSV_ERROR_FILE_PARSING, e.getMessage()));
         } finally {
+            closeWithoutTrowing(inputStreamReader);
+            closeWithoutTrowing(bufferedReader);
+        }
+    }
+
+    private static void closeWithoutTrowing(Reader reader) {
+        if (reader != null) {
             try {
-                inputStreamReader.close();
-                bufferedReader.close();
+                reader.close();
             } catch (IOException e) {
-                // do not relaunch error
-                logger.error("Error closing streams", e);
+                logger.error("Error closing stream", e);
             }
         }
     }
@@ -96,7 +102,8 @@ public class ImportUtils {
             exceptions.add(new MetamacExceptionItem(ServiceExceptionType.IMPORTATION_TSV_HEADER_INCORRECT, 2));
             return header;
         }
-        List<String> headersExpected = Arrays.asList(SearchConstants.TSV_HEADER_KEYWORD, SearchConstants.TSV_HEADER_TITLE, SearchConstants.TSV_HEADER_URL, SearchConstants.TSV_HEADER_DESCRIPTION);
+        List<String> headersExpected = Arrays.asList(SearchConstants.TSV_HEADER_KEYWORD, SearchConstants.TSV_HEADER_KEYWORD_CATEGORY_CODE_NESTED, SearchConstants.TSV_HEADER_TITLE,
+                SearchConstants.TSV_HEADER_URL, SearchConstants.TSV_HEADER_DESCRIPTION);
         int headerExpectedIndex = 0;
         header.setColumnsSize(headerColumns.length);
         for (int i = 0; i < headerColumns.length; i++) {
@@ -104,6 +111,9 @@ public class ImportUtils {
 
             if (SearchConstants.TSV_HEADER_KEYWORD.equals(columnName)) {
                 header.setKeywordPosition(i);
+                headerExpectedIndex++;
+            } else if (SearchConstants.TSV_HEADER_KEYWORD_CATEGORY_CODE_NESTED.equals(columnName)) {
+                header.setKeywordCategoryCodePosition(i);
                 headerExpectedIndex++;
             } else if (SearchConstants.TSV_HEADER_TITLE.equals(columnName)) {
                 header.setTitlePosition(i);
@@ -125,7 +135,8 @@ public class ImportUtils {
     }
 
     public static RecommendedKeyword tsvLineToRecommendedKeyword(ServiceContext ctx, RecommendedLinksTsvHeader header, String[] columns, Serializable lineNumber,
-            List<MetamacExceptionItem> exceptionItems, Map<String, RecommendedKeyword> recommendedKeywordsToPersistByKeyword, Map<String, RecommendedKeyword> recommendedKeywordsAlreadyExisting) {
+            List<MetamacExceptionItem> exceptionItems, Map<String, RecommendedKeyword> recommendedKeywordsToPersistByKeyword, Map<String, String> categoryCodesToPersistByKeyword,
+            Map<String, RecommendedKeyword> recommendedKeywordsAlreadyExisting) throws MetamacException {
         RecommendedKeyword recommendedKeyword = null;
 
         String keyword = columns[header.getKeywordPosition()];
@@ -141,6 +152,8 @@ public class ImportUtils {
             recommendedKeyword = new RecommendedKeyword();
             recommendedKeyword.setKeyword(keyword);
 
+            String categoryCode = columns[header.getKeywordCategoryCodePosition()];
+            categoryCodesToPersistByKeyword.put(keyword, categoryCode);
             // try {
             // getRecommendedKeywordsServiceInvocationValidator().checkCreateRecommendedKeyword(ctx, recommendedKeyword);
             // } catch (MetamacException metamacException) {

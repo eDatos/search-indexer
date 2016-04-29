@@ -39,7 +39,6 @@ public class RecommendedLinkListSearchSectionStack extends SearchSectionStack {
 
     protected void retrieveResources() {
         getUiHandlers().retrieveRecommendedLinkList(getRecommendedLinkListWebCriteria());
-        // getUiHandlers().retrieveCategorySchemes(CategorySchemeListPresenter.SCHEME_LIST_FIRST_RESULT, CategorySchemeListPresenter.SCHEME_LIST_MAX_RESULTS, getCategorySchemeWebCriteria());
     }
 
     public RecommendedLinkWebCriteria getRecommendedLinkListWebCriteria() {

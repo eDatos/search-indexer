@@ -33,7 +33,9 @@ Application SearchFacade {
             @RecommendedKeywordDto retrieveRecommendedKeywordById(Long id) throws MetamacException;
             @RecommendedKeywordDto createRecommendedKeyword(@RecommendedKeywordDto recommendedKeywordDto) throws MetamacException;
             @RecommendedKeywordDto updateRecommendedKeyword(@RecommendedKeywordDto recommendedKeywordDto) throws MetamacException;
+            List<@RecommendedKeywordDto> updateRecommendedKeyword(List<@RecommendedKeywordDto> recommendedKeywordDtos) throws MetamacException;
             deleteRecommendedKeyword(Long id) throws MetamacException;
+            deleteRecommendedKeyword(List<Long> ids) throws MetamacException;
             List<@RecommendedKeywordDto> findAllRecommendedKeywords throws MetamacException;
             MetamacCriteriaResult<@RecommendedKeywordDto> findRecommendedKeywords(MetamacCriteria criteria) throws MetamacException;
 		}

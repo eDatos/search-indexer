@@ -1,7 +1,7 @@
 package es.gobcan.istac.search.web.server.handlers.recommendedlink;
 
-import java.util.List;
-
+import org.siemac.metamac.core.common.criteria.MetamacCriteria;
+import org.siemac.metamac.core.common.criteria.MetamacCriteriaResult;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.web.common.server.ServiceContextHolder;
 import org.siemac.metamac.web.common.server.handlers.SecurityActionHandler;
@@ -13,6 +13,7 @@ import com.gwtplatform.dispatch.shared.ActionException;
 
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.core.facade.serviceapi.RecommendedKeywordsServiceFacade;
+import es.gobcan.istac.search.web.server.utils.MetamacWebCriteriaUtils;
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordListResult;
 
@@ -29,8 +30,9 @@ public class GetRecommendedKeywordListActionHandler extends SecurityActionHandle
     @Override
     public GetRecommendedKeywordListResult executeSecurityAction(GetRecommendedKeywordListAction action) throws ActionException {
         try {
-            List<RecommendedKeywordDto> recommendedKeywordList = recommendedKeywordsServiceFacade.findAllRecommendedKeywords(ServiceContextHolder.getCurrentServiceContext());
-            return new GetRecommendedKeywordListResult(recommendedKeywordList);
+            MetamacCriteria criteria = MetamacWebCriteriaUtils.build(action.getCriteria());
+            MetamacCriteriaResult<RecommendedKeywordDto> result = recommendedKeywordsServiceFacade.findRecommendedKeywords(ServiceContextHolder.getCurrentServiceContext(), criteria);
+            return new GetRecommendedKeywordListResult(result.getResults(), result.getPaginatorResult().getFirstResult(), result.getPaginatorResult().getTotalResults());
         } catch (MetamacException e) {
             throw WebExceptionUtils.createMetamacWebException(e);
         }

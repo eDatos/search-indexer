@@ -19,6 +19,10 @@ public class PlaceRequestUtils extends CommonPlaceRequestUtils {
         return buildAbsolutePlaceRequest(NameTokens.RECOMMENDED_LINK_LIST_PAGE);
     }
 
+    public static List<PlaceRequest> buildAbsoluteRecommendedKeywordListPlaceRequest() {
+        return buildAbsolutePlaceRequest(NameTokens.RECOMMENDED_KEYWORD_LIST_PAGE);
+    }
+
     private static List<PlaceRequest> buildAbsolutePlaceRequest(String page) {
         List<PlaceRequest> placeRequests = new ArrayList<PlaceRequest>();
         PlaceRequest configurationsPlace = new PlaceRequest(page);

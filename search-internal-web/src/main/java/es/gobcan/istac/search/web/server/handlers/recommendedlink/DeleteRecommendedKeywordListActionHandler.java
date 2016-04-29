@@ -1,7 +1,5 @@
 package es.gobcan.istac.search.web.server.handlers.recommendedlink;
 
-import java.util.List;
-
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.web.common.server.ServiceContextHolder;
 import org.siemac.metamac.web.common.server.handlers.SecurityActionHandler;
@@ -27,14 +25,13 @@ public class DeleteRecommendedKeywordListActionHandler extends SecurityActionHan
 
     @Override
     public DeleteRecommendedKeywordListResult executeSecurityAction(DeleteRecommendedKeywordListAction action) throws ActionException {
-        List<Long> ids = action.getRecommendedKeywordIds();
-        for (Long id : ids) {
-            try {
-                recommendedKeywordsServiceFacade.deleteRecommendedKeyword(ServiceContextHolder.getCurrentServiceContext(), id);
-            } catch (MetamacException e) {
-                throw WebExceptionUtils.createMetamacWebException(e);
-            }
+
+        try {
+            recommendedKeywordsServiceFacade.deleteRecommendedKeyword(ServiceContextHolder.getCurrentServiceContext(), action.getRecommendedKeywordIds());
+        } catch (MetamacException e) {
+            throw WebExceptionUtils.createMetamacWebException(e);
         }
+
         return new DeleteRecommendedKeywordListResult();
     }
 }

@@ -1,6 +1,8 @@
 package es.gobcan.istac.search.core.mapper;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.fornax.cartridges.sculptor.framework.errorhandling.ServiceContext;
@@ -107,6 +109,15 @@ public class Dto2DoMapperImpl extends BaseDto2DoMapperImpl implements Dto2DoMapp
 
         recommendedKeywordDtoToDo(source, target);
         return target;
+    }
+
+    @Override
+    public List<RecommendedKeyword> recommendedKeywordListDtoToDo(ServiceContext ctx, List<RecommendedKeywordDto> recommendedKeywordDtos) throws MetamacException {
+        List<RecommendedKeyword> recommendedKeywords = new ArrayList<RecommendedKeyword>();
+        for (RecommendedKeywordDto recommendedKeywordDto : recommendedKeywordDtos) {
+            recommendedKeywords.add(recommendedKeywordDtoToDo(ctx, recommendedKeywordDto));
+        }
+        return recommendedKeywords;
     }
 
     private RecommendedKeyword recommendedKeywordDtoToDo(RecommendedKeywordDto source, RecommendedKeyword target) throws MetamacException {

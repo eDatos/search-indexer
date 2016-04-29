@@ -11,6 +11,7 @@ import es.gobcan.istac.search.web.client.SearchLoggedInGatekeeper;
 import es.gobcan.istac.search.web.client.main.presenter.ErrorPagePresenter;
 import es.gobcan.istac.search.web.client.main.presenter.MainPagePresenter;
 import es.gobcan.istac.search.web.client.main.presenter.UnauthorizedPagePresenter;
+import es.gobcan.istac.search.web.client.recommendedkeyword.presenter.RecommendedKeywordListPresenter;
 import es.gobcan.istac.search.web.client.recommendedlink.presenter.RecommendedLinkListPresenter;
 import es.gobcan.istac.search.web.client.reindex.presenter.ReindexPresenter;
 
@@ -22,6 +23,7 @@ public interface SearchWebGinjector extends MetamacWebGinjector {
     Provider<MainPagePresenter> getMainPagePresenter();
     AsyncProvider<ReindexPresenter> getReindexPresenter();
     AsyncProvider<RecommendedLinkListPresenter> getRecommendedLinkListPresenter();
+    AsyncProvider<RecommendedKeywordListPresenter> getRecommendedKeywordListPresenter();
 
     AsyncProvider<ErrorPagePresenter> getErrorPagePresenter();
     AsyncProvider<UnauthorizedPagePresenter> getUnauthorizedPagePresenter();

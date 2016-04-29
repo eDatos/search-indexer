@@ -35,6 +35,7 @@ import es.gobcan.istac.search.web.server.handlers.recommendedlink.GetRecommended
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.GetRecommendedLinkListActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.SaveRecommendedKeywordActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.SaveRecommendedLinkActionHandler;
+import es.gobcan.istac.search.web.server.handlers.recommendedlink.UpdateRecommendedKeywordListActionHandler;
 import es.gobcan.istac.search.web.shared.GetCronGpeExpressionAction;
 import es.gobcan.istac.search.web.shared.GetCronRecommendedLinksExpressionAction;
 import es.gobcan.istac.search.web.shared.GetCronWebExpressionAction;
@@ -54,6 +55,7 @@ import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordLi
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedLinkListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedKeywordAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedLinkAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.UpdateRecommendedKeywordListAction;
 
 @Component
 public class ServerModule extends HandlerModule {
@@ -84,14 +86,16 @@ public class ServerModule extends HandlerModule {
         bindHandler(GetIndexationStatusGpeAction.class, GetIndexationStatusGpeActionHandler.class);
         bindHandler(GetIndexationStatusRecommendedLinksAction.class, GetIndexationStatusRecommendedLinksActionHandler.class);
 
-        bindHandler(SaveRecommendedKeywordAction.class, SaveRecommendedKeywordActionHandler.class);
-        bindHandler(DeleteRecommendedKeywordListAction.class, DeleteRecommendedKeywordListActionHandler.class);
+        bindHandler(GetRecommendedLinkListAction.class, GetRecommendedLinkListActionHandler.class);
         bindHandler(SaveRecommendedLinkAction.class, SaveRecommendedLinkActionHandler.class);
         bindHandler(DeleteRecommendedLinkListAction.class, DeleteRecommendedLinkListActionHandler.class);
         bindHandler(ExportRecommendedLinksAction.class, ExportRecommendedLinksActionHandler.class);
         bindHandler(ExportRecommendedLinksListAction.class, ExportRecommendedLinksListActionHandler.class);
+
         bindHandler(GetRecommendedKeywordListAction.class, GetRecommendedKeywordListActionHandler.class);
-        bindHandler(GetRecommendedLinkListAction.class, GetRecommendedLinkListActionHandler.class);
+        bindHandler(SaveRecommendedKeywordAction.class, SaveRecommendedKeywordActionHandler.class);
+        bindHandler(DeleteRecommendedKeywordListAction.class, DeleteRecommendedKeywordListActionHandler.class);
+        bindHandler(UpdateRecommendedKeywordListAction.class, UpdateRecommendedKeywordListActionHandler.class);
 
         bindHandler(GetExternalResourcesAction.class, GetExternalResourcesActionHandler.class);
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.gwtplatform.dispatch.shared.ActionException;
 
+import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.core.facade.serviceapi.RecommendedKeywordsServiceFacade;
 import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedKeywordAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedKeywordResult;
@@ -26,8 +27,12 @@ public class SaveRecommendedKeywordActionHandler extends SecurityActionHandler<S
     @Override
     public SaveRecommendedKeywordResult executeSecurityAction(SaveRecommendedKeywordAction action) throws ActionException {
         try {
-            // There is no update recommendedKeyword for now
-            recommendedKeywordsServiceFacade.createRecommendedKeyword(ServiceContextHolder.getCurrentServiceContext(), action.getRecommendedKeyword());
+            RecommendedKeywordDto recommendedKeywordDto = action.getRecommendedKeyword();
+            if (recommendedKeywordDto.getId() == null) {
+                recommendedKeywordsServiceFacade.createRecommendedKeyword(ServiceContextHolder.getCurrentServiceContext(), recommendedKeywordDto);
+            } else {
+                recommendedKeywordsServiceFacade.updateRecommendedKeyword(ServiceContextHolder.getCurrentServiceContext(), recommendedKeywordDto);
+            }
             return new SaveRecommendedKeywordResult();
         } catch (MetamacException e) {
             throw WebExceptionUtils.createMetamacWebException(e);

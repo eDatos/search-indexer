@@ -4,6 +4,7 @@ import static es.gobcan.istac.search.web.client.SearchWeb.getConstants;
 
 import org.siemac.metamac.web.common.client.widgets.CustomListGridField;
 
+import es.gobcan.istac.search.web.client.model.ds.RecommendedKeywordDS;
 import es.gobcan.istac.search.web.client.model.ds.RecommendedLinkDS;
 
 public class ResourceListFieldUtils {
@@ -27,6 +28,19 @@ public class ResourceListFieldUtils {
         recommendedKeywordId.setHidden(true);
 
         return new CustomListGridField[]{recommendedKeywordKeyword, recommendedKeywordCategory, url, title, description};
+    }
+
+    public static CustomListGridField[] getRecommendedKeywordFields() {
+        CustomListGridField recommendedKeywordKeyword = new CustomListGridField(RecommendedKeywordDS.KEYWORD, getConstants().recommendedKeywordKeyword());
+        recommendedKeywordKeyword.setWidth("30%");
+
+        CustomListGridField recommendedKeywordCategory = new CustomListGridField(RecommendedKeywordDS.CATEGORY, getConstants().recommendedKeywordCategory());
+        recommendedKeywordCategory.setWidth("70%");
+
+        CustomListGridField recommendedKeywordId = new CustomListGridField(RecommendedLinkDS.RECOMMENDED_KEYWORD_ID, "");
+        recommendedKeywordId.setHidden(true);
+
+        return new CustomListGridField[]{recommendedKeywordKeyword, recommendedKeywordCategory};
     }
 
 }

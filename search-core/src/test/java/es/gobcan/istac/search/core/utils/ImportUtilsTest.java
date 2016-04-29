@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,9 @@ import javax.servlet.ServletException;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+import org.siemac.metamac.core.common.ent.domain.ExternalItem;
+import org.siemac.metamac.core.common.ent.domain.InternationalString;
+import org.siemac.metamac.core.common.ent.domain.LocalisedString;
 import org.siemac.metamac.core.common.exception.MetamacExceptionItem;
 import org.siemac.metamac.core.common.io.FileUtils;
 
@@ -37,7 +41,7 @@ public class ImportUtilsTest extends TestBase {
 
         recommendedLinks.add(recommendedLink);
 
-        String fileName = ExportUtils.exportRecommendedLinks(recommendedLinks);
+        String fileName = ExportUtils.exportRecommendedLinks(recommendedLinks, Arrays.asList("es", "en"));
 
         assertTrue(fileName.startsWith(SearchConstants.TSV_RECOMMENDED_LINKS_FILE_PREFIX));
 
@@ -53,10 +57,12 @@ public class ImportUtilsTest extends TestBase {
         bufferedReader = new BufferedReader(inputStreamReader);
 
         String line = bufferedReader.readLine();
-        assertEquals("keyword\ttitle\turl\tdescription", line);
+        assertEquals("keyword\ttitle\turl\tdescription\tcategory-code-nested\tcategory-title#es\tcategory-title#en", line);
         line = bufferedReader.readLine();
-        assertEquals("paro\tEl paro en canarias\thttp://google.es\tDocumentación asociada", line);
+        assertEquals("paro\tEl paro en canarias\thttp://google.es\tDocumentación asociada\t1.11\tTítulo externo\tExternal title", line);
 
+        bufferedReader.close();
+        inputStreamReader.close();
         file.delete();
     }
 
@@ -76,11 +82,12 @@ public class ImportUtilsTest extends TestBase {
         String line = bufferedReader.readLine();
         RecommendedLinksTsvHeader header = ImportUtils.parseTsvHeaderToImportRecommendedLinks(line, exceptionItems);
 
-        assertEquals(4, header.getColumnsSize());
+        assertEquals(7, header.getColumnsSize());
         assertEquals(0, header.getKeywordPosition());
         assertEquals(1, header.getTitlePosition());
         assertEquals(2, header.getUrlPosition());
         assertEquals(3, header.getDescriptionPosition());
+        assertEquals(4, header.getKeywordCategoryCodePosition());
 
         line = bufferedReader.readLine();
         int lineNumber = 2;
@@ -88,20 +95,26 @@ public class ImportUtilsTest extends TestBase {
 
         Map<String, RecommendedKeyword> recommendedKeywordsToPersistByKeyword = new HashMap<String, RecommendedKeyword>();
         Map<String, RecommendedKeyword> recommendedKeywordsAlreadyExisting = new HashMap<String, RecommendedKeyword>();
+        Map<String, String> categoryCodesToPersistByKeyword = new HashMap<String, String>();
         RecommendedKeyword recommendedKeyword = ImportUtils.tsvLineToRecommendedKeyword(mockServiceContextWithoutPrincipal(), header, columns, lineNumber, exceptionItems,
-                recommendedKeywordsToPersistByKeyword, recommendedKeywordsAlreadyExisting);
+                recommendedKeywordsToPersistByKeyword, categoryCodesToPersistByKeyword, recommendedKeywordsAlreadyExisting);
         RecommendedLink recommendedLink = ImportUtils.tsvLineToRecommendedLink(mockServiceContextWithoutPrincipal(), header, columns, lineNumber, exceptionItems, recommendedKeyword);
 
         assertEquals("documentos", recommendedLink.getRecommendedKeyword().getKeyword());
         assertEquals("http://localhost:9080/istac/complementaria/comp1_nogpe.pdf", recommendedLink.getUrl());
         assertEquals("Complementaria vitícola web", recommendedLink.getTitle());
         assertEquals("Descripción del pdf...", recommendedLink.getDescription());
+        assertEquals(categoryCodesToPersistByKeyword.get("documentos"), "11");
 
+        bufferedReader.close();
+        inputStreamReader.close();
     }
 
     private RecommendedLink getMockedRecommendedLink() {
+
         RecommendedKeyword recommendedKeyword = new RecommendedKeyword();
         recommendedKeyword.setKeyword("paro");
+        recommendedKeyword.setCategory(getMockedExternalItem());
 
         RecommendedLink recommendedLink = new RecommendedLink();
         recommendedLink.setRecommendedKeyword(recommendedKeyword);
@@ -109,6 +122,27 @@ public class ImportUtilsTest extends TestBase {
         recommendedLink.setUrl("http://google.es");
         recommendedLink.setDescription("Documentación asociada");
         return recommendedLink;
+    }
+
+    private ExternalItem getMockedExternalItem() {
+
+        InternationalString internationalString = new InternationalString();
+        LocalisedString esLocalisedString = new LocalisedString();
+        esLocalisedString.setLocale("es");
+        esLocalisedString.setLabel("Título externo");
+
+        LocalisedString enLocalisedString = new LocalisedString();
+        enLocalisedString.setLocale("en");
+        enLocalisedString.setLabel("External title");
+
+        internationalString.addText(esLocalisedString);
+        internationalString.addText(enLocalisedString);
+
+        ExternalItem externalItem = new ExternalItem();
+        externalItem.setCodeNested("1.11");
+        externalItem.setTitle(internationalString);
+
+        return externalItem;
     }
 
     // Copied from FileDownloadServletBase

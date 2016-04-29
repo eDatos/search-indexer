@@ -17,6 +17,7 @@ public class SearchToolStripPresenterWidget extends MetamacToolStripPresenterWid
 
         HasClickHandlers getGoReindex();
         HasClickHandlers getGoRecommendedLinkList();
+        HasClickHandlers getGoRecommendedKeywordList();
     }
 
     @Inject
@@ -41,6 +42,14 @@ public class SearchToolStripPresenterWidget extends MetamacToolStripPresenterWid
             @Override
             public void onClick(ClickEvent event) {
                 getPlaceManager().revealPlaceHierarchy(PlaceRequestUtils.buildAbsoluteRecommendedLinkListPlaceRequest());
+            }
+        }));
+
+        registerHandler(getView().getGoRecommendedKeywordList().addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                getPlaceManager().revealPlaceHierarchy(PlaceRequestUtils.buildAbsoluteRecommendedKeywordListPlaceRequest());
             }
         }));
     }

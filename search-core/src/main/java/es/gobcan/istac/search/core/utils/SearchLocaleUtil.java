@@ -8,7 +8,7 @@ import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 
 import es.gobcan.istac.search.core.conf.SearchConfigurationService;
 
-public class SearchLocaleUtil {
+public final class SearchLocaleUtil {
 
     private SearchLocaleUtil() {
 
@@ -16,8 +16,7 @@ public class SearchLocaleUtil {
 
     public static String getTranslatedMessage(String message) throws MetamacException {
         Locale locale = getConfigurationService().retrieveLanguageDefaultLocale();
-        String localisedMessage = LocaleUtil.getMessageForCode(message, locale);
-        return localisedMessage;
+        return LocaleUtil.getMessageForCode(message, locale);
     }
 
     private static SearchConfigurationService getConfigurationService() {

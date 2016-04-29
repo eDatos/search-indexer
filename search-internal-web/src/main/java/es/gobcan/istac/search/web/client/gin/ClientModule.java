@@ -16,6 +16,8 @@ import es.gobcan.istac.search.web.client.main.view.ErrorPageViewImpl;
 import es.gobcan.istac.search.web.client.main.view.MainPageViewImpl;
 import es.gobcan.istac.search.web.client.main.view.UnauthorizedPageViewImpl;
 import es.gobcan.istac.search.web.client.navigation.NameTokens;
+import es.gobcan.istac.search.web.client.recommendedkeyword.presenter.RecommendedKeywordListPresenter;
+import es.gobcan.istac.search.web.client.recommendedkeyword.view.RecommendedKeywordListViewImpl;
 import es.gobcan.istac.search.web.client.recommendedlink.presenter.RecommendedLinkListPresenter;
 import es.gobcan.istac.search.web.client.recommendedlink.view.RecommendedLinkListViewImpl;
 import es.gobcan.istac.search.web.client.reindex.presenter.ReindexPresenter;
@@ -37,6 +39,8 @@ public class ClientModule extends AbstractPresenterModule {
         bindPresenter(ReindexPresenter.class, ReindexPresenter.ReindexView.class, ReindexViewImpl.class, ReindexPresenter.ReindexProxy.class);
         bindPresenter(RecommendedLinkListPresenter.class, RecommendedLinkListPresenter.RecommendedLinkListView.class, RecommendedLinkListViewImpl.class,
                 RecommendedLinkListPresenter.RecommendedLinkListProxy.class);
+        bindPresenter(RecommendedKeywordListPresenter.class, RecommendedKeywordListPresenter.RecommendedKeywordListView.class, RecommendedKeywordListViewImpl.class,
+                RecommendedKeywordListPresenter.RecommendedKeywordListProxy.class);
 
         // PresenterWidgets
         bindSingletonPresenterWidget(SearchToolStripPresenterWidget.class, SearchToolStripPresenterWidget.SearchToolStripView.class, SearchToolStripViewImpl.class);
