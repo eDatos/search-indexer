@@ -38,6 +38,8 @@ class RecommendedKeywordCriteriaCallback implements CriteriaCallback {
     public Property<RecommendedKeyword> retrievePropertyOrder(MetamacCriteriaOrder order) throws MetamacException {
         RecommendedKeywordCriteriaOrderEnum criteriaOrderEnum = RecommendedKeywordCriteriaOrderEnum.fromValue(order.getPropertyName());
         switch (criteriaOrderEnum) {
+            case KEYWORD:
+                return RecommendedKeywordProperties.keyword();
             case CREATED_DATE:
                 return CriteriaUtils.getDatetimeLeafPropertyEmbedded(RecommendedKeywordProperties.createdDate(), RecommendedKeyword.class);
             default:

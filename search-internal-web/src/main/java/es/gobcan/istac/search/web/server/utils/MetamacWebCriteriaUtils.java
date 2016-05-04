@@ -12,6 +12,7 @@ import org.siemac.metamac.core.common.criteria.shared.MetamacCriteriaOrder;
 import org.siemac.metamac.core.common.criteria.shared.MetamacCriteriaOrder.OrderTypeEnum;
 import org.siemac.metamac.core.common.exception.MetamacException;
 
+import es.gobcan.istac.search.core.criteria.RecommendedKeywordCriteriaOrderEnum;
 import es.gobcan.istac.search.core.criteria.RecommendedKeywordCriteriaPropertyEnum;
 import es.gobcan.istac.search.core.criteria.RecommendedLinkCriteriaOrderEnum;
 import es.gobcan.istac.search.core.criteria.RecommendedLinkCriteriaPropertyEnum;
@@ -69,8 +70,8 @@ public class MetamacWebCriteriaUtils {
 
         // Order
         MetamacCriteriaOrder criteriaOrder = new MetamacCriteriaOrder();
-        criteriaOrder.setPropertyName(RecommendedLinkCriteriaOrderEnum.CREATED_DATE.name());
-        criteriaOrder.setType(OrderTypeEnum.DESC);
+        criteriaOrder.setPropertyName(RecommendedKeywordCriteriaOrderEnum.KEYWORD.name());
+        criteriaOrder.setType(OrderTypeEnum.ASC);
         criteria.getOrdersBy().add(criteriaOrder);
 
         // Pagination

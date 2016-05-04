@@ -15,7 +15,7 @@ public abstract class SearchSrmCategoryLinkItem extends SearchSrmItemLinkItem {
     @Override
     public void onSearch() {
         super.onSearch();
-        getIsLastVersionItem().hide();
+        getSearchWindow().getInitialFilterForm().hide();
         getSearchWindow().getFilterForm().hide();
     }
 }

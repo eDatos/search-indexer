@@ -91,10 +91,12 @@ public class RecordUtils {
         return dtos;
     }
 
-    public static RecommendedKeywordDto getRecommendedKeywordDto(CustomDynamicForm form, RecommendedKeywordRecord recommendedKeywordRecord) {
-        RecommendedKeywordDto dto = recommendedKeywordRecord.getRecommendedKeywordDto();
-
-        dto.setKeyword(recommendedKeywordRecord.getKeyword());
+    public static RecommendedKeywordDto getRecommendedKeywordDto(CustomDynamicForm form) {
+        RecommendedKeywordDto dto = (RecommendedKeywordDto) form.getValue(RecommendedKeywordDS.RECOMMENDED_KEYWORD_DTO);
+        if (dto == null) {
+            dto = new RecommendedKeywordDto();
+        }
+        dto.setKeyword(form.getValueAsString(RecommendedKeywordDS.KEYWORD));
         dto.setCategory(form.getValueAsExternalItemDto(RecommendedKeywordDS.CATEGORY));
         return dto;
     }

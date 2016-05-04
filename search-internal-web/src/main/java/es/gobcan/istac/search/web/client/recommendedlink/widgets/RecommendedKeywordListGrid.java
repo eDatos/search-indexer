@@ -7,6 +7,7 @@ import org.siemac.metamac.web.common.client.widgets.CustomListGrid;
 import com.smartgwt.client.types.Autofit;
 import com.smartgwt.client.types.GroupStartOpen;
 
+import es.gobcan.istac.search.web.client.model.ds.RecommendedKeywordDS;
 import es.gobcan.istac.search.web.client.utils.ResourceListFieldUtils;
 
 public class RecommendedKeywordListGrid extends CustomListGrid {
@@ -16,6 +17,8 @@ public class RecommendedKeywordListGrid extends CustomListGrid {
 
         setShowGroupSummary(true);
         setGroupStartOpen(GroupStartOpen.ALL);
+        setGroupByField(RecommendedKeywordDS.CATEGORY);
+        setGroupTitleField(RecommendedKeywordDS.CATEGORY);
         setGroupNodeStyle("customGroupNode");
         setCanSort(false);
 

@@ -8,8 +8,10 @@ import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.exception.MetamacExceptionItem;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import es.gobcan.istac.search.core.exception.ServiceExceptionParameters;
 import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedKeyword;
 import es.gobcan.istac.search.core.recommendedlink.serviceapi.RecommendedKeywordsService;
+import es.gobcan.istac.search.core.utils.SearchValidationUtils;
 
 public class RecommendedKeywordsServiceInvocationValidatorImpl {
 
@@ -17,27 +19,31 @@ public class RecommendedKeywordsServiceInvocationValidatorImpl {
     RecommendedKeywordsService recommendedKeywordsService;
 
     public static void checkFindRecommendedKeywordById(Long id, List<MetamacExceptionItem> exceptions) throws MetamacException {
-        // TODO
+        SearchValidationUtils.checkParameterRequired(id, ServiceExceptionParameters.ID, exceptions);
     }
 
     public static void checkCreateRecommendedKeyword(RecommendedKeyword recommendedKeyword, List<MetamacExceptionItem> exceptions) throws MetamacException {
-        // TODO
+        SearchValidationUtils.checkNewRecommendedKeyword(recommendedKeyword, exceptions);
     }
 
     public static void checkUpdateRecommendedKeyword(RecommendedKeyword recommendedKeyword, List<MetamacExceptionItem> exceptions) throws MetamacException {
-        // TODO
+        SearchValidationUtils.checkExistingRecommendedKeyword(recommendedKeyword, exceptions);
     }
 
-    public static void checkUpdateRecommendedKeyword(List<RecommendedKeyword> recommendedKeyword, List<MetamacExceptionItem> exceptions) {
-        // Nothing to check
+    public static void checkUpdateRecommendedKeyword(List<RecommendedKeyword> recommendedKeywords, List<MetamacExceptionItem> exceptions) {
+        for (RecommendedKeyword recommendedKeyword : recommendedKeywords) {
+            SearchValidationUtils.checkExistingRecommendedKeyword(recommendedKeyword, exceptions);
+        }
     }
 
     public static void checkDeleteRecommendedKeyword(Long id, List<MetamacExceptionItem> exceptions) throws MetamacException {
-        // TODO
+        SearchValidationUtils.checkParameterRequired(id, ServiceExceptionParameters.ID, exceptions);
     }
 
     public static void checkDeleteRecommendedKeyword(List<Long> ids, List<MetamacExceptionItem> exceptions) {
-        // Nothing to check
+        for (Long id : ids) {
+            SearchValidationUtils.checkParameterRequired(id, ServiceExceptionParameters.ID, exceptions);
+        }
     }
 
     public static void checkFindAllRecommendedKeywords(List<MetamacExceptionItem> exceptions) throws MetamacException {
@@ -45,7 +51,7 @@ public class RecommendedKeywordsServiceInvocationValidatorImpl {
     }
 
     public static void checkFindRecommendedKeywordsByCondition(List<ConditionalCriteria> condition, PagingParameter pagingParameter, List<MetamacExceptionItem> exceptions) throws MetamacException {
-        // TODO
+        // Nothing to check
     }
 
 }

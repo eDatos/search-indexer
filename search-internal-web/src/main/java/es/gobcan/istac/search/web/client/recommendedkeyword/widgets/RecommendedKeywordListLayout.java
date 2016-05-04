@@ -90,8 +90,8 @@ public class RecommendedKeywordListLayout extends VLayout {
 
     }
 
-    public void setRecommendedKeywordList(List<RecommendedKeywordDto> RecommendedKeywordList, int firstResult, int totalResults) {
-        RecommendedKeywordRecord[] records = RecordUtils.getRecommendedKeywordListRecords(RecommendedKeywordList);
+    public void setRecommendedKeywordList(List<RecommendedKeywordDto> recommendedKeywordList, int firstResult, int totalResults) {
+        RecommendedKeywordRecord[] records = RecordUtils.getRecommendedKeywordListRecords(recommendedKeywordList);
         recommendedKeywordPaginatedListGrid.getListGrid().setData(records);
         recommendedKeywordPaginatedListGrid.refreshPaginationInfo(firstResult, records.length, totalResults);
     }

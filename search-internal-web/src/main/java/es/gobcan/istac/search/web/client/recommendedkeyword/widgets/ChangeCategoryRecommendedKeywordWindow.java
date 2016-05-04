@@ -14,7 +14,6 @@ import com.smartgwt.client.widgets.form.fields.events.HasClickHandlers;
 
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.web.client.SearchWeb;
-import es.gobcan.istac.search.web.client.model.RecommendedKeywordRecord;
 import es.gobcan.istac.search.web.client.model.ds.RecommendedKeywordDS;
 import es.gobcan.istac.search.web.client.recommendedkeyword.view.handlers.RecommendedKeywordListUiHandlers;
 import es.gobcan.istac.search.web.client.utils.RecordUtils;
@@ -60,7 +59,6 @@ public class ChangeCategoryRecommendedKeywordWindow extends ModalWindow {
             }
         };
 
-        subjectItem.setRequired(true);
         subjectItem.setWidth(FORM_ITEM_CUSTOM_WIDTH);
 
         form = new CustomDynamicForm();
@@ -77,7 +75,7 @@ public class ChangeCategoryRecommendedKeywordWindow extends ModalWindow {
     }
 
     public RecommendedKeywordDto getRecommendedKeyword() {
-        return RecordUtils.getRecommendedKeywordDto(form, new RecommendedKeywordRecord(form.getValuesAsRecord()));
+        return RecordUtils.getRecommendedKeywordDto(form);
     }
 
     public boolean validateForm() {

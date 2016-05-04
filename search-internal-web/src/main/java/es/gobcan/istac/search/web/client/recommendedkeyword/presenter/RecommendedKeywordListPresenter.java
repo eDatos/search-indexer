@@ -168,7 +168,7 @@ public class RecommendedKeywordListPresenter extends Presenter<RecommendedKeywor
 
             @Override
             public void onWaitSuccess(UpdateRecommendedKeywordListResult result) {
-                ShowMessageEvent.fireSuccessMessage(RecommendedKeywordListPresenter.this, getMessages().messageCreateRecommendedKeywordSuccess());
+                ShowMessageEvent.fireSuccessMessage(RecommendedKeywordListPresenter.this, getMessages().messageUpdateRecommendedKeywordSuccess());
                 retrieveRecommendedKeywordList();
             }
 

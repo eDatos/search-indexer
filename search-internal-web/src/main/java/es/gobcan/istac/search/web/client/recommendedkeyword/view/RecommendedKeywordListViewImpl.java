@@ -69,12 +69,10 @@ public class RecommendedKeywordListViewImpl extends ViewWithUiHandlers<Recommend
 
                     List<RecommendedKeywordDto> recommendedKeywordListDto = RecordUtils.getRecommendedKeywordListDto(recommendedKeywordListLayout.getRecommendedKeywordListGrid().getSelectedRecords());
                     ExternalItemDto category = recommendedKeywordListLayout.getChangeCategoryRecommendedKeywordWindow().getCategory();
-                    if (category != null) {
-                        for (RecommendedKeywordDto recommendedKeywordDto : recommendedKeywordListDto) {
-                            recommendedKeywordDto.setCategory(category);
-                        }
-                        getUiHandlers().updateRecommendedKeywordList(recommendedKeywordListDto);
+                    for (RecommendedKeywordDto recommendedKeywordDto : recommendedKeywordListDto) {
+                        recommendedKeywordDto.setCategory(category);
                     }
+                    getUiHandlers().updateRecommendedKeywordList(recommendedKeywordListDto);
                     recommendedKeywordListLayout.getChangeCategoryRecommendedKeywordWindow().hide();
                 }
             }
@@ -90,6 +88,7 @@ public class RecommendedKeywordListViewImpl extends ViewWithUiHandlers<Recommend
 
             @Override
             public void onClick(ClickEvent event) {
+                recommendedKeywordListLayout.getNewRecommendedKeywordWindow().clearForm();
                 recommendedKeywordListLayout.getNewRecommendedKeywordWindow().show();
             }
         });

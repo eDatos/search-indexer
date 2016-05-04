@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 
 import org.siemac.metamac.core.common.util.shared.StringUtils;
 import org.siemac.metamac.web.common.client.MetamacWebCommon;
+import org.siemac.metamac.web.common.client.widgets.InformationLabel;
 import org.siemac.metamac.web.common.client.widgets.UploadResourceWithPreviewWindow;
 import org.siemac.metamac.web.common.client.widgets.WarningLabel;
 import org.siemac.metamac.web.common.client.widgets.form.CustomDynamicForm;
@@ -31,7 +32,15 @@ public abstract class ImportRecommendedLinksWindow extends UploadResourceWithPre
         setAutoSize(true);
         setWidth(FORM_ITEM_WIDTH);
 
+        buildInformationLabel();
         buildWarningLabel();
+    }
+
+    private void buildInformationLabel() {
+        InformationLabel informationLabel = new InformationLabel();
+        informationLabel.setWidth(getWidth());
+        informationLabel.setMargin(5);
+        body.addMember(informationLabel, 0);
     }
 
     private void buildWarningLabel() {
@@ -72,8 +81,8 @@ public abstract class ImportRecommendedLinksWindow extends UploadResourceWithPre
 
     private LinkedHashMap<String, String> getImportModeValueMap() {
         LinkedHashMap<String, String> valueMap = new LinkedHashMap<String, String>();
-        valueMap.put(SearchSharedTokens.UPLOAD_PARAM_MODE_ADDITIVE, getConstants().importModeAdditive());
-        valueMap.put(SearchSharedTokens.UPLOAD_PARAM_MODE_SUSTITUTIVE, getConstants().importModeSustitutive());
+        valueMap.put(SearchSharedTokens.UPLOAD_PARAM_MODE_ADDITIVE, getConstants().importModeAdditive() + " (" + getConstants().importModeAdditiveDescription() + ")");
+        valueMap.put(SearchSharedTokens.UPLOAD_PARAM_MODE_SUSTITUTIVE, getConstants().importModeSustitutive() + " (" + getConstants().importModeSustitutiveDescription() + ")");
         return valueMap;
     }
 

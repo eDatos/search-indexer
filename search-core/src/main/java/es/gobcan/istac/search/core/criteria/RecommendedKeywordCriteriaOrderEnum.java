@@ -2,7 +2,7 @@ package es.gobcan.istac.search.core.criteria;
 
 public enum RecommendedKeywordCriteriaOrderEnum {
 
-    CREATED_DATE;
+    CREATED_DATE, KEYWORD;
 
     public String value() {
         return name();
