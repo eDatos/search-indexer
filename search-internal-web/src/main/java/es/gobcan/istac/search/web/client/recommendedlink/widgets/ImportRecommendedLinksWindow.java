@@ -37,7 +37,7 @@ public abstract class ImportRecommendedLinksWindow extends UploadResourceWithPre
     }
 
     private void buildInformationLabel() {
-        InformationLabel informationLabel = new InformationLabel();
+        InformationLabel informationLabel = new InformationLabel(getMessages().messageInfoImport());
         informationLabel.setWidth(getWidth());
         informationLabel.setMargin(5);
         body.addMember(informationLabel, 0);
