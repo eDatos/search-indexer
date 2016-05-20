@@ -5,7 +5,7 @@
     <parent>
         <groupId>es.gobcan.istac.search</groupId>
         <artifactId>search-parent</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>4.0.0</version>
         <relativePath>search-parent/pom.xml</relativePath>
     </parent>
 
@@ -14,9 +14,9 @@
     <name>SEARCH</name>
 
     <scm>
-        <connection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/trunk/</connection>
-        <developerConnection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/trunk/</developerConnection>
-        <url>http://svn.arte-consultores.com/viewvc/arte/istac/search/trunk/</url>
+        <connection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/tags/20160520-1411-v4.0.0</connection>
+        <developerConnection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/tags/20160520-1411-v4.0.0</developerConnection>
+        <url>http://svn.arte-consultores.com/viewvc/arte/istac/search/tags/20160520-1411-v4.0.0</url>
     </scm>
 
     <modules>
