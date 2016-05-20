@@ -64,7 +64,7 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
                 if (recommendedLinkListGrid.getSelectedRecords() != null && recommendedLinkListGrid.getSelectedRecords().length > 0) {
                     getUiHandlers().exportRecommendedLinks(RecordUtils.getRecommendedLinkListIds(recommendedLinkListGrid.getSelectedRecords()));
                 } else {
-                    getUiHandlers().exportRecommendedLinks(null);
+                    getUiHandlers().exportRecommendedLinks();
                 }
             }
         });
