@@ -871,6 +871,10 @@
                             <svn>javasvn</svn>
                         </providerImplementations>
                         <preparationGoals>clean install</preparationGoals>
+                        <checkModificationExcludes>
+                            <checkModificationExclude>target</checkModificationExclude>
+                            <checkModificationExclude>generated</checkModificationExclude>
+                        </checkModificationExcludes>
                     </configuration>
                     <dependencies>
                         <dependency>
