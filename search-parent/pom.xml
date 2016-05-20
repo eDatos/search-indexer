@@ -871,6 +871,10 @@
                             <svn>javasvn</svn>
                         </providerImplementations>
                         <preparationGoals>clean install</preparationGoals>
+                        <checkModificationExcludes>
+                            <checkModificationExclude>EmptyDatabase.xml</checkModificationExclude>
+                            <checkModificationExclude>persistence-test.xml</checkModificationExclude>
+                        </checkModificationExcludes>
                     </configuration>
                     <dependencies>
                         <dependency>
