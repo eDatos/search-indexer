@@ -165,7 +165,7 @@ public class BusquedaController {
         // Texto a mostrar en la nube de Facets Seleccionados para los Facet que tienen mapping por código
         model.addAttribute("subAreaFilterSelectTitle", filtrosComponent.getFiltroSeccionAreaMap().get(busqueda.getSubCodFF()));
         model.addAttribute("surveyFilterSelectTitle", filtrosComponent.getFiltroSeccionOperacionMap().get(busqueda.getSvyCodFF()));
-        model.addAttribute("cvgTFilterSelectTitle", filtrosComponent.getFiltroCoverageTemporalMap().get(busqueda.getCvgTCodFF()));
+        // model.addAttribute("cvgTFilterSelectTitle", filtrosComponent.getFiltroCoverageTemporalMap().get(busqueda.getCvgTCodFF()));
         // model.addAttribute("cvgSFilterSelectTitle", filtrosComponent.getFiltroCoverageSpatialMap().get(busqueda.getCvgSCodFF()));
     }
 

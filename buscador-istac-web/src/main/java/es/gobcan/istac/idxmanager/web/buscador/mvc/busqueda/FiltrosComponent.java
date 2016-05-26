@@ -32,7 +32,6 @@ public class FiltrosComponent {
 
     private Map<String, String> filtroSeccionAreaMap = null;
     private Map<String, String> filtroSeccionOperacionMap = null;
-    private Map<String, String> filtroCoverageTemporalMap = null;
 
     // TODO Mejora: Poner este componente como un servicio y controlar la cache cuando se indexan cosas en solr en vez de cada cierto intervalo.
     private DateTime lastRefresh = null;
@@ -49,13 +48,6 @@ public class FiltrosComponent {
             facetInicialesHandler();
         }
         return filtroSeccionOperacionMap;
-    }
-
-    public Map<String, String> getFiltroCoverageTemporalMap() {
-        if (filtroCoverageTemporalMap == null || reload()) {
-            facetInicialesHandler();
-        }
-        return filtroCoverageTemporalMap;
     }
 
     /**
@@ -76,7 +68,6 @@ public class FiltrosComponent {
             if (queryResponse != null) {
                 filtroSeccionAreaMap = createFiltroSeccionMap(queryResponse.getFacetField(IndexacionEnumDomain.FACET_SUBJECT_KEYVALUE_FF.getCampo()));
                 filtroSeccionOperacionMap = createFiltroSeccionMap(queryResponse.getFacetField(IndexacionEnumDomain.FACET_SURVEY_KEYVALUE_FF.getCampo()));
-                filtroCoverageTemporalMap = createFiltroSeccionMap(queryResponse.getFacetField(IndexacionEnumDomain.FACET_COVERAGE_TEMPORAL_KEYVALUE_FF.getCampo()));
             }
         } catch (Exception e) {
             log.warn("Error Obteniendo Facets Iniciales: ", e);
