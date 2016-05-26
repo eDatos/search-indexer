@@ -85,7 +85,7 @@ public class BusquedaServiceImpl implements BusquedaService {
             // Calcular todos los Facets
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_SUBJECT_KEYVALUE_FF.getCampo());
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_SURVEY_KEYVALUE_FF.getCampo());
-            solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_TEMPORAL_KEYVALUE_FF.getCampo());
+            // solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_TEMPORAL_KEYVALUE_FF.getCampo());
             // solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_SPATIAL_KEYVALUE_FF.getCampo());
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_FORMATO_FF.getCampo());
         }
@@ -238,7 +238,7 @@ public class BusquedaServiceImpl implements BusquedaService {
             // FACETS
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_SUBJECT_KEYVALUE_FF.getCampo());
             solrQuery.addFacetField(IndexacionEnumDomain.FACET_SURVEY_KEYVALUE_FF.getCampo());
-            solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_TEMPORAL_KEYVALUE_FF.getCampo());
+            // solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_TEMPORAL_KEYVALUE_FF.getCampo());
             // solrQuery.addFacetField(IndexacionEnumDomain.FACET_COVERAGE_SPATIAL_KEYVALUE_FF.getCampo());
             solrQuery.setFacetLimit(-1); // Todos los facet, por defecto está limitado a 100
 
