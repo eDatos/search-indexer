@@ -20,14 +20,14 @@ public class SharedSecurityUtils extends SecurityUtils {
      */
     public static boolean isSearchRoleAllowed(MetamacPrincipal metamacPrincipal, RoleEnum... roles) {
         // Administration has total control
-        if (SharedSecurityUtils.isAdministrador(metamacPrincipal)) {
+        if (isAdministrador(metamacPrincipal)) {
             return true;
         }
         // Checks user has any role of requested
         if (roles != null) {
             for (int i = 0; i < roles.length; i++) {
                 RoleEnum role = roles[i];
-                if (SharedSecurityUtils.isUserInSearchRol(metamacPrincipal, role)) {
+                if (isUserInSearchRol(metamacPrincipal, role)) {
                     return true;
                 }
             }
@@ -81,6 +81,64 @@ public class SharedSecurityUtils extends SecurityUtils {
         return isAdministrador(metamacPrincipal);
     }
 
+    // -----------------------------------------------------------------------
+    // SEARCH ACTIONS
+    // -----------------------------------------------------------------------
+
+    // Recommended keywords
+
+    public static boolean canRetrieveRecommendedKeyword(MetamacPrincipal metamacPrincipal) {
+        return isAnySearchRole(metamacPrincipal);
+    }
+
+    public static boolean canCreateRecommendedKeyword(MetamacPrincipal metamacPrincipal) {
+        return isAdministrador(metamacPrincipal);
+    }
+
+    public static boolean canUpdateRecommendedKeyword(MetamacPrincipal metamacPrincipal) {
+        return isAdministrador(metamacPrincipal);
+    }
+
+    public static boolean canDeleteRecommendedKeyword(MetamacPrincipal metamacPrincipal) {
+        return isAdministrador(metamacPrincipal);
+    }
+
+    public static boolean canFindRecommendedKeywords(MetamacPrincipal metamacPrincipal) {
+        return isAnySearchRole(metamacPrincipal);
+    }
+
+    // Recommended links
+
+    public static boolean canRetrieveRecommendedLink(MetamacPrincipal metamacPrincipal) {
+        return isAnySearchRole(metamacPrincipal);
+    }
+
+    public static boolean canCreateRecommendedLink(MetamacPrincipal metamacPrincipal) {
+        return isAdministrador(metamacPrincipal);
+    }
+
+    public static boolean canUpdateRecommendedLink(MetamacPrincipal metamacPrincipal) {
+        return isAdministrador(metamacPrincipal);
+    }
+
+    public static boolean canDeleteRecommendedLink(MetamacPrincipal metamacPrincipal) {
+        return isAdministrador(metamacPrincipal);
+    }
+
+    public static boolean canFindRecommendedLinks(MetamacPrincipal metamacPrincipal) {
+        return isAnySearchRole(metamacPrincipal);
+    }
+
+    public static boolean canExportRecommendedLinks(MetamacPrincipal metamacPrincipal) {
+        return isAnySearchRole(metamacPrincipal);
+    }
+
+    public static boolean canImportRecommendedLinks(MetamacPrincipal metamacPrincipal) {
+        return isAdministrador(metamacPrincipal);
+    }
+
+    // Reindex
+
     public static boolean canReindexWeb(MetamacPrincipal metamacPrincipal) {
         return isAnySearchRole(metamacPrincipal);
     }
@@ -92,5 +150,4 @@ public class SharedSecurityUtils extends SecurityUtils {
     public static boolean canReindexRecommendedLinks(MetamacPrincipal metamacPrincipal) {
         return isAnySearchRole(metamacPrincipal);
     }
-
 }

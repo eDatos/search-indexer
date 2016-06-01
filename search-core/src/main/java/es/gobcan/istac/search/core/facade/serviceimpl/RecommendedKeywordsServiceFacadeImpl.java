@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import es.gobcan.istac.search.core.criteria.mapper.MetamacCriteria2SculptorCriteriaMapper;
 import es.gobcan.istac.search.core.criteria.mapper.SculptorCriteria2MetamacCriteriaMapper;
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
-import es.gobcan.istac.search.core.enume.domain.RoleEnum;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
 import es.gobcan.istac.search.core.mapper.Do2DtoMapper;
 import es.gobcan.istac.search.core.mapper.Dto2DoMapper;
@@ -49,7 +48,7 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
     public RecommendedKeywordDto retrieveRecommendedKeywordById(ServiceContext ctx, Long id) throws MetamacException {
 
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
+        SearchSecurityUtils.canRetrieveRecommendedKeyword(ctx);
 
         // Service call
         RecommendedKeyword recommendedKeyword = getRecommendedKeywordsService().findRecommendedKeywordById(ctx, id);
@@ -62,7 +61,7 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
     public RecommendedKeywordDto createRecommendedKeyword(ServiceContext ctx, RecommendedKeywordDto recommendedKeywordDto) throws MetamacException {
 
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+        SearchSecurityUtils.canCreateRecommendedKeyword(ctx);
 
         // Transform
         RecommendedKeyword recommendedKeyword = dto2DoMapper.recommendedKeywordDtoToDo(ctx, recommendedKeywordDto);
@@ -77,7 +76,7 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
     public RecommendedKeywordDto updateRecommendedKeyword(ServiceContext ctx, RecommendedKeywordDto recommendedKeywordDto) throws MetamacException {
 
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+        SearchSecurityUtils.canUpdateRecommendedKeyword(ctx);
 
         // Transform to Entity
         RecommendedKeyword recommendedKeyword = dto2DoMapper.recommendedKeywordDtoToDo(ctx, recommendedKeywordDto);
@@ -95,7 +94,7 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
     @Override
     public List<RecommendedKeywordDto> updateRecommendedKeyword(ServiceContext ctx, List<RecommendedKeywordDto> recommendedKeywordDtos) throws MetamacException {
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+        SearchSecurityUtils.canUpdateRecommendedKeyword(ctx);
 
         // Transform to Entity
         List<RecommendedKeyword> recommendedKeywords = dto2DoMapper.recommendedKeywordListDtoToDo(ctx, recommendedKeywordDtos);
@@ -113,7 +112,7 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
     public void deleteRecommendedKeyword(ServiceContext ctx, Long id) throws MetamacException {
 
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+        SearchSecurityUtils.canDeleteRecommendedKeyword(ctx);
 
         getRecommendedKeywordsService().deleteRecommendedKeyword(ctx, id);
 
@@ -124,7 +123,7 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
     @Override
     public void deleteRecommendedKeyword(ServiceContext ctx, List<Long> ids) throws MetamacException {
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+        SearchSecurityUtils.canDeleteRecommendedKeyword(ctx);
 
         getRecommendedKeywordsService().deleteRecommendedKeyword(ctx, ids);
 
@@ -135,7 +134,7 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
     @Override
     public List<RecommendedKeywordDto> findAllRecommendedKeywords(ServiceContext ctx) throws MetamacException {
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
+        SearchSecurityUtils.canFindRecommendedKeywords(ctx);
 
         // Service call
         List<RecommendedKeyword> recommendedKeywords = getRecommendedKeywordsService().findAllRecommendedKeywords(ctx);
@@ -148,7 +147,7 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
     public MetamacCriteriaResult<RecommendedKeywordDto> findRecommendedKeywords(ServiceContext ctx, MetamacCriteria criteria) throws MetamacException {
 
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
+        SearchSecurityUtils.canFindRecommendedKeywords(ctx);
 
         // Transform
         SculptorCriteria sculptorCriteria = metamacCriteria2SculptorCriteriaMapper.getRecommendedKeywordCriteriaMapper().metamacCriteria2SculptorCriteria(criteria);
@@ -158,7 +157,5 @@ public class RecommendedKeywordsServiceFacadeImpl extends RecommendedKeywordsSer
 
         // Transform
         return sculptorCriteria2MetamacCriteriaMapper.pageResultToMetamacCriteriaResultRecommendedKeywordDto(result, sculptorCriteria.getPageSize());
-
     }
-
 }

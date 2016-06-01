@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import es.gobcan.istac.search.core.criteria.mapper.MetamacCriteria2SculptorCriteriaMapper;
 import es.gobcan.istac.search.core.criteria.mapper.SculptorCriteria2MetamacCriteriaMapper;
 import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
-import es.gobcan.istac.search.core.enume.domain.RoleEnum;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
 import es.gobcan.istac.search.core.mapper.Do2DtoMapper;
 import es.gobcan.istac.search.core.mapper.Dto2DoMapper;
@@ -50,7 +49,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     public RecommendedLinkDto retrieveRecommendedLinkById(ServiceContext ctx, Long id) throws MetamacException {
 
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
+        SearchSecurityUtils.canRetrieveRecommendedLink(ctx);
 
         // Service call
         RecommendedLink recommendedLink = getRecommendedLinksService().findRecommendedLinkById(ctx, id);
@@ -62,7 +61,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     @Override
     public RecommendedLinkDto createRecommendedLink(ServiceContext ctx, RecommendedLinkDto recommendedLinkDto) throws MetamacException {
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+        SearchSecurityUtils.canCreateRecommendedLink(ctx);
 
         // Transform to Entity
         RecommendedLink recommendedLink = dto2DoMapper.recommendedLinkDtoToDo(ctx, recommendedLinkDto);
@@ -81,7 +80,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     public RecommendedLinkDto updateRecommendedLink(ServiceContext ctx, RecommendedLinkDto recommendedLinkDto) throws MetamacException {
 
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+        SearchSecurityUtils.canUpdateRecommendedLink(ctx);
 
         // Transform to Entity
         RecommendedLink recommendedLink = dto2DoMapper.recommendedLinkDtoToDo(ctx, recommendedLinkDto);
@@ -99,7 +98,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     public void deleteRecommendedLink(ServiceContext ctx, Long id) throws MetamacException {
 
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+        SearchSecurityUtils.canDeleteRecommendedLink(ctx);
 
         getRecommendedLinksService().deleteRecommendedLink(ctx, id);
 
@@ -110,7 +109,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     @Override
     public void deleteRecommendedLink(ServiceContext ctx, List<Long> ids) throws MetamacException {
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+        SearchSecurityUtils.canDeleteRecommendedLink(ctx);
 
         getRecommendedLinksService().deleteRecommendedLink(ctx, ids);
 
@@ -121,7 +120,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     @Override
     public List<RecommendedLinkDto> findAllRecommendedLinks(ServiceContext ctx) throws MetamacException {
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
+        SearchSecurityUtils.canFindRecommendedLinks(ctx);
         List<RecommendedLink> recommendedLinks = getRecommendedLinksService().findAllRecommendedLinks(ctx);
         return do2DtoMapper.recommendedLinkListDoToDto(recommendedLinks);
     }
@@ -130,7 +129,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     public MetamacCriteriaResult<RecommendedLinkDto> findRecommendedLinks(ServiceContext ctx, MetamacCriteria criteria) throws MetamacException {
 
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
+        SearchSecurityUtils.canFindRecommendedLinks(ctx);
 
         // Transform
         SculptorCriteria sculptorCriteria = metamacCriteria2SculptorCriteriaMapper.getRecommendedLinkCriteriaMapper().metamacCriteria2SculptorCriteria(criteria);
@@ -146,7 +145,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     public String exportRecommendedLinks(ServiceContext ctx) throws MetamacException {
 
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
+        SearchSecurityUtils.canExportRecommendedLinks(ctx);
 
         return getRecommendedLinksService().exportRecommendedLinks(ctx);
     }
@@ -155,7 +154,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     public String exportRecommendedLinks(ServiceContext ctx, List<Long> ids) throws MetamacException {
 
         // Security
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ANY_ROLE_ALLOWED);
+        SearchSecurityUtils.canExportRecommendedLinks(ctx);
 
         return getRecommendedLinksService().exportRecommendedLinks(ctx, ids);
     }
@@ -163,7 +162,7 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     @Override
     public void importByReplacingRecommendedLinks(ServiceContext ctx, File file, String fileName) throws MetamacException {
         // SECURITY
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+        SearchSecurityUtils.canImportRecommendedLinks(ctx);
 
         getRecommendedLinksService().importByReplacingRecommendedLinks(ctx, file, fileName);
 
@@ -174,12 +173,11 @@ public class RecommendedLinksServiceFacadeImpl extends RecommendedLinksServiceFa
     @Override
     public void importByAddingRecommendedLinks(ServiceContext ctx, File file, String fileName) throws MetamacException {
         // SECURITY
-        SearchSecurityUtils.isSearchRoleAllowed(ctx, RoleEnum.ADMINISTRADOR);
+        SearchSecurityUtils.canImportRecommendedLinks(ctx);
 
         getRecommendedLinksService().importByAddingRecommendedLinks(ctx, file, fileName);
 
         // Automatically reindex on import
         recomendadosIndexerService.reindexRecommendedKeywords(ctx);
     }
-
 }
