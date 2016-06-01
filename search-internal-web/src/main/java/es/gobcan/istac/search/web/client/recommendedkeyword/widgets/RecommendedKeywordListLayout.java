@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.siemac.metamac.web.common.client.resources.GlobalResources;
 import org.siemac.metamac.web.common.client.widgets.BaseCustomListGrid;
-import org.siemac.metamac.web.common.client.widgets.DeleteConfirmationWindow;
 import org.siemac.metamac.web.common.client.widgets.actions.PaginatedAction;
 
 import com.smartgwt.client.types.Overflow;
@@ -34,7 +33,6 @@ public class RecommendedKeywordListLayout extends VLayout {
     private NewRecommendedKeywordWindow              newRecommendedKeywordWindow;
     private ChangeCategoryRecommendedKeywordWindow   changeCategoryRecommendedKeywordWindow;
     private DeleteRecommendedKeywordWindow           deleteRecommendedKeywordWindow;
-    private DeleteConfirmationWindow                 deleteConfirmationWindow;
 
     private RecommendedKeywordListSearchSectionStack recommendedKeywordListSearchSectionStack;
 

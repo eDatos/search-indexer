@@ -11,8 +11,13 @@ Application SearchFacade {
 	Module core_facades {
 		basePackage=es.gobcan.istac.search.core.facade
 
-		Service RecommendedLinksServiceFacade {
-			> @RecommendedLinksService		
+		Service SearchServiceFacade {
+			> @RecommendedLinksService
+			> @RecommendedKeywordsService
+			
+			reindexWeb() throws IdxmanagerServiceException, MetamacException;
+   			reindexGpe() throws IdxmanagerServiceException, MetamacException;
+    		reindexRecommendedLinks() throws IdxmanagerServiceException, MetamacException;
 			
             @RecommendedLinkDto retrieveRecommendedLinkById(Long id) throws MetamacException;
             @RecommendedLinkDto createRecommendedLink(@RecommendedLinkDto recommendedLinkDto) throws MetamacException;
@@ -25,11 +30,7 @@ Application SearchFacade {
             String exportRecommendedLinks(List<Long> ids) throws MetamacException;
             importByReplacingRecommendedLinks(java.io.File file, String fileName) throws MetamacException;
             importByAddingRecommendedLinks(java.io.File file, String fileName) throws MetamacException;        
-		}
 		
-		Service RecommendedKeywordsServiceFacade {
-            > @RecommendedKeywordsService
-            
             @RecommendedKeywordDto retrieveRecommendedKeywordById(Long id) throws MetamacException;
             @RecommendedKeywordDto createRecommendedKeyword(@RecommendedKeywordDto recommendedKeywordDto) throws MetamacException;
             @RecommendedKeywordDto updateRecommendedKeyword(@RecommendedKeywordDto recommendedKeywordDto) throws MetamacException;

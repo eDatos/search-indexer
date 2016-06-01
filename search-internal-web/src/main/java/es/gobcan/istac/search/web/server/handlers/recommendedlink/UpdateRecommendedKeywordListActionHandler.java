@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.gwtplatform.dispatch.shared.ActionException;
 
-import es.gobcan.istac.search.core.facade.serviceapi.RecommendedKeywordsServiceFacade;
+import es.gobcan.istac.search.core.facade.serviceapi.SearchServiceFacade;
 import es.gobcan.istac.search.web.shared.recommendedlink.UpdateRecommendedKeywordListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.UpdateRecommendedKeywordListResult;
 
@@ -17,7 +17,7 @@ import es.gobcan.istac.search.web.shared.recommendedlink.UpdateRecommendedKeywor
 public class UpdateRecommendedKeywordListActionHandler extends SecurityActionHandler<UpdateRecommendedKeywordListAction, UpdateRecommendedKeywordListResult> {
 
     @Autowired
-    private RecommendedKeywordsServiceFacade recommendedKeywordsServiceFacade;
+    private SearchServiceFacade searchServiceFacade;
 
     public UpdateRecommendedKeywordListActionHandler() {
         super(UpdateRecommendedKeywordListAction.class);
@@ -27,7 +27,7 @@ public class UpdateRecommendedKeywordListActionHandler extends SecurityActionHan
     public UpdateRecommendedKeywordListResult executeSecurityAction(UpdateRecommendedKeywordListAction action) throws ActionException {
         try {
 
-            recommendedKeywordsServiceFacade.updateRecommendedKeyword(ServiceContextHolder.getCurrentServiceContext(), action.getRecommendedKeywordList());
+            searchServiceFacade.updateRecommendedKeyword(ServiceContextHolder.getCurrentServiceContext(), action.getRecommendedKeywordList());
 
             return new UpdateRecommendedKeywordListResult();
         } catch (MetamacException e) {

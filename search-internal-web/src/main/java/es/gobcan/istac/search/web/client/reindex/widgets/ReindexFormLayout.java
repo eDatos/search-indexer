@@ -5,7 +5,6 @@ import org.siemac.metamac.web.common.client.widgets.form.CustomDynamicForm;
 import org.siemac.metamac.web.common.client.widgets.form.ViewMainFormLayout;
 import org.siemac.metamac.web.common.client.widgets.form.fields.ViewTextItem;
 
-import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.widgets.toolbar.ToolStripButton;
 
 import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
@@ -21,7 +20,6 @@ public class ReindexFormLayout extends ViewMainFormLayout {
     private ViewTextItem statusKey;
     private ViewTextItem statusValue;
     private ViewTextItem lastExecutionDateSinceReboot;
-    private Widget       widgetPanel;
 
     ReindexFormLayout() {
         super();

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.gwtplatform.dispatch.shared.ActionException;
 
-import es.gobcan.istac.search.core.facade.serviceapi.RecommendedLinksServiceFacade;
+import es.gobcan.istac.search.core.facade.serviceapi.SearchServiceFacade;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkListResult;
 
@@ -17,7 +17,7 @@ import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkLi
 public class DeleteRecommendedLinkListActionHandler extends SecurityActionHandler<DeleteRecommendedLinkListAction, DeleteRecommendedLinkListResult> {
 
     @Autowired
-    private RecommendedLinksServiceFacade recommendedLinksServiceFacade;
+    private SearchServiceFacade searchServiceFacade;
 
     public DeleteRecommendedLinkListActionHandler() {
         super(DeleteRecommendedLinkListAction.class);
@@ -27,7 +27,7 @@ public class DeleteRecommendedLinkListActionHandler extends SecurityActionHandle
     public DeleteRecommendedLinkListResult executeSecurityAction(DeleteRecommendedLinkListAction action) throws ActionException {
 
         try {
-            recommendedLinksServiceFacade.deleteRecommendedLink(ServiceContextHolder.getCurrentServiceContext(), action.getRecommendedLinkIds());
+            searchServiceFacade.deleteRecommendedLink(ServiceContextHolder.getCurrentServiceContext(), action.getRecommendedLinkIds());
         } catch (MetamacException e) {
             throw WebExceptionUtils.createMetamacWebException(e);
         }

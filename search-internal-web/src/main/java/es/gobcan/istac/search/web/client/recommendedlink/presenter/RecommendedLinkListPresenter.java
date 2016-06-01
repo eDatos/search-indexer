@@ -18,7 +18,6 @@ import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.annotations.TitleFunction;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.Place;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
@@ -55,7 +54,6 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
             RecommendedLinkListUiHandlers {
 
     private final DispatchAsync dispatcher;
-    private final PlaceManager  placeManager;
 
     @ProxyCodeSplit
     @NameToken(NameTokens.RECOMMENDED_LINK_LIST_PAGE)
@@ -77,10 +75,9 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
     }
 
     @Inject
-    public RecommendedLinkListPresenter(EventBus eventBus, RecommendedLinkListView view, RecommendedLinkListProxy proxy, DispatchAsync dispatcher, PlaceManager placeManager) {
+    public RecommendedLinkListPresenter(EventBus eventBus, RecommendedLinkListView view, RecommendedLinkListProxy proxy, DispatchAsync dispatcher) {
         super(eventBus, view, proxy);
         this.dispatcher = dispatcher;
-        this.placeManager = placeManager;
         getView().setUiHandlers(this);
     }
 

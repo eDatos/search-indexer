@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.gwtplatform.dispatch.shared.ActionException;
 
-import es.gobcan.istac.search.core.facade.serviceapi.RecommendedKeywordsServiceFacade;
+import es.gobcan.istac.search.core.facade.serviceapi.SearchServiceFacade;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedKeywordListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedKeywordListResult;
 
@@ -17,7 +17,7 @@ import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedKeywor
 public class DeleteRecommendedKeywordListActionHandler extends SecurityActionHandler<DeleteRecommendedKeywordListAction, DeleteRecommendedKeywordListResult> {
 
     @Autowired
-    private RecommendedKeywordsServiceFacade recommendedKeywordsServiceFacade;
+    private SearchServiceFacade searchServiceFacade;
 
     public DeleteRecommendedKeywordListActionHandler() {
         super(DeleteRecommendedKeywordListAction.class);
@@ -27,7 +27,7 @@ public class DeleteRecommendedKeywordListActionHandler extends SecurityActionHan
     public DeleteRecommendedKeywordListResult executeSecurityAction(DeleteRecommendedKeywordListAction action) throws ActionException {
 
         try {
-            recommendedKeywordsServiceFacade.deleteRecommendedKeyword(ServiceContextHolder.getCurrentServiceContext(), action.getRecommendedKeywordIds());
+            searchServiceFacade.deleteRecommendedKeyword(ServiceContextHolder.getCurrentServiceContext(), action.getRecommendedKeywordIds());
         } catch (MetamacException e) {
             throw WebExceptionUtils.createMetamacWebException(e);
         }

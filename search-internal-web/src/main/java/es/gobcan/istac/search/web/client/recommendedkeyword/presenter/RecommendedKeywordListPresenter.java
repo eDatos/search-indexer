@@ -20,7 +20,6 @@ import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.annotations.TitleFunction;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.Place;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
@@ -50,7 +49,6 @@ public class RecommendedKeywordListPresenter extends Presenter<RecommendedKeywor
             RecommendedKeywordListUiHandlers {
 
     private final DispatchAsync dispatcher;
-    private final PlaceManager  placeManager;
 
     @ProxyCodeSplit
     @NameToken(NameTokens.RECOMMENDED_KEYWORD_LIST_PAGE)
@@ -72,10 +70,9 @@ public class RecommendedKeywordListPresenter extends Presenter<RecommendedKeywor
     }
 
     @Inject
-    public RecommendedKeywordListPresenter(EventBus eventBus, RecommendedKeywordListView view, RecommendedKeywordListProxy proxy, DispatchAsync dispatcher, PlaceManager placeManager) {
+    public RecommendedKeywordListPresenter(EventBus eventBus, RecommendedKeywordListView view, RecommendedKeywordListProxy proxy, DispatchAsync dispatcher) {
         super(eventBus, view, proxy);
         this.dispatcher = dispatcher;
-        this.placeManager = placeManager;
         getView().setUiHandlers(this);
     }
 

@@ -34,7 +34,7 @@ import com.google.inject.Singleton;
 
 import es.gobcan.istac.search.core.exception.ServiceExceptionParameters;
 import es.gobcan.istac.search.core.exception.ServiceExceptionType;
-import es.gobcan.istac.search.core.facade.serviceapi.RecommendedLinksServiceFacade;
+import es.gobcan.istac.search.core.facade.serviceapi.SearchServiceFacade;
 import es.gobcan.istac.search.core.message.ServiceMessageType;
 import es.gobcan.istac.search.core.utils.SearchLocaleUtil;
 import es.gobcan.istac.search.web.shared.ImportableResourceTypeEnum;
@@ -153,12 +153,12 @@ public class ResourceImportationServlet extends HttpServlet {
 
     private void importByAddingRecommendedLinks(InputStream inputStream, String fileName) throws MetamacException {
         File file = createTempFile(inputStream, fileName);
-        getRecommendedLinksServiceFacade().importByAddingRecommendedLinks(ServiceContextHolder.getCurrentServiceContext(), file, fileName);
+        getSearchServiceFacade().importByAddingRecommendedLinks(ServiceContextHolder.getCurrentServiceContext(), file, fileName);
     }
 
     private void importByReplacingRecommendedLinks(InputStream inputStream, String fileName) throws MetamacException {
         File file = createTempFile(inputStream, fileName);
-        getRecommendedLinksServiceFacade().importByReplacingRecommendedLinks(ServiceContextHolder.getCurrentServiceContext(), file, fileName);
+        getSearchServiceFacade().importByReplacingRecommendedLinks(ServiceContextHolder.getCurrentServiceContext(), file, fileName);
     }
 
     //
@@ -218,8 +218,7 @@ public class ResourceImportationServlet extends HttpServlet {
         return null;
     }
 
-    private RecommendedLinksServiceFacade getRecommendedLinksServiceFacade() {
-        return (RecommendedLinksServiceFacade) ApplicationContextProvider.getApplicationContext().getBean(RecommendedLinksServiceFacade.BEAN_ID);
+    private SearchServiceFacade getSearchServiceFacade() {
+        return (SearchServiceFacade) ApplicationContextProvider.getApplicationContext().getBean(SearchServiceFacade.BEAN_ID);
     }
-
 }

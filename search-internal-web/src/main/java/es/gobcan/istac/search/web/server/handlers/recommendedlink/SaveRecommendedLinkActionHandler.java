@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.gwtplatform.dispatch.shared.ActionException;
 
 import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
-import es.gobcan.istac.search.core.facade.serviceapi.RecommendedLinksServiceFacade;
+import es.gobcan.istac.search.core.facade.serviceapi.SearchServiceFacade;
 import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedLinkAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedLinkResult;
 
@@ -18,7 +18,7 @@ import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedLinkResu
 public class SaveRecommendedLinkActionHandler extends SecurityActionHandler<SaveRecommendedLinkAction, SaveRecommendedLinkResult> {
 
     @Autowired
-    private RecommendedLinksServiceFacade recommendedLinksServiceFacade;
+    private SearchServiceFacade searchServiceFacade;
 
     public SaveRecommendedLinkActionHandler() {
         super(SaveRecommendedLinkAction.class);
@@ -29,9 +29,9 @@ public class SaveRecommendedLinkActionHandler extends SecurityActionHandler<Save
         try {
             RecommendedLinkDto recommendedLink = action.getRecommendedLink();
             if (recommendedLink.getId() == null) {
-                recommendedLinksServiceFacade.createRecommendedLink(ServiceContextHolder.getCurrentServiceContext(), recommendedLink);
+                searchServiceFacade.createRecommendedLink(ServiceContextHolder.getCurrentServiceContext(), recommendedLink);
             } else {
-                recommendedLinksServiceFacade.updateRecommendedLink(ServiceContextHolder.getCurrentServiceContext(), recommendedLink);
+                searchServiceFacade.updateRecommendedLink(ServiceContextHolder.getCurrentServiceContext(), recommendedLink);
             }
             return new SaveRecommendedLinkResult();
         } catch (MetamacException e) {

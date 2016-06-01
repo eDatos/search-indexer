@@ -16,7 +16,6 @@ import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.annotations.TitleFunction;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.Place;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
@@ -50,7 +49,6 @@ import es.gobcan.istac.search.web.shared.ReindexWebResult;
 public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, ReindexPresenter.ReindexProxy> implements ReindexUiHandlers {
 
     private final DispatchAsync dispatcher;
-    private final PlaceManager  placeManager;
 
     @ProxyCodeSplit
     @NameToken(NameTokens.REINDEX_PAGE)
@@ -84,10 +82,9 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
     }
 
     @Inject
-    public ReindexPresenter(EventBus eventBus, ReindexView view, ReindexProxy proxy, DispatchAsync dispatcher, PlaceManager placeManager) {
+    public ReindexPresenter(EventBus eventBus, ReindexView view, ReindexProxy proxy, DispatchAsync dispatcher) {
         super(eventBus, view, proxy);
         this.dispatcher = dispatcher;
-        this.placeManager = placeManager;
         getView().setUiHandlers(this);
     }
 

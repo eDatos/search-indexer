@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.gwtplatform.dispatch.shared.ActionException;
 
-import es.gobcan.istac.search.core.facade.serviceapi.RecommendedLinksServiceFacade;
+import es.gobcan.istac.search.core.facade.serviceapi.SearchServiceFacade;
 import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksResult;
 
@@ -17,7 +17,7 @@ import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksR
 public class ExportRecommendedLinksActionHandler extends SecurityActionHandler<ExportRecommendedLinksAction, ExportRecommendedLinksResult> {
 
     @Autowired
-    private RecommendedLinksServiceFacade recommendedLinksServiceFacade;
+    private SearchServiceFacade searchServiceFacade;
 
     public ExportRecommendedLinksActionHandler() {
         super(ExportRecommendedLinksAction.class);
@@ -26,7 +26,7 @@ public class ExportRecommendedLinksActionHandler extends SecurityActionHandler<E
     @Override
     public ExportRecommendedLinksResult executeSecurityAction(ExportRecommendedLinksAction action) throws ActionException {
         try {
-            String fileName = recommendedLinksServiceFacade.exportRecommendedLinks(ServiceContextHolder.getCurrentServiceContext());
+            String fileName = searchServiceFacade.exportRecommendedLinks(ServiceContextHolder.getCurrentServiceContext());
             return new ExportRecommendedLinksResult(fileName);
         } catch (MetamacException e) {
             throw WebExceptionUtils.createMetamacWebException(e);

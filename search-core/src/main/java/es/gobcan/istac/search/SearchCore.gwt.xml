@@ -6,4 +6,5 @@
     <source path='core/enume/domain' />
     <source path='core/constants' />
     <source path='core/dto' />
+    <source path='security/shared' />
 </module>

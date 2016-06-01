@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import com.gwtplatform.dispatch.shared.ActionException;
 
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
-import es.gobcan.istac.search.core.facade.serviceapi.RecommendedKeywordsServiceFacade;
+import es.gobcan.istac.search.core.facade.serviceapi.SearchServiceFacade;
 import es.gobcan.istac.search.web.server.utils.MetamacWebCriteriaUtils;
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordListResult;
@@ -21,7 +21,7 @@ import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordLi
 public class GetRecommendedKeywordListActionHandler extends SecurityActionHandler<GetRecommendedKeywordListAction, GetRecommendedKeywordListResult> {
 
     @Autowired
-    private RecommendedKeywordsServiceFacade recommendedKeywordsServiceFacade;
+    private SearchServiceFacade searchServiceFacade;
 
     public GetRecommendedKeywordListActionHandler() {
         super(GetRecommendedKeywordListAction.class);
@@ -31,7 +31,7 @@ public class GetRecommendedKeywordListActionHandler extends SecurityActionHandle
     public GetRecommendedKeywordListResult executeSecurityAction(GetRecommendedKeywordListAction action) throws ActionException {
         try {
             MetamacCriteria criteria = MetamacWebCriteriaUtils.build(action.getCriteria());
-            MetamacCriteriaResult<RecommendedKeywordDto> result = recommendedKeywordsServiceFacade.findRecommendedKeywords(ServiceContextHolder.getCurrentServiceContext(), criteria);
+            MetamacCriteriaResult<RecommendedKeywordDto> result = searchServiceFacade.findRecommendedKeywords(ServiceContextHolder.getCurrentServiceContext(), criteria);
             return new GetRecommendedKeywordListResult(result.getResults(), result.getPaginatorResult().getFirstResult(), result.getPaginatorResult().getTotalResults());
         } catch (MetamacException e) {
             throw WebExceptionUtils.createMetamacWebException(e);
