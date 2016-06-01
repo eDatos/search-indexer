@@ -28,7 +28,6 @@
 		</div>
         
 		<div id="bloq_interior">
-            <!-- {{{ --><!-- OPENCMS --><!-- }}} -->
             <div class="contenido">
                 <div id="centercontainer">
     			<div class="bloq_izq_grande">
@@ -139,7 +138,6 @@
         			</div>
                 </div>
             </div>
-            <!-- {{{ --><!-- /OPENCMS --><!-- }}} -->
 		</div>
 		<%@ include file="/WEB-INF/jsp/layout/footer.jsp" %>
     </div>	

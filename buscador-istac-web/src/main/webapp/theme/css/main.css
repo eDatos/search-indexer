@@ -235,7 +235,7 @@
     }
 }
 
-/* Fix for {OPENCMS-ISTAC}modules/es.gobcan.istac.web/resources/css/gobcanoverwrite.css */
+/* Fix for gobcanistacoverwrite.css */
 .dropdown.dropdown-lg.open {
     padding: 0;
 }

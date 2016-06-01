@@ -10,7 +10,6 @@
 <%@page import="org.apache.solr.client.solrj.response.FacetField" %>
 <%@page import="org.apache.solr.client.solrj.response.FacetField.Count" %>
 
-    <!-- {{{ --><!-- OPENCMS --><!-- }}} -->
 	<div id="gutter"></div>
 	
 	<div id="col1">
@@ -96,4 +95,3 @@
 			</ul>
 		</c:forEach>
 	</div>
-    <!-- {{{ --><!-- /OPENCMS --><!-- }}} -->
