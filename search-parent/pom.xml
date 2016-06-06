@@ -115,7 +115,7 @@
 
         <!-- METAMAC -->        
         <metamac-core-common.version>4.0.0</metamac-core-common.version>
-        <metamac-web-common.version>2.0.4</metamac-web-common.version>
+        <metamac-web-common.version>2.0.5-SNAPSHOT</metamac-web-common.version>
         <metamac-sso-client.version>1.5.5</metamac-sso-client.version>
         <metamac-srm-rest-internal-api.version>1.2.0</metamac-srm-rest-internal-api.version>
     </properties>
