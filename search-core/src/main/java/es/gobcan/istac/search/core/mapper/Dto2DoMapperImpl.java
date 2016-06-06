@@ -26,8 +26,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import es.gobcan.istac.search.core.conf.SearchConfigurationService;
+import es.gobcan.istac.search.core.dto.RecommendedKeywordBaseDto;
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
+import es.gobcan.istac.search.core.dto.RecommendedLinkGroupedKeywordsDto;
 import es.gobcan.istac.search.core.exception.ServiceExceptionParameters;
 import es.gobcan.istac.search.core.exception.ServiceExceptionType;
 import es.gobcan.istac.search.core.recommendedlink.domain.RecommendedKeyword;
@@ -67,31 +69,21 @@ public class Dto2DoMapperImpl extends BaseDto2DoMapperImpl implements Dto2DoMapp
         return target;
     }
 
-    private RecommendedLinksService getRecommendedLinksService() {
-        return (RecommendedLinksService) ApplicationContextProvider.getApplicationContext().getBean(RecommendedLinksService.BEAN_ID);
-    }
-
-    private RecommendedKeywordsService getRecommendedKeywordsService() {
-        return (RecommendedKeywordsService) ApplicationContextProvider.getApplicationContext().getBean(RecommendedKeywordsService.BEAN_ID);
-    }
-
-    private RecommendedLink recommendedLinkDtoToDo(ServiceContext ctx, RecommendedLinkDto source, RecommendedLink target) throws MetamacException {
-        if (target == null) {
-            throw new MetamacException(ServiceExceptionType.PARAMETER_REQUIRED, ServiceExceptionParameters.RECOMMENDED_LINK);
+    @Override
+    public List<RecommendedLink> recommendedLinkDtoToDo(ServiceContext ctx, RecommendedLinkGroupedKeywordsDto source) throws MetamacException {
+        if (source == null) {
+            return null;
         }
-
-        // Non modifiables after creation
-
-        // Attributes modifiables
-        target.setUrl(source.getUrl());
-        target.setTitle(source.getTitle());
-        target.setDescription(source.getDescription());
-        target.setRecommendedKeyword(recommendedKeywordDtoToDo(ctx, source.getRecommendedKeyword()));
-
-        // Optimistic locking: Update "update date" attribute to force update of the root entity in order to increase attribute "version"
-        target.setUpdateDate(new DateTime());
-
-        return target;
+        List<RecommendedLink> targets = new ArrayList<RecommendedLink>();
+        for (RecommendedKeywordBaseDto keyowordBaseDto : source.getKeywords()) {
+            RecommendedLink target = new RecommendedLink();
+            target.setTitle(source.getTitle());
+            target.setDescription(source.getDescription());
+            target.setUrl(source.getUrl());
+            target.setRecommendedKeyword(getRecommendedKeywordsService().findRecommendedKeywordById(ctx, keyowordBaseDto.getId()));
+            targets.add(target);
+        }
+        return targets;
     }
 
     @Override
@@ -118,6 +110,33 @@ public class Dto2DoMapperImpl extends BaseDto2DoMapperImpl implements Dto2DoMapp
             recommendedKeywords.add(recommendedKeywordDtoToDo(ctx, recommendedKeywordDto));
         }
         return recommendedKeywords;
+    }
+
+    private RecommendedLinksService getRecommendedLinksService() {
+        return (RecommendedLinksService) ApplicationContextProvider.getApplicationContext().getBean(RecommendedLinksService.BEAN_ID);
+    }
+
+    private RecommendedKeywordsService getRecommendedKeywordsService() {
+        return (RecommendedKeywordsService) ApplicationContextProvider.getApplicationContext().getBean(RecommendedKeywordsService.BEAN_ID);
+    }
+
+    private RecommendedLink recommendedLinkDtoToDo(ServiceContext ctx, RecommendedLinkDto source, RecommendedLink target) throws MetamacException {
+        if (target == null) {
+            throw new MetamacException(ServiceExceptionType.PARAMETER_REQUIRED, ServiceExceptionParameters.RECOMMENDED_LINK);
+        }
+
+        // Non modifiables after creation
+
+        // Attributes modifiables
+        target.setUrl(source.getUrl());
+        target.setTitle(source.getTitle());
+        target.setDescription(source.getDescription());
+        target.setRecommendedKeyword(getRecommendedKeywordsService().findRecommendedKeywordById(ctx, source.getRecommendedKeyword().getId()));
+
+        // Optimistic locking: Update "update date" attribute to force update of the root entity in order to increase attribute "version"
+        target.setUpdateDate(new DateTime());
+
+        return target;
     }
 
     private RecommendedKeyword recommendedKeywordDtoToDo(RecommendedKeywordDto source, RecommendedKeyword target) throws MetamacException {

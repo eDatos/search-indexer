@@ -27,6 +27,12 @@ public class SearchServiceFacadeTest extends AbstractDbUnitJpaTests implements S
     }
 
     @Test
+    @Override
+    public void testCreateRecommendedLinks() throws Exception {
+        fail("testCreateRecommendedLink not implemented");
+    }
+
+    @Test
     public void testUpdateRecommendedLink() throws Exception {
         fail("testUpdateRecommendedLink not implemented");
     }

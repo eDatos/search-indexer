@@ -16,6 +16,7 @@ import es.gobcan.istac.search.core.criteria.mapper.MetamacCriteria2SculptorCrite
 import es.gobcan.istac.search.core.criteria.mapper.SculptorCriteria2MetamacCriteriaMapper;
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
+import es.gobcan.istac.search.core.dto.RecommendedLinkGroupedKeywordsDto;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
@@ -123,6 +124,23 @@ public class SearchServiceFacadeImpl extends SearchServiceFacadeImplBase {
 
         // Transform to Dto
         return do2DtoMapper.recommendedLinkDoToDto(recommendedLink);
+    }
+
+    @Override
+    public void createRecommendedLinks(ServiceContext ctx, RecommendedLinkGroupedKeywordsDto recommendedLinkGroupedKeywordsDto) throws MetamacException {
+        // Security
+        SearchSecurityUtils.canCreateRecommendedLink(ctx);
+
+        // Transform to Entity
+        List<RecommendedLink> recommendedLinks = dto2DoMapper.recommendedLinkDtoToDo(ctx, recommendedLinkGroupedKeywordsDto);
+
+        // Service call
+        for (RecommendedLink recommendedLink : recommendedLinks) {
+            getRecommendedLinksService().createRecommendedLink(ctx, recommendedLink);
+        }
+
+        // Automatically reindex on creating a recommended link
+        recomendadosIndexerService.reindexRecommendedKeywords(ctx);
     }
 
     @Override

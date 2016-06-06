@@ -108,11 +108,6 @@ public class RecommendedKeywordListPresenter extends Presenter<RecommendedKeywor
     }
 
     @Override
-    public void retrieveRecommendedKeywordList() {
-        retrieveRecommendedKeywordList(new RecommendedKeywordWebCriteria());
-    }
-
-    @Override
     public void saveRecommendedKeyword(RecommendedKeywordDto recommendedKeyword) {
         dispatcher.execute(new SaveRecommendedKeywordAction(recommendedKeyword), new WaitingAsyncCallbackHandlingError<SaveRecommendedKeywordResult>(this) {
 
@@ -177,4 +172,7 @@ public class RecommendedKeywordListPresenter extends Presenter<RecommendedKeywor
         });
     }
 
+    private void retrieveRecommendedKeywordList() {
+        retrieveRecommendedKeywordList(new RecommendedKeywordWebCriteria());
+    }
 }

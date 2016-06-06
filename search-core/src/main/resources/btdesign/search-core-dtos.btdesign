@@ -6,7 +6,7 @@ Application SearchDto {
 
     Module common_dtos {
     	basePackage=es.gobcan.istac.search.core.dto
-    	       	
+
        	"Dto for RecommendedLink"
        	DataTransferObject RecommendedLinkDto extends @AuditableDto  {      		
             String url required;
@@ -16,7 +16,15 @@ Application SearchDto {
     
        		Long optimisticLockingVersion;
        	}
-       	
+
+		"Dto for RecommendedLink"
+       	DataTransferObject RecommendedLinkGroupedKeywordsDto extends @IdentityDto  {      		
+            - List<@RecommendedKeywordBaseDto> keywords;
+            String url required;
+            String title required;
+            String description nullable;
+       	}
+
         "Dto for RecommendedKeyword"
         DataTransferObject RecommendedKeywordDto extends @AuditableDto  {             
             String keyword required;
@@ -24,6 +32,11 @@ Application SearchDto {
     
             Long optimisticLockingVersion;
         }
-       	
+
+       	"Base Dto for RecommendedKeyword"
+        DataTransferObject RecommendedKeywordBaseDto extends @IdentityDto  {             
+			Long id;
+            String keyword required;
+        }
     }
 }

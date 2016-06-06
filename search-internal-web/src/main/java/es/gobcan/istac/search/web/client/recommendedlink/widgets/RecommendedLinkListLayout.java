@@ -132,11 +132,8 @@ public class RecommendedLinkListLayout extends VLayout {
     }
 
     public void selectRecommendedLink(RecommendedLinkDto recommendedLinkDto) {
-        recommendedLinkLayout.getRecommendedLinkMainFormLayout().clearTitleLabelContents();
         deleteRecommendedLinkToolStripButton.show();
-        recommendedLinkLayout.show();
-        recommendedLinkLayout.getRecommendedLinkMainFormLayout().setViewMode();
-        recommendedLinkLayout.setRecommendedLink(recommendedLinkDto);
+        recommendedLinkLayout.editRecommendedLink(recommendedLinkDto);
     }
 
     public void deselectRecommendedLink() {
@@ -146,11 +143,8 @@ public class RecommendedLinkListLayout extends VLayout {
 
     public void newRecommendedLink() {
         recommendedLinkPaginatedListGrid.getListGrid().deselectAllRecords();
-        recommendedLinkLayout.getRecommendedLinkMainFormLayout().clearTitleLabelContents();
         deleteRecommendedLinkToolStripButton.hide();
-        recommendedLinkLayout.show();
-        recommendedLinkLayout.getRecommendedLinkMainFormLayout().setEditionMode();
-        recommendedLinkLayout.setRecommendedLink(null);
+        recommendedLinkLayout.newRecommendedLink();
     }
 
     public RecommendedLinkListSearchSectionStack getRecommendedLinkListSearchSectionStack() {
@@ -161,9 +155,9 @@ public class RecommendedLinkListLayout extends VLayout {
         return uiHandlers;
     }
 
-    public void setUiHandlers(RecommendedLinkListUiHandlers handlers) {
-        recommendedLinkListSearchSectionStack.setUiHandlers(handlers);
-        uiHandlers = handlers;
+    public void setUiHandlers(RecommendedLinkListUiHandlers uiHandlers) {
+        this.uiHandlers = uiHandlers;
+        recommendedLinkListSearchSectionStack.setUiHandlers(uiHandlers);
+        recommendedLinkLayout.setUiHandlers(uiHandlers);
     }
-
 }

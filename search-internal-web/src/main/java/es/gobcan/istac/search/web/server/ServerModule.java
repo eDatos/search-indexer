@@ -27,6 +27,7 @@ import es.gobcan.istac.search.web.server.handlers.ReindexRecommendedLinksActionH
 import es.gobcan.istac.search.web.server.handlers.ReindexWebActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ValidateTicketActionHandler;
 import es.gobcan.istac.search.web.server.handlers.external.GetExternalResourcesActionHandler;
+import es.gobcan.istac.search.web.server.handlers.recommendedlink.CreateRecommendedLinksActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.DeleteRecommendedKeywordListActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.DeleteRecommendedLinkListActionHandler;
 import es.gobcan.istac.search.web.server.handlers.recommendedlink.ExportRecommendedLinksActionHandler;
@@ -47,6 +48,7 @@ import es.gobcan.istac.search.web.shared.ReindexGpeAction;
 import es.gobcan.istac.search.web.shared.ReindexRecommendedLinksAction;
 import es.gobcan.istac.search.web.shared.ReindexWebAction;
 import es.gobcan.istac.search.web.shared.external.GetExternalResourcesAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.CreateRecommendedLinksAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedKeywordListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksAction;
@@ -88,6 +90,7 @@ public class ServerModule extends HandlerModule {
 
         bindHandler(GetRecommendedLinkListAction.class, GetRecommendedLinkListActionHandler.class);
         bindHandler(SaveRecommendedLinkAction.class, SaveRecommendedLinkActionHandler.class);
+        bindHandler(CreateRecommendedLinksAction.class, CreateRecommendedLinksActionHandler.class);
         bindHandler(DeleteRecommendedLinkListAction.class, DeleteRecommendedLinkListActionHandler.class);
         bindHandler(ExportRecommendedLinksAction.class, ExportRecommendedLinksActionHandler.class);
         bindHandler(ExportRecommendedLinksListAction.class, ExportRecommendedLinksListActionHandler.class);

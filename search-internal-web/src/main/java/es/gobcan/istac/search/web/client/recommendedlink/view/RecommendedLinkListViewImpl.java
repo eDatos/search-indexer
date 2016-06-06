@@ -110,30 +110,6 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
                     }
                 }
             }
-
-        });
-
-        recommendedLinkListLayout.getRecommendedLinkLayout().getRecommendedLinkMainFormLayout().getSave().addClickHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent event) {
-                RecommendedLinkDto recommendedLinkDto = recommendedLinkListLayout.getRecommendedLinkLayout().getRecommendedLink();
-
-                if (recommendedLinkListLayout.getRecommendedLinkLayout().validateForm()) {
-                    getUiHandlers().saveRecommendedLink(recommendedLinkDto);
-                }
-            }
-        });
-
-        recommendedLinkListLayout.getRecommendedLinkLayout().getRecommendedLinkMainFormLayout().getCancelToolStripButton().addClickHandler(new ClickHandler() {
-
-            @Override
-            public void onClick(ClickEvent event) {
-                // If it is a new user, hide mainFormLayout
-                if (recommendedLinkListLayout.getRecommendedLinkLayout().getRecommendedLink().getId() == null) {
-                    recommendedLinkListLayout.deselectRecommendedLink();
-                }
-            }
         });
     }
 
@@ -155,8 +131,7 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
     }
 
     @Override
-    public void setRecommendedKeywordList(List<RecommendedKeywordDto> recommendedKeywordList) {
-        recommendedLinkListLayout.getRecommendedLinkLayout().setRecommendedKeywordList(recommendedKeywordList);
+    public void setRecommendedKeywordListForField(String fieldName, List<RecommendedKeywordDto> recommendedKeywordList, int firstResult, int totalResults) {
+        recommendedLinkListLayout.getRecommendedLinkLayout().setRecommendedKeywordListForField(fieldName, recommendedKeywordList, firstResult, totalResults);
     }
-
 }

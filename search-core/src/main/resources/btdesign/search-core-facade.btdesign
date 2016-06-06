@@ -21,6 +21,7 @@ Application SearchFacade {
 			
             @RecommendedLinkDto retrieveRecommendedLinkById(Long id) throws MetamacException;
             @RecommendedLinkDto createRecommendedLink(@RecommendedLinkDto recommendedLinkDto) throws MetamacException;
+            createRecommendedLinks(@RecommendedLinkGroupedKeywordsDto recommendedLinkGroupedKeywordsDto) throws MetamacException;
             @RecommendedLinkDto updateRecommendedLink(@RecommendedLinkDto recommendedLinkDto) throws MetamacException;
             deleteRecommendedLink(Long id) throws MetamacException;
             deleteRecommendedLink(List<Long> ids) throws MetamacException;

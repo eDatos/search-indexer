@@ -14,6 +14,14 @@ public class RecommendedKeywordWebCriteria extends PaginationWebCriteria {
         setMaxResults(SearchWebConstants.LISTGRID_MAX_RESULTS);
     }
 
+    public RecommendedKeywordWebCriteria(int maxResults) {
+        setMaxResults(maxResults);
+    }
+
+    public RecommendedKeywordWebCriteria(String criteria, int firstResult, int maxResults) {
+        super(criteria, firstResult, maxResults);
+    }
+
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
@@ -21,5 +29,4 @@ public class RecommendedKeywordWebCriteria extends PaginationWebCriteria {
     public String getKeyword() {
         return keyword;
     }
-
 }

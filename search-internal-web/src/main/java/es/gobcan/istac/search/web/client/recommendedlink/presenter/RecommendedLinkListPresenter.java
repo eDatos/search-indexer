@@ -24,6 +24,7 @@ import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
+import es.gobcan.istac.search.core.dto.RecommendedLinkGroupedKeywordsDto;
 import es.gobcan.istac.search.web.client.SearchLoggedInGatekeeper;
 import es.gobcan.istac.search.web.client.SearchWeb;
 import es.gobcan.istac.search.web.client.enums.SearchToolStripButtonEnum;
@@ -34,6 +35,8 @@ import es.gobcan.istac.search.web.client.recommendedlink.view.handlers.Recommend
 import es.gobcan.istac.search.web.client.utils.CommonUtils;
 import es.gobcan.istac.search.web.shared.criteria.RecommendedKeywordWebCriteria;
 import es.gobcan.istac.search.web.shared.criteria.RecommendedLinkWebCriteria;
+import es.gobcan.istac.search.web.shared.recommendedlink.CreateRecommendedLinksAction;
+import es.gobcan.istac.search.web.shared.recommendedlink.CreateRecommendedLinksResult;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.DeleteRecommendedLinkListResult;
 import es.gobcan.istac.search.web.shared.recommendedlink.ExportRecommendedLinksAction;
@@ -44,8 +47,6 @@ import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordLi
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedKeywordListResult;
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedLinkListAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.GetRecommendedLinkListResult;
-import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedKeywordAction;
-import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedKeywordResult;
 import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedLinkAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.SaveRecommendedLinkResult;
 
@@ -70,8 +71,7 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
     public interface RecommendedLinkListView extends View, HasUiHandlers<RecommendedLinkListUiHandlers> {
 
         void setRecommendedLinkList(List<RecommendedLinkDto> recommendedLinkList, int firstResult, int totalResults);
-        void setRecommendedKeywordList(List<RecommendedKeywordDto> recommendedKeywordList);
-
+        void setRecommendedKeywordListForField(String fieldName, List<RecommendedKeywordDto> recommendedKeywordList, int firstResult, int totalResults);
     }
 
     @Inject
@@ -97,9 +97,7 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
     @Override
     public void prepareFromRequest(PlaceRequest request) {
         super.prepareFromRequest(request);
-
         retrieveRecommendedLinkList();
-        retrieveRecommendedKeywordList();
     }
 
     @Override
@@ -118,12 +116,12 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
     }
 
     @Override
-    public void retrieveRecommendedKeywordList() {
-        dispatcher.execute(new GetRecommendedKeywordListAction(new RecommendedKeywordWebCriteria()), new WaitingAsyncCallbackHandlingError<GetRecommendedKeywordListResult>(this) {
+    public void retrieveRecommendedKeywordListForField(final String fieldName, RecommendedKeywordWebCriteria criteria) {
+        dispatcher.execute(new GetRecommendedKeywordListAction(criteria), new WaitingAsyncCallbackHandlingError<GetRecommendedKeywordListResult>(this) {
 
             @Override
             public void onWaitSuccess(GetRecommendedKeywordListResult result) {
-                getView().setRecommendedKeywordList(result.getRecommendedKeywordList());
+                getView().setRecommendedKeywordListForField(fieldName, result.getRecommendedKeywordList(), result.getFirstResult(), result.getTotalResults());
             }
         });
     }
@@ -141,32 +139,24 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
     }
 
     @Override
-    public void saveRecommendedLink(RecommendedLinkDto recommendedLinkDto) {
-        dispatcher.execute(new SaveRecommendedLinkAction(recommendedLinkDto), new WaitingAsyncCallbackHandlingError<SaveRecommendedLinkResult>(this) {
+    public void saveRecommendedLink(RecommendedLinkDto recommendedLink) {
+        dispatcher.execute(new SaveRecommendedLinkAction(recommendedLink), new WaitingAsyncCallbackHandlingError<SaveRecommendedLinkResult>(this) {
 
             @Override
             public void onWaitSuccess(SaveRecommendedLinkResult result) {
                 ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, getMessages().messageCreateRecommendedLinkSuccess());
                 retrieveRecommendedLinkList();
-                retrieveRecommendedKeywordList();
             }
-
         });
     }
 
     @Override
-    public void saveRecommendedKeyword(RecommendedKeywordDto recommendedKeyword) {
-        dispatcher.execute(new SaveRecommendedKeywordAction(recommendedKeyword), new WaitingAsyncCallbackHandlingError<SaveRecommendedKeywordResult>(this) {
+    public void createRecommendedLinks(RecommendedLinkGroupedKeywordsDto recommendedLinkGroupedKeywordsDto) {
+        dispatcher.execute(new CreateRecommendedLinksAction(recommendedLinkGroupedKeywordsDto), new WaitingAsyncCallbackHandlingError<CreateRecommendedLinksResult>(this) {
 
             @Override
-            public void onWaitSuccess(SaveRecommendedKeywordResult result) {
-                ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, getMessages().messageCreateRecommendedKeywordSuccess());
-                retrieveRecommendedKeywordList();
-            }
-
-            @Override
-            public void onWaitFailure(Throwable caught) {
-                ShowMessageEvent.fireErrorMessage(RecommendedLinkListPresenter.this, caught);
+            public void onWaitSuccess(CreateRecommendedLinksResult result) {
+                ShowMessageEvent.fireSuccessMessage(RecommendedLinkListPresenter.this, getMessages().messageCreateRecommendedLinksSuccess());
                 retrieveRecommendedLinkList();
             }
         });
@@ -224,5 +214,4 @@ public class RecommendedLinkListPresenter extends Presenter<RecommendedLinkListP
 
         });
     }
-
 }
