@@ -124,13 +124,7 @@ public class RecommendedLinkLayout extends VLayout {
             }
         };
         keywordItem.setColumnsToShow(new HashSet<String>(Arrays.asList(RelatedResourceBaseDS.TITLE)));
-        keywordItem.setValidators(new CustomRequiredValidator() {
-
-            @Override
-            protected boolean condition(Object value) {
-                return ((SearchExternalItemSimpleItem) editionRecommendedLinkForm.getItem(RecommendedLinkDS.RECOMMENDED_KEYWORD)).getExternalItemDto() != null;
-            }
-        });
+        keywordItem.setRequired(true);
 
         RequiredTextItem url = new RequiredTextItem(RecommendedLinkDS.URL, getConstants().recommendedLinkUrl());
         RequiredTextItem title = new RequiredTextItem(RecommendedLinkDS.TITLE, getConstants().recommendedLinkTitle());
