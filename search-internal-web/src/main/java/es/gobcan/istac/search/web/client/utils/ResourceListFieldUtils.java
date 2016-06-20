@@ -15,7 +15,6 @@ public class ResourceListFieldUtils {
 
         CustomListGridField recommendedKeywordCategory = new CustomListGridField(RecommendedLinkDS.RECOMMENDED_KEYWORD_CATEGORY, getConstants().recommendedKeywordCategory());
         recommendedKeywordCategory.setWidth("15%");
-        recommendedKeywordCategory.setHidden(true);
 
         CustomListGridField url = new CustomListGridField(RecommendedLinkDS.URL, getConstants().recommendedLinkUrl());
         url.setWidth("30%");
