@@ -225,6 +225,8 @@ public class RecommendedLinkLayout extends VLayout {
             editionRecommendedLinkForm.editRecord(record);
             ((SearchExternalItemSimpleItem) editionRecommendedLinkForm.getItem(RecommendedLinkDS.RECOMMENDED_KEYWORD)).setExternalItem(toExternalItemDto(recommendedLinkDto.getRecommendedKeyword()));
         } else {
+            creationRecommendedLinkForm.editNewRecord();
+            ((SearchMultiExternalItemSimpleItem) creationRecommendedLinkForm.getItem(RecommendedLinkDS.RECOMMENDED_KEYWORDS)).setExternalItems(new ArrayList<ExternalItemDto>());
             viewRecommendedLinkForm.editNewRecord();
             editionRecommendedLinkForm.editNewRecord();
         }
