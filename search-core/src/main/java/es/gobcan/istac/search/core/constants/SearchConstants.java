@@ -1,5 +1,7 @@
 package es.gobcan.istac.search.core.constants;
 
+import org.siemac.metamac.core.common.constants.CoreCommonConstants;
+
 public final class SearchConstants {
 
     private SearchConstants() {
@@ -22,4 +24,6 @@ public final class SearchConstants {
 
     public static final String TSV_RECOMMENDED_LINKS_FILE_PREFIX         = "recommended-links";
 
+    public static final int    LONG_STRING_MAXIMUM_LENGTH                = 4000;
+    public static final int    SHORT_STRING_MAXIMUM_LENGTH               = 255;
 }

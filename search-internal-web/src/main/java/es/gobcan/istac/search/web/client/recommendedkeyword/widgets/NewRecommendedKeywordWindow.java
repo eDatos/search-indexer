@@ -16,6 +16,7 @@ import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.web.client.SearchWeb;
 import es.gobcan.istac.search.web.client.model.ds.RecommendedKeywordDS;
 import es.gobcan.istac.search.web.client.recommendedkeyword.view.handlers.RecommendedKeywordListUiHandlers;
+import es.gobcan.istac.search.web.client.utils.CommonUtils;
 import es.gobcan.istac.search.web.client.utils.RecordUtils;
 import es.gobcan.istac.search.web.client.widgets.ModalWindow;
 import es.gobcan.istac.search.web.client.widgets.form.fields.external.SearchSrmCategoryLinkItem;
@@ -45,6 +46,7 @@ public class NewRecommendedKeywordWindow extends ModalWindow {
 
         RequiredTextItem keyword = new RequiredTextItem(RecommendedKeywordDS.KEYWORD, getConstants().recommendedKeywordKeyword());
         keyword.setWidth(FORM_ITEM_CUSTOM_WIDTH);
+        keyword.setValidators(CommonUtils.getShortTextLengthValidator());
 
         CustomButtonItem saveItem = new CustomButtonItem(FIELD_SAVE, getConstants().actionNewKeyword());
 

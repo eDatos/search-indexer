@@ -39,13 +39,13 @@ Application RecommendedLink {
             Long id key;
             
             "Url of the recommended link"
-            String url not nullable;
+            String url not nullable length="4000";
             
             "Title of the recommended link"
-            String title not nullable;
+            String title not nullable length="255";
             
             "Description of the recommended link"
-            String description nullable;                
+            String description nullable length="4000";                
     
             "Associated keyword"
             - @RecommendedKeyword recommendedKeyword cascade="none" not nullable;
@@ -86,7 +86,7 @@ Application RecommendedLink {
             Long id key;
         
             "Keyword"
-            String keyword not nullable;
+            String keyword not nullable length="255";
             
             - @ExternalItem category nullable cascade="all" databaseColumn="CATEGORY_FK";
             

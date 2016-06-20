@@ -16,6 +16,7 @@ import org.siemac.metamac.web.common.client.utils.InternationalStringUtils;
 import org.siemac.metamac.web.common.client.widgets.form.GroupDynamicForm;
 import org.siemac.metamac.web.common.client.widgets.form.MainFormLayout;
 import org.siemac.metamac.web.common.client.widgets.form.fields.CustomTextItem;
+import org.siemac.metamac.web.common.client.widgets.form.fields.ExternalItemLinkItem;
 import org.siemac.metamac.web.common.client.widgets.form.fields.RequiredTextItem;
 import org.siemac.metamac.web.common.client.widgets.form.fields.ViewTextItem;
 import org.siemac.metamac.web.common.client.widgets.form.fields.external.ExternalItemListItem;
@@ -36,6 +37,7 @@ import es.gobcan.istac.search.core.dto.RecommendedLinkGroupedKeywordsDto;
 import es.gobcan.istac.search.web.client.model.RecommendedLinkRecord;
 import es.gobcan.istac.search.web.client.model.ds.RecommendedLinkDS;
 import es.gobcan.istac.search.web.client.recommendedlink.view.handlers.RecommendedLinkListUiHandlers;
+import es.gobcan.istac.search.web.client.utils.CommonUtils;
 import es.gobcan.istac.search.web.client.utils.RecordUtils;
 import es.gobcan.istac.search.web.shared.criteria.RecommendedKeywordWebCriteria;
 
@@ -129,6 +131,10 @@ public class RecommendedLinkLayout extends VLayout {
         RequiredTextItem url = new RequiredTextItem(RecommendedLinkDS.URL, getConstants().recommendedLinkUrl());
         RequiredTextItem title = new RequiredTextItem(RecommendedLinkDS.TITLE, getConstants().recommendedLinkTitle());
         CustomTextItem description = new CustomTextItem(RecommendedLinkDS.DESCRIPTION, getConstants().recommendedLinkDescription());
+
+        url.setValidators(CommonUtils.getLongTextLengthValidator());
+        title.setValidators(CommonUtils.getShortTextLengthValidator());
+        description.setValidators(CommonUtils.getLongTextLengthValidator());
         editionRecommendedLinkForm.setFields(keywordItem, url, title, description);
     }
 
@@ -155,6 +161,10 @@ public class RecommendedLinkLayout extends VLayout {
         RequiredTextItem url = new RequiredTextItem(RecommendedLinkDS.URL, getConstants().recommendedLinkUrl());
         RequiredTextItem title = new RequiredTextItem(RecommendedLinkDS.TITLE, getConstants().recommendedLinkTitle());
         CustomTextItem description = new CustomTextItem(RecommendedLinkDS.DESCRIPTION, getConstants().recommendedLinkDescription());
+
+        url.setValidators(CommonUtils.getLongTextLengthValidator());
+        title.setValidators(CommonUtils.getShortTextLengthValidator());
+        description.setValidators(CommonUtils.getLongTextLengthValidator());
         creationRecommendedLinkForm.setFields(keywordsItem, url, title, description);
     }
 

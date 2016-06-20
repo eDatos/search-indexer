@@ -9,7 +9,9 @@ import org.siemac.metamac.web.common.client.utils.ExternalItemUtils;
 
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window;
+import com.smartgwt.client.widgets.form.validator.LengthRangeValidator;
 
+import es.gobcan.istac.search.core.constants.SearchConstants;
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.web.client.SearchWeb;
 import es.gobcan.istac.search.web.shared.utils.SearchSharedTokens;
@@ -62,5 +64,20 @@ public class CommonUtils {
         url.append(URL.encode(SearchWeb.getRelativeURL(SearchSharedTokens.FILE_DOWNLOAD_DIR_PATH)));
         url.append("?").append(URL.encode(SearchSharedTokens.PARAM_FILE_NAME)).append("=").append(URL.encode(fileName));
         Window.open(url.toString(), "_blank", "");
+    }
+
+    public static LengthRangeValidator getShortTextLengthValidator() {
+        return getMaxLengthValidator(SearchConstants.SHORT_STRING_MAXIMUM_LENGTH);
+    }
+
+    public static LengthRangeValidator getLongTextLengthValidator() {
+        return getMaxLengthValidator(SearchConstants.LONG_STRING_MAXIMUM_LENGTH);
+    }
+
+    private static LengthRangeValidator getMaxLengthValidator(int maxLength) {
+        LengthRangeValidator lengthRangeValidator = new LengthRangeValidator();
+        lengthRangeValidator.setMin(0);
+        lengthRangeValidator.setMax(maxLength);
+        return lengthRangeValidator;
     }
 }
