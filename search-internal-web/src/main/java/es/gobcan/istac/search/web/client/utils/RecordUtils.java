@@ -42,8 +42,7 @@ public class RecordUtils {
 
         // For visualization
         record.setRecommendedKeywordKeyword(recommendedLinkDto.getRecommendedKeyword().getKeyword());
-        record.setRecommendedKeywordCategory(CommonUtils.getCategoryNameLinked(recommendedLinkDto.getRecommendedKeyword().getCategory()));
-        record.setRecommendedKeywordName(recommendedLinkDto.getRecommendedKeyword());
+        record.setRecommendedKeywordCategory(recommendedLinkDto.getRecommendedKeyword().getCategory());
         return record;
     }
 

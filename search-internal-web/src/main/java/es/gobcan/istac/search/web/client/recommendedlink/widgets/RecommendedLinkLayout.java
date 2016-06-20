@@ -170,11 +170,12 @@ public class RecommendedLinkLayout extends VLayout {
 
     private void createViewRecommendedLinkForm() {
         viewRecommendedLinkForm = new GroupDynamicForm(getConstants().recommendedLink());
-        ViewTextItem recommendedKeywordName = new ViewTextItem(RecommendedLinkDS.RECOMMENDED_KEYWORD_NAME, getConstants().recommendedKeywordKeyword());
+        ViewTextItem recommendedKeywordKeyword = new ViewTextItem(RecommendedLinkDS.RECOMMENDED_KEYWORD_KEYWORD, getConstants().recommendedKeywordKeyword());
+        ExternalItemLinkItem recommendedKeywordCategory = new ExternalItemLinkItem(RecommendedLinkDS.RECOMMENDED_KEYWORD_CATEGORY, getConstants().recommendedKeywordCategory());
         ViewTextItem url = new ViewTextItem(RecommendedLinkDS.URL, getConstants().recommendedLinkUrl());
         ViewTextItem title = new ViewTextItem(RecommendedLinkDS.TITLE, getConstants().recommendedLinkTitle());
         ViewTextItem description = new ViewTextItem(RecommendedLinkDS.DESCRIPTION, getConstants().recommendedLinkDescription());
-        viewRecommendedLinkForm.setFields(recommendedKeywordName, url, title, description);
+        viewRecommendedLinkForm.setFields(recommendedKeywordKeyword, url, title, description, recommendedKeywordCategory);
     }
 
     private void createRecommendedLinkToolStrip() {
@@ -232,6 +233,7 @@ public class RecommendedLinkLayout extends VLayout {
         if (recommendedLinkDto != null) {
             RecommendedLinkRecord record = RecordUtils.getRecommendedLinkRecord(recommendedLinkDto);
             viewRecommendedLinkForm.editRecord(record);
+            viewRecommendedLinkForm.setValue(RecommendedLinkDS.RECOMMENDED_KEYWORD_CATEGORY, recommendedLinkDto.getRecommendedKeyword().getCategory());
             editionRecommendedLinkForm.editRecord(record);
             ((SearchExternalItemSimpleItem) editionRecommendedLinkForm.getItem(RecommendedLinkDS.RECOMMENDED_KEYWORD)).setExternalItem(toExternalItemDto(recommendedLinkDto.getRecommendedKeyword()));
         } else {

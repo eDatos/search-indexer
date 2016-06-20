@@ -3,8 +3,6 @@ package es.gobcan.istac.search.web.client.utils;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.siemac.metamac.core.common.dto.ExternalItemDto;
-import org.siemac.metamac.core.common.util.shared.StringUtils;
 import org.siemac.metamac.web.common.client.utils.ExternalItemUtils;
 
 import com.google.gwt.http.client.URL;
@@ -36,28 +34,6 @@ public class CommonUtils {
         return stringBuilder.toString();
     }
 
-    public static String getRecommendedKeywordLinkedName(RecommendedKeywordDto recommendedKeyword) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(recommendedKeyword.getKeyword());
-        if (recommendedKeyword.getCategory() != null) {
-            stringBuilder.append(" - ").append(getCategoryNameLinked(recommendedKeyword.getCategory()));
-        }
-        return stringBuilder.toString();
-    }
-
-    public static String getCategoryNameLinked(ExternalItemDto externalItemDto) {
-        StringBuilder stringBuilder = new StringBuilder();
-        if (externalItemDto != null) {
-            stringBuilder.append(ExternalItemUtils.getExternalItemName(externalItemDto));
-            if (!externalItemDto.getManagementAppUrl().isEmpty()) {
-                stringBuilder.insert(0, "<a href='" + externalItemDto.getManagementAppUrl() + "'>");
-                stringBuilder.append("</a>");
-            }
-            return stringBuilder.toString();
-        } else {
-            return StringUtils.EMPTY;
-        }
-    }
 
     public static void downloadFile(String fileName) {
         StringBuffer url = new StringBuffer();

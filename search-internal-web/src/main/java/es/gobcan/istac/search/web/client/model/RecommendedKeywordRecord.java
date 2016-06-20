@@ -1,23 +1,12 @@
 package es.gobcan.istac.search.web.client.model;
 
 import org.siemac.metamac.core.common.dto.ExternalItemDto;
-import org.siemac.metamac.web.common.client.utils.CommonWebUtils;
-
-import com.smartgwt.client.data.Record;
-import com.smartgwt.client.widgets.grid.ListGridRecord;
+import org.siemac.metamac.web.common.client.widgets.NavigableListGridRecord;
 
 import es.gobcan.istac.search.core.dto.RecommendedKeywordDto;
 import es.gobcan.istac.search.web.client.model.ds.RecommendedKeywordDS;
 
-public class RecommendedKeywordRecord extends ListGridRecord {
-
-    public RecommendedKeywordRecord(Record record) {
-        super(record.getJsObj());
-    }
-
-    public RecommendedKeywordRecord() {
-        super();
-    }
+public class RecommendedKeywordRecord extends NavigableListGridRecord {
 
     public void setKeyword(String value) {
         setAttribute(RecommendedKeywordDS.KEYWORD, value);
@@ -29,7 +18,7 @@ public class RecommendedKeywordRecord extends ListGridRecord {
 
     public void setCategory(ExternalItemDto value) {
         if (value != null) {
-            setAttribute(RecommendedKeywordDS.CATEGORY, CommonWebUtils.getElementName(value.getCode(), value.getTitle()));
+            setExternalItem(RecommendedKeywordDS.CATEGORY, value);
         }
     }
 
