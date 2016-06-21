@@ -15,6 +15,9 @@ import es.gobcan.istac.search.web.client.model.ds.RecommendedKeywordDS;
 
 public class RecordUtils {
 
+    private RecordUtils() {
+    };
+
     public static RecommendedLinkRecord[] getRecommendedLinkListRecords(List<RecommendedLinkDto> recommendedLinkList) {
         List<RecommendedLinkRecord> records = new ArrayList<RecommendedLinkRecord>();
         for (RecommendedLinkDto dto : recommendedLinkList) {
