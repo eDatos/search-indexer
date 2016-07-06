@@ -10,7 +10,7 @@
 	<h3 class="resultado_titulo">
 	<c:choose>
 		<c:when test="${empty item['nm_title']}"><a href="${item['id']}">${item['id']}</a></c:when>
-		<c:when test="${!empty item['nm_title']}"><a href="${item['id']}">${item['nm_title']}</a></c:when>
+		<c:when test="${!empty item['nm_title']}"><a href="${item['id']}">${item['nm_title'][0]}</a></c:when>
 	</c:choose>
 	</h3>
 	
