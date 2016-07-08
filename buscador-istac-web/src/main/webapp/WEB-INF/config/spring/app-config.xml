@@ -20,8 +20,8 @@
 	</bean>
 	
 	<bean id="log4jSetup" class="com.arte.acom.logging.LoggingSetup">
-		<property name="log4jFile" value="classpath:${istac.idxmanager.buscador.data.url}/conf/dinamica/log4j.xml" />
-<!--         <property name="log4jFile" value="file://${istac.idxmanager.buscador.data.url}/conf/dinamica/log4j.xml" /> -->
+<!-- 		<property name="log4jFile" value="classpath:${istac.idxmanager.buscador.data.url}/conf/dinamica/log4j.xml" /> -->
+        <property name="log4jFile" value="file://${istac.idxmanager.buscador.data.url}/conf/dinamica/log4j.xml" />
 	</bean>
 	
 	<!-- Application Message Bundle -->
