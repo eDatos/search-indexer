@@ -8,7 +8,7 @@ LOGBACK_RELATIVE_PATH_FILE=WEB-INF/classes/logback.xml
 
 scp -r etc/deploy deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH
 scp search-internal-web/target/search-internal-*.war deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH/search-internal.war
-scp buscador-istac-web/target/buscador*.war deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH/buscador.war
+scp buscador-istac-web/target/buscador*.war deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH/search.war
 scp target/search-*solr_core.tar.gz deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH/search-solr_core.tar.gz
 ssh deploy@estadisticas.arte-consultores.com <<EOF
 
@@ -51,10 +51,10 @@ ssh deploy@estadisticas.arte-consultores.com <<EOF
     ###
     
     # Update Process
-    sudo rm -rf $DEPLOY_TARGET_PATH/buscador
-    sudo mv $TRANSFER_PATH/buscador.war $DEPLOY_TARGET_PATH/buscador.war
-    sudo unzip $DEPLOY_TARGET_PATH/buscador.war -d $DEPLOY_TARGET_PATH/buscador
-    sudo rm -rf $DEPLOY_TARGET_PATH/buscador.war
+    sudo rm -rf $DEPLOY_TARGET_PATH/search
+    sudo mv $TRANSFER_PATH/search.war $DEPLOY_TARGET_PATH/search.war
+    sudo unzip $DEPLOY_TARGET_PATH/search.war -d $DEPLOY_TARGET_PATH/search
+    sudo rm -rf $DEPLOY_TARGET_PATH/search.war
     
     # Restore Configuration
     sudo cp $HOME_PATH/environment.xml $DEPLOY_TARGET_PATH/buscador/WEB-INF/classes/buscador/environment.xml
