@@ -110,6 +110,7 @@ Desktop.ini
 /bin/**
 /spring_loaded/**
 **/deploy/**
+!/etc/deploy
 
 ######################
 # Logs
