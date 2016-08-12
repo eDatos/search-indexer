@@ -13,8 +13,8 @@
     <name>SEARCH</name>
 
     <scm>
-        <connection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/trunk/</connection>
-        <developerConnection>scm:svn:http://svn.arte-consultores.com/svn/arte/istac/search/trunk/</developerConnection>
+        <connection>scm:git:http://git.arte-consultores.com/istac/search</connection>
+        <developerConnection>scm:git:http://git.arte-consultores.com/istac/search</developerConnection>
         <url>http://git.arte-consultores.com/istac/search</url>
     </scm>
 
