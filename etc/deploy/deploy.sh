@@ -28,7 +28,7 @@ ssh deploy@estadisticas.arte-consultores.com <<EOF
     sudo rm -rf $TRANSFER_PATH/search-solr_core.tar.gz
 
     sudo chown -R solr:solr /servers/solr/service/server/solr/istac
-    sudo service $SOLR_SERVICE_NAME restart
+    sudo service solr restart
     checkURL "http://localhost:8983/solr" "solr"
 
     ###
