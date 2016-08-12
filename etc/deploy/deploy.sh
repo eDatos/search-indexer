@@ -57,7 +57,7 @@ ssh deploy@estadisticas.arte-consultores.com <<EOF
     sudo rm -rf $DEPLOY_TARGET_PATH/search.war
     
     # Restore Configuration
-    sudo cp $HOME_PATH/environment.xml $DEPLOY_TARGET_PATH/buscador/WEB-INF/classes/buscador/environment.xml
+    sudo cp $HOME_PATH/environment.xml $DEPLOY_TARGET_PATH/search/WEB-INF/classes/buscador/environment.xml
 
 
 
