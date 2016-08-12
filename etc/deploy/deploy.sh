@@ -24,8 +24,8 @@ ssh deploy@estadisticas.arte-consultores.com <<EOF
     ###
     sudo rm -rf /servers/solr/service/server/solr/istac/conf
     sudo rm -rf /servers/solr/service/server/solr/istac/core.properties
-    sudo tar -xzf $DEPLOY_TARGET_PATH/search-solr_core.tar.gz --overwrite -C /servers/solr/service/server/solr/
-    sudo rm -rf $DEPLOY_TARGET_PATH/search-solr_core.tar.gz
+    sudo tar -xzf $TRANSFER_PATH/search-solr_core.tar.gz --overwrite -C /servers/solr/service/server/solr/
+    sudo rm -rf $TRANSFER_PATH/search-solr_core.tar.gz
 
     sudo chown -R solr:solr /servers/solr/service/server/solr/istac
     sudo service $SOLR_SERVICE_NAME restart
@@ -58,7 +58,6 @@ ssh deploy@estadisticas.arte-consultores.com <<EOF
     
     # Restore Configuration
     sudo cp $HOME_PATH/environment.xml $DEPLOY_TARGET_PATH/buscador/WEB-INF/classes/buscador/environment.xml
-    sudo cp $HOME_PATH/log4j.xml $DEPLOY_TARGET_PATH/buscador/WEB-INF/classes/buscador/conf/dinamica/log4j.xml
 
 
 
