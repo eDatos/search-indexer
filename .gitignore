@@ -7,7 +7,7 @@ environment-LOCAL.xml
 **/target/**
 **/generated/**
 **/SearchWeb/**
-
+/etc/solr/istac/data/**
 
 ######################
 # Node

@@ -31,15 +31,6 @@
             <artifactId>search-core</artifactId>
             <version>${project.version}</version>
             <exclusions>
-                <!-- This app uses the old Acom logging -->
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>log4j-over-slf4j</artifactId>
-                </exclusion>
                 <!-- Unused dependencies in thsi WAR -->
                 <exclusion>
                     <groupId>org.siemac.metamac.metamac-sso</groupId>
@@ -183,11 +174,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.arte.acom.acom-logging</groupId>
-            <artifactId>acom-logging</artifactId>
-            <version>1.0.1</version>
-        </dependency>
         <dependency>
             <groupId>com.arte.acom.acom-configuration</groupId>
             <artifactId>acom-configuration</artifactId>

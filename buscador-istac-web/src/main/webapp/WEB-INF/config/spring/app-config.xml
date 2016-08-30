@@ -18,11 +18,11 @@
 			<ref bean="configurationService" />
 		</property>
 	</bean>
-	
-	<bean id="log4jSetup" class="com.arte.acom.logging.LoggingSetup">
-<!-- 		<property name="log4jFile" value="classpath:${istac.idxmanager.buscador.data.url}/conf/dinamica/log4j.xml" /> -->
-        <property name="log4jFile" value="file://${istac.idxmanager.buscador.data.url}/conf/dinamica/log4j.xml" />
-	</bean>
+
+    <!-- Configure externalized logging configuration file -->
+    <bean id="loggingSetup" class="org.siemac.metamac.core.common.logging.LoggingSetup">
+        <property name="logConfigurationFile" value="${istac.idxmanager.buscador.data.url}/conf/dinamica/logback-buscador-istac.xml" />
+    </bean>
 	
 	<!-- Application Message Bundle -->
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
