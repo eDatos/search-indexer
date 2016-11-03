@@ -7,7 +7,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import es.gobcan.istac.idxmanager.domain.dom.FormatoRecursoIstaceDomain;
 import es.gobcan.istac.idxmanager.domain.dom.TypeNMDomain;
 import es.gobcan.istac.idxmanager.service.test.util.TestBase;
 import es.gobcan.istac.jaxi.pxservice.api.dominio.NucleoMetadatos;
@@ -71,12 +70,12 @@ public class NucleoIstacIndexerServiceTest extends TestBase {
             if (i < 56) {
                 nucleoIstacDomain.setType(Arrays.asList(TypeNMDomain.DATASET_DSC.getSiglas()));
             } else {
-                nucleoIstacDomain.setType(Arrays.asList(TypeNMDomain.COLLECTION_PDD.getSiglas()));
+                nucleoIstacDomain.setType(Arrays.asList(TypeNMDomain.COLLECTION_DSP.getSiglas()));
             }
 
             nucleoIstacDomain.setLastUpdate(ISO8601DateFormat.getInstance().getCalendar().getTime());
 
-            nucleoIstacIndexerService.indexarElementoGPE(nucleoIstacDomain, FormatoRecursoIstaceDomain.TIPO_RECURSO_ARCHIVO_PX.getSiglas());
+            nucleoIstacIndexerService.indexarElementoGPE(nucleoIstacDomain, null);
         }
         nucleoIstacIndexerService.commitANDoptimize();
     }

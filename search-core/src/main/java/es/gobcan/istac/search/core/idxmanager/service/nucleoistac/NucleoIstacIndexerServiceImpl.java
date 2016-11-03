@@ -1,9 +1,11 @@
 package es.gobcan.istac.search.core.idxmanager.service.nucleoistac;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.solr.common.SolrInputDocument;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import es.gobcan.istac.idxmanager.domain.dom.FormatoRecursoIstaceDomain;
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
+import es.gobcan.istac.idxmanager.domain.dom.TypeNMDomain;
 import es.gobcan.istac.idxmanager.domain.dom.client.IndexacionStatusDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
 import es.gobcan.istac.idxmanager.domain.util.Constants;
@@ -52,29 +55,9 @@ public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService 
             indexarSurveyFacet(nucleoIstacDomain, solrInputDocument);
         }
 
-        // Campos el indice auxiliares
-        solrInputDocument.addField(IndexacionEnumDomain.ID.getCampo(), nucleoIstacDomain.getIdentifierUniversal()); // Equivalente al IDENTIFIER_UNIVERSAL del nucleo ISTAC
-        solrInputDocument.addField(IndexacionEnumDomain.FORMATO.getCampo(), formatoRecurso); // Formato recurso, alguno de las siglas definidas en TipoRecursoIstaceDomain
-        solrInputDocument.addField(IndexacionEnumDomain.ORIGENRECURSO.getCampo(), OrigenRecursoDomain.RECURSO_GPE.getSiglas());
+        indexarCamposAuxiliares(nucleoIstacDomain, formatoRecurso, solrInputDocument);
 
         solr.insertarDoc(solrInputDocument);
-    }
-
-    private void indexarSurveyFacet(NucleoMetadatos nucleoIstacDomain, SolrInputDocument solrInputDocument) {
-        solrInputDocument.addField(IndexacionEnumDomain.FACET_SURVEY_KEYVALUE_FF.getCampo(), nucleoIstacDomain.getSurveyCode() + Constants.KEY_VALUE_SEPARATOR + nucleoIstacDomain.getSurveyTitle());
-    }
-
-    private void indexarSubjectAreaFacet(NucleoMetadatos nucleoIstacDomain, SolrInputDocument solrInputDocument) {
-        List<String> subjectKeyValues = new LinkedList<String>();
-        List<String> subjectAreas = nucleoIstacDomain.getSubjectAreas();
-        Iterator<String> subjectCodesIterator = nucleoIstacDomain.getSubjectCodes().iterator();
-        for (String value : subjectAreas) {
-            if (subjectCodesIterator.hasNext()) {
-                String key = subjectCodesIterator.next();
-                subjectKeyValues.add(key + Constants.KEY_VALUE_SEPARATOR + value);
-            }
-        }
-        solrInputDocument.addField(IndexacionEnumDomain.FACET_SUBJECT_KEYVALUE_FF.getCampo(), subjectKeyValues);
     }
 
     @Override
@@ -131,10 +114,39 @@ public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService 
      * PRIVATE
      ***************************************************************************/
 
-    /**
-     * @param nucleoIstacDomain
-     * @return
-     */
+    private void indexarCamposAuxiliares(NucleoMetadatos nucleoIstacDomain, String formatoRecurso, SolrInputDocument solrInputDocument) {
+        // Campos el indice auxiliares
+        solrInputDocument.addField(IndexacionEnumDomain.ID.getCampo(), nucleoIstacDomain.getIdentifierUniversal()); // Equivalente al IDENTIFIER_UNIVERSAL del nucleo ISTAC
+
+        // En BUSCAISTAC-67 se decide simplificar formatos y realizar el siguiente mapping (FormatoRecursoIstaceDomain)
+        if ("ARCHIVO_PX".equals(formatoRecurso)) {
+            formatoRecurso = null;
+        } else if ("PUBLICACION".equals(formatoRecurso)) {
+            formatoRecurso = FormatoRecursoIstaceDomain.TIPO_RECURSO_ARCHIVO_HTML.getSiglas();
+        }
+        if (!StringUtils.isEmpty(formatoRecurso)) {
+            solrInputDocument.addField(IndexacionEnumDomain.FORMATO.getCampo(), formatoRecurso);
+        }
+        solrInputDocument.addField(IndexacionEnumDomain.ORIGENRECURSO.getCampo(), OrigenRecursoDomain.RECURSO_GPE.getSiglas());
+    }
+
+    private void indexarSurveyFacet(NucleoMetadatos nucleoIstacDomain, SolrInputDocument solrInputDocument) {
+        solrInputDocument.addField(IndexacionEnumDomain.FACET_SURVEY_KEYVALUE_FF.getCampo(), nucleoIstacDomain.getSurveyCode() + Constants.KEY_VALUE_SEPARATOR + nucleoIstacDomain.getSurveyTitle());
+    }
+
+    private void indexarSubjectAreaFacet(NucleoMetadatos nucleoIstacDomain, SolrInputDocument solrInputDocument) {
+        List<String> subjectKeyValues = new LinkedList<String>();
+        List<String> subjectAreas = nucleoIstacDomain.getSubjectAreas();
+        Iterator<String> subjectCodesIterator = nucleoIstacDomain.getSubjectCodes().iterator();
+        for (String value : subjectAreas) {
+            if (subjectCodesIterator.hasNext()) {
+                String key = subjectCodesIterator.next();
+                subjectKeyValues.add(key + Constants.KEY_VALUE_SEPARATOR + value);
+            }
+        }
+        solrInputDocument.addField(IndexacionEnumDomain.FACET_SUBJECT_KEYVALUE_FF.getCampo(), subjectKeyValues);
+    }
+
     private SolrInputDocument nucleoMetadatos2SolrDocument(NucleoMetadatos nucleoIstacDomain) {
         // Se crea un documento SOLR
         SolrInputDocument doc = new SolrInputDocument();
@@ -161,12 +173,61 @@ public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService 
         doc.addField(IndexacionEnumDomain.NM_COVERAGE_TEMPORAL_CODES.getCampo(), nucleoIstacDomain.getCoverageTemporalCodes());
 
         // Descriptores de clase de recursos
+        processNmTypes(processNmTypes(nucleoIstacDomain.getType()));
+
         doc.addField(IndexacionEnumDomain.NM_TYPE.getCampo(), nucleoIstacDomain.getType());
 
         // Descriptores de produccion de un recurso
         doc.addField(IndexacionEnumDomain.NM_LAST_UPDATE.getCampo(), nucleoIstacDomain.getLastUpdate());
 
         return doc;
+    }
+
+    /**
+     * Ver BUSCAISTAC-67
+     * Se crea una lista de Types de la siguiente forma:
+     * Si contiene DSC, entonces añadimos solo DSC
+     * Si contiene DSP, entonces añadimos solo DSP
+     * Si contiene PDD, entonces añadimos solo DSP
+     * Si contiene P, entonces añadimos solo DSP
+     * Otros, entonces NULL
+     *
+     * @param nmTypeList
+     * @return
+     */
+    private List<String> processNmTypes(List<String> nmTypeList) {
+        List<String> result = new ArrayList<>();
+
+        boolean hasDSC = false;
+        boolean hasDSP = false;
+        boolean hasPDD = false;
+        boolean hasP = false;
+
+        for (String nmType : nmTypeList) {
+            String nmTypeCompare = nmType.toUpperCase();
+
+            if (TypeNMDomain.DATASET_DSC.getSiglas().equals(nmTypeCompare)) {
+                hasDSC = true;
+            } else if (TypeNMDomain.COLLECTION_DSP.getSiglas().equals(nmTypeCompare)) {
+                hasDSP = true;
+            } else if ("PDD".equals(nmTypeCompare)) {
+                hasPDD = true;
+            } else if ("P".equals(nmTypeCompare)) {
+                hasP = true;
+            }
+        }
+
+        if (hasDSC) {
+            result.add(TypeNMDomain.DATASET_DSC.getSiglas());
+        } else if (hasDSP) {
+            result.add(TypeNMDomain.COLLECTION_DSP.getSiglas());
+        } else if (hasPDD) {
+            result.add(TypeNMDomain.COLLECTION_DSP.getSiglas());
+        } else if (hasP) {
+            result.add(TypeNMDomain.COLLECTION_DSP.getSiglas());
+        }
+
+        return result;
     }
 
     /**

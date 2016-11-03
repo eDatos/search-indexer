@@ -269,6 +269,25 @@
             <groupId>org.siemac.metamac.metamac-srm</groupId>
             <artifactId>metamac-srm-rest-internal-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.siemac.metamac.metamac-statistical-resources</groupId>
+            <artifactId>metamac-statistical-resources-kafka</artifactId>
+            <version>1.4.1-SNAPSHOT</version>
+        </dependency>
+        
+         <!-- KAFKA -->
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-avro-serializer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

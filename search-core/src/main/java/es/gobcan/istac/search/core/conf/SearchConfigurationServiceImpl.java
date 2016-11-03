@@ -61,10 +61,30 @@ public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl imp
     public String retrieveIndexationGpeCron() throws MetamacException {
         return retrieveProperty(SearchConfigurationConstants.SEARCH_INDEXATION_GPE_CRON);
     }
-    
+
     @Override
     public String retrieveDefaultCategorySchemeUrn() throws MetamacException {
         return retrieveProperty(SearchConfigurationConstants.SEARCH_DEFAULT_CATEGORY_SCHEME_URN);
+    }
+
+    @Override
+    public String retrieveKafkaBootstrap() throws MetamacException {
+        return retrieveProperty(SearchConfigurationConstants.SEARCH_KAFKA_BOOTSTRAP_SERVERS);
+    }
+
+    @Override
+    public String retrieveKafkaSchemaRegistryUrl() throws MetamacException {
+        return retrieveProperty(SearchConfigurationConstants.SEARCH_KAFKA_SCHEMA_REGISTRY_URL);
+    }
+
+    @Override
+    public String retrieveKafkaTopic() throws MetamacException {
+        return retrieveProperty(SearchConfigurationConstants.SEARCH_KAFKA_TOPIC);
+    }
+
+    @Override
+    public String retrieveKafkaGroup() throws MetamacException {
+        return retrieveProperty(SearchConfigurationConstants.SEARCH_KAFKA_GROUP);
     }
 
 }

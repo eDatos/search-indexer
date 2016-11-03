@@ -94,16 +94,9 @@ public class BusquedaServiceImpl implements BusquedaService {
     private void setFiltroTipoRecurso(Busqueda busqueda, SolrQuery solrQuery) {
         if (StringUtils.isNotEmpty(busqueda.getPestania())) {
             if (busqueda.getPestania().equals(TypeNMDomain.DATASET_DSC.getSiglas())) {
-                solrQuery.addFilterQuery(ServiceUtils.getFilterQueryOrString(IndexacionEnumDomain.NM_TYPE.getCampo(), TypeNMDomain.DATASET_DS.getSiglas(), TypeNMDomain.DATASET_DSC.getSiglas()));
-            } else if (busqueda.getPestania().equals(TypeNMDomain.COLLECTION_PDD.getSiglas())) {
+                solrQuery.addFilterQuery(ServiceUtils.getFilterQueryOrString(IndexacionEnumDomain.NM_TYPE.getCampo(), busqueda.getPestania()));
+            } else if (busqueda.getPestania().equals(TypeNMDomain.COLLECTION_DSP.getSiglas())) {
                 solrQuery.addFilterQuery(ServiceUtils.getFilterQueryString(IndexacionEnumDomain.NM_TYPE.getCampo(), busqueda.getPestania()));
-            } else if (busqueda.getPestania().equals(TypeNMDomain.COMPLEMENTARIA.getSiglas())) {
-                // Ponemos todos los complementarios
-                solrQuery.addFilterQuery(ServiceUtils.getFilterQueryOrString(IndexacionEnumDomain.NM_TYPE.getCampo(), TypeNMDomain.METODOLOGIA_M.getSiglas(), TypeNMDomain.METODOLOGIA_MM.getSiglas(),
-                        TypeNMDomain.METODOLOGIA_MRM.getSiglas(), TypeNMDomain.METODOLOGIA_MNM.getSiglas(), TypeNMDomain.METODOLOGIA_MCTM.getSiglas(), TypeNMDomain.METODOLOGIA_MIC.getSiglas(),
-                        TypeNMDomain.METODOLOGIA_MC.getSiglas(), TypeNMDomain.METODOLOGIA_MCD.getSiglas(), TypeNMDomain.VOCABULARIO_V.getSiglas(), TypeNMDomain.VOCABULARIO_VCLC.getSiglas(),
-                        TypeNMDomain.VOCABULARIO_VCGT.getSiglas(), TypeNMDomain.INVESTIGACION_I.getSiglas(), TypeNMDomain.INVESTIGACION_III.getSiglas(), TypeNMDomain.INVESTIGACION_IAI.getSiglas(),
-                        TypeNMDomain.COMPLEMENTARIA_WEB.getSiglas()));
             }
         }
     }

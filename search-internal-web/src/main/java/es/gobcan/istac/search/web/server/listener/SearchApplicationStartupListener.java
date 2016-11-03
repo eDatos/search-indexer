@@ -16,6 +16,7 @@ public class SearchApplicationStartupListener extends InternalApplicationStartup
         checkRequiredPropertiesSolr();
         checkRequiredPropertiesAlfresco();
         checkRequiredPropertiesIndexation();
+        checkRequiredPropertieskafka();
     }
 
     private void checkRequiredPropertiesSolr() {
@@ -35,6 +36,13 @@ public class SearchApplicationStartupListener extends InternalApplicationStartup
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_INDEXATION_WEB_CRON);
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_INDEXATION_WEB_URL);
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_INDEXATION_GPE_CRON);
+    }
+
+    private void checkRequiredPropertieskafka() {
+        checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_BOOTSTRAP_SERVERS);
+        checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_SCHEMA_REGISTRY_URL);
+        checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_TOPIC);
+        checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_GROUP);
     }
 
     @Override

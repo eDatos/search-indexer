@@ -27,22 +27,19 @@ import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion
 
 public class SolrHandler extends WriterHandler implements Handler {
 
-    protected static Log           log                    = LogFactory.getLog(SolrHandler.class);
+    protected static Log log = LogFactory.getLog(SolrHandler.class);
 
     @Autowired
     private ResourceIndexerService resourceIndexerService = null;
 
-    private static final String    PATTERNDATE1           = "E MMM dd HH:mm:ss zzz yyyy";
-    private static final String    PATTERNDATE2           = "yyyy-MM-dd HH:mm:ss";
+    private static final String PATTERNDATE1 = "E MMM dd HH:mm:ss zzz yyyy";
+    private static final String PATTERNDATE2 = "yyyy-MM-dd HH:mm:ss";
 
     @Override
     public void handle(URI uri, ContentEntity entity) throws IOException, DroidsException {
         SolrInputDocument doc = new SolrInputDocument();
         doc.addField(IndexacionEnumDomain.ID.getCampo(), uri.toString()); // Equivalente al IDENTIFIER_UNIVERSAL del nucleo ISTAC
         doc.addField(IndexacionEnumDomain.ORIGENRECURSO.getCampo(), OrigenRecursoDomain.RECURSO_WEB.getSiglas());
-        if (isComplementaria(uri)) {
-            doc.addField(IndexacionEnumDomain.NM_TYPE.getCampo(), TypeNMDomain.COMPLEMENTARIA_WEB.getSiglas());
-        }
         CustomMtdParseImpl parse = (CustomMtdParseImpl) entity.getParse();
 
         // INDEXADO DE METADATOS EXTRAIDOS
@@ -65,7 +62,7 @@ public class SolrHandler extends WriterHandler implements Handler {
                 if (mtdEnum.isMultievaluado()) {
                     if (mtdEnum.equals(IndexacionEnumDomain.TK_SUBJECT)) {
                         for (int j = 0; j < mtdValues.length; j++) {
-                            if (mtdValues[j].equals("DS")) {
+                            if (mtdValues[j].equals(TypeNMDomain.DATASET_DSC.getSiglas())) {
                                 hasDataCategory = true;
                             }
                         }
@@ -116,7 +113,7 @@ public class SolrHandler extends WriterHandler implements Handler {
                 doc.addField(IndexacionEnumDomain.NM_LAST_UPDATE.getCampo(), lastUpdateExcel);
             }
             if (hasDataCategory) {
-                doc.addField(IndexacionEnumDomain.NM_TYPE.getCampo(), "DS");
+                doc.addField(IndexacionEnumDomain.NM_TYPE.getCampo(), TypeNMDomain.DATASET_DSC.getSiglas());
             }
         }
 
@@ -140,10 +137,6 @@ public class SolrHandler extends WriterHandler implements Handler {
             log.info("No se ha podido parsear la fecha:: " + fecha);
             return null;
         }
-    }
-
-    private boolean isComplementaria(URI uri) {
-        return uri.toString().contains("/complementaria/");
     }
 
     private void contentTypeParse(SolrInputDocument doc) {

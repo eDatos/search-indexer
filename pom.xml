@@ -25,7 +25,6 @@
         <module>search-dao</module>
         <module>search-core</module>
         <module>search-internal-web</module>
-        <module>buscador-istac-web</module>
     </modules>
 
     <build>
