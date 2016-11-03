@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>es.gobcan.istac.search</groupId>
-        <artifactId>search-parent</artifactId>
+        <groupId>es.gobcan.istac.search-indexer</groupId>
+        <artifactId>search-indexer-parent</artifactId>
         <version>5.0.1-SNAPSHOT</version>
-        <relativePath>../search-parent/pom.xml</relativePath>
+        <relativePath>../search-indexer-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>search-domain</artifactId>
-    <name>SEARCH :: DOMAIN</name>
+    <artifactId>search-indexer-domain</artifactId>
+    <name>SEARCH-INDEXER :: DOMAIN</name>
     <packaging>jar</packaging>
 
     <dependencies>

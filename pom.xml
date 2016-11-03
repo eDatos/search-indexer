@@ -2,29 +2,29 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>es.gobcan.istac.search</groupId>
-        <artifactId>search-parent</artifactId>
+        <groupId>es.gobcan.istac.search-indexer</groupId>
+        <artifactId>search-indexer-parent</artifactId>
         <version>5.0.1-SNAPSHOT</version>
-        <relativePath>search-parent/pom.xml</relativePath>
+        <relativePath>search-indexer-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>search</artifactId>
+    <artifactId>search-indexer</artifactId>
     <packaging>pom</packaging>
-    <name>SEARCH</name>
+    <name>SEARCH - INDEXER</name>
 
     <scm>
-        <connection>scm:git:http://git.arte-consultores.com/istac/search</connection>
-        <developerConnection>scm:git:http://git.arte-consultores.com/istac/search</developerConnection>
-        <url>http://git.arte-consultores.com/istac/search</url>
+        <connection>scm:git:http://git.arte-consultores.com/istac/search-indexer</connection>
+        <developerConnection>scm:git:http://git.arte-consultores.com/istac/search-indexer</developerConnection>
+        <url>http://git.arte-consultores.com/istac/search-indexer</url>
         <tag>HEAD</tag>
     </scm>
 
     <modules>
-        <module>search-parent</module>
-        <module>search-domain</module>
-        <module>search-dao</module>
-        <module>search-core</module>
-        <module>search-internal-web</module>
+        <module>search-indexer-parent</module>
+        <module>search-indexer-domain</module>
+        <module>search-indexer-dao</module>
+        <module>search-indexer-core</module>
+        <module>search-indexer-internal-web</module>
     </modules>
 
     <build>

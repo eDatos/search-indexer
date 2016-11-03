@@ -4,15 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>es.gobcan.istac.search</groupId>
-        <artifactId>search-parent</artifactId>
+        <groupId>es.gobcan.istac.search-indexer</groupId>
+        <artifactId>search-indexer-parent</artifactId>
         <version>5.0.1-SNAPSHOT</version>
-        <relativePath>../search-parent/pom.xml</relativePath>
+        <relativePath>../search-indexer-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>search-internal-web</artifactId>
+    <artifactId>search-indexer-internal-web</artifactId>
     <packaging>war</packaging>
-    <name>SEARCH :: INTERNAL :: WEB</name>
+    <name>SEARCH - INDEXER :: INTERNAL :: WEB</name>
 
     <properties>
         <!-- Convenience property to set the GWT version -->
@@ -133,7 +133,7 @@
         <!-- SEARCH CORE -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>search-core</artifactId>
+            <artifactId>search-indexer-core</artifactId>
             <classifier>client</classifier>
         </dependency>
 
@@ -224,8 +224,8 @@
                     <runTarget>http://localhost:8080/search-internal-web/SearchWeb.jsp</runTarget>
                     <debugPort>9997</debugPort>
                     <compileSourcesArtifacts>
-                        <artifact>es.gobcan.istac.search:search-core:jar:client</artifact>
-                        <artifact>es.gobcan.istac.search:search-domain:jar</artifact>
+                        <artifact>es.gobcan.istac.search-indexer:search-indexer-core:jar:client</artifact>
+                        <artifact>es.gobcan.istac.search-indexer:search-indexer-domain:jar</artifact>
                         <artifact>org.siemac.metamac:metamac-core-common:jar:client</artifact>
                         <artifact>org.siemac.metamac.metamac-sso:metamac-sso-client:jar</artifact>
                         <artifact>org.siemac.metamac:metamac-web-common:jar</artifact>

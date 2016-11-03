@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>es.gobcan.istac.search</groupId>
-    <artifactId>search-parent</artifactId>
+    <groupId>es.gobcan.istac.search-indexer</groupId>
+    <artifactId>search-indexer-parent</artifactId>
     <version>5.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>SEARCH :: PARENT</name>
+    <name>SEARCH - INDEXER :: PARENT</name>
 
     <distributionManagement>
         <!-- Use the following if you're not using a snapshot version. -->
@@ -703,13 +703,13 @@
 
             <!-- SEARCH -->
             <dependency>
-                <groupId>es.gobcan.istac.search</groupId>
-                <artifactId>search-domain</artifactId>
+                <groupId>es.gobcan.istac.search-indexer</groupId>
+                <artifactId>search-indexer-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>es.gobcan.istac.search</groupId>
-                <artifactId>search-core</artifactId>
+                <groupId>es.gobcan.istac.search-indexer</groupId>
+                <artifactId>search-indexer-core</artifactId>
                 <version>${project.version}</version>
                 <classifier>client</classifier>
             </dependency>

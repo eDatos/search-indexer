@@ -4,14 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>es.gobcan.istac.search</groupId>
-        <artifactId>search-parent</artifactId>
+        <groupId>es.gobcan.istac.search-indexer</groupId>
+        <artifactId>search-indexer-parent</artifactId>
         <version>5.0.1-SNAPSHOT</version>
-        <relativePath>../search-parent/pom.xml</relativePath>
+        <relativePath>../search-indexer-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>search-core</artifactId>
-    <name>SEARCH :: CORE</name>
+    <artifactId>search-indexer-core</artifactId>
+    <name>SEARCH - INDEXER :: CORE</name>
 
 
     <dependencies>
@@ -241,11 +241,11 @@
         <!-- SEARCH -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>search-domain</artifactId>
+            <artifactId>search-indexer-domain</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>search-dao</artifactId>
+            <artifactId>search-indexer-dao</artifactId>
             <version>${project.version}</version>
         </dependency>
 

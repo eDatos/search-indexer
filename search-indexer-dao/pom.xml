@@ -3,20 +3,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>es.gobcan.istac.search</groupId>
-        <artifactId>search-parent</artifactId>
+        <groupId>es.gobcan.istac.search-indexer</groupId>
+        <artifactId>search-indexer-parent</artifactId>
         <version>5.0.1-SNAPSHOT</version>
-        <relativePath>../search-parent/pom.xml</relativePath>
+        <relativePath>../search-indexer-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>search-dao</artifactId>
-    <name>SEARCH :: DAO</name>
+    <artifactId>search-indexer-dao</artifactId>
+    <name>SEARCH - INDEXER :: DAO</name>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>search-domain</artifactId>
+            <artifactId>search-indexer-domain</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
