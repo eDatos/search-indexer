@@ -24,16 +24,16 @@ import es.gobcan.istac.search.core.idxmanager.service.util.ServiceUtils;
 
 public class SolrServiceImpl implements InitializingBean, SolrService {
 
-    protected static Log       log                        = LogFactory.getLog(SolrService.class);
+    protected static Log log = LogFactory.getLog(SolrService.class);
 
-    public static final int    DEFAULT_CONNECTION_TIMEOUT = 60000;                               // default socket connection timeout in ms
-    public static final String DEFAULT_ALL_QUERY          = "*:*";
+    public static final int DEFAULT_CONNECTION_TIMEOUT = 60000; // default socket connection timeout in ms
+    public static final String DEFAULT_ALL_QUERY = "*:*";
 
-    private SolrClient         solrClient                 = null;
+    private SolrClient solrClient = null;
 
-    private String             solrUrl;
-    private String             coreOrCollection;
-    private boolean            cloudServer                = false;
+    private String solrUrl;
+    private String coreOrCollection;
+    private boolean cloudServer = false;
 
     public void setSolrUrl(String solrUrl) {
         this.solrUrl = solrUrl;
@@ -82,7 +82,7 @@ public class SolrServiceImpl implements InitializingBean, SolrService {
             ping = solrClient.ping();
             if (ping.getStatus() != 0) {
                 return false;
-            };
+            } ;
 
         } catch (SolrServerException | IOException e) {
             log.error("Solr no ha respondido satisfactoriamente a una solicitud de ping:  " + e);
@@ -196,6 +196,7 @@ public class SolrServiceImpl implements InitializingBean, SolrService {
         try {
             return solrClient.query(solrQuery);
         } catch (SolrServerException | IOException e) {
+            log.error("Imposible Ejecutar query: " + solrQuery, e);
             throw new ServiceExcepcion(ServiceExcepcionTipo.SERVICE_GENERAL);
         }
     }
