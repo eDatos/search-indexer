@@ -26,7 +26,8 @@ public class SearchConfigurationConstants extends ConfigurationConstants {
 
     public static final String SEARCH_KAFKA_BOOTSTRAP_SERVERS = "istac.idxmanager.kafka.bootstrap_server";
     public static final String SEARCH_KAFKA_SCHEMA_REGISTRY_URL = "istac.idxmanager.kafka.schema_registry_url";
-    public static final String SEARCH_KAFKA_TOPIC = "istac.idxmanager.kafka.topic";
+    public static final String SEARCH_KAFKA_TOPIC_DATASETS = "istac.idxmanager.kafka.topic.datasets";
+    public static final String SEARCH_KAFKA_TOPIC_PUBLICATIONS = "istac.idxmanager.kafka.topic.publications";
     public static final String SEARCH_KAFKA_GROUP = "istac.idxmanager.kafka.group";
 
     public static final String SEARCH_DEFAULT_CATEGORY_SCHEME_URN = "search.default.category_scheme.urn";

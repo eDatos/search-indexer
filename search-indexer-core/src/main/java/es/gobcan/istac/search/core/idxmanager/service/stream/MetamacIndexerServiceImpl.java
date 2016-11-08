@@ -14,9 +14,11 @@ import org.siemac.metamac.statistical.resources.core.stream.messages.Internation
 import org.siemac.metamac.statistical.resources.core.stream.messages.InternationalStringItemAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.LifecycleStatisticalResourceAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.NameableStatisticalResourceAvro;
+import org.siemac.metamac.statistical.resources.core.stream.messages.RelatedResourceAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.SiemacMetadataStatisticalResourceAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.TemporalCodeAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.VersionableStatisticalResourceAvro;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
@@ -24,12 +26,16 @@ import es.gobcan.istac.idxmanager.domain.dom.TypeNMDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcionTipo;
+import es.gobcan.istac.search.core.idxmanager.service.solr.SolrService;
 import es.gobcan.istac.search.core.idxmanager.service.util.StreamUtils;
 
 @Service
 public class MetamacIndexerServiceImpl implements MetamacIndexerService {
 
     protected static Log LOGGER = LogFactory.getLog(MetamacIndexerService.class);
+
+    @Autowired
+    private SolrService solr = null;
 
     @Override
     public void indexarDatasetVersion(DatasetVersionAvro datasetVersionAvroAvro) throws ServiceExcepcion {
@@ -57,6 +63,24 @@ public class MetamacIndexerServiceImpl implements MetamacIndexerService {
 
         // Descriptores de produccion de un recurso
         toProductionDescriptorMetadata(datasetVersionAvroAvro, solrInputDocument);
+
+        // Perform Indexation
+        removeReplacesVersion(datasetVersionAvroAvro);
+        solr.insertarDoc(solrInputDocument);
+        solr.commit();
+        LOGGER.debug("Indexado recurso con URN: " + identifiableStatisticalResourceAvro.getUrn());
+    }
+
+    private void removeReplacesVersion(DatasetVersionAvro datasetVersionAvroAvro) {
+        RelatedResourceAvro replacesVersion = datasetVersionAvroAvro.getSiemacMetadataStatisticalResource().getLifecycleStatisticalResource().getReplacesVersion();
+        if (replacesVersion != null) {
+            try {
+                solr.eliminarDoc(replacesVersion.getUrn());
+                LOGGER.debug("Desindexado recurso con URN: " + replacesVersion.getUrn());
+            } catch (ServiceExcepcion e) {
+                LOGGER.error("Imposible desindexar recurso con URN: " + replacesVersion.getUrn(), e);
+            }
+        }
     }
 
     private void toProductionDescriptorMetadata(DatasetVersionAvro datasetVersionAvroAvro, SolrInputDocument solrInputDocument) {

@@ -41,7 +41,7 @@ public class SearchApplicationStartupListener extends InternalApplicationStartup
     private void checkRequiredPropertieskafka() {
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_BOOTSTRAP_SERVERS);
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_SCHEMA_REGISTRY_URL);
-        checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_TOPIC);
+        checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_TOPIC_DATASETS);
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_GROUP);
     }
 
