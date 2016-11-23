@@ -108,7 +108,7 @@
    <field name="nm_coverage_temporal_codes" type="string" indexed="true" stored="true" multiValued="true"/>
    
    <!-- Descriptores de clase de recursos-->
-   <field name="nm_type" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="nm_type" type="string" indexed="true" stored="true" multiValued="false"/>
    
    <!-- Descriptores de produccion de un recurso  -->
    <field name="nm_last_update" type="date" indexed="true" stored="true" multiValued="false"/>

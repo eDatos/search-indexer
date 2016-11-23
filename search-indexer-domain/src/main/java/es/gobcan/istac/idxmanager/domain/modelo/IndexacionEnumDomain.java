@@ -12,7 +12,7 @@ public enum IndexacionEnumDomain {
     FORMATO("formato", false),
 
     // Del nucleo del ISTAC:
-    NM_TYPE("nm_type", true),
+    NM_TYPE("nm_type", false),
 
     NM_TITLE("nm_title", true),
     NM_SUBTITLE("nm_subtitle", true),

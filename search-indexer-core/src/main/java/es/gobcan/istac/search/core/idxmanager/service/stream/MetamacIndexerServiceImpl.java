@@ -24,6 +24,7 @@ import org.siemac.metamac.statistical.resources.core.stream.messages.Versionable
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.gobcan.istac.idxmanager.domain.dom.FormatoRecursoIstaceDomain;
 import es.gobcan.istac.idxmanager.domain.dom.OrigenRecursoDomain;
 import es.gobcan.istac.idxmanager.domain.dom.TypeNMDomain;
 import es.gobcan.istac.idxmanager.domain.modelo.IndexacionEnumDomain;
@@ -144,7 +145,7 @@ public class MetamacIndexerServiceImpl implements MetamacIndexerService<Specific
         solrInputDocument.addField(IndexacionEnumDomain.ORIGENRECURSO.getCampo(), OrigenRecursoDomain.METAMAC_STAT_RESOURCES.getSiglas());
         // FORMATO: En BUSCAISTAC-67 se decide que para los Dataset, el formato es NULL. Para Publicaciones, el formato es HTML
         if (TypeNMDomain.COLLECTION_DSP.equals(typeNMDomain)) {
-            solrInputDocument.addField(IndexacionEnumDomain.FORMATO.getCampo(), OrigenRecursoDomain.METAMAC_STAT_RESOURCES.getSiglas());
+            solrInputDocument.addField(IndexacionEnumDomain.FORMATO.getCampo(), FormatoRecursoIstaceDomain.TIPO_RECURSO_ARCHIVO_HTML.getSiglas());
         }
     }
 
