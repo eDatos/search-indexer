@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import org.siemac.metamac.statistical.resources.core.stream.messages.DatasetVersionAvro;
 
-public class ExampleProducerTest {
+import es.gobcan.istac.search.core.idxmanager.service.stream.mock.DatasetVersionAvro_TRANS_MAR_00000_Mock;
+
+public class ExampleDatasetProducerTest {
 
     private static String topic = "DATASET_PUBLICATIONS";
 

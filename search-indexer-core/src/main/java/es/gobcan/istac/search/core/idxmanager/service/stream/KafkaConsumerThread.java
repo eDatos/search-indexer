@@ -8,7 +8,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.siemac.metamac.statistical.resources.core.stream.messages.DatasetVersionAvro;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +21,7 @@ public class KafkaConsumerThread<T extends SpecificRecordBase> implements Runnab
 
     private KafkaConsumer<String, T> consumer;
     private String topicName;
-    private MetamacIndexerService metamacIndexerService;
+    private MetamacIndexerService<SpecificRecordBase> metamacIndexerService;
 
     public void setConsumer(KafkaConsumer<String, T> consumer) {
         this.consumer = consumer;
@@ -32,7 +31,7 @@ public class KafkaConsumerThread<T extends SpecificRecordBase> implements Runnab
         this.topicName = topicName;
     }
 
-    public void setMetamacIndexerService(MetamacIndexerService metamacIndexerService) {
+    public void setMetamacIndexerService(MetamacIndexerService<SpecificRecordBase> metamacIndexerService) {
         this.metamacIndexerService = metamacIndexerService;
     }
 
@@ -55,8 +54,7 @@ public class KafkaConsumerThread<T extends SpecificRecordBase> implements Runnab
 
                 LOGGER.info(logMessage.toString());
                 try {
-                    // TODO FALTA INDEXAR UN MENSAJE DE TIPO PublicationVersionAvro
-                    metamacIndexerService.indexarDatasetVersion((DatasetVersionAvro) record.value());
+                    metamacIndexerService.index(record.value());
                     consumer.commitSync();
                 } catch (ServiceExcepcion e) {
                     LOGGER.error("Imposible indexar recurso recibido desde KAFKA", e);

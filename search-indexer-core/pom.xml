@@ -272,7 +272,6 @@
         <dependency>
             <groupId>org.siemac.metamac.metamac-statistical-resources</groupId>
             <artifactId>metamac-statistical-resources-kafka</artifactId>
-            <version>1.4.1-SNAPSHOT</version>
         </dependency>
         
          <!-- KAFKA -->

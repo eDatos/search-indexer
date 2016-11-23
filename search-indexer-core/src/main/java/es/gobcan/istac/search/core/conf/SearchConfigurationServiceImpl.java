@@ -84,7 +84,7 @@ public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl imp
 
     @Override
     public String retrieveKafkaTopicPublications() throws MetamacException {
-        return retrieveProperty(SearchConfigurationConstants.SEARCH_KAFKA_TOPIC_DATASETS);
+        return retrieveProperty(SearchConfigurationConstants.SEARCH_KAFKA_TOPIC_PUBLICATIONS);
     }
 
     @Override

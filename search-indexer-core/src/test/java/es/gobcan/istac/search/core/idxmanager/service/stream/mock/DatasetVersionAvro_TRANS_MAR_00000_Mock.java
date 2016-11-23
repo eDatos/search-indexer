@@ -1,4 +1,4 @@
-package es.gobcan.istac.search.core.idxmanager.service.stream;
+package es.gobcan.istac.search.core.idxmanager.service.stream.mock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +26,7 @@ import org.siemac.metamac.statistical.resources.core.stream.messages.Statistical
 import org.siemac.metamac.statistical.resources.core.stream.messages.TemporalCodeAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.TypeExternalArtefactsEnumAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.TypeRelatedResourceEnumAvro;
+import org.siemac.metamac.statistical.resources.core.stream.messages.VersionRationaleTypeEnumAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.VersionableStatisticalResourceAvro;
 
 public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
@@ -37,12 +38,10 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setSiemacMetadataStatisticalResource(createSiemacMetadataStatisticalResourceAvro())
             .setDateStart(createDatetimeAvro(978307200000l, null))
             .setDateEnd(createDatetimeAvro(1388534399999l, null))
-            .setRelatedDsdChanged(false)
             .setDatasetRepositoryId("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .setFormatExtentDimensions(3)
             .setDateNextUpdate(null)
             .setUserModifiedDateNextUpdate(false)
-            .setVersion(new Long(0))
             .setDataset(createDatasetAvro())
             .setRelatedDsd(createRelateDsd_DSD_MARINE_TRANSPORT())
             .setUpdateFrequency(createStatisticalOperation_TRANS_MAR())
@@ -58,6 +57,7 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setGeographicGranularities(createGeographicGranularitiesAvroList())
             .setTemporalGranularities(createTemporalGranularitiesAvroList())
             .setStatisticalUnit(new ArrayList<>())
+            .setIsPartOf(null)
             .build();
         // @formatter:on
     }
@@ -67,7 +67,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         // @formatter:off
         return SiemacMetadataStatisticalResourceAvro.newBuilder()
             .setLifecycleStatisticalResource(createLifecycleStatisticalResourceAvro())
-            .setUserModifiedKeywords(true)
             .setResourceCreatedDate(null)
             .setLastUpdate(createDatetimeAvro(1478261089449l, null))
             .setNewnessUntilDate(null)
@@ -83,6 +82,7 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setConformsTo(null)
             .setConformsToInternal(null)
             .setReplaces(null)
+            .setIsReplacedBy(null)
             .setAccessRights(null)
             .setLanguages(new ArrayList<>(Arrays.asList(createLanguage_ES())))
             .setStatisticalOperationInstances(new ArrayList<>())
@@ -113,6 +113,7 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
                 .setProcStatus(ProcStatusEnumAvro.DRAFT)
                 .setReplacesVersion(createReplacesVersion_TRANS_MAR_00000())
                 .setMaintainer(createMaintainer_ISTAC())
+                .setIsReplacedByVersion(null)
                 .build();
         // @formatter:on
     }
@@ -128,6 +129,7 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
                 .setVersionRationale(null)
                 .setNextVersion(NextVersionTypeEnumAvro.NO_UPDATES)
                 .setVersionLogic("002.000")
+                .setVersionRationaleTypes(Arrays.asList(VersionRationaleTypeEnumAvro.MINOR_METADATA))
                 .build();
         // @formatter:on
     }
@@ -159,8 +161,7 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         // @formatter:off
         return DatasetAvro.newBuilder()
                 .setIdentifiableStatisticalResource(createIdentifiableStatisticalResourceAvro())
-                .setVersionsUrns(Arrays.asList("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(001.000)", "urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)"))
-                .setVersion(1l)
+                .setDatasetVersionsUrns(Arrays.asList("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(001.000)", "urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)"))
                 .setDimensionRepresentationMappings(new ArrayList<>())
                 .build();
         // @formatter:on
@@ -171,7 +172,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         // @formatter:off
         return StatisticOfficialityAvro.newBuilder()
                 .setIdentifier("OFFICIAL")
-                .setVersion(0l)
                 .setDescription(createInternationalStringAvro("Estadística oficial", "es"))
                 .build();
         // @formatter:on
@@ -185,7 +185,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2013")
                 .setTitle("2013")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -193,7 +192,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2012")
                 .setTitle("2012")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -201,7 +199,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2011")
                 .setTitle("2011")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -209,7 +206,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2010")
                 .setTitle("2010")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -217,7 +213,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2009")
                 .setTitle("2009")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -225,7 +220,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2008")
                 .setTitle("2008")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -233,7 +227,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2007")
                 .setTitle("2007")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -241,7 +234,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2006")
                 .setTitle("2006")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -249,7 +241,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2005")
                 .setTitle("2005")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -257,7 +248,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2004")
                 .setTitle("2004")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -265,7 +255,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2003")
                 .setTitle("2003")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -273,7 +262,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2002")
                 .setTitle("2002")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -281,7 +269,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(TemporalCodeAvro.newBuilder()
                 .setIdentifier("2001")
                 .setTitle("2001")
-                .setVersion(0l)
                 .build());
         // @formatter:on
 
@@ -296,12 +283,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("COMMERCIAL_VESSELES_ENTRIES")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=COMMERCIAL_VESSELES_ENTRIES")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Entradas de buques comerciales", "es", "Embarcações comerciais entradas (n.)", "pt"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000).COMMERCIAL_VESSELES_ENTRIES")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=COMMERCIAL_VESSELES_ENTRIES")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONCEPT)
-            .setTitle(createInternationalStringAvro("Entradas de buques comerciales", "es", "Embarcações comerciais entradas (n.)", "pt"))
             .build());
         // @formatter:on
 
@@ -309,12 +296,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("CRUISE_SHIPS_DOCKED")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=PASSENGERS_LANDED")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Pasajeros desembarcados", "es", "Passageiros desembarcados (n.)", "pt"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000).CRUISE_SHIPS_DOCKED")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=PASSENGERS_LANDED")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONCEPT)
-            .setTitle(createInternationalStringAvro("Pasajeros desembarcados", "es", "Passageiros desembarcados (n.)", "pt"))
             .build());
         // @formatter:on
 
@@ -322,12 +309,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("TRANSIT_PASSENGERS_ON_CRUISES")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=TRANSIT_PASSENGERS_ON_CRUISES")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Pasajeros en tránsito en cruceros", "es", "Passageiros em trânsito em navios de cruzeiro", "pt"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000).TRANSIT_PASSENGERS_ON_CRUISES")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=TRANSIT_PASSENGERS_ON_CRUISES")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONCEPT)
-            .setTitle(createInternationalStringAvro("Pasajeros en tránsito en cruceros", "es", "Passageiros em trânsito em navios de cruzeiro", "pt"))
             .build());
         // @formatter:on
 
@@ -335,12 +322,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("PASSENGERS_ONBOARD")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=PASSENGERS_ONBOARD")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Pasajeros embarcados", "es", "Passageiros embarcados (n.)", "pt"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000).PASSENGERS_ONBOARD")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=PASSENGERS_ONBOARD")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONCEPT)
-            .setTitle(createInternationalStringAvro("Pasajeros embarcados", "es", "Passageiros embarcados (n.)", "pt"))
             .build());
         // @formatter:on
 
@@ -348,12 +335,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("CONTAINERS_LOADED")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=CONTAINERS_LOADED")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Contenedores cargados", "es", "Contentores carregados (n.)", "pt"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000).CONTAINERS_LOADED")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=CONTAINERS_LOADED")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONCEPT)
-            .setTitle(createInternationalStringAvro("Contenedores cargados", "es", "Contentores carregados (n.)", "pt"))
             .build());
         // @formatter:on
 
@@ -361,12 +348,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("GOODS_UNLOADED")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=GOODS_UNLOADED")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Mercancías descargadas", "es", "Mercadorias descarregadas (ton.)", "pt"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000).GOODS_UNLOADED")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=GOODS_UNLOADED")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONCEPT)
-            .setTitle(createInternationalStringAvro("Mercancías descargadas", "es", "Mercadorias descarregadas (ton.)", "pt"))
             .build());
         // @formatter:on
 
@@ -374,12 +361,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("GOODS_LOADED")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=GOODS_LOADED")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Mercancías cargadas", "es", "Mercadorias carregadas (ton.)", "pt"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000).GOODS_LOADED")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=GOODS_LOADED")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONCEPT)
-            .setTitle(createInternationalStringAvro("Mercancías cargadas", "es", "Mercadorias carregadas (ton.)", "pt"))
             .build());
         // @formatter:on
 
@@ -387,12 +374,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("DANGEROUS_GOODS_LOADED")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=DANGEROUS_GOODS_LOADED")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Mercancías peligrosas cargadas", "es", "Mercadorias perigosas carregadas (ton.)", "pt"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000).DANGEROUS_GOODS_LOADED")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=DANGEROUS_GOODS_LOADED")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONCEPT)
-            .setTitle(createInternationalStringAvro("Mercancías peligrosas cargadas", "es", "Mercadorias perigosas carregadas (ton.)", "pt"))
             .build());
         // @formatter:on
 
@@ -400,12 +387,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("DANGEROUS_GOODS_UNLOADED")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=DANGEROUS_GOODS_UNLOADED")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Mercancías peligrosas descargadas", "es", "Mercadorias perigosas descarregadas (ton.)", "pt"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000).DANGEROUS_GOODS_UNLOADED")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=DANGEROUS_GOODS_UNLOADED")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONCEPT)
-            .setTitle(createInternationalStringAvro("Mercancías peligrosas descargadas", "es", "Mercadorias perigosas descarregadas (ton.)", "pt"))
             .build());
         // @formatter:on
 
@@ -413,12 +400,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("CONTAINERS_DOWNLOADED_COMPLETLY")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=CONTAINERS_DOWNLOADED_COMPLETLY")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Contenedores descargados completamente", "es", "dos quais descarregados cheios", "pt"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000).CONTAINERS_DOWNLOADED_COMPLETLY")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=CONTAINERS_DOWNLOADED_COMPLETLY")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONCEPT)
-            .setTitle(createInternationalStringAvro("Contenedores descargados completamente", "es", "dos quais descarregados cheios", "pt"))
             .build());
         // @formatter:on
 
@@ -426,12 +413,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("CONTAINERS_LOADED_COMPLETLY")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=CONTAINERS_LOADED_COMPLETLY")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Contenedores cargados completamente", "es", "dos quais carregados cheios", "pt"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.conceptscheme.Concept=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000).CONTAINERS_LOADED_COMPLETLY")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/conceptSchemes/conceptScheme;id=ISTAC:MARINE_TRANSPORTS_INDICATORS(01.000)/concept;id=CONTAINERS_LOADED_COMPLETLY")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONCEPT)
-            .setTitle(createInternationalStringAvro("Contenedores cargados completamente", "es", "dos quais carregados cheios", "pt"))
             .build());
         // @formatter:on
         return null;
@@ -459,7 +446,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
           return DatasourceAvro.newBuilder()
                   .setDateNextUpdate(null)
                   .setFileName("TRANS_MAR_02.txt")
-                  .setVersion(0l)
                   .setIdentifiableStatisticalResource(identifiableStatisticalResourceAvro)
                   .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
                   .build();
@@ -474,7 +460,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("TRANSIT_PASSENGERS_ON_CRUISES")
             .setTitle("Pasajeros en tránsito en cruceros")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -484,7 +469,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("DANGEROUS_GOODS_LOADED")
             .setTitle("Mercancías peligrosas cargadas")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -494,7 +478,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("DANGEROUS_GOODS_UNLOADED")
             .setTitle("Mercancías peligrosas descargadas")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -504,7 +487,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("GOODS_LOADED")
             .setTitle("Mercancías cargadas")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -514,7 +496,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("GOODS_UNLOADED")
             .setTitle("Mercancías descargadas")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -524,7 +505,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("CONTAINERS_LOADED")
             .setTitle("Contenedores cargados")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -534,7 +514,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("CRUISE_SHIPS_DOCKED")
             .setTitle("Cruceros atracados")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -544,7 +523,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("CONTAINERS_LOADED_COMPLETLY")
             .setTitle("Contenedores cargados completamente")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -554,7 +532,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("COMMERCIAL_VESSELES_ENTRIES")
             .setTitle("Entradas de buques comerciales")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -564,7 +541,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("PASSENGERS_ONBOARD")
             .setTitle("Pasajeros embarcados")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -574,7 +550,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("CONTAINERS_DOWNLOADED")
             .setTitle("Contenedores descargados")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -584,7 +559,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("CONTAINERS_DOWNLOADED_COMPLETLY")
             .setTitle("Contenedores descargados completamente")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -594,7 +568,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("INDICATORS")
             .setIdentifier("PASSENGERS_LANDED")
             .setTitle("Pasajeros desembarcados")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -604,7 +577,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2013")
             .setTitle("2013")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -614,7 +586,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2012")
             .setTitle("2012")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -624,7 +595,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2011")
             .setTitle("2011")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -634,7 +604,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2009")
             .setTitle("2009")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -644,7 +613,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2008")
             .setTitle("2008")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -654,7 +622,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2007")
             .setTitle("2007")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -664,7 +631,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2006")
             .setTitle("2006")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -674,7 +640,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2005")
             .setTitle("2005")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -684,7 +649,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2004")
             .setTitle("2004")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -694,7 +658,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2003")
             .setTitle("2003")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -704,7 +667,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2002")
             .setTitle("2002")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -714,7 +676,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("TIME_PERIOD")
             .setIdentifier("2001")
             .setTitle("2001")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -724,7 +685,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("REGION")
             .setIdentifier("PORTO_SANTO")
             .setTitle("Porto Santo")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -734,7 +694,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("REGION")
             .setIdentifier("FUNCHAL")
             .setTitle("Funchal")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -744,7 +703,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setDsdComponentId("REGION")
             .setIdentifier("CANICAL")
             .setTitle("Caniçal")
-            .setVersion(0l)
             .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
             .build());
         // @formatter:on
@@ -759,12 +717,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("CANICAL")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_MADEIRA_ISLANDS(01.000)/code;id=CANICAL")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Caniçal", "es"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.codelist.Code=ISTAC:CL_MADEIRA_ISLANDS(01.000).CANICAL")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_MADEIRA_ISLANDS(01.000)/code;id=CANICAL")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CODE)
-            .setTitle(createInternationalStringAvro("Caniçal", "es"))
             .build());
         // @formatter:on
 
@@ -772,12 +730,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("FUNCHAL")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_MADEIRA_ISLANDS(01.000)/code;id=FUNCHAL")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Funchal", "es"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.codelist.Code=ISTAC:CL_MADEIRA_ISLANDS(01.000).FUNCHAL")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_MADEIRA_ISLANDS(01.000)/code;id=FUNCHAL")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CODE)
-            .setTitle(createInternationalStringAvro("Funchal", "es"))
             .build());
         // @formatter:on
 
@@ -785,12 +743,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("PORTO_SANTO")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_MADEIRA_ISLANDS(01.000)/code;id=PORTO_SANTO")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Porto Santo", "es"))
             .setUrn("\"urn:sdmx:org.sdmx.infomodel.codelist.Code=ISTAC:CL_MADEIRA_ISLANDS(01.000).PORTO_SANTO")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_MADEIRA_ISLANDS(01.000)/code;id=PORTO_SANTO")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CODE)
-            .setTitle(createInternationalStringAvro("Porto Santo", "es"))
             .build());
         // @formatter:on
 
@@ -804,12 +762,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("CANICAL")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_MADEIRA_ISLANDS(01.000)/code;id=CANICAL")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Caniçal", "es"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.codelist.Code=ISTAC:CL_MADEIRA_ISLANDS(01.000).CANICAL")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_MADEIRA_ISLANDS(01.000)/code;id=CANICAL")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CODE)
-            .setTitle(createInternationalStringAvro("Caniçal", "es"))
             .build());
         // @formatter:on
 
@@ -823,12 +781,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         results.add(ExternalItemAvro.newBuilder()
             .setCode("CANICAL")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_MADEIRA_ISLANDS(01.000)/code;id=CANICAL")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Caniçal", "es"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.codelist.Code=ISTAC:CL_MADEIRA_ISLANDS(01.000).CANICAL")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_MADEIRA_ISLANDS(01.000)/code;id=CANICAL")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CODE)
-            .setTitle(createInternationalStringAvro("Caniçal", "es"))
             .build());
         // @formatter:on
 
@@ -850,12 +808,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         return ExternalItemAvro.newBuilder()
             .setCode("TRANS_MAR")
             .setCodeNested(null)
+            .setManagementAppUrl("/#operations/operation;id=TRANS_MAR")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Transportes Marítimos", "pt", "Transporte Marítimo", "es"))
             .setUrn("urn:siemac:org.siemac.metamac.infomodel.statisticaloperations.Operation=TRANS_MAR")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#operations/operation;id=TRANS_MAR")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.STATISTICAL_OPERATION)
-            .setTitle(createInternationalStringAvro("Transportes Marítimos", "pt", "Transporte Marítimo", "es"))
             .build();
         // @formatter:on
     }
@@ -878,12 +836,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         return ExternalItemAvro.newBuilder()
             .setCode("ISTAC")
             .setCodeNested("ISTAC")
+            .setManagementAppUrl("/#structuralResources/organisationSchemes/organisationScheme;type=AGENCY_SCHEME;id=SDMX:AGENCIES(1.0)/organisation;id=ISTAC")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Instituto Canario de Estadística", "es", "ISTAC", "en"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.base.Agency=SDMX:AGENCIES(1.0).ISTAC")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/organisationSchemes/organisationScheme;type=AGENCY_SCHEME;id=SDMX:AGENCIES(1.0)/organisation;id=ISTAC")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.AGENCY)
-            .setTitle(createInternationalStringAvro("Instituto Canario de Estadística", "es", "ISTAC", "en"))
             .build();
         // @formatter:on
     }
@@ -894,12 +852,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         return ExternalItemAvro.newBuilder()
             .setCode("ES")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_LANGUAJES(01.000)/code;id=ES")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Español", "es"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.codelist.Code=ISTAC:CL_LANGUAJES(01.000).ES")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/codelists/codelist;id=ISTAC:CL_LANGUAJES(01.000)/code;id=ES")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CODE)
-            .setTitle(createInternationalStringAvro("Español", "es"))
             .build();
         // @formatter:on
     }
@@ -910,12 +868,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         return ExternalItemAvro.newBuilder()
             .setCode("ISTAC")
             .setCodeNested(null)
+            .setManagementAppUrl("/#configurations/configuration;id=ISTAC")
+            .setSelfLink(null)
+            .setTitle(null)
             .setUrn("urn:siemac:org.siemac.metamac.infomodel.commonmetadata.CommonMetadata=ISTAC")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#configurations/configuration;id=ISTAC")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.CONFIGURATION)
-            .setTitle(null)
             .build();
         // @formatter:on
     }
@@ -926,12 +884,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         return ExternalItemAvro.newBuilder()
             .setCode("CONSEJERIA_CULTURA")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/organisationSchemes/organisationScheme;type=ORGANISATION_UNIT_SCHEME;id=ISTAC:UNIDADES_GOBCAN(02.001)/organisation;id=CONSEJERIA_CULTURA")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("Consejería de Cultura, Deportes, Políticas Sociales y Vivienda", "es"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.base.OrganisationUnit=ISTAC:UNIDADES_GOBCAN(02.001).CONSEJERIA_CULTURA")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/organisationSchemes/organisationScheme;type=ORGANISATION_UNIT_SCHEME;id=ISTAC:UNIDADES_GOBCAN(02.001)/organisation;id=CONSEJERIA_CULTURA")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.ORGANISATION_UNIT)
-            .setTitle(createInternationalStringAvro("Consejería de Cultura, Deportes, Políticas Sociales y Vivienda", "es"))
             .build();
         // @formatter:on
     }
@@ -942,12 +900,12 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
         return ExternalItemAvro.newBuilder()
             .setCode("DSD_MARINE_TRANSPORT")
             .setCodeNested(null)
+            .setManagementAppUrl("/#structuralResources/dsds/dsd;id=ISTAC:DSD_MARINE_TRANSPORT(01.000)")
+            .setSelfLink(null)
+            .setTitle(createInternationalStringAvro("DSD de Transporte Marítimo", "es"))
             .setUrn("urn:sdmx:org.sdmx.infomodel.datastructure.DataStructure=ISTAC:DSD_MARINE_TRANSPORT(01.000)")
             .setUrnProvider(null)
-            .setManagementAppUrl("/#structuralResources/dsds/dsd;id=ISTAC:DSD_MARINE_TRANSPORT(01.000)")
-            .setVersion(new Long (0))
             .setType(TypeExternalArtefactsEnumAvro.DATASTRUCTURE)
-            .setTitle(createInternationalStringAvro("DSD de Transporte Marítimo", "es"))
             .build();
         // @formatter:on
     }
