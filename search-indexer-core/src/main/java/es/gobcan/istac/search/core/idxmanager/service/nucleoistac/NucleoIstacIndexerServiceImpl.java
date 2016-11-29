@@ -1,6 +1,5 @@
 package es.gobcan.istac.search.core.idxmanager.service.nucleoistac;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -173,9 +172,7 @@ public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService 
         doc.addField(IndexacionEnumDomain.NM_COVERAGE_TEMPORAL_CODES.getCampo(), nucleoIstacDomain.getCoverageTemporalCodes());
 
         // Descriptores de clase de recursos
-        processNmTypes(processNmTypes(nucleoIstacDomain.getType()));
-
-        doc.addField(IndexacionEnumDomain.NM_TYPE.getCampo(), nucleoIstacDomain.getType());
+        doc.addField(IndexacionEnumDomain.NM_TYPE.getCampo(), processNmTypes(nucleoIstacDomain.getType()));
 
         // Descriptores de produccion de un recurso
         doc.addField(IndexacionEnumDomain.NM_LAST_UPDATE.getCampo(), nucleoIstacDomain.getLastUpdate());
@@ -195,8 +192,8 @@ public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService 
      * @param nmTypeList
      * @return
      */
-    private List<String> processNmTypes(List<String> nmTypeList) {
-        List<String> result = new ArrayList<>();
+    private String processNmTypes(List<String> nmTypeList) {
+        String result = null;
 
         boolean hasDSC = false;
         boolean hasDSP = false;
@@ -218,13 +215,13 @@ public class NucleoIstacIndexerServiceImpl implements NucleoIstacIndexerService 
         }
 
         if (hasDSC) {
-            result.add(TypeNMDomain.DATASET_DSC.getSiglas());
+            result = TypeNMDomain.DATASET_DSC.getSiglas();
         } else if (hasDSP) {
-            result.add(TypeNMDomain.COLLECTION_DSP.getSiglas());
+            result = TypeNMDomain.COLLECTION_DSP.getSiglas();
         } else if (hasPDD) {
-            result.add(TypeNMDomain.COLLECTION_DSP.getSiglas());
+            result = TypeNMDomain.COLLECTION_DSP.getSiglas();
         } else if (hasP) {
-            result.add(TypeNMDomain.COLLECTION_DSP.getSiglas());
+            result = TypeNMDomain.COLLECTION_DSP.getSiglas();
         }
 
         return result;

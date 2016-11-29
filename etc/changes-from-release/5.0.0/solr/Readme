@@ -1,0 +1,5 @@
+El modelo de Solr se ha actualizado, el campo nm_type pasa a ser NO Multievaluado:
+    Copiar el fichero: etc\solr\istac\conf\schema.xml para el paquete de instalación
+
+   <!-- Descriptores de clase de recursos-->
+   <field name="nm_type" type="string" indexed="true" stored="true" multiValued="false"/>

@@ -7,6 +7,8 @@ import es.gobcan.istac.search.core.constants.SearchConfigurationConstants;
 
 public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl implements SearchConfigurationService {
 
+    final String SEARCH_CONSUMER_GROUP = "SEARCH_CONSUMER_GROUP";
+
     @Override
     public String retrieveHelpUrl() throws MetamacException {
         return retrieveProperty(SearchConfigurationConstants.SEARCH_HELP_URL);
@@ -68,28 +70,8 @@ public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl imp
     }
 
     @Override
-    public String retrieveKafkaBootstrap() throws MetamacException {
-        return retrieveProperty(SearchConfigurationConstants.SEARCH_KAFKA_BOOTSTRAP_SERVERS);
-    }
-
-    @Override
-    public String retrieveKafkaSchemaRegistryUrl() throws MetamacException {
-        return retrieveProperty(SearchConfigurationConstants.SEARCH_KAFKA_SCHEMA_REGISTRY_URL);
-    }
-
-    @Override
-    public String retrieveKafkaTopicDatasets() throws MetamacException {
-        return retrieveProperty(SearchConfigurationConstants.SEARCH_KAFKA_TOPIC_DATASETS);
-    }
-
-    @Override
-    public String retrieveKafkaTopicPublications() throws MetamacException {
-        return retrieveProperty(SearchConfigurationConstants.SEARCH_KAFKA_TOPIC_PUBLICATIONS);
-    }
-
-    @Override
     public String retrieveKafkaGroup() throws MetamacException {
-        return retrieveProperty(SearchConfigurationConstants.SEARCH_KAFKA_GROUP);
+        return SEARCH_CONSUMER_GROUP; // Hard coded for evit manual edition
     }
 
 }

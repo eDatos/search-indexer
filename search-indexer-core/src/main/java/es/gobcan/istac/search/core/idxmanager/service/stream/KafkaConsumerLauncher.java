@@ -64,27 +64,29 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private Future<?> startConsumerForDatasetTopic(ApplicationContext context) throws MetamacException {
+        String topicDatasetsPublication = searchConfigurationService.retrieveKafkaTopicDatasetsPublication();
         KafkaConsumerThread<DatasetVersionAvro> consumerThread = (KafkaConsumerThread) context.getBean("kafkaConsumerThread");
-        KafkaConsumer<String, DatasetVersionAvro> consumerFromBegin = createConsumerFromCurrentOffset(searchConfigurationService.retrieveKafkaTopicDatasets());
+        KafkaConsumer<String, DatasetVersionAvro> consumerFromBegin = createConsumerFromCurrentOffset(topicDatasetsPublication);
         consumerThread.setConsumer(consumerFromBegin);
-        consumerThread.setTopicName(searchConfigurationService.retrieveKafkaTopicDatasets());
+        consumerThread.setTopicName(topicDatasetsPublication);
         consumerThread.setMetamacIndexerService(metamacIndexerService);
         return threadPoolTaskExecutor.submit(consumerThread);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private Future<?> startConsumerForPublicationTopic(ApplicationContext context) throws MetamacException {
+        String topicCollectionPublication = searchConfigurationService.retrieveKafkaTopicCollectionPublication();
         KafkaConsumerThread<DatasetVersionAvro> consumerThread = (KafkaConsumerThread) context.getBean("kafkaConsumerThread");
-        KafkaConsumer<String, DatasetVersionAvro> consumerFromBegin = createConsumerFromCurrentOffset(searchConfigurationService.retrieveKafkaTopicPublications());
+        KafkaConsumer<String, DatasetVersionAvro> consumerFromBegin = createConsumerFromCurrentOffset(topicCollectionPublication);
         consumerThread.setConsumer(consumerFromBegin);
-        consumerThread.setTopicName(searchConfigurationService.retrieveKafkaTopicPublications());
+        consumerThread.setTopicName(topicCollectionPublication);
         consumerThread.setMetamacIndexerService(metamacIndexerService);
         return threadPoolTaskExecutor.submit(consumerThread);
     }
 
     private Properties getConsumerProperties() throws MetamacException {
         Properties props = new Properties();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, searchConfigurationService.retrieveKafkaBootstrap());
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, searchConfigurationService.retrieveKafkaBootStrapServers());
         props.put(ConsumerConfig.GROUP_ID_CONFIG, searchConfigurationService.retrieveKafkaGroup());
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, io.confluent.kafka.serializers.KafkaAvroDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, io.confluent.kafka.serializers.KafkaAvroDeserializer.class);
