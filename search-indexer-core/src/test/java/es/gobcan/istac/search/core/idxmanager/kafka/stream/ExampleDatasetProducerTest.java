@@ -1,18 +1,18 @@
-package es.gobcan.istac.search.core.idxmanager.service.stream;
+package es.gobcan.istac.search.core.idxmanager.kafka.stream;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-import org.siemac.metamac.statistical.resources.core.stream.messages.PublicationVersionAvro;
+import org.siemac.metamac.statistical.resources.core.stream.messages.DatasetVersionAvro;
 
-import es.gobcan.istac.search.core.idxmanager.service.stream.mock.PublicationVersionAvro_TRANS_MAR_000001_Mock;
+import es.gobcan.istac.search.core.idxmanager.kafka.stream.mock.DatasetVersionAvro_TRANS_MAR_00000_Mock;
 
-public class ExamplePublicationProducerTest {
+public class ExampleDatasetProducerTest {
 
-    private static String topic = "COLLECTION_PUBLICATIONS";
+    private static String topic = "DATASET_PUBLICATIONS";
 
     public static void main(String[] args) throws IOException {
-        Producer<PublicationVersionAvro> producer = new Producer<>();
+        Producer<DatasetVersionAvro> producer = new Producer<>();
 
         System.out.println("Please input 'send' or 'exit'");
 
@@ -23,7 +23,7 @@ public class ExamplePublicationProducerTest {
 
             switch (input) {
                 case "send":
-                    producer.sendData(topic, PublicationVersionAvro_TRANS_MAR_000001_Mock.createPublicationVersionAvro());
+                    producer.sendData(topic, DatasetVersionAvro_TRANS_MAR_00000_Mock.createDataSetVersionAvro());
                     break;
                 case "exit":
                     System.exit(0);

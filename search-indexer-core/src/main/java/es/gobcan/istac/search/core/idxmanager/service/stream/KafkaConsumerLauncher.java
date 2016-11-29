@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Future;
 
+import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -36,7 +37,7 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     @Autowired
-    private MetamacIndexerService metamacIndexerService;
+    private MetamacIndexerService<SpecificRecordBase> metamacIndexerService;
 
     @Autowired
     private SearchConfigurationService searchConfigurationService;

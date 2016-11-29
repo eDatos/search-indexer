@@ -1,4 +1,4 @@
-package es.gobcan.istac.search.core.idxmanager.service.stream;
+package es.gobcan.istac.search.core.idxmanager.kafka.stream;
 
 import org.siemac.metamac.statistical.resources.core.stream.messages.DatasetVersionAvro;
 

@@ -1,4 +1,4 @@
-package es.gobcan.istac.search.core.idxmanager.service.stream.mock;
+package es.gobcan.istac.search.core.idxmanager.kafka.stream.mock;
 
 import java.util.ArrayList;
 import java.util.Arrays;

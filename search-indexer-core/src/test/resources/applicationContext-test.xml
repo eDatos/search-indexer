@@ -8,6 +8,12 @@
     <!-- Activates annotation-based bean configuration -->
     <context:annotation-config />
 
+    <context:component-scan base-package="es.gobcan.istac.search.core.idxmanager.service">
+        <context:exclude-filter type="regex" expression=".*stream.*" />
+        <!-- <context:exclude-filter type="assignable" expression="org.siemac.metamac.core.common.exception.utils.TranslateExceptions" /> -->
+    </context:component-scan>
+
+
     <aop:aspectj-autoproxy />
 
     <!-- Metamac environment configuration -->

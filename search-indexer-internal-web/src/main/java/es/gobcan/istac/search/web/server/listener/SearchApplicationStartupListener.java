@@ -1,5 +1,6 @@
 package es.gobcan.istac.search.web.server.listener;
 
+import org.siemac.metamac.core.common.constants.shared.ConfigurationConstants;
 import org.siemac.metamac.web.common.server.listener.InternalApplicationStartupListener;
 
 import es.gobcan.istac.search.core.constants.SearchConfigurationConstants;
@@ -16,7 +17,6 @@ public class SearchApplicationStartupListener extends InternalApplicationStartup
         checkRequiredPropertiesSolr();
         checkRequiredPropertiesAlfresco();
         checkRequiredPropertiesIndexation();
-        checkRequiredPropertieskafka();
     }
 
     private void checkRequiredPropertiesSolr() {
@@ -38,14 +38,6 @@ public class SearchApplicationStartupListener extends InternalApplicationStartup
         checkRequiredProperty(SearchConfigurationConstants.SEARCH_INDEXATION_GPE_CRON);
     }
 
-    private void checkRequiredPropertieskafka() {
-        checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_BOOTSTRAP_SERVERS);
-        checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_SCHEMA_REGISTRY_URL);
-        checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_TOPIC_DATASETS);
-        checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_TOPIC_PUBLICATIONS);
-        checkRequiredProperty(SearchConfigurationConstants.SEARCH_KAFKA_GROUP);
-    }
-
     @Override
     public String projectName() {
         return "search-internal";
@@ -63,5 +55,7 @@ public class SearchApplicationStartupListener extends InternalApplicationStartup
 
     @Override
     public void checkOtherModuleProperties() {
+        checkRequiredProperty(ConfigurationConstants.KAFKA_BOOTSTRAP_SERVERS);
+        checkRequiredProperty(ConfigurationConstants.KAFKA_SCHEMA_REGISTRY_URL);
     }
 }

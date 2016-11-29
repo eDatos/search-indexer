@@ -10,9 +10,6 @@
 	<!-- Aspectos -->
 	<aop:aspectj-autoproxy />
     
-    <!-- Scans for application @Component, @Service, @Controller, etc. -->
-    <context:component-scan base-package="es.gobcan.istac.search.core.idxmanager.service" />	
-
 	<bean name="solr" class="es.gobcan.istac.search.core.idxmanager.service.solr.SolrServiceImpl">
 		<property name="solrUrl" value="${istac.idxmanager.solr.endpoint}" />
         <property name="coreOrCollection" value="${istac.idxmanager.solr.core_or_collection}" />
