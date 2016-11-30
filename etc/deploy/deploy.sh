@@ -7,7 +7,7 @@ DEPLOY_TARGET_PATH=/servers/metamac/tomcats/metamac01/webapps
 LOGBACK_RELATIVE_PATH_FILE=WEB-INF/classes/logback.xml
 
 scp -r etc/deploy deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH
-scp search-internal-web/target/search-internal-*.war deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH/search-internal.war
+scp search-indexer-internal-web/target/search-internal-*.war deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH/search-internal.war
 scp target/search-*solr_core.tar.gz deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH/search-solr_core.tar.gz
 ssh deploy@estadisticas.arte-consultores.com <<EOF
 
