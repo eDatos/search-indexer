@@ -11,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.OffsetResetStrategy;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.siemac.metamac.statistical.resources.core.stream.messages.DatasetVersionAvro;
@@ -27,20 +28,20 @@ import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 @Component
 public class KafkaConsumerLauncher implements ApplicationListener<ContextRefreshedEvent> {
 
-    protected static Log LOGGER = LogFactory.getLog(KafkaConsumerLauncher.class);
+    protected static Log                              LOGGER                      = LogFactory.getLog(KafkaConsumerLauncher.class);
 
-    private Map<String, Future<?>> futuresMap;
-    private final String CONSUMER_DATASET_1_NAME = "consumer_dataset_1";
-    private final String CONSUMER_PUBLICATION_1_NAME = "consumer_publication_1";
+    private Map<String, Future<?>>                    futuresMap;
+    private final String                              CONSUMER_DATASET_1_NAME     = "consumer_dataset_1";
+    private final String                              CONSUMER_PUBLICATION_1_NAME = "consumer_publication_1";
 
     @Autowired
-    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+    private ThreadPoolTaskExecutor                    threadPoolTaskExecutor;
 
     @Autowired
     private MetamacIndexerService<SpecificRecordBase> metamacIndexerService;
 
     @Autowired
-    private SearchConfigurationService searchConfigurationService;
+    private SearchConfigurationService                searchConfigurationService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -60,7 +61,6 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
     public void startKeepAliveKafkaThread(ApplicationContext context) throws MetamacException {
         KeepAliveKafkaThread keepAliveKafkaThread = new KeepAliveKafkaThread();
         threadPoolTaskExecutor.execute(keepAliveKafkaThread);
-        // threadPoolTaskExecutor.submit(keepAliveKafkaThread);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -91,10 +91,12 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
         props.put(ConsumerConfig.GROUP_ID_CONFIG, searchConfigurationService.retrieveKafkaGroup());
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, io.confluent.kafka.serializers.KafkaAvroDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, io.confluent.kafka.serializers.KafkaAvroDeserializer.class);
-        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "10000");
 
-        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false); // Default is True
+        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 10000); // 10 s
+        props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, 900000); // 15 min, Max time for Bussiness Logic execution of consumer thread
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1); // The maximum number of records returned in a single call to poll()
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, OffsetResetStrategy.EARLIEST.toString().toLowerCase()); // Policy to follow when there are no confirmed offset
 
         props.put(KafkaAvroDeserializerConfig.SCHEMA_REGISTRY_URL_CONFIG, searchConfigurationService.retrieveKafkaSchemaRegistryUrl());
         props.put(KafkaAvroDeserializerConfig.SPECIFIC_AVRO_READER_CONFIG, true);
