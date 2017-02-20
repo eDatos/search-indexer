@@ -31,8 +31,8 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
     protected static Log                              LOGGER                      = LogFactory.getLog(KafkaConsumerLauncher.class);
 
     private Map<String, Future<?>>                    futuresMap;
-    private final String                              CONSUMER_DATASET_1_NAME     = "consumer_dataset_1";
-    private final String                              CONSUMER_PUBLICATION_1_NAME = "consumer_publication_1";
+    private final String                              CONSUMER_DATASET_1_NAME     = "search_consumer_dataset_1";
+    private final String                              CONSUMER_PUBLICATION_1_NAME = "search_consumer_publication_1";
 
     @Autowired
     private ThreadPoolTaskExecutor                    threadPoolTaskExecutor;
@@ -67,7 +67,7 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
     private Future<?> startConsumerForDatasetTopic(ApplicationContext context) throws MetamacException {
         String topicDatasetsPublication = searchConfigurationService.retrieveKafkaTopicDatasetsPublication();
         KafkaConsumerThread<DatasetVersionAvro> consumerThread = (KafkaConsumerThread) context.getBean("kafkaConsumerThread");
-        KafkaConsumer<String, DatasetVersionAvro> consumerFromBegin = createConsumerFromCurrentOffset(topicDatasetsPublication);
+        KafkaConsumer<String, DatasetVersionAvro> consumerFromBegin = createConsumerFromCurrentOffset(topicDatasetsPublication, CONSUMER_DATASET_1_NAME);
         consumerThread.setConsumer(consumerFromBegin);
         consumerThread.setTopicName(topicDatasetsPublication);
         consumerThread.setMetamacIndexerService(metamacIndexerService);
@@ -78,17 +78,18 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
     private Future<?> startConsumerForPublicationTopic(ApplicationContext context) throws MetamacException {
         String topicCollectionPublication = searchConfigurationService.retrieveKafkaTopicCollectionPublication();
         KafkaConsumerThread<DatasetVersionAvro> consumerThread = (KafkaConsumerThread) context.getBean("kafkaConsumerThread");
-        KafkaConsumer<String, DatasetVersionAvro> consumerFromBegin = createConsumerFromCurrentOffset(topicCollectionPublication);
+        KafkaConsumer<String, DatasetVersionAvro> consumerFromBegin = createConsumerFromCurrentOffset(topicCollectionPublication, CONSUMER_PUBLICATION_1_NAME);
         consumerThread.setConsumer(consumerFromBegin);
         consumerThread.setTopicName(topicCollectionPublication);
         consumerThread.setMetamacIndexerService(metamacIndexerService);
         return threadPoolTaskExecutor.submit(consumerThread);
     }
 
-    private Properties getConsumerProperties() throws MetamacException {
+    private Properties getConsumerProperties(String clientId) throws MetamacException {
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, searchConfigurationService.retrieveKafkaBootStrapServers());
         props.put(ConsumerConfig.GROUP_ID_CONFIG, searchConfigurationService.retrieveKafkaGroup());
+        props.put(ConsumerConfig.CLIENT_ID_CONFIG, clientId);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, io.confluent.kafka.serializers.KafkaAvroDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, io.confluent.kafka.serializers.KafkaAvroDeserializer.class);
 
@@ -104,8 +105,8 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
         return props;
     }
 
-    private KafkaConsumer<String, DatasetVersionAvro> createConsumerFromCurrentOffset(String topic) throws MetamacException {
-        KafkaConsumer<String, DatasetVersionAvro> kafkaConsumer = new KafkaConsumer<>(getConsumerProperties());
+    private KafkaConsumer<String, DatasetVersionAvro> createConsumerFromCurrentOffset(String topic, String clientId) throws MetamacException {
+        KafkaConsumer<String, DatasetVersionAvro> kafkaConsumer = new KafkaConsumer<>(getConsumerProperties(clientId));
         kafkaConsumer.subscribe(Collections.singletonList(topic));
         return kafkaConsumer;
     }
