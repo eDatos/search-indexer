@@ -15,6 +15,7 @@ import es.gobcan.istac.search.core.dto.RecommendedLinkDto;
 import es.gobcan.istac.search.web.client.SearchWeb;
 import es.gobcan.istac.search.web.client.model.RecommendedLinkRecord;
 import es.gobcan.istac.search.web.client.recommendedlink.view.handlers.RecommendedLinkListUiHandlers;
+import es.gobcan.istac.search.web.client.utils.ClientSecurityUtils;
 import es.gobcan.istac.search.web.client.utils.RecordUtils;
 import es.gobcan.istac.search.web.shared.criteria.RecommendedLinkWebCriteria;
 
@@ -86,11 +87,16 @@ public class RecommendedLinkListLayout extends VLayout {
         recommendedLinkListToolStrip.setWidth100();
 
         newRecommendedLinkToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionNewRecommendedLink(), GlobalResources.RESOURCE.newListGrid().getURL());
+        newRecommendedLinkToolStripButton.setVisible(ClientSecurityUtils.canCreateRecommendedLink());
+
         deleteRecommendedLinkToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionDeleteRecommendedLink(), GlobalResources.RESOURCE.deleteListGrid().getURL());
         deleteRecommendedLinkToolStripButton.hide();
 
         exportToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionExport(), GlobalResources.RESOURCE.exportResource().getURL());
+        exportToolStripButton.setVisible(ClientSecurityUtils.canExportRecommendedLinks());
+
         importToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionImport(), GlobalResources.RESOURCE.importResource().getURL());
+        importToolStripButton.setVisible(ClientSecurityUtils.canImportRecommendedLinks());
 
         recommendedLinkListToolStrip.addButton(newRecommendedLinkToolStripButton);
         recommendedLinkListToolStrip.addButton(deleteRecommendedLinkToolStripButton);
@@ -132,8 +138,14 @@ public class RecommendedLinkListLayout extends VLayout {
     }
 
     public void selectRecommendedLink(RecommendedLinkDto recommendedLinkDto) {
-        deleteRecommendedLinkToolStripButton.show();
+        showDeleteRecommendedLinkButton();
         recommendedLinkLayout.editRecommendedLink(recommendedLinkDto);
+    }
+
+    public void showDeleteRecommendedLinkButton() {
+        if (ClientSecurityUtils.canDeleteRecommendedLink()) {
+            deleteRecommendedLinkToolStripButton.show();
+        }
     }
 
     public void deselectRecommendedLink() {

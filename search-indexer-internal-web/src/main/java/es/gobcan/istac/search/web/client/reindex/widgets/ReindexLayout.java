@@ -6,6 +6,7 @@ import com.smartgwt.client.widgets.toolbar.ToolStripButton;
 
 import es.gobcan.istac.search.core.dto.IndexationStatusDto;
 import es.gobcan.istac.search.web.client.SearchWeb;
+import es.gobcan.istac.search.web.client.utils.ClientSecurityUtils;
 
 public class ReindexLayout extends VLayout {
 
@@ -27,12 +28,14 @@ public class ReindexLayout extends VLayout {
         String title = SearchWeb.getConstants().reindexWeb();
         String description = SearchWeb.getConstants().reindexWebDescription();
         reindexWeb = new ReindexFormLayout(title, description);
+        reindexWeb.getReindexStartButton().setVisible(ClientSecurityUtils.canReindexWeb());
     }
 
     private void createReindexGpe() {
         String title = SearchWeb.getConstants().reindexGpe();
         String description = SearchWeb.getConstants().reindexGpeDescription();
         reindexGpe = new ReindexFormLayout(title, description);
+        reindexGpe.getReindexStartButton().setVisible(ClientSecurityUtils.canReindexGpe());
     }
 
     private void createReindexRecommendedLinks() {
@@ -40,6 +43,7 @@ public class ReindexLayout extends VLayout {
         String description = SearchWeb.getConstants().reindexRecommendedLinksDescription();
         reindexRecommendedLinks = new ReindexFormLayout(title, description);
         reindexRecommendedLinks.hideCronExpression();
+        reindexRecommendedLinks.getReindexStartButton().setVisible(ClientSecurityUtils.canReindexRecommendedLinks());
     }
 
     public void setCronWebExpression(String cronWebExpression) {

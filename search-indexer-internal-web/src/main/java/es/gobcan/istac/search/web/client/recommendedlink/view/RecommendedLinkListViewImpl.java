@@ -106,7 +106,7 @@ public class RecommendedLinkListViewImpl extends ViewWithUiHandlers<RecommendedL
                     }
 
                     if (recommendedLinkListGrid.getSelectedRecords().length > 0) {
-                        recommendedLinkListLayout.getDeleteRecommendedLinkToolStripButton().show();
+                        recommendedLinkListLayout.showDeleteRecommendedLinkButton();
                     }
                 }
             }

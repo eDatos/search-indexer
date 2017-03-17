@@ -128,8 +128,8 @@ public class RecommendedKeywordListViewImpl extends ViewWithUiHandlers<Recommend
                     }
 
                     if (recommendedKeywordListGrid.getSelectedRecords().length > 0) {
-                        recommendedKeywordListLayout.getDeleteRecommendedKeywordToolStripButton().show();
-                        recommendedKeywordListLayout.getChangeCategoryRecommendedKeywordToolStripButton().show();
+                        recommendedKeywordListLayout.showDeleteRecommendedKeywordButton();
+                        recommendedKeywordListLayout.showChangeCategoryRecommendedKeywordButton();
                     }
                 }
             }

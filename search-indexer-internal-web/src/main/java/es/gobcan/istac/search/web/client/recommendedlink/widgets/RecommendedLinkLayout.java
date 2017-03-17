@@ -37,6 +37,7 @@ import es.gobcan.istac.search.core.dto.RecommendedLinkGroupedKeywordsDto;
 import es.gobcan.istac.search.web.client.model.RecommendedLinkRecord;
 import es.gobcan.istac.search.web.client.model.ds.RecommendedLinkDS;
 import es.gobcan.istac.search.web.client.recommendedlink.view.handlers.RecommendedLinkListUiHandlers;
+import es.gobcan.istac.search.web.client.utils.ClientSecurityUtils;
 import es.gobcan.istac.search.web.client.utils.CommonUtils;
 import es.gobcan.istac.search.web.client.utils.RecordUtils;
 import es.gobcan.istac.search.web.shared.criteria.RecommendedKeywordWebCriteria;
@@ -75,6 +76,7 @@ public class RecommendedLinkLayout extends VLayout {
 
     private void createRecommendedLinkMainFormLayout() {
         recommendedLinkMainFormLayout = new MainFormLayout();
+        recommendedLinkMainFormLayout.setCanEdit(ClientSecurityUtils.canUpdateRecommendedLink());
         createViewRecommendedLinkForm();
         createCreationRecommendedLinkForm();
         createEditionRecommendedLinkForm();

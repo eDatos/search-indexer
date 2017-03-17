@@ -16,6 +16,7 @@ import es.gobcan.istac.search.web.client.SearchWeb;
 import es.gobcan.istac.search.web.client.model.RecommendedKeywordRecord;
 import es.gobcan.istac.search.web.client.recommendedkeyword.view.handlers.RecommendedKeywordListUiHandlers;
 import es.gobcan.istac.search.web.client.recommendedlink.widgets.RecommendedKeywordListSearchSectionStack;
+import es.gobcan.istac.search.web.client.utils.ClientSecurityUtils;
 import es.gobcan.istac.search.web.client.utils.RecordUtils;
 import es.gobcan.istac.search.web.shared.criteria.RecommendedKeywordWebCriteria;
 
@@ -77,8 +78,11 @@ public class RecommendedKeywordListLayout extends VLayout {
         recommendedKeywordListToolStrip.setWidth100();
 
         newRecommendedKeywordToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionNewKeyword(), GlobalResources.RESOURCE.newListGrid().getURL());
+        newRecommendedKeywordToolStripButton.setVisible(ClientSecurityUtils.canCreateRecommendedKeyword());
+
         changeCategoryRecommendedKeywordToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionChangeCategoryKeyword(), GlobalResources.RESOURCE.editListGrid().getURL());
         changeCategoryRecommendedKeywordToolStripButton.hide();
+
         deleteRecommendedKeywordToolStripButton = new ToolStripButton(SearchWeb.getConstants().actionDeleteKeyword(), GlobalResources.RESOURCE.deleteListGrid().getURL());
         deleteRecommendedKeywordToolStripButton.hide();
 
@@ -139,8 +143,20 @@ public class RecommendedKeywordListLayout extends VLayout {
     }
 
     public void selectRecommendedKeyword(RecommendedKeywordDto RecommendedKeywordDto) {
-        changeCategoryRecommendedKeywordToolStripButton.show();
-        deleteRecommendedKeywordToolStripButton.show();
+        showChangeCategoryRecommendedKeywordButton();
+        showDeleteRecommendedKeywordButton();
+    }
+
+    public void showChangeCategoryRecommendedKeywordButton() {
+        if (ClientSecurityUtils.canUpdateRecommendedKeyword()) {
+            changeCategoryRecommendedKeywordToolStripButton.show();
+        }
+    }
+
+    public void showDeleteRecommendedKeywordButton() {
+        if (ClientSecurityUtils.canDeleteRecommendedKeyword()) {
+            deleteRecommendedKeywordToolStripButton.show();
+        }
     }
 
     public void deselectRecommendedKeyword() {

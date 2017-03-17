@@ -2,6 +2,7 @@ package es.gobcan.istac.search.security.shared;
 
 import static es.gobcan.istac.search.core.enume.domain.RoleEnum.ADMINISTRADOR;
 import static es.gobcan.istac.search.core.enume.domain.RoleEnum.ANY_ROLE_ALLOWED;
+import static es.gobcan.istac.search.core.enume.domain.RoleEnum.LECTOR;
 
 import org.siemac.metamac.sso.client.MetamacPrincipal;
 import org.siemac.metamac.sso.client.MetamacPrincipalAccess;
@@ -64,6 +65,10 @@ public class SharedSecurityUtils {
         return isRoleInAccesses(metamacPrincipal, ADMINISTRADOR);
     }
 
+    protected static boolean isLector(MetamacPrincipal metamacPrincipal) {
+        return isRoleInAccesses(metamacPrincipal, LECTOR);
+    }
+
     /**
      * Checks if user has access with role
      */
@@ -77,7 +82,7 @@ public class SharedSecurityUtils {
     }
 
     protected static boolean isAnySearchRole(MetamacPrincipal metamacPrincipal) {
-        return isAdministrador(metamacPrincipal);
+        return isAdministrador(metamacPrincipal) || isLector(metamacPrincipal);
     }
 
     // -----------------------------------------------------------------------
@@ -139,14 +144,14 @@ public class SharedSecurityUtils {
     // Reindex
 
     public static boolean canReindexWeb(MetamacPrincipal metamacPrincipal) {
-        return isAnySearchRole(metamacPrincipal);
+        return isAdministrador(metamacPrincipal);
     }
 
     public static boolean canReindexGpe(MetamacPrincipal metamacPrincipal) {
-        return isAnySearchRole(metamacPrincipal);
+        return isAdministrador(metamacPrincipal);
     }
 
     public static boolean canReindexRecommendedLinks(MetamacPrincipal metamacPrincipal) {
-        return isAnySearchRole(metamacPrincipal);
+        return isAdministrador(metamacPrincipal);
     }
 }
