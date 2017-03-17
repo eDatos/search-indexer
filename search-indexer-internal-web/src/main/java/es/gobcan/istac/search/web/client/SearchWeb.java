@@ -14,7 +14,7 @@ import es.gobcan.istac.search.web.client.gin.SearchWebGinjector;
  */
 public class SearchWeb extends MetamacSecurityEntryPoint {
 
-    private static final boolean SECURITY_ENABLED = false;
+    private static final boolean SECURITY_ENABLED = true;
 
     private static MetamacPrincipal principal;
     private static SearchWebMessages messages;
