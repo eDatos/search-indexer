@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.OffsetResetStrategy;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.siemac.metamac.core.common.exception.MetamacException;
 import org.siemac.metamac.core.common.util.ApplicationContextProvider;
 import org.siemac.metamac.statistical.resources.core.stream.messages.DatasetVersionAvro;
@@ -90,7 +91,7 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, searchConfigurationService.retrieveKafkaBootStrapServers());
         props.put(ConsumerConfig.GROUP_ID_CONFIG, searchConfigurationService.retrieveKafkaGroup());
         props.put(ConsumerConfig.CLIENT_ID_CONFIG, clientId);
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, io.confluent.kafka.serializers.KafkaAvroDeserializer.class);
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, io.confluent.kafka.serializers.KafkaAvroDeserializer.class);
 
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false); // Default is True
@@ -119,7 +120,7 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
 
                 for (Map.Entry<String, Future<?>> entry : futuresMap.entrySet()) {
                     if (entry.getValue().isDone()) {
-                        LOGGER.info("El consumidor " + entry.getKey() + " se ha desconectado. Planificando otro consumidor para el mismo Topic...");
+                        LOGGER.info("The consumer " + entry.getKey() + " was disconected. Planning another consumer for the same topic...");
                         try {
                             switch (entry.getKey()) {
                                 case CONSUMER_DATASET_1_NAME:
@@ -133,7 +134,7 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
                             }
                         } catch (Exception e) {
                             long retyrMS = 6000;
-                            LOGGER.error("Imposible replanificar consumidores de Kafka. Volviendolo a intentar en " + retyrMS + "ms", e);
+                            LOGGER.error("Impossible to replan Kafka consumers. Trying again at " + retyrMS + "ms", e);
                             alwaysWithDelay(60000);
                         }
                     }
