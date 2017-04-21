@@ -37,12 +37,16 @@ import es.gobcan.istac.search.web.shared.GetIndexationStatusGpeAction;
 import es.gobcan.istac.search.web.shared.GetIndexationStatusGpeResult;
 import es.gobcan.istac.search.web.shared.GetIndexationStatusRecommendedLinksAction;
 import es.gobcan.istac.search.web.shared.GetIndexationStatusRecommendedLinksResult;
+import es.gobcan.istac.search.web.shared.GetIndexationStatusStatisticalResourcesAction;
+import es.gobcan.istac.search.web.shared.GetIndexationStatusStatisticalResourcesResult;
 import es.gobcan.istac.search.web.shared.GetIndexationStatusWebAction;
 import es.gobcan.istac.search.web.shared.GetIndexationStatusWebResult;
 import es.gobcan.istac.search.web.shared.ReindexGpeAction;
 import es.gobcan.istac.search.web.shared.ReindexGpeResult;
 import es.gobcan.istac.search.web.shared.ReindexRecommendedLinksAction;
 import es.gobcan.istac.search.web.shared.ReindexRecommendedLinksResult;
+import es.gobcan.istac.search.web.shared.ReindexStatisticalResourcesAction;
+import es.gobcan.istac.search.web.shared.ReindexStatisticalResourcesResult;
 import es.gobcan.istac.search.web.shared.ReindexWebAction;
 import es.gobcan.istac.search.web.shared.ReindexWebResult;
 
@@ -71,14 +75,17 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
         void setIndexationWebStatus(IndexationStatusDto indexationStatus);
         void setIndexationGpeStatus(IndexationStatusDto indexationStatus);
         void setIndexationRecommendedLinksStatus(IndexationStatusDto indexationStatus);
+        void setIndexationStatisticalResourcesStatus(IndexationStatusDto indexationStatus);
 
         void disableReindexWebStartButton();
         void disableReindexGpeStartButton();
         void disableReindexRecommendedLinksStartButton();
+        void disableReindexStatisticalResourcesStartButton();
 
         void updateReindexGpeButtonStartDisability(IndexationStatusDto indexationStatus);
         void updateReindexRecommendedLinksButtonStartDisability(IndexationStatusDto indexationStatus);
         void updateReindexWebButtonStartDisability(IndexationStatusDto indexationStatus);
+        void updateReindexStatisticalResourcesButtonStartDisability(IndexationStatusDto indexationStatus);
     }
 
     @Inject
@@ -105,6 +112,7 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
         updateIndexationWebStatus();
         updateIndexationGpeStatus();
         updateIndexationRecommendedLinksStatus();
+        updateIndexationStatisticalResourcesStatus();
     }
 
     private void updateIndexationWebStatus() {
@@ -150,6 +158,22 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
             public void onFailure(Throwable caught) {
                 ShowMessageEvent.fireErrorMessage(ReindexPresenter.this, caught);
                 getView().updateReindexRecommendedLinksButtonStartDisability(null);
+            }
+        });
+    }
+
+    private void updateIndexationStatisticalResourcesStatus() {
+        dispatcher.execute(new GetIndexationStatusStatisticalResourcesAction(), new AsyncCallback<GetIndexationStatusStatisticalResourcesResult>() {
+
+            @Override
+            public void onSuccess(GetIndexationStatusStatisticalResourcesResult result) {
+                getView().setIndexationStatisticalResourcesStatus(result.getIndexationStatus());
+            }
+
+            @Override
+            public void onFailure(Throwable caught) {
+                ShowMessageEvent.fireErrorMessage(ReindexPresenter.this, caught);
+                getView().updateReindexStatisticalResourcesButtonStartDisability(null);
             }
         });
     }
@@ -233,6 +257,20 @@ public class ReindexPresenter extends Presenter<ReindexPresenter.ReindexView, Re
             @Override
             public void onWaitSuccess(ReindexRecommendedLinksResult result) {
                 updateIndexationRecommendedLinksStatus();
+            }
+
+        });
+    }
+
+    @Override
+    public void reindexStatisticalResources() {
+        getView().disableReindexStatisticalResourcesStartButton();
+
+        dispatcher.execute(new ReindexStatisticalResourcesAction(), new WaitingAsyncCallbackHandlingError<ReindexStatisticalResourcesResult>(this) {
+
+            @Override
+            public void onWaitSuccess(ReindexStatisticalResourcesResult result) {
+                updateIndexationStatisticalResourcesStatus();
             }
 
         });

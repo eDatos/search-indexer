@@ -154,4 +154,9 @@ public class SharedSecurityUtils {
     public static boolean canReindexRecommendedLinks(MetamacPrincipal metamacPrincipal) {
         return isAdministrador(metamacPrincipal);
     }
+
+    public static boolean canReindexStatisticalResources(MetamacPrincipal metamacPrincipal) {
+        return isAdministrador(metamacPrincipal);
+    }
+
 }

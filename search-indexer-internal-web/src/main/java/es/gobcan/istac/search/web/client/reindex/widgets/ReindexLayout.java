@@ -13,15 +13,18 @@ public class ReindexLayout extends VLayout {
     private ReindexFormLayout reindexWeb;
     private ReindexFormLayout reindexGpe;
     private ReindexFormLayout reindexRecommendedLinks;
+    private ReindexFormLayout reindexStatisticalResources;
 
     public ReindexLayout() {
         createReindexWeb();
         createReindexGpe();
         createReindexRecommendedLinks();
+        createStatisticalResources();
 
         addMember(reindexWeb);
         addMember(reindexGpe);
         addMember(reindexRecommendedLinks);
+        addMember(reindexStatisticalResources);
     }
 
     private void createReindexWeb() {
@@ -44,6 +47,14 @@ public class ReindexLayout extends VLayout {
         reindexRecommendedLinks = new ReindexFormLayout(title, description);
         reindexRecommendedLinks.hideCronExpression();
         reindexRecommendedLinks.getReindexStartButton().setVisible(ClientSecurityUtils.canReindexRecommendedLinks());
+    }
+
+    private void createStatisticalResources() {
+        String title = SearchWeb.getConstants().reindexStatisticalResources();
+        String description = SearchWeb.getConstants().reindexStatisticalResourcesDescription();
+        reindexStatisticalResources = new ReindexFormLayout(title, description);
+        reindexStatisticalResources.hideCronExpression();
+        reindexStatisticalResources.getReindexStartButton().setVisible(ClientSecurityUtils.canReindexStatisticalResources());
     }
 
     public void setCronWebExpression(String cronWebExpression) {
@@ -70,6 +81,10 @@ public class ReindexLayout extends VLayout {
         return reindexRecommendedLinks.getReindexStartButton();
     }
 
+    public Canvas getReindexStatisticalResourcesStartButton() {
+        return reindexStatisticalResources.getReindexStartButton();
+    }
+
     public void setIndexationWebStatus(IndexationStatusDto indexationStatus) {
         reindexWeb.setIndexationStatus(indexationStatus);
     }
@@ -82,6 +97,10 @@ public class ReindexLayout extends VLayout {
         reindexRecommendedLinks.setIndexationStatus(indexationStatus);
     }
 
+    public void setIndexationStatisticalResourcesStatus(IndexationStatusDto indexationStatus) {
+        reindexStatisticalResources.setIndexationStatus(indexationStatus);
+    }
+
     public String getIndexationWebStatus() {
         return reindexWeb.getStatusKey();
     }
@@ -92,6 +111,10 @@ public class ReindexLayout extends VLayout {
 
     public String getIndexationRecommendedLinksStatus() {
         return reindexRecommendedLinks.getStatusKey();
+    }
+
+    public String getIndexationStatisticalResourcesStatus() {
+        return reindexStatisticalResources.getStatusKey();
     }
 
 }

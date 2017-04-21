@@ -24,20 +24,21 @@ import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion
 @Scope("prototype")
 public class KafkaConsumerThread<T extends SpecificRecordBase> implements Runnable {
 
-    protected static Log                              LOGGER       = LogFactory.getLog(KafkaConsumerThread.class);
+    protected static Log                              LOGGER                       = LogFactory.getLog(KafkaConsumerThread.class);
 
-    private static final String                       MAX_POOL_MSG = "We have set a poll of 1 message at most. This error can not be given.";
+    private static final String                       MAX_POOL_MSG                 = "We have set a poll of 1 message at most. This error can not be given.";
 
     private KafkaConsumer<String, T>                  consumer;
-    private String                                    topicName;
+    private KafkaConsumerContextInfo                  consumerInfo;
     private MetamacIndexerService<SpecificRecordBase> metamacIndexerService;
+    private int                                       numberOfPollCallsWithoutData = 0;
 
     public void setConsumer(KafkaConsumer<String, T> consumer) {
         this.consumer = consumer;
     }
 
-    public void setTopicName(String topicName) {
-        this.topicName = topicName;
+    public void setConsumerInfo(KafkaConsumerContextInfo consumerInfo) {
+        this.consumerInfo = consumerInfo;
     }
 
     public void setMetamacIndexerService(MetamacIndexerService<SpecificRecordBase> metamacIndexerService) {
@@ -46,14 +47,14 @@ public class KafkaConsumerThread<T extends SpecificRecordBase> implements Runnab
 
     @Override
     public void run() {
-        LOGGER.debug("Reading KAFKA topic: " + topicName);
+        LOGGER.info("Consumer for KAFKA in Topic: " + consumerInfo.getTopicName() + " ClientId: " + consumerInfo.getClientId() + " GroupId: " + consumerInfo.getGroupId());
 
         try {
 
             Map<Integer, Long> pendigOffsetsToCommit = new HashMap<Integer, Long>(); // K:partition, V:offset
 
-            // Milliseconds, spent waiting in poll if data is not available in the buffer
             while (alwaysWithDelay()) {
+                // Milliseconds, spent waiting in poll if data is not available in the buffer
                 ConsumerRecords<String, T> records = consumer.poll(100);
 
                 if (records.count() > 1) {
@@ -62,14 +63,18 @@ public class KafkaConsumerThread<T extends SpecificRecordBase> implements Runnab
                 }
 
                 if (records.isEmpty()) {
-                    continue;
+                    if (checkIfFinishConsumer()) {
+                        break;
+                    } else {
+                        continue;
+                    }
                 }
 
                 // Process resources
                 ConsumerRecord<String, T> record = records.iterator().next();
 
                 if (pendigOffsetsToCommit.containsKey(record.partition()) && record.offset() == pendigOffsetsToCommit.get(record.partition())) {
-                    LOGGER.info("The current message already processed successfully");
+                    LOGGER.debug("The current message already processed successfully");
                     if (commitSync(record)) {
                         pendigOffsetsToCommit.remove(record.partition());
                     }
@@ -79,7 +84,9 @@ public class KafkaConsumerThread<T extends SpecificRecordBase> implements Runnab
                 StringBuilder logMessage = new StringBuilder("Received message from Kafka -> Topic Name: ");
                 // @formatter:off
                 logMessage
-                    .append(topicName)
+                    .append(consumerInfo.getTopicName())
+                    .append(" ClientId: ").append(consumerInfo.getClientId())
+                    .append(" GroupId: ").append(consumerInfo.getGroupId())
                     .append(" Partition: ").append(record.partition())
                     .append(" Offset: ").append(record.offset())
                     .append(" Timestamp: ").append(record.timestamp())
@@ -96,15 +103,16 @@ public class KafkaConsumerThread<T extends SpecificRecordBase> implements Runnab
                     metamacIndexerService.index(record.value());
                     consumer.commitSync();
                 } catch (ServiceExcepcion e) {
-                    LOGGER.error("Unable to process resource received from KAFKA. The business of application has failed", e);
-                    LOGGER.error("Process the next resource and discard the current message, key-message: " + record.key());
+                    LOGGER.error("Unable to process resource received from Kafka. The business of application has failed", e);
+                    LOGGER.error("Process the next resource and discard the current message, key of message: " + record.key());
                 }
             }
 
         } catch (Exception e) {
             LOGGER.error("An error has occurred in the Kafka client. Finishing the client.", e);
-            LOGGER.error(e);
+            consumerInfo.setFinishedOnError(true);
         } finally {
+            LOGGER.info("Closing the consumer: Topic: " + consumerInfo.getTopicName() + " ClientId: " + consumerInfo.getClientId() + " GroupId: " + consumerInfo.getGroupId());
             consumer.close();
         }
     }
@@ -129,4 +137,18 @@ public class KafkaConsumerThread<T extends SpecificRecordBase> implements Runnab
         return true;
     }
 
+    private boolean checkIfFinishConsumer() {
+        boolean exit = false;
+
+        // Leave only if you are a consumer without waiting.
+        // The first poll if always empty. We waited ten times for empty poll before ending
+        if (consumerInfo.isExitOnFinish()) {
+            if (numberOfPollCallsWithoutData >= 10) {
+                exit = true;
+            } else {
+                numberOfPollCallsWithoutData++;
+            }
+        }
+        return exit;
+    }
 }

@@ -7,7 +7,8 @@ import es.gobcan.istac.search.core.constants.SearchConfigurationConstants;
 
 public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl implements SearchConfigurationService {
 
-    final String SEARCH_CONSUMER_GROUP = "SEARCH_CONSUMER_GROUP";
+    final String SEARCH_CONSUMER_GROUP         = "SEARCH_CONSUMER_GROUP";
+    final String SEARCH_RECOVER_CONSUMER_GROUP = "SEARCH_RECOVER_CONSUMER_GROUP";
 
     @Override
     public String retrieveHelpUrl() throws MetamacException {
@@ -72,6 +73,11 @@ public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl imp
     @Override
     public String retrieveKafkaGroup() throws MetamacException {
         return SEARCH_CONSUMER_GROUP; // Hard coded for evit manual edition
+    }
+
+    @Override
+    public String retrieveKafkaRecoverGroup() throws MetamacException {
+        return SEARCH_RECOVER_CONSUMER_GROUP; // Hard coded for evit manual edition
     }
 
 }

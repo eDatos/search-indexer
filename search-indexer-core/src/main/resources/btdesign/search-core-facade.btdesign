@@ -18,6 +18,7 @@ Application SearchFacade {
 			reindexWeb() throws IdxmanagerServiceException, MetamacException;
    			reindexGpe() throws IdxmanagerServiceException, MetamacException;
     		reindexRecommendedLinks() throws IdxmanagerServiceException, MetamacException;
+    		reindexMetamacStatisticalResources() throws IdxmanagerServiceException, MetamacException;
 			
             @RecommendedLinkDto retrieveRecommendedLinkById(Long id) throws MetamacException;
             @RecommendedLinkDto createRecommendedLink(@RecommendedLinkDto recommendedLinkDto) throws MetamacException;

@@ -20,6 +20,7 @@ import es.gobcan.istac.search.core.dto.RecommendedLinkGroupedKeywordsDto;
 import es.gobcan.istac.search.core.idxmanager.service.excepcion.ServiceExcepcion;
 import es.gobcan.istac.search.core.idxmanager.service.nucleoistac.NucleoIstacIndexerService;
 import es.gobcan.istac.search.core.idxmanager.service.recomendados.RecomendadosIndexerService;
+import es.gobcan.istac.search.core.idxmanager.service.stream.KafkaConsumerLauncher;
 import es.gobcan.istac.search.core.idxmanager.service.web.WebIndexerService;
 import es.gobcan.istac.search.core.mapper.Do2DtoMapper;
 import es.gobcan.istac.search.core.mapper.Dto2DoMapper;
@@ -53,6 +54,9 @@ public class SearchServiceFacadeImpl extends SearchServiceFacadeImplBase {
 
     @Autowired
     private WebIndexerService                      webIndexerService;
+
+    @Autowired
+    private KafkaConsumerLauncher                  kafkaConsumerLauncher;
 
     public SearchServiceFacadeImpl() {
     }
@@ -89,6 +93,16 @@ public class SearchServiceFacadeImpl extends SearchServiceFacadeImplBase {
 
         // Create
         recomendadosIndexerService.reindexRecommendedKeywords(ctx);
+    }
+
+    @Override
+    public void reindexMetamacStatisticalResources(ServiceContext ctx) throws ServiceExcepcion, MetamacException {
+
+        // Security
+        SearchSecurityUtils.canReindexStatisticalResources(ctx);
+
+        // Execute
+        kafkaConsumerLauncher.executeRecoverClient();
     }
 
     //

@@ -21,9 +21,11 @@ import es.gobcan.istac.search.web.server.handlers.GetCronWebExpressionActionHand
 import es.gobcan.istac.search.web.server.handlers.GetHelpUrlActionHandler;
 import es.gobcan.istac.search.web.server.handlers.GetIndexationStatusGpeActionHandler;
 import es.gobcan.istac.search.web.server.handlers.GetIndexationStatusRecommendedLinksActionHandler;
+import es.gobcan.istac.search.web.server.handlers.GetIndexationStatusStatisticalResourcesActionHandler;
 import es.gobcan.istac.search.web.server.handlers.GetIndexationStatusWebActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ReindexGpeActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ReindexRecommendedLinksActionHandler;
+import es.gobcan.istac.search.web.server.handlers.ReindexStatisticalResourcesActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ReindexWebActionHandler;
 import es.gobcan.istac.search.web.server.handlers.ValidateTicketActionHandler;
 import es.gobcan.istac.search.web.server.handlers.external.GetExternalResourcesActionHandler;
@@ -43,9 +45,11 @@ import es.gobcan.istac.search.web.shared.GetCronWebExpressionAction;
 import es.gobcan.istac.search.web.shared.GetHelpUrlAction;
 import es.gobcan.istac.search.web.shared.GetIndexationStatusGpeAction;
 import es.gobcan.istac.search.web.shared.GetIndexationStatusRecommendedLinksAction;
+import es.gobcan.istac.search.web.shared.GetIndexationStatusStatisticalResourcesAction;
 import es.gobcan.istac.search.web.shared.GetIndexationStatusWebAction;
 import es.gobcan.istac.search.web.shared.ReindexGpeAction;
 import es.gobcan.istac.search.web.shared.ReindexRecommendedLinksAction;
+import es.gobcan.istac.search.web.shared.ReindexStatisticalResourcesAction;
 import es.gobcan.istac.search.web.shared.ReindexWebAction;
 import es.gobcan.istac.search.web.shared.external.GetExternalResourcesAction;
 import es.gobcan.istac.search.web.shared.recommendedlink.CreateRecommendedLinksAction;
@@ -83,10 +87,12 @@ public class ServerModule extends HandlerModule {
         bindHandler(ReindexWebAction.class, ReindexWebActionHandler.class);
         bindHandler(ReindexGpeAction.class, ReindexGpeActionHandler.class);
         bindHandler(ReindexRecommendedLinksAction.class, ReindexRecommendedLinksActionHandler.class);
+        bindHandler(ReindexStatisticalResourcesAction.class, ReindexStatisticalResourcesActionHandler.class);
 
         bindHandler(GetIndexationStatusWebAction.class, GetIndexationStatusWebActionHandler.class);
         bindHandler(GetIndexationStatusGpeAction.class, GetIndexationStatusGpeActionHandler.class);
         bindHandler(GetIndexationStatusRecommendedLinksAction.class, GetIndexationStatusRecommendedLinksActionHandler.class);
+        bindHandler(GetIndexationStatusStatisticalResourcesAction.class, GetIndexationStatusStatisticalResourcesActionHandler.class);
 
         bindHandler(GetRecommendedLinkListAction.class, GetRecommendedLinkListActionHandler.class);
         bindHandler(SaveRecommendedLinkAction.class, SaveRecommendedLinkActionHandler.class);

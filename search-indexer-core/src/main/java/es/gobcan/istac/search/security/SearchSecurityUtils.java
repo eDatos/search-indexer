@@ -103,4 +103,10 @@ public class SearchSecurityUtils extends SecurityUtils {
             throwExceptionIfOperationNotAllowed(ctx);
         }
     }
+
+    public static void canReindexStatisticalResources(ServiceContext ctx) throws MetamacException {
+        if (!SharedSecurityUtils.canReindexStatisticalResources(getMetamacPrincipal(ctx))) {
+            throwExceptionIfOperationNotAllowed(ctx);
+        }
+    }
 }

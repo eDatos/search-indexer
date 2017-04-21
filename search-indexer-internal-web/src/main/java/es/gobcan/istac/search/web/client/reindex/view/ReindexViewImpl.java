@@ -49,6 +49,14 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
                 getUiHandlers().reindexRecommendedLinks();
             }
         });
+
+        reindexLayout.getReindexStatisticalResourcesStartButton().addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                getUiHandlers().reindexStatisticalResources();
+            }
+        });
     }
 
     @Override
@@ -93,6 +101,13 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
     }
 
     @Override
+    public void setIndexationStatisticalResourcesStatus(IndexationStatusDto indexationStatus) {
+        updateReindexStatisticalResourcesButtonStartDisability(indexationStatus);
+        getUiHandlers().showMessageIfStatusChangedToFinished(indexationStatus, reindexLayout.getIndexationStatisticalResourcesStatus(), getMessages().messageReindexStatisticaLResourcesSuccess());
+        reindexLayout.setIndexationStatisticalResourcesStatus(indexationStatus);
+    }
+
+    @Override
     public void disableReindexWebStartButton() {
         reindexLayout.getReindexWebStartButton().disable();
     }
@@ -105,6 +120,11 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
     @Override
     public void disableReindexRecommendedLinksStartButton() {
         reindexLayout.getReindexRecommendedLinksStartButton().disable();
+    }
+
+    @Override
+    public void disableReindexStatisticalResourcesStartButton() {
+        reindexLayout.getReindexStatisticalResourcesStartButton().disable();
     }
 
     @Override
@@ -132,6 +152,16 @@ public class ReindexViewImpl extends ViewWithUiHandlers<ReindexUiHandlers> imple
         } else {
             disableReindexRecommendedLinksStartButton();
         }
+    }
+
+    @Override
+    public void updateReindexStatisticalResourcesButtonStartDisability(IndexationStatusDto indexationStatus) {
+        if (indexationStatus == null || !indexationStatus.isIndexing()) {
+            reindexLayout.getReindexStatisticalResourcesStartButton().enable();
+        } else {
+            disableReindexStatisticalResourcesStartButton();
+        }
+
     }
 
 }

@@ -21,6 +21,10 @@ public class ClientSecurityUtils {
         return SharedSecurityUtils.canReindexRecommendedLinks(getMetamacPrincipal());
     }
 
+    public static boolean canReindexStatisticalResources() {
+        return SharedSecurityUtils.canReindexStatisticalResources(getMetamacPrincipal());
+    }
+
     private static MetamacPrincipal getMetamacPrincipal() {
         return SearchWeb.getCurrentUser();
     }
