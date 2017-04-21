@@ -7,8 +7,10 @@ import es.gobcan.istac.search.core.constants.SearchConfigurationConstants;
 
 public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl implements SearchConfigurationService {
 
-    final String SEARCH_CONSUMER_GROUP         = "SEARCH_CONSUMER_GROUP";
-    final String SEARCH_RECOVER_CONSUMER_GROUP = "SEARCH_RECOVER_CONSUMER_GROUP";
+    final String SEARCH_DATASET_GROUP             = "SEARCH_DATASET_GROUP";
+    final String SEARCH_DATASET_RECOVER_GROUP     = "SEARCH_DATASET_RECOVER_GROUP";
+    final String SEARCH_PUBLICATION_GROUP         = "SEARCH_PUBLICATION_GROUP";
+    final String SEARCH_PUBLICATION_RECOVER_GROUP = "SEARCH_PUBLICATION_RECOVER_GROUP";
 
     @Override
     public String retrieveHelpUrl() throws MetamacException {
@@ -71,13 +73,23 @@ public class SearchConfigurationServiceImpl extends ConfigurationServiceImpl imp
     }
 
     @Override
-    public String retrieveKafkaGroup() throws MetamacException {
-        return SEARCH_CONSUMER_GROUP; // Hard coded for evit manual edition
+    public String retrieveKafkaDatasetGroup() throws MetamacException {
+        return SEARCH_DATASET_GROUP; // Hard coded for evit manual edition
     }
 
     @Override
-    public String retrieveKafkaRecoverGroup() throws MetamacException {
-        return SEARCH_RECOVER_CONSUMER_GROUP; // Hard coded for evit manual edition
+    public String retrieveKafkaDatasetRecoverGroup() throws MetamacException {
+        return SEARCH_DATASET_RECOVER_GROUP; // Hard coded for evit manual edition
+    }
+
+    @Override
+    public String retrieveKafkaPublicationGroup() throws MetamacException {
+        return SEARCH_PUBLICATION_GROUP; // Hard coded for evit manual edition
+    }
+
+    @Override
+    public String retrieveKafkaPublicationRecoverGroup() throws MetamacException {
+        return SEARCH_PUBLICATION_RECOVER_GROUP; // Hard coded for evit manual edition
     }
 
 }

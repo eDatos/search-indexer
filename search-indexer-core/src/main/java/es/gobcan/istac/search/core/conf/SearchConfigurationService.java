@@ -20,8 +20,10 @@ public interface SearchConfigurationService extends ConfigurationService {
     String retrieveIndexationWebUrl() throws MetamacException;
     String retrieveIndexationGpeCron() throws MetamacException;
 
-    String retrieveKafkaGroup() throws MetamacException;
-    String retrieveKafkaRecoverGroup() throws MetamacException;
+    String retrieveKafkaDatasetGroup() throws MetamacException;
+    String retrieveKafkaDatasetRecoverGroup() throws MetamacException;
+    String retrieveKafkaPublicationGroup() throws MetamacException;
+    String retrieveKafkaPublicationRecoverGroup() throws MetamacException;
 
     String retrieveDefaultCategorySchemeUrn() throws MetamacException;
 }

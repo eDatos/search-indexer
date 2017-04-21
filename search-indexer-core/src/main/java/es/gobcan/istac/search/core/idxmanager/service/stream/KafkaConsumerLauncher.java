@@ -1,5 +1,6 @@
 package es.gobcan.istac.search.core.idxmanager.service.stream;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -67,10 +68,12 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
         ApplicationContext ac = event.getApplicationContext();
         if (ac.getParent() == null) {
             try {
+                KafkaInitializeTopics.propagateCreationOfTopics(searchConfigurationService);
+
                 futuresMap.put(CONSUMER_DATASET_1_NAME, startConsumerForDatasetTopic(ac));
                 futuresMap.put(CONSUMER_PUBLICATION_1_NAME, startConsumerForPublicationTopic(ac));
                 startKeepAliveKafkaThread(ac);
-            } catch (MetamacException e) {
+            } catch (MetamacException | IllegalArgumentException | IOException e) {
                 LOGGER.error(e);
             }
         }
@@ -114,7 +117,7 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
     @SuppressWarnings({"unchecked", "rawtypes"})
     private Future<?> startConsumerForDatasetTopic(ApplicationContext context) throws MetamacException {
         KafkaConsumerContextInfo consumerInfo = new KafkaConsumerContextInfo(searchConfigurationService.retrieveKafkaTopicDatasetsPublication(), CONSUMER_DATASET_1_NAME,
-                searchConfigurationService.retrieveKafkaGroup());
+                searchConfigurationService.retrieveKafkaDatasetGroup());
 
         KafkaConsumerThread<DatasetVersionAvro> consumerThread = (KafkaConsumerThread) context.getBean("kafkaConsumerThread");
         KafkaConsumer<String, DatasetVersionAvro> consumerFromBegin = createConsumerFromCurrentOffset(consumerInfo);
@@ -128,7 +131,7 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
     @SuppressWarnings({"unchecked", "rawtypes"})
     private Future<?> startRecoverConsumerForDatasetTopic(ApplicationContext context) throws MetamacException {
         recoverDatasetContextInfo = new KafkaConsumerContextInfo(searchConfigurationService.retrieveKafkaTopicDatasetsPublication(), CONSUMER_RECOVER_DATASET_1_NAME,
-                searchConfigurationService.retrieveKafkaRecoverGroup());
+                searchConfigurationService.retrieveKafkaDatasetRecoverGroup());
         recoverDatasetContextInfo.setExitOnFinish(true);
 
         KafkaConsumerThread<DatasetVersionAvro> consumerThread = (KafkaConsumerThread) context.getBean("kafkaConsumerThread");
@@ -143,7 +146,7 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
     @SuppressWarnings({"unchecked", "rawtypes"})
     private Future<?> startConsumerForPublicationTopic(ApplicationContext context) throws MetamacException {
         KafkaConsumerContextInfo consumerInfo = new KafkaConsumerContextInfo(searchConfigurationService.retrieveKafkaTopicCollectionPublication(), CONSUMER_PUBLICATION_1_NAME,
-                searchConfigurationService.retrieveKafkaGroup());
+                searchConfigurationService.retrieveKafkaPublicationGroup());
 
         KafkaConsumerThread<DatasetVersionAvro> consumerThread = (KafkaConsumerThread) context.getBean("kafkaConsumerThread");
         KafkaConsumer<String, DatasetVersionAvro> consumerFromBegin = createConsumerFromCurrentOffset(consumerInfo);
@@ -157,7 +160,7 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
     @SuppressWarnings({"unchecked", "rawtypes"})
     private Future<?> startRecoverConsumerForPublicationTopic(ApplicationContext context) throws MetamacException {
         recoverPublicationContextInfo = new KafkaConsumerContextInfo(searchConfigurationService.retrieveKafkaTopicCollectionPublication(), CONSUMER_RECOVER_PUBLICATION_1_NAME,
-                searchConfigurationService.retrieveKafkaRecoverGroup());
+                searchConfigurationService.retrieveKafkaPublicationRecoverGroup());
         recoverPublicationContextInfo.setExitOnFinish(true);
 
         KafkaConsumerThread<DatasetVersionAvro> consumerThread = (KafkaConsumerThread) context.getBean("kafkaConsumerThread");
