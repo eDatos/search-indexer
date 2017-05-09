@@ -2,10 +2,6 @@
 
 ## Componentes
 
-### Buscador App (buscador-istac-web)
-
-Aplicación cliente que implementa la interfaz de búsqueda de usuario del Istac. Es una aplicación pública
-
 
 ### Indexador App (search-internal-web)
 
