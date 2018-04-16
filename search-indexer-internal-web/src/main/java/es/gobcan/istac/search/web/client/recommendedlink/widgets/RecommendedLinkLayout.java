@@ -63,7 +63,7 @@ public class RecommendedLinkLayout extends VLayout {
         super();
         panel = new VLayout();
         panel.setHeight100();
-        panel.setOverflow(Overflow.SCROLL);
+        panel.setOverflow(Overflow.VISIBLE);
 
         createRecommendedLinkToolStrip();
         createRecommendedLinkMainFormLayout();
