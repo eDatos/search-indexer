@@ -2,6 +2,7 @@ package es.gobcan.istac.search.web.client.recommendedkeyword.widgets;
 
 import static es.gobcan.istac.search.web.client.utils.SearchWebConstants.LISTGRID_MAX_RESULTS;
 
+import org.siemac.metamac.web.common.client.utils.ListGridUtils;
 import org.siemac.metamac.web.common.client.widgets.PaginatedCheckListGrid;
 import org.siemac.metamac.web.common.client.widgets.actions.PaginatedAction;
 
@@ -11,5 +12,6 @@ public class RecommendedKeywordPaginatedListGrid extends PaginatedCheckListGrid 
 
     public RecommendedKeywordPaginatedListGrid(PaginatedAction action) {
         super(LISTGRID_MAX_RESULTS, new RecommendedKeywordListGrid(), action);
+        ListGridUtils.setCheckBoxSelectionType(getListGrid());
     }
 }
