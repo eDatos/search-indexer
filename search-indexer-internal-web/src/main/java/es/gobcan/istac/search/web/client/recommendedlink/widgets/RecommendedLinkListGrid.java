@@ -20,11 +20,10 @@ public class RecommendedLinkListGrid extends BaseNavigableListGrid<ExternalItemD
     public RecommendedLinkListGrid() {
         super();
         ListGridUtils.setCheckBoxSelectionType(this);
-        
+
         setShowGroupSummary(true);
         setGroupStartOpen(GroupStartOpen.ALL);
         setGroupByField(RecommendedLinkDS.RECOMMENDED_KEYWORD_KEYWORD);
-        setGroupTitleField(RecommendedLinkDS.RECOMMENDED_KEYWORD_KEYWORD);
         setGroupNodeStyle("customGroupNode");
         setCanSort(false);
 

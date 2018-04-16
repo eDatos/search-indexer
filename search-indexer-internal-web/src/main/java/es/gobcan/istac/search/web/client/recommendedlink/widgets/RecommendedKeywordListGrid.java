@@ -20,11 +20,10 @@ public class RecommendedKeywordListGrid extends BaseNavigableListGrid<ExternalIt
     public RecommendedKeywordListGrid() {
         super();
         ListGridUtils.setCheckBoxSelectionType(this);
-        
+
         setShowGroupSummary(true);
         setGroupStartOpen(GroupStartOpen.ALL);
         setGroupByField(RecommendedKeywordDS.CATEGORY);
-        setGroupTitleField(RecommendedKeywordDS.CATEGORY);
         setGroupNodeStyle("customGroupNode");
         setCanSort(false);
 
