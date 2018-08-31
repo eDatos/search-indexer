@@ -6,7 +6,6 @@ import org.siemac.metamac.web.common.client.resources.GlobalResources;
 import org.siemac.metamac.web.common.client.widgets.BaseCustomListGrid;
 import org.siemac.metamac.web.common.client.widgets.actions.PaginatedAction;
 
-import com.smartgwt.client.types.Overflow;
 import com.smartgwt.client.widgets.layout.VLayout;
 import com.smartgwt.client.widgets.toolbar.ToolStrip;
 import com.smartgwt.client.widgets.toolbar.ToolStripButton;
@@ -42,8 +41,6 @@ public class RecommendedKeywordListLayout extends VLayout {
     public RecommendedKeywordListLayout() {
         super();
         panel = new VLayout();
-        panel.setHeight100();
-        panel.setOverflow(Overflow.SCROLL);
 
         createRecommendedKeywordListToolStrip();
         createRecommendedKeywordListSearchSectionStack();
@@ -71,6 +68,7 @@ public class RecommendedKeywordListLayout extends VLayout {
                 getUiHandlers().retrieveRecommendedKeywordList(criteria);
             }
         });
+        recommendedKeywordPaginatedListGrid.setHeight100();
     }
 
     private void createRecommendedKeywordListToolStrip() {
