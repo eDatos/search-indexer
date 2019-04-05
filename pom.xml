@@ -4,7 +4,7 @@
     <parent>
         <groupId>es.gobcan.istac.search-indexer</groupId>
         <artifactId>search-indexer-parent</artifactId>
-        <version>5.1.1-SNAPSHOT</version>
+        <version>5.2.0</version>
         <relativePath>search-indexer-parent/pom.xml</relativePath>
     </parent>
 
@@ -16,7 +16,7 @@
         <connection>scm:git:http://git.arte-consultores.com/istac/search-indexer</connection>
         <developerConnection>scm:git:http://git.arte-consultores.com/istac/search-indexer</developerConnection>
         <url>http://git.arte-consultores.com/istac/search-indexer</url>
-        <tag>HEAD</tag>
+        <tag>20190405-1526-v5.2.0</tag>
     </scm>
 
     <modules>
