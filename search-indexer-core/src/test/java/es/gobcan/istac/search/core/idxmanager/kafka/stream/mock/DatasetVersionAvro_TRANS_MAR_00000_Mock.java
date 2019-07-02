@@ -9,7 +9,6 @@ import org.siemac.metamac.statistical.resources.core.stream.messages.Categorisat
 import org.siemac.metamac.statistical.resources.core.stream.messages.CodeDimensionAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.DatasetAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.DatasetVersionAvro;
-import org.siemac.metamac.statistical.resources.core.stream.messages.DatasourceAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.DatetimeAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.ExternalItemAvro;
 import org.siemac.metamac.statistical.resources.core.stream.messages.IdentifiableStatisticalResourceAvro;
@@ -47,7 +46,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
             .setUpdateFrequency(createStatisticalOperation_TRANS_MAR())
             .setStatisticOfficiality(createStatisticOfficialityAvro())
             .setBibliographicCitation(null)
-            .setDatasources(new ArrayList<>(Arrays.asList(createDatasourceAvro_TRANS_MAR_02())))
             .setDimensionsCoverage(createCodeDimensionAvroList())
             .setAttributesCoverage(new ArrayList<>())
             .setCategorisations(new ArrayList<>())
@@ -432,24 +430,6 @@ public class DatasetVersionAvro_TRANS_MAR_00000_Mock {
     public static List<AttributeValueAvro> createAttributeValueAvro() {
 
         return null;
-    }
-
-    public static DatasourceAvro createDatasourceAvro_TRANS_MAR_02() {
-
-        // @formatter:off
-          IdentifiableStatisticalResourceAvro identifiableStatisticalResourceAvro = IdentifiableStatisticalResourceAvro.newBuilder()
-                  .setCode("TRANS_MAR_02.txt_2016-11-02T13:57:41.442Z")
-                  .setUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Datasource=TRANS_MAR_02.txt_2016-11-02T13:57:41.442Z")
-                  .setStatisticalOperation(createStatisticalOperation_TRANS_MAR())
-                  .build();
-
-          return DatasourceAvro.newBuilder()
-                  .setDateNextUpdate(null)
-                  .setFileName("TRANS_MAR_02.txt")
-                  .setIdentifiableStatisticalResource(identifiableStatisticalResourceAvro)
-                  .setDatasetVersionUrn("urn:siemac:org.siemac.metamac.infomodel.statisticalresources.Dataset=ISTAC:TRANS_MAR_000001(002.000)")
-                  .build();
-          // @formatter:on
     }
 
     public static List<CodeDimensionAvro> createCodeDimensionAvroList() {
