@@ -2,7 +2,7 @@
 
 HOME_PATH=search
 TRANSFER_PATH=$HOME_PATH/tmp
-DEPLOY_TARGET_PATH=/servers/metamac/tomcats/metamac01/webapps
+DEPLOY_TARGET_PATH=/servers/edatos-internal/tomcats/edatos-internal01/webapps
 
 LOGBACK_RELATIVE_PATH_FILE=WEB-INF/classes/logback.xml
 RESTART=1
@@ -11,7 +11,6 @@ if [ "$1" == "--no-restart" ]; then
     RESTART=0
 fi
 
-
 scp -r etc/deploy deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH
 scp search-indexer-internal-web/target/search-internal-*.war deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH/search-internal.war
 scp target/search-*solr_core.tar.gz deploy@estadisticas.arte-consultores.com:$TRANSFER_PATH/search-solr_core.tar.gz
@@ -19,12 +18,6 @@ ssh deploy@estadisticas.arte-consultores.com <<EOF
 
     chmod a+x $TRANSFER_PATH/deploy/*.sh;
     . $TRANSFER_PATH/deploy/utilities.sh
-
-    if [ $RESTART -eq 1 ]; then
-        sudo service metamac01 stop
-        checkPROC "metamac"
-    fi
-
 
     ###
     # SOLR
@@ -41,6 +34,11 @@ ssh deploy@estadisticas.arte-consultores.com <<EOF
     ###
     # SEARCH-INTERNAL
     ###
+    
+    if [ $RESTART -eq 1 ]; then
+        sudo service edatos-internal01 stop
+        checkPROC "edatos-internal"
+    fi
 
     # Update Process
     sudo rm -rf $DEPLOY_TARGET_PATH/search-internal
@@ -54,10 +52,8 @@ ssh deploy@estadisticas.arte-consultores.com <<EOF
 
 
     if [ $RESTART -eq 1 ]; then
-        sudo chown -R metamac.metamac /servers/metamac
-        sudo service metamac01 start
+        sudo chown -R edatos-internal.edatos-internal /servers/edatos-internal
+        sudo service edatos-internal01 start
     fi
-#    checkURL "http://estadisticas.arte-consultores.com/search/" "metamac01"
-#    checkURL "http://estadisticas.arte-consultores.com/search-internal/" "metamac01"
 
 EOF
