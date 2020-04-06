@@ -23,13 +23,13 @@ ssh -o ProxyCommand="ssh -W %h:%p deploy@estadisticas.arte-consultores.com" depl
     ###
     # SOLR
     ###
-	sudo rm -rf $SOLR_TARGET_PATH/service/server/solr/istac/conf
-    sudo rm -rf $SOLR_TARGET_PATH/service/server/solr/istac/core.properties
-    sudo tar -xzf $TRANSFER_PATH/search-solr_core.tar.gz --overwrite -C $SOLR_TARGET_PATH/service/server/solr/
+	sudo rm -rf $SOLR_TARGET_PATH/server/solr/istac/conf
+    sudo rm -rf $SOLR_TARGET_PATH/server/solr/istac/core.properties
+    sudo tar -xzf $TRANSFER_PATH/search-solr_core.tar.gz --overwrite -C $SOLR_TARGET_PATH/server/solr/
     
     sudo rm -rf $TRANSFER_PATH/search-solr_core.tar.gz
 
-    sudo chown -R solr:solr $SOLR_TARGET_PATH/service/server/solr/istac
+    sudo chown -R solr:solr $SOLR_TARGET_PATH/server/solr/istac
     sudo service solr restart
     checkURL "http://localhost:8983/solr" "solr"
 
