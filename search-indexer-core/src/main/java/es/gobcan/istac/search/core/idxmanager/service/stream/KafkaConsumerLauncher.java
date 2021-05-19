@@ -1,6 +1,5 @@
 package es.gobcan.istac.search.core.idxmanager.service.stream;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,7 +39,7 @@ import io.confluent.kafka.serializers.KafkaAvroDeserializerConfig;
 @Component
 public class KafkaConsumerLauncher implements ApplicationListener<ContextRefreshedEvent> {
 
-    protected static Log                              LOGGER                              = LogFactory.getLog(KafkaConsumerLauncher.class);
+    protected static final Log                        LOGGER                              = LogFactory.getLog(KafkaConsumerLauncher.class);
 
     private Map<String, Future<?>>                    futuresMap                          = new HashMap<>();
     private final String                              CONSUMER_DATASET_1_NAME             = "search_consumer_dataset_1";
@@ -73,8 +72,8 @@ public class KafkaConsumerLauncher implements ApplicationListener<ContextRefresh
                 futuresMap.put(CONSUMER_DATASET_1_NAME, startConsumerForDatasetTopic(ac));
                 futuresMap.put(CONSUMER_PUBLICATION_1_NAME, startConsumerForPublicationTopic(ac));
                 startKeepAliveKafkaThread(ac);
-            } catch (MetamacException | IllegalArgumentException | IOException e) {
-                LOGGER.error(e);
+            } catch (Exception e) {
+                LOGGER.error(e, e.getCause());
             }
         }
     }
